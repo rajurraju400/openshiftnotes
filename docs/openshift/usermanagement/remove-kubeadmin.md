@@ -44,3 +44,8 @@ INFO Login to the console with user: kubeadmin, password: <provided>
 ```
 oc delete secrets kubeadmin -n kube-system
 ```
+
+
+#### References
+
+* [Remove kubeadmin id](https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/authentication_and_authorization/removing-kubeadmin#understanding-kubeadmin_removing-kubeadmin)
