@@ -8,32 +8,31 @@
 ```
 # git config --global user.name "venkatapathiraj Ravichandran"
 
- # git config --global user.email "rajurraju400@gmail.com"
+# git config --global user.email "rajurraju400@gmail.com"
 ```
 
 This will apply to all repositories on your system.
 
 2. Enable Git Credential Caching
-
-If the issue is related to authentication (username/password), you can cache your credentials using Git's credential helper. Here's how:
-For a Temporary Cache (Default 15 Minutes)
+    a. If the issue is related to authentication (username/password), you can cache your credentials using Git's credential helper. Here's how:
+        For a Temporary Cache (Default 15 Minutes)
 
 ```git config --global credential.helper cache```
 
-Git will store your credentials in memory for 15 minutes.
+    b. Git will store your credentials in memory for 15 minutes.
 
-You can adjust the cache timeout (in seconds) like this:
+    c. You can adjust the cache timeout (in seconds) like this:
 
 ```git config --global credential.helper 'cache --timeout=3600'```
 
 
-For a Persistent Cache
+3. For a Persistent Cache
 
-To store your credentials securely and never be prompted again:
+    a. To store your credentials securely and never be prompted again:
 
 
 ```git config --global credential.helper store```
 
-Your credentials will be stored in a plain-text file (~/.git-credentials).
+    b. Your credentials will be stored in a plain-text file (~/.git-credentials).
 
-Be cautious with this method if you're using a shared machine.
+    c. Be cautious with this method if you're using a shared machine.
