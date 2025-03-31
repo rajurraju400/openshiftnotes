@@ -19,7 +19,7 @@ This will apply to all repositories on your system.
         For a Temporary Cache (Default 15 Minutes)
 
 ```
-git config --global credential.helper cache
+#git config --global credential.helper cache
 ```
 
     b. Git will store your credentials in memory for 15 minutes.
