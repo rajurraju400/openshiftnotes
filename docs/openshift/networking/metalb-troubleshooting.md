@@ -14,9 +14,11 @@ Using project "ncd01pan".
 ```
 2. check for `metallb-system` namespace exist
 
+```
 [root@ncputility ~ pancwl_rc]$ oc get ns | grep -i metallb
 metallb-system                                     Active   26d
 [root@ncputility ~ pancwl_rc]$
+```
 
 3. check the status of the pods on the `metallb-system` namespace here. 
 ```
@@ -62,7 +64,8 @@ tenantvlan-374                                 Available   SuccessfullyConfigure
 ```
 6. check for `ipaddresspool` exist here, so that application can create their `service` as `loadbalancer` here . 
 
-```[root@ncputility ~ pancwl_rc]$ oc -n metallb-system get IPAddressPool -o wide
+```
+[root@ncputility ~ pancwl_rc]$ oc -n metallb-system get IPAddressPool -o wide
 NAME                                AUTO ASSIGN   AVOID BUGGY IPS   ADDRESSES
 ncp-metallb-oam-pa-hn-addresspool   false         false             ["10.89.147.128/28"]
 ncp-metallb-oam-pa-ni-addresspool   false         false             ["10.86.10.16/28"]
@@ -72,7 +75,8 @@ ncp-metallb-oam-pa-sv-addresspool   false         false             ["10.85.186.
 
 7. check for `bgppeer` are up on the metallb speakers thats important for this communication
 
-```[root@ncputility ~ pancwl_rc]$ oc -n metallb-system get BGPPeer -o wide
+```
+[root@ncputility ~ pancwl_rc]$ oc -n metallb-system get BGPPeer -o wide
 NAME                               ADDRESS         ASN          BFD PROFILE                         MULTI HOPS
 ncp-metallb-oam-pa-hn-bgp-peer-1   10.89.147.194   4200000320   ncp-metallb-oam-pa-hn-bfd-profile
 ncp-metallb-oam-pa-hn-bgp-peer-2   10.89.147.195   4200000320   ncp-metallb-oam-pa-hn-bfd-profile
@@ -97,6 +101,7 @@ ncp-metallb-oam-pa-sv-bgp-advertisement   ["ncp-metallb-oam-pa-sv-addresspool"] 
 
 
 10. No, error from the container logs on this namespace .
+
 ```
 [root@ncputility ~ pancwl_rc]$ oc -n metallb-system logs -l component=speaker
 Defaulted container "speaker" out of: speaker, frr, reloader, frr-metrics, kube-rbac-proxy, kube-rbac-proxy-frr, cp-frr-files (init), cp-reloader (init), cp-metrics (init)
@@ -208,6 +213,9 @@ speaker-dlrn5   6/6     Running   0          24d   10.89.96.18   gateway2.pancly
 speaker-g2g77   6/6     Running   0          24d   10.89.96.19   gateway3.panclypcwl01.mnc020.mcc714   <none>           <none>
 speaker-jzbw7   6/6     Running   0          24d   10.89.96.17   gateway1.panclypcwl01.mnc020.mcc714   <none>           <none>
 speaker-pjstl   6/6     Running   0          24d   10.89.96.20   gateway4.panclypcwl01.mnc020.mcc714   <none>           <none>
+```
+
+```
 [root@ncputility ~ pancwl_rc]$ oc exec -n metallb-system  speaker-dlrn5 -c frr -- vtysh -c "show running-config"
 Building configuration...
 
@@ -443,6 +451,9 @@ bfd
 exit
 !
 end
+```
+
+```
 [root@ncputility ~ pancwl_rc]$ oc exec -n metallb-system  speaker-dlrn5 -c frr -- vtysh -c "show bgp summary"
 
 IPv4 Unicast Summary (VRF default):
@@ -480,12 +491,18 @@ Neighbor        V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down Sta
 10.89.147.195   4 4200000320         0         0        0    0    0    never       Active        0 N/A
 
 Total number of neighbors 8
+```
+
+```
 [root@ncputility ~ pancwl_rc]$ oc exec -n metallb-system  speaker-dlrn5 -c frr -- vtysh -c "show bfd peers brief"
 Session count: 2
 SessionId  LocalAddress                             PeerAddress                             Status
 =========  ============                             ===========                             ======
 62069252   10.89.97.165                             10.89.97.162                            down
 3159552171 10.89.97.165                             10.89.97.163                            down
+```
+
+```
 [root@ncputility ~ pancwl_rc]$ oc exec -n metallb-system  speaker-dlrn5 -c frr -- vtysh -c "show bfd peer"
 BFD Peers:
         peer 10.89.97.162 local-address 10.89.97.165 vrf default interface vlan104
@@ -530,6 +547,9 @@ BFD Peers:
                         Transmission interval: 1000ms
                         Echo receive interval: disabled
 
+```
+
+```
 [root@ncputility ~ pancwl_rc]$ oc exec -n metallb-system  speaker-dlrn5 -c frr -- vtysh -c "show ip bgp neighbors"
 BGP neighbor is 10.85.187.34, remote AS 4200000320, local AS 4200000320, internal link
   BGP version 4, remote router ID 0.0.0.0, local router ID 172.16.2.2
