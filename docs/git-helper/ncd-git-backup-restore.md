@@ -5,7 +5,7 @@
 ## Instructions on backing up Nokia Git Server
 
 
-#### backup utility will generate the following outputs
+### backup utility will generate the following outputs
 
 * database.sql file containing the PostgreSQL database content
 * Git repository data
@@ -27,12 +27,12 @@ external_diffs,terraform_state,pages,ci_secure_files
 
 
 
-#### Prerequisites
+### Prerequisites
 
 * To back up Nokia Git Server and the necessary Helm plugins for Backup and Recovery (CBUR), CBUR must be installed on your cluster.
 * CBUR must be enabled in the Nokia Git Server installation.
 
-###### remove plugins for helm (backup and restore)
+##### remove plugins for helm (backup and restore)
 
 1. login to bastion host and login to cluster here .
 
@@ -67,7 +67,7 @@ Uninstalled plugin: backup
 ```
 
 
-##### Install plugins for helm (backup and restore)
+#### Install plugins for helm (backup and restore)
 
 1. login to bastion host and login to cluster here .
 
@@ -156,7 +156,7 @@ rules:
   verbs: ["get", "list", "watch"]
 ```
 
-#### Backup Nokia Git Server
+### Backup Nokia Git Server
 
 > Notes:
 
@@ -740,7 +740,7 @@ total 20
 [gitserverbackup@ncputility .ssh]$
 ```
 
-#### Creating remote backup on NCD git 
+### Creating remote backup on NCD git 
 
 1. Create an git server backup on a remote server, so create a secret with sftp details. 
 
@@ -773,7 +773,7 @@ sh.helm.release.v1.ncd-cbur.v3    helm.sh/release.v1               1      14m
 [root@ncputility ~ panhub_rc]$
 
 ```
-##### update on the git cbur side. 
+#### update on the git cbur side. 
 
 1. get the backup of cbur repo values file. and update the ssh:credentialName 
 
@@ -817,7 +817,7 @@ cbur:
 3. validate there is no pods are in pending or crashloop error here .
 
 
-##### Trigger the backup on remote desination 
+#### Trigger the backup on remote desination 
 
 1.  using follow method to trigger  the backup 
 
