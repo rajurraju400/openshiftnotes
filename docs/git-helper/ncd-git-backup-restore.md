@@ -650,8 +650,10 @@ git@ncd-git-toolbox-56b88dd4c7-27hb5:/srv/gitlab/tmp/backups$
 
 ```
 
-#### Creating user for remotge backup 
+#### Creating user for remote backup 
 
+1. login to the `linux` host and used `useradd` and `passwd` commands to create `user and password` here 
+```
 [root@ncputility ~ panhub_rc]$ useradd gitserverbackup
 [root@ncputility ~ panhub_rc]$ passwd gitserverbackup
 Changing password for user gitserverbackup.
@@ -659,26 +661,14 @@ New password:
 BAD PASSWORD: The password is shorter than 8 characters
 Retype new password:
 passwd: all authentication tokens updated successfully.
-[root@ncputility ~ panhub_rc]$ passwd gitserverbackup
-Changing password for user gitserverbackup.
-New password:
-BAD PASSWORD: The password is shorter than 8 characters
-Retype new password:
-passwd: all authentication tokens updated successfully.
 [root@ncputility ~ panhub_rc]$
-
+```
+2. create a public key on the new user authrazation file.
+```
 [root@ncputility ~ pancwl_rc]$ su - gitserverbackup
 [gitserverbackup@ncputility ~]$ pwd
 /home/gitserverbackup
-[gitserverbackup@ncputility ~]$ kubectl get secret -n cbur_namespace cburm-ssh-public-key -o jsonpath={.data.ssh_public_key} | base64 -d^C
-[gitserverbackup@ncputility ~]$ ^C
-[gitserverbackup@ncputility ~]$ ^C
-[gitserverbackup@ncputility ~]$ ^C
-[gitserverbackup@ncputility ~]$
-[gitserverbackup@ncputility ~]$ ssh-keygent -tras
--bash: ssh-keygent: command not found
-[gitserverbackup@ncputility ~]$ ssh-keygen -t ras
-unknown key type ras
+[gitserverbackup@ncputility ~]$ 
 [gitserverbackup@ncputility ~]$ ssh-keygen -t rsa
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/gitserverbackup/.ssh/id_rsa):
@@ -701,6 +691,28 @@ The key's randomart image is:
 |   o. .          |
 |    .o.          |
 +----[SHA256]-----+
+[gitserverbackup@ncputility ~]$
+```
+3. take copy of the cbur public using following oc command
+
+```
+[root@ncputility ~ panhub_rc]$ helm list -A
+NAME            NAMESPACE               REVISION        UPDATED                                 STATUS          CHART                                   APP VERSION
+cbur-crds       paclypancdcbur01        1               2025-02-27 14:18:04.313208995 -0500 EST deployed        cbur-crds-2.6.0                         2.6.0
+ncd-cbur        paclypancdcbur01        2               2025-04-02 04:17:30.755392541 -0500 EST deployed        cbur-1.18.1                             1.13.1
+ncd-git         paclypancdgit01         1               2025-02-27 14:45:25.489107042 -0500 EST deployed        ncd-git-server-24.9.1-7.g30f1acf        17.3.3
+ncd-postgresql  paclypancddb01          1               2025-02-27 14:30:27.65639258 -0500 EST  deployed        postgresql-ha-24.9.1-1009.g19e2a92      24.9.1-1009.g19e2a92
+ncd-redis       paclypancddb01          1               2025-02-27 14:37:11.651840036 -0500 EST deployed        ncd-redis-24.9.1-1009.g19e2a92          24.9.1-1009.g19e2a92
+[root@ncputility ~ panhub_rc]$
+[root@ncputility ~ panhub_rc]$ oc get secret -n paclypancdcbur01 cburm-ssh-public-key -o jsonpath={.data.ssh_public_key} | base64 -d
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDUH73f7kf8ey2UEkgeN/IJbEBDJPgricRlsD7d7pB0RAQGLx/fNZT15VRX2qOvLydsTbtcxz28Uzryy5zAmAB9z0zGuYKaSo80bS7bXjIsKc71fGD6NvvfSBBLQ1GCk0mFIjn06XmkRJOgqtgOvq66HQEcGSJQ6jq3NQzGERe+VrCk1VWbyfr0vtqqasmKChgr0dAh+0f07lUdpbR9XzEnOG20LNCAcffEBPXXccSEz/huPHOV0Kjfe7rtaKj5ZoIkFlFETPTz4HoKPlZcfxp/s94yICXk++TiI9+mF2SVYuEUWqx00p1DTa79dmUncTaz1c5nshaq4bNdJcPkoDdp[root@ncputility ~ panhub_rc]$
+
+```
+
+4. here i am using ssh-copy-id command to auto create an authzation file 
+
+
+```
 [gitserverbackup@ncputility ~]$ ssh-copy-id localhost
 /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/gitserverbackup/.ssh/id_rsa.pub"
 The authenticity of host 'localhost (::1)' can't be established.
@@ -724,46 +736,17 @@ total 20
 -rw-r--r--. 1 gitserverbackup gitserverbackup  607 Apr  2 08:14 id_rsa.pub
 -rw-------. 1 gitserverbackup gitserverbackup  825 Apr  2 08:14 known_hosts
 -rw-r--r--. 1 gitserverbackup gitserverbackup   91 Apr  2 08:14 known_hosts.old
-[gitserverbackup@ncputility .ssh]$ vi authorized_keys
+[gitserverbackup@ncputility .ssh]$ vi authorized_keys   #<- this updated based on step.3 output>
 [gitserverbackup@ncputility .ssh]$
+```
+
+#### Creating remote backup on NCD git 
+
+1. Create an git server backup on a remote server, so create a secret with sftp details. 
 
 
-
-
-
-[root@ncputility ~]# source /root/panhubrc
-WARNING: Using insecure TLS client config. Setting this option is not supported!
-
-Login successful.
-
-You have access to 102 projects, the list has been suppressed. You can list all projects with 'oc projects'
-
-Using project "default".
-[root@ncputility ~ panhub_rc]$ kubectl get secret -n cbur_namespace cburm-ssh-public-key -o jsonpath={.data.ssh_public_key} | base64 -d
-Error from server (NotFound): namespaces "cbur_namespace" not found
-[root@ncputility ~ panhub_rc]$ helm list -A
-NAME            NAMESPACE               REVISION        UPDATED                                 STATUS          CHART                                   APP VERSION
-cbur-crds       paclypancdcbur01        1               2025-02-27 14:18:04.313208995 -0500 EST deployed        cbur-crds-2.6.0                         2.6.0
-ncd-cbur        paclypancdcbur01        2               2025-04-02 04:17:30.755392541 -0500 EST deployed        cbur-1.18.1                             1.13.1
-ncd-git         paclypancdgit01         1               2025-02-27 14:45:25.489107042 -0500 EST deployed        ncd-git-server-24.9.1-7.g30f1acf        17.3.3
-ncd-postgresql  paclypancddb01          1               2025-02-27 14:30:27.65639258 -0500 EST  deployed        postgresql-ha-24.9.1-1009.g19e2a92      24.9.1-1009.g19e2a92
-ncd-redis       paclypancddb01          1               2025-02-27 14:37:11.651840036 -0500 EST deployed        ncd-redis-24.9.1-1009.g19e2a92          24.9.1-1009.g19e2a92
-[root@ncputility ~ panhub_rc]$ kubectl get secret -n paclypancdcbur01 cburm-ssh-public-key -o jsonpath={.data.ssh_public_key} | base64 -d
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDUH73f7kf8ey2UEkgeN/IJbEBDJPgricRlsD7d7pB0RAQGLx/fNZT15VRX2qOvLydsTbtcxz28Uzryy5zAmAB9z0zGuYKaSo80bS7bXjIsKc71fGD6NvvfSBBLQ1GCk0mFIjn06XmkRJOgqtgOvq66HQEcGSJQ6jq3NQzGERe+VrCk1VWbyfr0vtqqasmKChgr0dAh+0f07lUdpbR9XzEnOG20LNCAcffEBPXXccSEz/huPHOV0Kjfe7rtaKj5ZoIkFlFETPTz4HoKPlZcfxp/s94yICXk++TiI9+mF2SVYuEUWqx00p1DTa79dmUncTaz1c5nshaq4bNdJcPkoDdp[root@ncputility ~ panhub_rc]$
-
-
-
-[root@ncputility ~ panhub_rc]$ oc  get secret -n paclypancdcbur01
-NAME                              TYPE                             DATA   AGE
-cbur-redis                        Opaque                           1      33d
-cburm-ssh-public-key              Opaque                           1      33d
-my-pull-secret                    kubernetes.io/dockerconfigjson   1      33d
-sh.helm.release.v1.cbur-crds.v1   helm.sh/release.v1               1      33d
-sh.helm.release.v1.ncd-cbur.v1    helm.sh/release.v1               1      33d
-sh.helm.release.v1.ncd-cbur.v2    helm.sh/release.v1               1      4h11m
-sh.helm.release.v1.ncd-cbur.v3    helm.sh/release.v1               1      11m
-[root@ncputility ~ panhub_rc]$ oc  get secret -n paclypancdcbur01 ^C
-[root@ncputility ~ panhub_rc]$ kubectl create secret generic bastionhostpan \
+```
+[root@ncputility ~ panhub_rc]$ oc create secret generic bastionhostpan \
   --namespace=paclypancdcbur01 \
   --from-literal=port="22" \
   --from-literal=host="10.89.100.66" \
@@ -773,6 +756,10 @@ sh.helm.release.v1.ncd-cbur.v3    helm.sh/release.v1               1      11m
   --from-literal=strictHostKeyChecking="no" \
   --from-literal=hostKey=""
 secret/bastionhostpan created
+[root@ncputility ~ panhub_rc]$
+```
+2. make sure, it's avaiable via get command. 
+```
 [root@ncputility ~ panhub_rc]$ oc  get secret -n paclypancdcbur01
 NAME                              TYPE                             DATA   AGE
 bastionhostpan                    Opaque                           7      10s
@@ -785,7 +772,56 @@ sh.helm.release.v1.ncd-cbur.v2    helm.sh/release.v1               1      4h14m
 sh.helm.release.v1.ncd-cbur.v3    helm.sh/release.v1               1      14m
 [root@ncputility ~ panhub_rc]$
 
+```
+##### update on the git cbur side. 
 
+1. get the backup of cbur repo values file. and update the ssh:credentialName 
+
+
+```
+[root@ncputility ~ panhub_rc]$ helm get values ncd-cbur -n paclypancdcbur01 >  rr.yaml
+[root@ncputility ~ panhub_rc]$
+
+SSH:
+  credentialName: bastionhostpan
+
+[root@ncputility ~ panhub_rc]$ helm upgrade ncd-cbur -n paclypancdcbur01 /root/ncd/NCD_24.9_Git_Server_ORB-RC/ncd-git-server-product/helmcharts/cbur-1.18.1.tgz -f rr.yaml --debug
+
+```
+
+2. Similar to git cbur modification, need to update the git=server chart as well. 
+
+```
+[root@ncputility ~ panhub_rc]$ helm get values ncd-git -n paclypancdgit01 > rr.yaml
+[root@ncputility ~ panhub_rc]$
+
+update:
+
+cbur:
+  brPolicy:
+    apiVersion: cbur.csf.nokia.com/v1
+    spec:
+      autoEnableCron: false
+      autoUpdateCron: false
+      backend:
+        mode: sftp
+      cronSpec: 0 0 * * *
+      dataEncryption:
+        enable: false
+      ignoreFileChanged: false
+      maxiCopy: 3
+      weight: 5
+
+[root@ncputility ~ panhub_rc]$  helm upgrade ncd-git -n paclypancdgit01 /root/ncd/NCD_24.9_Git_Server_ORB-RC/ncd-git-server-product/helmcharts/ncd-git-server-24.9.1-7.g30f1acf.tgz -f rr.yaml --debug --timeout 20m
+```
+3. validate there is no pods are in pending or crashloop error here .
+
+
+##### Trigger the backup on remote desination 
+
+1.  using follow method to trigger  the backup 
+
+```
 [root@ncputility ~ panhub_rc]$ helm backup -n paclypancdgit01 -a none -t ncd-git -x http://cbur.apps.panclyphub01.mnc020.mcc714/cbur --backend sftp --verbose
 + check_requirements
 + command -v jq
@@ -1067,8 +1103,20 @@ sh.helm.release.v1.ncd-cbur.v3    helm.sh/release.v1               1      14m
 + rm -rf /tmp/certs.2008692
 + exit 0
 [root@ncputility ~ panhub_rc]$
+```
 
+2.  login to that SFTP server and check for backup files.
 
+```
+[gitserverbackup@ncputility 20250402134019_SFTP_paclypancdgit01_ncd-git-toolbox]$ pwd
+/home/gitserverbackup/BACKUP/sftp/paclypancdgit01/DEPLOYMENT_ncd-git-toolbox/20250402134019_SFTP_paclypancdgit01_ncd-git-toolbox
+[gitserverbackup@ncputility 20250402134019_SFTP_paclypancdgit01_ncd-git-toolbox]$ ll
+total 2476
+-rw-r--r--. 1 gitserverbackup gitserverbackup    7846 Apr  2 08:40 20250402134019_SFTP_paclypancdgit01_ncd-git-toolbox_Secrets.tar.gz
+-rw-r--r--. 1 gitserverbackup gitserverbackup 2523279 Apr  2 08:41 20250402134019_SFTP_paclypancdgit01_ncd-git-toolbox_volume.tar.gz
+[gitserverbackup@ncputility 20250402134019_SFTP_paclypancdgit01_ncd-git-toolbox]$
+
+```
 
 #### Troubleshooting
 
