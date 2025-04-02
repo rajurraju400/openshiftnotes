@@ -206,15 +206,447 @@ ncd-redis       paclypancddb01          1               2025-02-27 14:37:11.6518
 
 3. trigger the backup job using following command here 
 
+> Uri should be having `cbur` structure name in it 
+
 
 ```
-[root@ncputility ~ panhub_rc]$ helm backup -n paclypancdgit01 -t ncd-git -x https://cbur.apps.panclyphub01.mnc020.mcc714:443
-parse error: Invalid numeric literal at line 1, column 7
-parse error: Invalid numeric literal at line 1, column 7
-parse error: Invalid numeric literal at line 1, column 7
-[KO] Failed to verify the request
-Error: plugin "backup" exited with error
+[root@ncputility ~ panhub_rc]$ helm backup -n paclypancdgit01 -a none -t ncd-git -x http://cbur.apps.panclyphub01.mnc020.mcc714/cbur
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": "backupHelmRelease task = a80ed466-254c-4644-8d19-9a0cdf813fbe is on!",
+  "reason": "",
+  "details": {
+    "a80ed466-254c-4644-8d19-9a0cdf813fbe": {
+      "name": "ncd-git",
+      "namespace": "paclypancdgit01",
+      "timestamp": "20250402104554",
+      "backup_data": {},
+      "helm_version": 3,
+      "request": "backupHelmRelease"
+    }
+  },
+  "code": 202
+}
+[root@ncputility ~ panhub_rc]$ 
+
+```
+
+4. here is an example with `--verbose` mode  (optinal for troubleshooting)
+
+```
+[root@ncputility ~ panhub_rc]$ helm backup -n paclypancdgit01 -a none -t ncd-git -x http://cbur.apps.panclyphub01.mnc020.mcc714/cbur --verbose
++ check_requirements
++ command -v jq
++ command -v kubectl
++ get_app_parameters
++ [[ 3 == 2 ]]
++ ns=paclypancdgit01
++ arg_ns=(--namespace $HELM_NAMESPACE)
++ find_cburm_endpoint
++ isIpv6=false
++ [[ http://cbur.apps.panclyphub01.mnc020.mcc714/cbur != '' ]]
++ [[ http://cbur.apps.panclyphub01.mnc020.mcc714/cbur =~ ^(https?:).*$ ]]
++ [[ http://cbur.apps.panclyphub01.mnc020.mcc714/cbur =~ ^(https?:)//\[.*].*$ ]]
++ cburm_namespace=
+++ echo http://cbur.apps.panclyphub01.mnc020.mcc714/cbur
+++ cut -d: -f1
++ PROTOCOL=http
+++ echo http://cbur.apps.panclyphub01.mnc020.mcc714/cbur
+++ cut -d/ -f3-
++ CBURM_ENDPOINT=cbur.apps.panclyphub01.mnc020.mcc714/cbur
++ return
++ setCN
++ [[ -n '' ]]
++ CN=
++ find_https_key
++ create_https_temp_dir
++ '[' -d /tmp/certs.1974896 ']'
++ mkdir /tmp/certs.1974896
++ [[ '' != \"\" ]]
++ [[ -n '' ]]
++ [[ ! '' =~ Forbidden ]]
++ [[ -n '' ]]
++ '[' -f /tmp/certs.1974896/ca.pem ']'
++ '[' -f /tmp/certs.1974896/client.pem ']'
++ '[' -f /tmp/certs.1974896/ca.pem ']'
++ '[' -f /opt/bcmt/config/cbur/client.pem ']'
++ BASECMD='curl -sS -L  --post301 --post302 --post303 --header '\''Accept: application/json'\'''
++ false
++ [[ -n '' ]]
++ [[ -n '' ]]
++ [[ -z '' ]]
++ validate_app
++ [[ ncd-git == '' ]]
++ [[ 3 == 2 ]]
+++ helm list -f '^ncd-git$' --namespace paclypancdgit01
+++ grep -w ncd-git
++ release='ncd-git      paclypancdgit01 1               2025-02-27 14:45:25.489107042 -0500 EST deployed        ncd-git-server-24.9.1-7.g30f1acf        17.3.3     '
++ namespace=paclypancdgit01
+++ echo 'ncd-git        paclypancdgit01 1               2025-02-27 14:45:25.489107042 -0500 EST deployed        ncd-git-server-24.9.1-7.g30f1acf        17.3.3     '
+++ awk '{print $1}'
++ releasevalidation=ncd-git
++ [[ ncd-git != ncd-git ]]
++ case $action in
++ [[ -n '' ]]
++ do_backup paclypancdgit01 ncd-git ''
++ NAMESPACE=paclypancdgit01
++ HELM_APP=ncd-git
++ DESCRIPTION=
++ pre_request
++ URL=http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/auth/status
++ PRE_CMD='curl -sS -L  --post301 --post302 --post303 --header '\''Accept: application/json'\'' --header '\''Content-Type: application/json'\'''
++ false
++ CMD='curl -sS -L  --post301 --post302 --post303 --header '\''Accept: application/json'\'' --header '\''Content-Type: application/json'\'' -X GET http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/auth/status'
+++ handle_request 'curl -sS -L  --post301 --post302 --post303 --header '\''Accept: application/json'\'' --header '\''Content-Type: application/json'\'' -X GET http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/auth/status' http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/auth/status
+++ curl_cmd='curl -sS -L  --post301 --post302 --post303 --header '\''Accept: application/json'\'' --header '\''Content-Type: application/json'\'' -X GET http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/auth/status'
+++ url=http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/auth/status
++++ eval 'curl -sS -L  --post301 --post302 --post303 --header '\''Accept: application/json'\'' --header '\''Content-Type: application/json'\'' -X GET http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/auth/status 2>&1'
+++++ curl -sS -L --post301 --post302 --post303 --header 'Accept: application/json' --header 'Content-Type: application/json' -X GET http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/auth/status
+++ ret='{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": 0,
+  "reason": "",
+  "details": {},
+  "code": 200
+}'
+++ [[ 0 -ne 0 ]]
+++ echo '{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": 0,
+  "reason": "",
+  "details": {},
+  "code": 200
+}'
+++ return 0
++ response='{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": 0,
+  "reason": "",
+  "details": {},
+  "code": 200
+}'
++ [[ 0 -ne 0 ]]
+++ echo '{' '  "kind": "Status",' '  "apiVersion": "v1",' '  "metadata": {},' '  "status": "Success",' '  "message": 0,' '  "reason": "",' '  "details": {},' '  "code": 200' '}'
+++ jq -r .message
++ AUTH=0
++ [[ 0 == 1 ]]
++ [[ 0 == 2 ]]
++ return 0
++ options=
++ [[ -n '' ]]
++ URL='http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/helm/release/backup/paclypancdgit01/ncd-git?helm_version=3'
++ [[ -n '' ]]
++ [[ -z '' ]]
++ CMD='curl -sS -L  --post301 --post302 --post303 --header '\''Accept: application/json'\'' -X POST '\''http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/helm/release/backup/paclypancdgit01/ncd-git?helm_version=3'\'' '
+++ handle_request 'curl -sS -L  --post301 --post302 --post303 --header '\''Accept: application/json'\'' -X POST '\''http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/helm/release/backup/paclypancdgit01/ncd-git?helm_version=3'\'' ' 'http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/helm/release/backup/paclypancdgit01/ncd-git?helm_version=3'
+++ curl_cmd='curl -sS -L  --post301 --post302 --post303 --header '\''Accept: application/json'\'' -X POST '\''http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/helm/release/backup/paclypancdgit01/ncd-git?helm_version=3'\'' '
+++ url='http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/helm/release/backup/paclypancdgit01/ncd-git?helm_version=3'
++++ eval 'curl -sS -L  --post301 --post302 --post303 --header '\''Accept: application/json'\'' -X POST '\''http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/helm/release/backup/paclypancdgit01/ncd-git?helm_version=3'\''  2>&1'
+++++ curl -sS -L --post301 --post302 --post303 --header 'Accept: application/json' -X POST 'http://cbur.apps.panclyphub01.mnc020.mcc714/cbur/v2/helm/release/backup/paclypancdgit01/ncd-git?helm_version=3'
+++ ret='{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": "backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is on!",
+  "reason": "",
+  "details": {
+    "2e11d6d5-55eb-4044-b535-b71c39f6fc44": {
+      "name": "ncd-git",
+      "namespace": "paclypancdgit01",
+      "timestamp": "20250402104543",
+      "backup_data": {},
+      "helm_version": 3,
+      "request": "backupHelmRelease"
+    }
+  },
+  "code": 202
+}'
+++ [[ 0 -ne 0 ]]
+++ echo '{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": "backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is on!",
+  "reason": "",
+  "details": {
+    "2e11d6d5-55eb-4044-b535-b71c39f6fc44": {
+      "name": "ncd-git",
+      "namespace": "paclypancdgit01",
+      "timestamp": "20250402104543",
+      "backup_data": {},
+      "helm_version": 3,
+      "request": "backupHelmRelease"
+    }
+  },
+  "code": 202
+}'
+++ return 0
++ backup_ret='{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": "backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is on!",
+  "reason": "",
+  "details": {
+    "2e11d6d5-55eb-4044-b535-b71c39f6fc44": {
+      "name": "ncd-git",
+      "namespace": "paclypancdgit01",
+      "timestamp": "20250402104543",
+      "backup_data": {},
+      "helm_version": 3,
+      "request": "backupHelmRelease"
+    }
+  },
+  "code": 202
+}'
++ [[ 0 -ne 0 ]]
++ handle_result '{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": "backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is on!",
+  "reason": "",
+  "details": {
+    "2e11d6d5-55eb-4044-b535-b71c39f6fc44": {
+      "name": "ncd-git",
+      "namespace": "paclypancdgit01",
+      "timestamp": "20250402104543",
+      "backup_data": {},
+      "helm_version": 3,
+      "request": "backupHelmRelease"
+    }
+  },
+  "code": 202
+}'
++ br_ret='{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": "backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is on!",
+  "reason": "",
+  "details": {
+    "2e11d6d5-55eb-4044-b535-b71c39f6fc44": {
+      "name": "ncd-git",
+      "namespace": "paclypancdgit01",
+      "timestamp": "20250402104543",
+      "backup_data": {},
+      "helm_version": 3,
+      "request": "backupHelmRelease"
+    }
+  },
+  "code": 202
+}'
+++ echo '{' '  "kind": "Status",' '  "apiVersion": "v1",' '  "metadata": {},' '  "status": "Success",' '  "message": "backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is on!",' '  "reason": "",' '  "details": {' '    "2e11d6d5-55eb-4044-b535-b71c39f6fc44": {' '      "name": "ncd-git",' '      "namespace": "paclypancdgit01",' '      "timestamp": "20250402104543",' '      "backup_data": {},' '      "helm_version": 3,' '      "request": "backupHelmRelease"' '    }' '  },' '  "code": 202' '}'
+++ jq -r .code
++ rsp_code=202
++ [[ 202 == \n\u\l\l ]]
+++ echo '{' '  "kind": "Status",' '  "apiVersion": "v1",' '  "metadata": {},' '  "status": "Success",' '  "message": "backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is on!",' '  "reason": "",' '  "details": {' '    "2e11d6d5-55eb-4044-b535-b71c39f6fc44": {' '      "name": "ncd-git",' '      "namespace": "paclypancdgit01",' '      "timestamp": "20250402104543",' '      "backup_data": {},' '      "helm_version": 3,' '      "request": "backupHelmRelease"' '    }' '  },' '  "code": 202' '}'
+++ jq -r .status
++ rsp_status=Success
++ [[ Success == \n\u\l\l ]]
++ [[ -n 202 ]]
++ [[ -n Success ]]
++ echo '{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": "backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is on!",
+  "reason": "",
+  "details": {
+    "2e11d6d5-55eb-4044-b535-b71c39f6fc44": {
+      "name": "ncd-git",
+      "namespace": "paclypancdgit01",
+      "timestamp": "20250402104543",
+      "backup_data": {},
+      "helm_version": 3,
+      "request": "backupHelmRelease"
+    }
+  },
+  "code": 202
+}'
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": "backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is on!",
+  "reason": "",
+  "details": {
+    "2e11d6d5-55eb-4044-b535-b71c39f6fc44": {
+      "name": "ncd-git",
+      "namespace": "paclypancdgit01",
+      "timestamp": "20250402104543",
+      "backup_data": {},
+      "helm_version": 3,
+      "request": "backupHelmRelease"
+    }
+  },
+  "code": 202
+}
++ [[ 202 == \2\0\0 ]]
++ [[ 202 == \2\0\2 ]]
++ [[ Success == \S\u\c\c\e\s\s ]]
+++ echo '{' '  "kind": "Status",' '  "apiVersion": "v1",' '  "metadata": {},' '  "status": "Success",' '  "message": "backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is on!",' '  "reason": "",' '  "details": {' '    "2e11d6d5-55eb-4044-b535-b71c39f6fc44": {' '      "name": "ncd-git",' '      "namespace": "paclypancdgit01",' '      "timestamp": "20250402104543",' '      "backup_data": {},' '      "helm_version": 3,' '      "request": "backupHelmRelease"' '    }' '  },' '  "code": 202' '}'
+++ jq -r .message
+++ awk '{print $4;}'
++ task_id=2e11d6d5-55eb-4044-b535-b71c39f6fc44
++ validate_task_id 2e11d6d5-55eb-4044-b535-b71c39f6fc44
++ [[ 2e11d6d5-55eb-4044-b535-b71c39f6fc44 =~ ^\{?[A-F0-9a-f]{8}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{4}-[A-F0-9a-f]{12}}?$ ]]
++ return 0
++ return 0
++ backup_status=0
++ exit_func 0
++ '[' -d /tmp/certs.1974896 ']'
++ rm -rf /tmp/certs.1974896
++ exit 0
 [root@ncputility ~ panhub_rc]$
+```
+
+5.  check the status of the backup using cbur br policy status
+
+
+```
+[root@ncputility ~ panhub_rc]$ kubectl -n paclypancdgit01 get brpolices.cbur.csf.nokia.com ncd-git-toolbox
+NAME              AGE
+ncd-git-toolbox   33d
+[root@ncputility ~ panhub_rc]$ kubectl -n paclypancdgit01 get brpolices.cbur.csf.nokia.com ncd-git-toolbox -o yaml
+apiVersion: cbur.csf.nokia.com/v1
+kind: BrPolicy
+metadata:
+  annotations:
+    meta.helm.sh/release-name: ncd-git
+    meta.helm.sh/release-namespace: paclypancdgit01
+  creationTimestamp: "2025-02-27T19:45:46Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: ncd-git
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: ncd-git-ncd-git-server
+    app.kubernetes.io/version: 17.3.3
+    helm.sh/chart: ncd-git-ncd-git-server
+  name: ncd-git-toolbox
+  namespace: paclypancdgit01
+  resourceVersion: "77523616"
+  uid: 6c8ee1b2-6425-44ea-98d1-15b82c934493
+spec:
+  autoEnableCron: true
+  autoUpdateCron: true
+  backend:
+    mode: local
+  cronSpec: 0 0 * * */5
+  dataEncryption:
+    enable: false
+  hooks:
+  - commands:
+      postBackupCmd:
+      - bash
+      - -c
+      - rm -rf /srv/gitlab/tmp/backup_tars || true
+      postRestoreCmd:
+      - python3
+      - /backup/backup_restore.py
+      - --restore
+      - ""
+      preBackupCmd:
+      - python3
+      - /backup/backup_restore.py
+      - --backup
+      - ""
+      preRestoreCmd:
+      - bash
+      - -c
+      - rm -rf /srv/gitlab/tmp/backup_tars || true
+    name: toolbox
+  ignoreFileChanged: false
+  k8sType: deployment
+  k8sobjects:
+  - match-criteria: name
+    match-string: ncd-git-rails-secret
+    object-type: Secrets
+  maxiCopy: 3
+  volumes:
+  - toolbox-tmp
+  weight: 5
+status:
+  backupDescription: []
+  backupHistory:
+  - 20250402104543_LOCAL_paclypancdgit01_ncd-git-toolbox
+  requestHistory:
+    backupHelmRelease:
+    - "20250402104543":
+        apiVersion: v1
+        code: 202
+        details:
+          2e11d6d5-55eb-4044-b535-b71c39f6fc44:
+            backup_data: {}
+            helm_version: 3
+            name: ncd-git
+            namespace: paclypancdgit01
+            request: backupHelmRelease
+            timestamp: "20250402104543"
+        kind: Status
+        message: backupHelmRelease task = 2e11d6d5-55eb-4044-b535-b71c39f6fc44 is
+          on!
+        metadata: {}
+        reason: ""
+        status: Success
+    - "20250402104554":
+        apiVersion: v1
+        code: 202
+        details:
+          a80ed466-254c-4644-8d19-9a0cdf813fbe:
+            backup_data: {}
+            helm_version: 3
+            name: ncd-git
+            namespace: paclypancdgit01
+            request: backupHelmRelease
+            timestamp: "20250402104554"
+        kind: Status
+        message: backupHelmRelease task = a80ed466-254c-4644-8d19-9a0cdf813fbe is
+          on!
+        metadata: {}
+        reason: ""
+        status: Success
+[root@ncputility ~ panhub_rc]$
+
+```
+
+6. look for backup files exported. , right now backup files are saved locally on the gitserver(paclypancdgit01) `namespace` within `ncd-git-toolbox` pod. 
+
+> but we need this backup files to be saved outside the cluster, like sftp server or something, so that we can restore it on new git server.
+
+```
+[root@ncputility ~ panhub_rc]$ oc -n paclypancdgit01 exec -it ncd-git-toolbox-56b88dd4c7-27hb5 -- bash
+Defaulted container "toolbox" out of: toolbox, cbura-sidecar, certificates (init), configure (init)
+git@ncd-git-toolbox-56b88dd4c7-27hb5:/$ cd /srv/gitlab/tmp/backups
+git@ncd-git-toolbox-56b88dd4c7-27hb5:/srv/gitlab/tmp/backups$ ls
+backup_information.yml  db  repositories
+git@ncd-git-toolbox-56b88dd4c7-27hb5:/srv/gitlab/tmp/backups$ ls -la
+total 4
+drwxr-sr-x. 4 git  git  66 Apr  2 10:46 .
+drwxrwsrwx. 3 root git  21 Apr  2 10:46 ..
+-rw-r--r--. 1 git  git 318 Apr  2 10:46 backup_information.yml
+drwxr-sr-x. 2 git  git  29 Apr  2 10:46 db
+drwx--S---. 4 git  git  38 Apr  2 10:46 repositories
+git@ncd-git-toolbox-56b88dd4c7-27hb5:/srv/gitlab/tmp/backups$
 
 ```
 
