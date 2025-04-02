@@ -53,7 +53,7 @@ ryyB1JeEPQWwewI1j7QXqg==
 
 ```
 
-#### on the OCP cluster level changes, TLS addition
+#### On the OCP cluster level changes, TLS Creation
 
 4. Similarly if images would be pulled on the HUB cluster, its ingress’ rootCA shall be put into the image.config.openshift.io/cluster CR, as the registry is using self-signed certificate by default and treated as an insecure registry, more precisely the OCP’s ingress (if it is not swapped yet). In order to overcome issues the following commands:
 ```
@@ -78,7 +78,7 @@ image.config.openshift.io/cluster patched
 [root@dom14npv101-infra-manager ~ vlabrc]#
 ```
 
-### Creating tls certificate on the OCP cluster as additional tls `newly`
+### Creating tls certificate on the OCP cluster as additional tls `ADD`
 
 1. oc apply is the preferred way to update an existing resource, including ConfigMaps. This command will update the ConfigMap with the new data while keeping existing data intact. If you don’t have a YAML file, you can first export the current ConfigMap to a file, edit it, and then apply the changes:
 

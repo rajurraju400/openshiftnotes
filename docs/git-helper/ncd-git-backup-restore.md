@@ -1,5 +1,5 @@
 # Backing up Nokia Git Server
-> this procedure, works for NCD 24.9 mp1 pp2. 
+> this procedure, works for NCD 24.9 mp1 pp1. 
 
 
 ## Instructions on backing up Nokia Git Server
@@ -32,50 +32,24 @@ external_diffs,terraform_state,pages,ci_secure_files
 * To back up Nokia Git Server and the necessary Helm plugins for Backup and Recovery (CBUR), CBUR must be installed on your cluster.
 * CBUR must be enabled in the Nokia Git Server installation.
 
-##### Install plugins for helm (backup and restore)
+###### remove plugins for helm (backup and restore)
 
-1.  Download the backup and restore plugin via following git link. 
-
-* [Open helm backup link](https://github.com/maorfr/helm-backup)
+1. login to bastion host and login to cluster here .
 
 ```
-[root@ncputility ~ panhub_rc]$ file helm-backup-master.zip
-helm-backup-master.zip: Zip archive data, at least v1.0 to extract
+
+[root@ncputility ~]# source /root/panhubrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 101 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
 [root@ncputility ~ panhub_rc]$
 ```
 
-2. extract the downloaded package. 
-
-```
-[root@ncputility ~ panhub_rc]$ unzip helm-backup-master.zip
-Archive:  helm-backup-master.zip
-3cdde8b6d0d3c28368b66426e4f2933d700c93a2
-   creating: helm-backup-master/
-  inflating: helm-backup-master/.gitignore
-  inflating: helm-backup-master/Gopkg.lock
-  inflating: helm-backup-master/Gopkg.toml
-  inflating: helm-backup-master/LICENSE.txt
-  inflating: helm-backup-master/Makefile
-  inflating: helm-backup-master/README.md
-  inflating: helm-backup-master/install-binary.sh
-  inflating: helm-backup-master/main.go
-  inflating: helm-backup-master/plugin.yaml
-[root@ncputility ~ panhub_rc]$
-
-```
-3. install the backup login now 
-
-```
-[root@ncputility ~ panhub_rc]$ helm plugin install ./helm-backup-master/
-Downloading and installing helm-backup 0.1.3 ...
-https://github.com/maorfr/helm-backup/releases/download/0.1.3/helm-backup-linux-0.1.3.tgz
-Installed plugin: backup
-[root@ncputility ~ panhub_rc]$
-
-```
-
-4. Validate the install the helm backup
-
+2. list of plugins installed on helm here.
 ```
 [root@ncputility ~ panhub_rc]$ helm plugin list
 NAME    VERSION DESCRIPTION
@@ -83,8 +57,108 @@ backup  0.1.2   backup/restore releases in a namespace to/from a file
 [root@ncputility ~ panhub_rc]$
 
 ```
+3. remove using following command on helm `#helm plugin remove backup`
+
+```
+[root@ncputility ~ panhub_rc]$ helm plugin remove backup
+Uninstalled plugin: backup
+[root@ncputility ~ panhub_rc]$
+
+```
+
+
+##### Install plugins for helm (backup and restore)
+
+1. login to bastion host and login to cluster here .
+
+```
+
+[root@ncputility ~]# source /root/panhubrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 101 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@ncputility ~ panhub_rc]$
+```
+
+2. list of plugins installed on helm here.
+```
+[root@ncputility ~ panhub_rc]$ helm plugin list
+NAME    VERSION DESCRIPTION
+[root@ncputility ~ panhub_rc]$
+
+```
+3. Install the latest version of the Helm backup and restore plugins.
+
+> For the Helm backup and restore plugins, use the version that is compatible with the respective Backup and Recovery chart release.
+
+```
+[root@ncputility ~ panhub_rc]$ export HELM_HOME=$HOME/.helm
+[root@ncputility ~ panhub_rc]$ cd
+[root@ncputility ~ panhub_rc]$ WORK_DIR=`mktemp -d`
+[root@ncputility ~ panhub_rc]$ mkdir -p $WORK_DIR/backup
+[root@ncputility ~ panhub_rc]$ mkdir -p $WORK_DIR/restore
+[root@ncputility ~ panhub_rc]$ tar xf /root/ncd/NCD_24.9_Git_Server_ORB-RC/ncd-git-server-product/INSTALL_MEDIA/backup-3.7.4.tgz -C $WORK_DIR/backup
+[root@ncputility ~ panhub_rc]$ tar xf /root/ncd/NCD_24.9_Git_Server_ORB-RC/ncd-git-server-product/INSTALL_MEDIA/restore-3.7.4.tgz -C $WORK_DIR/restore
+[root@ncputility ~ panhub_rc]$ helm plugin install $WORK_DIR/backup
+Installed plugin: backup
+[root@ncputility ~ panhub_rc]$ helm plugin install $WORK_DIR/restore
+Installed plugin: restore
+[root@ncputility ~ panhub_rc]$ rm -rf $WORK_DIR
+[root@ncputility ~ panhub_rc]$
+
+```
+    a. check the status of installed helm plugins. 
+
+    ```
+    [root@ncputility ~ panhub_rc]$ helm plugin list
+    NAME    VERSION DESCRIPTION
+    backup  3.7.4   Plugin responsible for the backup of helm releases and k8s namespaces with CBUR.
+    restore 3.7.4   Plugin responsible for restoring helm releases and k8s namespaces with CBUR.
+    [root@ncputility ~ panhub_rc]$ 
+    ```
+
+
+
+4. Configure RBAC for CRDs. (only when you deploy using tenant credentials)
+
+> For tenants only using Backup and Recovery, permission to read, create, modify and delete BrPolicy and BrHook is sufficient. However, tenants installing their own namespaces for Backup and Recovery also need permission to read brpolices/status.
+
+
+```
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: admin:brpolices
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+- apiGroups: ["cbur.csf.nokia.com"]
+  resources: ["brpolices", "brhooks"]
+  verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+- apiGroups: ["cbur.csf.nokia.com"]
+  resources: ["brpolices/status"]
+  verbs: ["get", "list", "watch", "update", "patch"]
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: view:brpolices
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-view: "true"
+rules:
+- apiGroups: ["cbur.csf.nokia.com"]
+  resources: ["brpolices", "brhooks", "brpolices/status"]
+  verbs: ["get", "list", "watch"]
+```
 
 #### Back up Nokia Git Server
+
+> Notes:
 
 ```
 The CBUR master service (CBUR_MASTER_SERVICE) must be specified in either of the following formats:
@@ -95,11 +169,68 @@ http(s)://dns_name
 http(s)://ingress/ingresspath
 ```
 
+> here is the command to run the backup of git server 
+
+```
 helm backup -t ncd-git -a none -n paclypancdgit01 -x http://172.20.8.113:80
 
 helm backup -n paclypancdgit01 -t ncd-git -a none -x http://172.20.8.113:80
+```
+
+1. login to bastion host and login to cluster here .
+
+```
+
+[root@ncputility ~]# source /root/panhubrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 101 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@ncputility ~ panhub_rc]$
+```
+2. Find the `namespace` and `release` name of git server and cbut details from here 'helm list -A '
+```
+[root@ncputility ~ panhub_rc]$ helm list  -A
+NAME            NAMESPACE               REVISION        UPDATED                                 STATUS          CHART                                   APP VERSION
+cbur-crds       paclypancdcbur01        1               2025-02-27 14:18:04.313208995 -0500 EST deployed        cbur-crds-2.6.0                         2.6.0
+ncd-cbur        paclypancdcbur01        1               2025-02-27 14:24:56.578242699 -0500 EST deployed        cbur-1.18.1                             1.13.1
+ncd-git         paclypancdgit01         1               2025-02-27 14:45:25.489107042 -0500 EST deployed        ncd-git-server-24.9.1-7.g30f1acf        17.3.3
+ncd-postgresql  paclypancddb01          1               2025-02-27 14:30:27.65639258 -0500 EST  deployed        postgresql-ha-24.9.1-1009.g19e2a92      24.9.1-1009.g19e2a92
+ncd-redis       paclypancddb01          1               2025-02-27 14:37:11.651840036 -0500 EST deployed        ncd-redis-24.9.1-1009.g19e2a92          24.9.1-1009.g19e2a92
+[root@ncputility ~ panhub_rc]$
+
+```
+
+3. trigger the backup job using following command here 
 
 
+```
+[root@ncputility ~ panhub_rc]$ helm backup -n paclypancdgit01 -t ncd-git -x https://cbur.apps.panclyphub01.mnc020.mcc714:443
+parse error: Invalid numeric literal at line 1, column 7
+parse error: Invalid numeric literal at line 1, column 7
+parse error: Invalid numeric literal at line 1, column 7
+[KO] Failed to verify the request
+Error: plugin "backup" exited with error
+[root@ncputility ~ panhub_rc]$
+
+```
+
+
+
+#### Troubleshooting
+
+##### Certificate error 
+
+1. copy crt file used during installation.
+
+```
+[root@ncputility denmark]# cp -rp ca.crt /etc/pki/ca-trust/source/anchors/
+[root@ncputility denmark]# sudo update-ca-trust
+[root@ncputility denmark]#
+```
 
 
 #### Reference 
