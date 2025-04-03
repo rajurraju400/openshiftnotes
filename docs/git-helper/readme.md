@@ -43,3 +43,13 @@ git config --global credential.helper store
     b. Your credentials will be stored in a plain-text file (~/.git-credentials).
 
     c. Be cautious with this method if you're using a shared machine.
+
+
+4. Configure Git to Skip SSL Verification (Not Recommended for Production)
+
+If you're in a controlled environment where you trust the source, and you want to bypass SSL verification temporarily, you can configure Git to skip SSL verification:
+
+```
+git config --global http.sslVerify false
+
+```
