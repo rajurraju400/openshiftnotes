@@ -177,6 +177,7 @@ helm backup -t ncd-git -a none -n paclypancdgit01 -x http://172.20.8.113:80
 helm backup -n paclypancdgit01 -t ncd-git -a none -x http://172.20.8.113:80
 ```
 
+
 1. login to bastion host and login to cluster here .
 
 ```
@@ -1130,6 +1131,58 @@ total 2476
 [root@ncputility denmark]#
 ```
 
+
+##### backup job failure 
+
+1. if Error looks like this, then problem on the namespace spoce. 
+
+```
+[root@ncputility ~ hn_hub_rc]$ helm backup -n hnevocdgit01 -a none -t ncd-git -x http://cbur.apps.hnevocphub01.mnc002.mcc708/cbur
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Failure",
+  "message": "Failed to get helm release ncd-git in namespace hnevocdgit01",
+  "reason": "",
+  "details": {},
+  "code": 500
+}
+[root@ncputility ~ hn_hub_rc]$ 
+```
+2. to resolve this issue, get the values file and update the namespace scope list.  include git-server namespace too. 
+
+```
+[root@ncputility ~ hn_hub_rc]$ helm get values ncd-cbur  -n hnevocdcbur01 > rr.yaml
+
+```
+
+3. retry it, it will work now
+
+```
+[root@ncputility ~ hn_hub_rc]$ helm backup -n hnevocdgit01 -a none -t ncd-git -x http://cbur.apps.hnevocphub01.mnc002.mcc708/cbur
+{
+  "kind": "Status",
+  "apiVersion": "v1",
+  "metadata": {},
+  "status": "Success",
+  "message": "backupHelmRelease task = cc857932-d83d-4e2d-9493-1252595da3f2 is on!",
+  "reason": "",
+  "details": {
+    "cc857932-d83d-4e2d-9493-1252595da3f2": {
+      "name": "ncd-git",
+      "namespace": "hnevocdgit01",
+      "timestamp": "20250403005800",
+      "backup_data": {},
+      "helm_version": 3,
+      "request": "backupHelmRelease"
+    }
+  },
+  "code": 202
+}
+[root@ncputility ~ hn_hub_rc]$
+
+```
 
 #### Reference 
 
