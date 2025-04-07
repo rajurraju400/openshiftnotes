@@ -298,3 +298,42 @@ Events:
 ```
 
 ![alt text](image.png)
+
+
+
+
+## CNF image upload using pod command 
+
+1. login to hub quay using cnfowners and org as cnfimages. 
+
+```
+[root@ncputility ~ pancwl_rc]$ podman login quay-registry.apps.panclyphub01.mnc020.mcc714 -u cnfowners -p cnfowners
+Login Succeeded!
+[root@ncputility ~ pancwl_rc]$
+
+```
+
+2. load the container images to log registry 
+```
+[root@ncputility ~ pancwl_rc]$ podman load -i <filename>.tar^C
+[root@ncputility ~ pancwl_rc]$
+```
+
+3. tag the image to your registry here 
+
+```
+[root@ncputility ~ pancwl_rc]$ podman tag quay-registry.apps.panclyphub01.mnc020.mcc714/cnfimages/testimage01 quay-registry.apps.panclyphub01.mnc020.mcc714/cnfimagesnew/testimage01:latest
+[root@ncputility ~ pancwl_rc]$
+```
+
+4. push the image to remore registry using podman push command here .
+```
+[root@ncputility ~ pancwl_rc]$ podman push quay-registry.apps.panclyphub01.mnc020.mcc714/cnfimagesnew/testimage01:latest
+Getting image source signatures
+Copying blob 1af69dabfc93 done   |
+Copying blob 53f86715cdba done   |
+Copying blob b6361360b38a done   |
+Copying config d39b33df22 done   |
+Writing manifest to image destination
+[root@ncputility ~ pancwl_rc]$
+```
