@@ -115,7 +115,40 @@ status: {}
 ```
 ## Configure the proxy cache on the registry level. 
 
-1. 
+### hub quay configiration
+
+1. Open up the hub quay url 
+
+### CWL quay configuration 
+
+1. Open CWL quay login via super account and created an user called cnfowners also fix the passwd.
+
+![alt text](image-1.png)
+![alt text](image-2.png)
+
+2. Create an org as same as hub quay. 
+
+![alt text](image-3.png)
+
+3. Set the proxy cache configuration for the organization
+
+![alt text](image-5.png)
+
+4. create robot account and default permission
+
+![alt text](image-4.png)
+
+5. Create a new team for image pull user
+
+![alt text](image-6.png)
+
+6. Set default permission for the pull user (optional)
+
+<Organization> → Default Permissions → + Create Default Permission
+
+7. Extend the global image pull secret
+
+> During the Managed cluster installation, the global pull secret is configured. If the 2nd Hub Quay account and the cache account are not prepared in advance, these accounts need to be added. In case of mirrored registries, only the global pull secret can be used. It is not possible to add project specific pull secrets. For more information, see chapter Image configuration resources in document Images, available in OpenShift Container Platform Product documentation.
 
 ## Testing pod creation using `proxy-cache` quay. 
 

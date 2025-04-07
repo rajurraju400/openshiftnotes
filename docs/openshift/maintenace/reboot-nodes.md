@@ -2,11 +2,67 @@
 
 > steps to show, boot on master, worker/gateway and storage. 
 
+## Master node reboot
 
+1. login to right cluster using cluster-admin based role. 
 
+```
+
+[root@dom14npv101-infra-manager ~ management]# source  /root/raj/managementrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 99 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@dom14npv101-infra-manager ~ management]# 
+```
+
+2. get the list of storage nodes and also check the ceph status. 
+```
+[root@dom14npv101-infra-manager ~ management]# oc get nodes |grep -i master
+ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
+ncpvnpvmgt-master-102.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
+ncpvnpvmgt-master-103.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
+[root@dom14npv101-infra-manager ~ management]#
+
+```
+3. drain the node completely 
+```
+node=ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net
+oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force 
+oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force --disable-eviction 
+```
+4. trigger the shutdown now. 
+```
+oc debug node/$node -- chroot /host shutdown -r +1 
+```
+5. once this server came up, waiting for server to be in ready state 
+```
+oc wait --for=condition=Ready node/$node --timeout=800s 
+```
+
+6. uncordon the node and make it schedulable now. 
+
+```
+oc adm uncordon $node 
+```
 ## Storage node reboot
 
 1. login to right cluster using cluster-admin based role. 
+```
+
+[root@dom14npv101-infra-manager ~ management]# source  /root/raj/managementrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 99 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@dom14npv101-infra-manager ~ management]# 
+```
 
 2. get the list of storage nodes and also check the ceph status. 
 ```
