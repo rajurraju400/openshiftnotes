@@ -2,6 +2,71 @@
 
 ## proxy-cache TLS issue. 
 
+0. Login in to CWL cluster and make sure mcp and nodes are looks good at this point, if any issue, need to be resolved first. 
+
+```
+[root@ncputility ~ pancwl_rc]$ oc get nodes
+NAME                                     STATUS   ROLES                              AGE   VERSION
+appworker0.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker1.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker10.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker11.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker12.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker13.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker14.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker15.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker16.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker17.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker19.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker2.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   30d   v1.29.6+aba1e8d
+appworker20.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker21.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker22.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker23.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker24.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker25.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker26.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker27.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker28.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker29.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker3.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker30.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker31.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker32.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker33.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker34.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker4.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker5.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker6.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker7.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   37d   v1.29.6+aba1e8d
+appworker9.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+gateway1.panclypcwl01.mnc020.mcc714      Ready    gateway,gateway-mcp-a,worker       38d   v1.29.6+aba1e8d
+gateway2.panclypcwl01.mnc020.mcc714      Ready    gateway,gateway-mcp-a,worker       38d   v1.29.6+aba1e8d
+gateway3.panclypcwl01.mnc020.mcc714      Ready    gateway,gateway-mcp-b,worker       38d   v1.29.6+aba1e8d
+gateway4.panclypcwl01.mnc020.mcc714      Ready    gateway,gateway-mcp-b,worker       38d   v1.29.6+aba1e8d
+master0.panclypcwl01.mnc020.mcc714       Ready    control-plane,master,monitor       38d   v1.29.6+aba1e8d
+master1.panclypcwl01.mnc020.mcc714       Ready    control-plane,master,monitor       38d   v1.29.6+aba1e8d
+master2.panclypcwl01.mnc020.mcc714       Ready    control-plane,master,monitor       38d   v1.29.6+aba1e8d
+storage0.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     38d   v1.29.6+aba1e8d
+storage1.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     38d   v1.29.6+aba1e8d
+storage2.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     38d   v1.29.6+aba1e8d
+storage3.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     38d   v1.29.6+aba1e8d
+storage4.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     38d   v1.29.6+aba1e8d
+[root@ncputility ~ pancwl_rc]$ oc get mcp
+NAME              CONFIG                                                      UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+appworker-mcp-a   rendered-appworker-mcp-a-0e9dd6df593dcd5016bbe7d601119bf4   True      False      False      8              8                   8                     0                      37d
+appworker-mcp-b   rendered-appworker-mcp-b-0e9dd6df593dcd5016bbe7d601119bf4   True      False      False      9              9                   9                     0                      37d
+appworker-mcp-c   rendered-appworker-mcp-c-5afb864664d3b10530b54b3153a1a61e   True      False      False      8              8                   8                     0                      29h
+appworker-mcp-d   rendered-appworker-mcp-d-5afb864664d3b10530b54b3153a1a61e   True      False      False      8              8                   8                     0                      29h
+gateway-mcp-a     rendered-gateway-mcp-a-c81254a16575de9053ae543c4f1ba3fb     True      False      False      2              2                   2                     0                      37d
+gateway-mcp-b     rendered-gateway-mcp-b-3be41ecbbe09004c35ca04a4309cabf0     True      False      False      2              2                   2                     0                      29h
+master            rendered-master-114f60e6be691323222ea11e72de0bcf            True      False      False      3              3                   3                     0                      38d
+storage           rendered-storage-dc2d8a34080bce1400e11bb1fb098693           True      False      False      5              5                   5                     0                      37d
+worker            rendered-worker-68cb1df39185f7ad80fda7915e4c5a42            True      False      False      0              0                   0                     0                      38d
+[root@ncputility ~ pancwl_rc]$
+
+```
+
 1. login to hub cluster and run this command 
 ```
 [root@ncputility ~ pancwl_rc]$ source /root/panhubrc
