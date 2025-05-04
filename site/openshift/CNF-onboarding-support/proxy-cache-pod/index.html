@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Proxy Cache Pod - OpenShift Notes</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">OpenShift Notes</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Git Helper</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../git-helper/ncd-git-backup/" class="dropdown-item">Git Backup</a>
+</li>
+                                    
+<li>
+    <a href="../../../git-helper/ncd-git-restore/" class="dropdown-item">Git Restore</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Deployment Scripts</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../git-helper/Deployment/backupconfig.sh" class="dropdown-item">Backup Config</a>
+</li>
+            
+<li>
+    <a href="../../../git-helper/Deployment/newgitserver.sh" class="dropdown-item">New Git Server</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">OpenShift</a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Backup & Restore</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../backup-restore/ACM-GEO-RED/" class="dropdown-item">ACM GEO Red</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/ACM-localbackup/" class="dropdown-item">ACM Local Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/AWS-S3/" class="dropdown-item">AWS S3 Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/etcd-backup/" class="dropdown-item">ETCD Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/etcd-restore/" class="dropdown-item">ETCD Restore</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">CNF Onboarding Support</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../image-tls-issue/" class="dropdown-item">Image TLS Issue</a>
+</li>
+            
+<li>
+    <a href="../oclogin-tls-issue/" class="dropdown-item">OCLogin TLS Issue</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Proxy Cache Pod</a>
+</li>
+    </ul>
+  </li>
+                                    
+<li>
+    <a href="../../deployment/readme/" class="dropdown-item">Deployment</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Maintenance</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../maintenace/cluster-stop-start/" class="dropdown-item">Cluster Stop/Start</a>
+</li>
+            
+<li>
+    <a href="../../maintenace/reboot-nodes/" class="dropdown-item">Reboot Nodes</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Networking</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../networking/metalb-troubleshooting/" class="dropdown-item">MetalLB Troubleshooting</a>
+</li>
+            
+<li>
+    <a href="../../networking/metallb-configuration/" class="dropdown-item">MetalLB Configuration</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Storage Management</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../storagemanagement/ceph-rebalanceissue/" class="dropdown-item">Ceph Rebalance Issue</a>
+</li>
+            
+<li>
+    <a href="../../storagemanagement/storage-node-replacement/" class="dropdown-item">Storage Node Replacement</a>
+</li>
+    </ul>
+  </li>
+                                    
+<li>
+    <a href="../../tools-management-ts/ts-tools/" class="dropdown-item">Tools Management TS</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Troubleshooting</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../troubleshooting/nsenter/" class="dropdown-item">Nsenter Usage</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">User Management</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../usermanagement/remove-kubeadmin/" class="dropdown-item">Remove Kubeadmin</a>
+</li>
+            
+<li>
+    <a href="../../usermanagement/user-management/" class="dropdown-item">User Management</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../oclogin-tls-issue/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../deployment/readme/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#proxy-cache-quay-based-pod-creation" class="nav-link">Proxy-cache quay based pod creation</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#proxy-cache-tls-issue" class="nav-link">proxy-cache TLS issue.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#configure-the-proxy-cache-on-the-registry-level" class="nav-link">Configure the proxy cache on the registry level.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#testing-pod-creation-using-proxy-cache-quay" class="nav-link">Testing pod creation using proxy-cache quay.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#cnf-image-upload-using-pod-command" class="nav-link">CNF image upload using pod command</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="proxy-cache-quay-based-pod-creation">Proxy-cache quay based pod creation</h1>
+<h2 id="proxy-cache-tls-issue">proxy-cache TLS issue.</h2>
+<ol>
+<li>Login in to CWL cluster and make sure mcp and nodes are looks good at this point, if any issue, need to be resolved first. </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc get nodes
+NAME                                     STATUS   ROLES                              AGE   VERSION
+appworker0.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker1.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker10.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker11.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker12.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker13.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker14.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker15.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker16.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker17.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+appworker19.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker2.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   30d   v1.29.6+aba1e8d
+appworker20.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker21.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker22.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker23.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker24.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker25.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker26.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-c,worker   37d   v1.29.6+aba1e8d
+appworker27.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker28.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker29.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker3.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker30.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker31.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker32.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker33.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker34.panclypcwl01.mnc020.mcc714   Ready    appworker,appworker-mcp-d,worker   37d   v1.29.6+aba1e8d
+appworker4.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker5.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker6.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   38d   v1.29.6+aba1e8d
+appworker7.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-a,worker   37d   v1.29.6+aba1e8d
+appworker9.panclypcwl01.mnc020.mcc714    Ready    appworker,appworker-mcp-b,worker   37d   v1.29.6+aba1e8d
+gateway1.panclypcwl01.mnc020.mcc714      Ready    gateway,gateway-mcp-a,worker       38d   v1.29.6+aba1e8d
+gateway2.panclypcwl01.mnc020.mcc714      Ready    gateway,gateway-mcp-a,worker       38d   v1.29.6+aba1e8d
+gateway3.panclypcwl01.mnc020.mcc714      Ready    gateway,gateway-mcp-b,worker       38d   v1.29.6+aba1e8d
+gateway4.panclypcwl01.mnc020.mcc714      Ready    gateway,gateway-mcp-b,worker       38d   v1.29.6+aba1e8d
+master0.panclypcwl01.mnc020.mcc714       Ready    control-plane,master,monitor       38d   v1.29.6+aba1e8d
+master1.panclypcwl01.mnc020.mcc714       Ready    control-plane,master,monitor       38d   v1.29.6+aba1e8d
+master2.panclypcwl01.mnc020.mcc714       Ready    control-plane,master,monitor       38d   v1.29.6+aba1e8d
+storage0.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     38d   v1.29.6+aba1e8d
+storage1.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     38d   v1.29.6+aba1e8d
+storage2.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     38d   v1.29.6+aba1e8d
+storage3.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     38d   v1.29.6+aba1e8d
+storage4.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     38d   v1.29.6+aba1e8d
+[root@ncputility ~ pancwl_rc]$ oc get mcp
+NAME              CONFIG                                                      UPDATED   UPDATING   DEGRADED   MACHINECOUNT   READYMACHINECOUNT   UPDATEDMACHINECOUNT   DEGRADEDMACHINECOUNT   AGE
+appworker-mcp-a   rendered-appworker-mcp-a-0e9dd6df593dcd5016bbe7d601119bf4   True      False      False      8              8                   8                     0                      37d
+appworker-mcp-b   rendered-appworker-mcp-b-0e9dd6df593dcd5016bbe7d601119bf4   True      False      False      9              9                   9                     0                      37d
+appworker-mcp-c   rendered-appworker-mcp-c-5afb864664d3b10530b54b3153a1a61e   True      False      False      8              8                   8                     0                      29h
+appworker-mcp-d   rendered-appworker-mcp-d-5afb864664d3b10530b54b3153a1a61e   True      False      False      8              8                   8                     0                      29h
+gateway-mcp-a     rendered-gateway-mcp-a-c81254a16575de9053ae543c4f1ba3fb     True      False      False      2              2                   2                     0                      37d
+gateway-mcp-b     rendered-gateway-mcp-b-3be41ecbbe09004c35ca04a4309cabf0     True      False      False      2              2                   2                     0                      29h
+master            rendered-master-114f60e6be691323222ea11e72de0bcf            True      False      False      3              3                   3                     0                      38d
+storage           rendered-storage-dc2d8a34080bce1400e11bb1fb098693           True      False      False      5              5                   5                     0                      37d
+worker            rendered-worker-68cb1df39185f7ad80fda7915e4c5a42            True      False      False      0              0                   0                     0                      38d
+[root@ncputility ~ pancwl_rc]$
+
+</code></pre>
+<ol>
+<li>login to hub cluster and run this command </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ source /root/panhubrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 105 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project &quot;default&quot;.
+[root@ncputility ~ panhub_rc]$ oc get secret -n openshift-ingress-operator router-ca -o &quot;jsonpath={.data['tls\.crt']}&quot; | base64 -d
+-----BEGIN CERTIFICATE-----
+MIIDDDCCAfSgAwIBAgIBATANBgkqhkiG9w0BAQsFADAmMSQwIgYDVQQDDBtpbmdy
+ZXNzLW9wZXJhdG9yQDE3NDAwNzQ1NDQwHhcNMjUwMjIwMTgwMjIzWhcNMjcwMjIw
+MTgwMjI0WjAmMSQwIgYDVQQDDBtpbmdyZXNzLW9wZXJhdG9yQDE3NDAwNzQ1NDQw
+ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDjXWFSVPshwihivZhaTrB7
+0boUOw2j3Ut/J6eSm+JA+xVl05L4XD8+C8VSst+f32Pe42Lso2hrovY1dT7IBX3g
+6S9Nnd2iRc9vC/qHcQkGQ6krIYSQ48aCH7UuahCpTqxEp+MwmhCTQngN2maTJBe3
+0E6K2IL4zXSi0Iuj08BOnH/w4pJxeWhyngXDf2SeA88EmU3juHLshHrAND84uou2
+/sOStIAhFwU+o887dSgx7iERy+6nczSDB9Qvq11cUSS4RPC82bNnxcc+BrynDwZ/
+eggs0OEaj/1cHu/svKZHX9gUKrqz80wF8YGZLLgI2oPAf2VJorvtkJAErzgttroF
+AgMBAAGjRTBDMA4GA1UdDwEB/wQEAwICpDASBgNVHRMBAf8ECDAGAQH/AgEAMB0G
+A1UdDgQWBBTZS/SzkBfiHQ5/Gy+b4g1XJOHkojANBgkqhkiG9w0BAQsFAAOCAQEA
+UwPhAbzTWZIlBsMHAL+8jvxM8qxc6HDhayAD4gbCE65vHYgSizost02vRfpOPQq1
+D6HM8JjifS3KHd6E6chdTbrHI0W8pMJJPon5akCJf/uGeGDl+2wKfmVC6UoV7hC3
+pcUzm3JKwsNJbjS5rxL8f5a8bNdIFfLQKuyRpnVX2CsNHvh+WJzynQ+PUJ6zCa7y
+x5AJxca2PTnBKRoVTAyumT1suluI9f4GRYnxTE/qIKRZRs+uT3kIl/N9VX+GbjGb
+pPszJ+p6N6Arl1BqJP1DdLin2IFGZL39pTyifm5GP+Vou2aHPuHZDVoCdxsFKup+
+gUY2KeKz0UManwubPQNnKA==
+-----END CERTIFICATE-----
+[root@ncputility ~ panhub_rc]$
+
+</code></pre>
+<ol>
+<li>login to workload cluster and run this command </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ source /root/pancwlrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 115 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project &quot;nokia&quot;.
+[root@ncputility ~ pancwl_rc]$ oc get cm -n openshift-config user-ca-bundle -o yaml
+apiVersion: v1
+data:
+  ca-bundle.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIDDDCCAfSgAwIBAgIBATANBgkqhkiG9w0BAQsFADAmMSQwIgYDVQQDDBtpbmdy
+    ZXNzLW9wZXJhdG9yQDE3NDAwNzQ1NDQwHhcNMjUwMjIwMTgwMjIzWhcNMjcwMjIw
+    MTgwMjI0WjAmMSQwIgYDVQQDDBtpbmdyZXNzLW9wZXJhdG9yQDE3NDAwNzQ1NDQw
+    ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDjXWFSVPshwihivZhaTrB7
+    0boUOw2j3Ut/J6eSm+JA+xVl05L4XD8+C8VSst+f32Pe42Lso2hrovY1dT7IBX3g
+    6S9Nnd2iRc9vC/qHcQkGQ6krIYSQ48aCH7UuahCpTqxEp+MwmhCTQngN2maTJBe3
+    0E6K2IL4zXSi0Iuj08BOnH/w4pJxeWhyngXDf2SeA88EmU3juHLshHrAND84uou2
+    /sOStIAhFwU+o887dSgx7iERy+6nczSDB9Qvq11cUSS4RPC82bNnxcc+BrynDwZ/
+    eggs0OEaj/1cHu/svKZHX9gUKrqz80wF8YGZLLgI2oPAf2VJorvtkJAErzgttroF
+    AgMBAAGjRTBDMA4GA1UdDwEB/wQEAwICpDASBgNVHRMBAf8ECDAGAQH/AgEAMB0G
+    A1UdDgQWBBTZS/SzkBfiHQ5/Gy+b4g1XJOHkojANBgkqhkiG9w0BAQsFAAOCAQEA
+    UwPhAbzTWZIlBsMHAL+8jvxM8qxc6HDhayAD4gbCE65vHYgSizost02vRfpOPQq1
+    D6HM8JjifS3KHd6E6chdTbrHI0W8pMJJPon5akCJf/uGeGDl+2wKfmVC6UoV7hC3
+    pcUzm3JKwsNJbjS5rxL8f5a8bNdIFfLQKuyRpnVX2CsNHvh+WJzynQ+PUJ6zCa7y
+    x5AJxca2PTnBKRoVTAyumT1suluI9f4GRYnxTE/qIKRZRs+uT3kIl/N9VX+GbjGb
+    pPszJ+p6N6Arl1BqJP1DdLin2IFGZL39pTyifm5GP+Vou2aHPuHZDVoCdxsFKup+
+    gUY2KeKz0UManwubPQNnKA==
+    -----END CERTIFICATE-----
+kind: ConfigMap
+metadata:
+  annotations:
+    openshift.io/owning-component: End User
+  creationTimestamp: &quot;2025-03-03T08:56:26Z&quot;
+  name: user-ca-bundle
+  namespace: openshift-config
+  resourceVersion: &quot;43318895&quot;
+  uid: 6624e5ad-93b5-418e-8c1e-7a91c724a760
+[root@ncputility ~ pancwl_rc]$ oc get proxy cluster -o yaml
+apiVersion: config.openshift.io/v1
+kind: Proxy
+metadata:
+  creationTimestamp: &quot;2025-03-03T08:54:59Z&quot;
+  generation: 2
+  name: cluster
+  resourceVersion: &quot;48312416&quot;
+  uid: ceaebe02-9bd3-4361-847e-1b880ebb85de
+spec:
+  trustedCA:
+    name: user-ca-bundle   &lt;---------------------------- this should be patched. if missing. 
+status: {}
+[root@ncputility ~ pancwl_rc]$
+</code></pre>
+<ol>
+<li>login to workload cluster add tls of hub to cwl. </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc patch proxy cluster --patch '{&quot;spec&quot;:{&quot;trustedCA&quot;:{&quot;name&quot;:&quot;user-ca-bundle&quot;}}}' --type=merge
+[root@ncputility ~ pancwl_rc]$ oc get proxy cluster -o yaml
+apiVersion: config.openshift.io/v1
+kind: Proxy
+metadata:
+  creationTimestamp: &quot;2025-03-03T08:54:59Z&quot;
+  generation: 2
+  name: cluster
+  resourceVersion: &quot;48312416&quot;
+  uid: ceaebe02-9bd3-4361-847e-1b880ebb85de
+spec:
+  trustedCA:
+    name: user-ca-bundle
+status: {}
+[root@ncputility ~ pancwl_rc]$
+
+</code></pre>
+<h2 id="configure-the-proxy-cache-on-the-registry-level">Configure the proxy cache on the registry level.</h2>
+<h3 id="hub-quay-configiration">hub quay configiration</h3>
+<ol>
+<li>Open up the hub quay url </li>
+</ol>
+<h3 id="cwl-quay-configuration">CWL quay configuration</h3>
+<ol>
+<li>Open CWL quay login via super account and created an user called cnfowners also fix the passwd.</li>
+</ol>
+<p><img alt="alt text" src="../image-1.png" />
+<img alt="alt text" src="../image-2.png" /></p>
+<ol>
+<li>Create an org as same as hub quay. </li>
+</ol>
+<p><img alt="alt text" src="../image-3.png" /></p>
+<ol>
+<li>Set the proxy cache configuration for the organization</li>
+</ol>
+<p><img alt="alt text" src="../image-5.png" /></p>
+<ol>
+<li>create robot account and default permission</li>
+</ol>
+<p><img alt="alt text" src="../image-4.png" /></p>
+<ol>
+<li>Create a new team for image pull user</li>
+</ol>
+<p><img alt="alt text" src="../image-6.png" /></p>
+<ol>
+<li>Set default permission for the pull user (optional)</li>
+</ol>
+<p><Organization> → Default Permissions → + Create Default Permission</p>
+<ol>
+<li>Extend the global image pull secret</li>
+</ol>
+<blockquote>
+<p>During the Managed cluster installation, the global pull secret is configured. If the 2nd Hub Quay account and the cache account are not prepared in advance, these accounts need to be added. In case of mirrored registries, only the global pull secret can be used. It is not possible to add project specific pull secrets. For more information, see chapter Image configuration resources in document Images, available in OpenShift Container Platform Product documentation.</p>
+</blockquote>
+<h2 id="testing-pod-creation-using-proxy-cache-quay">Testing pod creation using <code>proxy-cache</code> quay.</h2>
+<ol>
+<li>Login the namespace with cluster admin access to grand rights for an scc. </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ source  /root/pancwlrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 116 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project &quot;default&quot;.
+[root@ncputility ~ pancwl_rc]$ 
+</code></pre>
+<ol>
+<li>Grand admin rights to project. if missed during project creation phase. </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc policy add-role-to-user admin  nokia  -n nokia
+clusterrole.rbac.authorization.k8s.io/admin added: &quot;nokia&quot;
+[root@ncputility ~ pancwl_rc]$ 
+</code></pre>
+<ol>
+<li>Also grand scc role to default service account via anyuid. </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc adm policy add-scc-to-user anyuid -z default -n nokia
+clusterrole.rbac.authorization.k8s.io/system:openshift:scc:anyuid added: &quot;default&quot;
+[root@ncputility ~ pancwl_rc]$ 
+</code></pre>
+<ol>
+<li>login to cnf tenant here .</li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc login -u nokia -p nokia@123
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have one project on this server: &quot;nokia&quot;
+
+Using project &quot;nokia&quot;.
+[root@ncputility ~ pancwl_rc]$ 
+</code></pre>
+<ol>
+<li>run an pod using proxy-cache url </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$  oc run podpingtest3 --image=ephemeral.url/cnfimages/testimage01:latest --restart=Never  -- tail -f /dev/null
+pod/podpingtest3 created
+[root@ncputility ~ pancwl_rc]$ oc get pods
+NAME           READY   STATUS              RESTARTS   AGE
+podpingtest3   0/1     ContainerCreating   0          4s
+[root@ncputility ~ pancwl_rc]$ oc get pods
+NAME           READY   STATUS              RESTARTS   AGE
+podpingtest3   0/1     ContainerCreating   0          6s
+[root@ncputility ~ pancwl_rc]$ oc get pods
+NAME           READY   STATUS              RESTARTS   AGE
+podpingtest3   0/1     ContainerCreating   0          8s
+[root@ncputility ~ pancwl_rc]$ oc get pods
+NAME           READY   STATUS              RESTARTS   AGE
+podpingtest3   0/1     ContainerCreating   0          9s
+[root@ncputility ~ pancwl_rc]$ oc get pods
+NAME           READY   STATUS              RESTARTS   AGE
+podpingtest3   0/1     ContainerCreating   0          11s
+[root@ncputility ~ pancwl_rc]$ oc get pods
+NAME           READY   STATUS              RESTARTS   AGE
+podpingtest3   0/1     ContainerCreating   0          13s
+[root@ncputility ~ pancwl_rc]$ 
+</code></pre>
+<ol>
+<li>validate the pod status and make sure it's getting the image via proxy-cache. </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc get pods
+NAME           READY   STATUS    RESTARTS   AGE
+podpingtest3   1/1     Running   0          5m1s
+[root@ncputility ~ pancwl_rc]$
+
+
+[root@ncputility ~ pancwl_rc]$ oc describe pod podpingtest3
+Name:             podpingtest3
+Namespace:        nokia
+Priority:         0
+Service Account:  default
+Node:             appworker9.panclypcwl01.mnc020.mcc714/10.89.96.35
+Start Time:       Fri, 04 Apr 2025 08:04:47 -0500
+Labels:           run=podpingtest3
+Annotations:      k8s.ovn.org/pod-networks:
+                    {&quot;default&quot;:{&quot;ip_addresses&quot;:[&quot;172.19.21.252/23&quot;],&quot;mac_address&quot;:&quot;0a:58:ac:13:15:fc&quot;,&quot;gateway_ips&quot;:[&quot;172.19.20.1&quot;],&quot;routes&quot;:[{&quot;dest&quot;:&quot;172.16....
+                  k8s.v1.cni.cncf.io/network-status:
+                    [{
+                        &quot;name&quot;: &quot;ovn-kubernetes&quot;,
+                        &quot;interface&quot;: &quot;eth0&quot;,
+                        &quot;ips&quot;: [
+                            &quot;172.19.21.252&quot;
+                        ],
+                        &quot;mac&quot;: &quot;0a:58:ac:13:15:fc&quot;,
+                        &quot;default&quot;: true,
+                        &quot;dns&quot;: {}
+                    }]
+                  openshift.io/scc: anyuid
+Status:           Running
+IP:               172.19.21.252
+IPs:
+  IP:  172.19.21.252
+Containers:
+  podpingtest3:
+    Container ID:  cri-o://749055ef608c6f30be42248c63889fd85377928389dae2e29eed50919cc2ee79
+    Image:         ephemeral.url/cnfimages/testimage01:latest
+    Image ID:      ephemeral.url/cnfimages/testimage01@sha256:32666e0234f88377a91de56bb78f2d4f8df45b4f99c1c2dc9ee1d134c84f4753
+    Port:          &lt;none&gt;
+    Host Port:     &lt;none&gt;
+    Args:
+      tail
+      -f
+      /dev/null
+    State:          Running
+      Started:      Fri, 04 Apr 2025 08:05:05 -0500
+    Ready:          True
+    Restart Count:  0
+    Environment:    &lt;none&gt;
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-mp46w (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True
+  Initialized                 True
+  Ready                       True
+  ContainersReady             True
+  PodScheduled                True
+Volumes:
+  kube-api-access-mp46w:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       &lt;nil&gt;
+    DownwardAPI:             true
+    ConfigMapName:           openshift-service-ca.crt
+    ConfigMapOptional:       &lt;nil&gt;
+QoS Class:                   BestEffort
+Node-Selectors:              &lt;none&gt;
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 60s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 60s
+Events:
+  Type    Reason          Age    From               Message
+  ----    ------          ----   ----               -------
+  Normal  Scheduled       6m5s   default-scheduler  Successfully assigned nokia/podpingtest3 to appworker9.panclypcwl01.mnc020.mcc714
+  Normal  AddedInterface  6m4s   multus             Add eth0 [172.19.21.252/23] from ovn-kubernetes
+  Normal  Pulling         6m4s   kubelet            Pulling image &quot;ephemeral.url/cnfimages/testimage01:latest&quot;
+  Normal  Pulled          5m47s  kubelet            Successfully pulled image &quot;ephemeral.url/cnfimages/testimage01:latest&quot; in 17.521s (17.521s including waiting)
+  Normal  Created         5m47s  kubelet            Created container podpingtest3
+  Normal  Started         5m47s  kubelet            Started container podpingtest3
+[root@ncputility ~ pancwl_rc]$
+
+</code></pre>
+<p><img alt="alt text" src="../image.png" /></p>
+<h2 id="cnf-image-upload-using-pod-command">CNF image upload using pod command</h2>
+<ol>
+<li>login to hub quay using cnfowners and org as cnfimages. </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ podman login quay-registry.apps.panclyphub01.mnc020.mcc714 -u cnfowners -p cnfowners
+Login Succeeded!
+[root@ncputility ~ pancwl_rc]$
+
+</code></pre>
+<ol>
+<li>load the container images to log registry </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ podman load -i &lt;filename&gt;.tar^C
+[root@ncputility ~ pancwl_rc]$
+</code></pre>
+<ol>
+<li>tag the image to your registry here </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ podman tag quay-registry.apps.panclyphub01.mnc020.mcc714/cnfimages/testimage01 quay-registry.apps.panclyphub01.mnc020.mcc714/cnfimagesnew/testimage01:latest
+[root@ncputility ~ pancwl_rc]$
+</code></pre>
+<ol>
+<li>push the image to remore registry using podman push command here .</li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ podman push quay-registry.apps.panclyphub01.mnc020.mcc714/cnfimagesnew/testimage01:latest
+Getting image source signatures
+Copying blob 1af69dabfc93 done   |
+Copying blob 53f86715cdba done   |
+Copying blob b6361360b38a done   |
+Copying config d39b33df22 done   |
+Writing manifest to image destination
+[root@ncputility ~ pancwl_rc]$
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

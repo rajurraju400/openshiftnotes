@@ -1,0 +1,83 @@
+site_name: OpenShift Notes
+site_description: Documentation for OpenShift installation, backup, storage, troubleshooting, and more.
+site_author: venkatapathirajr
+theme:
+  name: material
+  logo: images/logo.png
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+  font:
+    text: Red Hat Text
+    code: Roboto Mono
+
+extra_css:
+  - stylesheets/redhat-style.css
+nav:
+  - Home: index.md
+
+  - Git Helper:
+      - Git Backup: git-helper/ncd-git-backup.md
+      - Git Restore: git-helper/ncd-git-restore.md
+      - Deployment Scripts:
+          - Backup Config: git-helper/Deployment/backupconfig.sh
+          - New Git Server (v1): git-helper/Deployment/newgitserver.sh
+
+  - OpenShift:
+      - Backup & Restore:
+          - ACM GEO Red: openshift/backup-restore/ACM-GEO-RED.md
+          - ACM Local Backup: openshift/backup-restore/ACM-localbackup.md
+          - AWS S3 Backup: openshift/backup-restore/AWS-S3.md
+          - ETCD Backup: openshift/backup-restore/etcd-backup.md
+          - ETCD Restore: openshift/backup-restore/etcd-restore.md
+
+      - CNF Onboarding Support:
+          - Image TLS Issue: openshift/CNF-onboarding-support/image-tls-issue.md
+          - OCLogin TLS Issue: openshift/CNF-onboarding-support/oclogin-tls-issue.md
+          - Proxy Cache Pod: openshift/CNF-onboarding-support/proxy-cache-pod.md
+
+      - Deployment: openshift/deployment/readme.md
+
+      - Maintenance:
+          - Cluster Stop/Start: openshift/maintenace/cluster-stop-start.md
+          - Reboot Nodes: openshift/maintenace/reboot-nodes.md
+
+      - Networking:
+          - MetalLB Troubleshooting: openshift/networking/metalb-troubleshooting.md
+          - MetalLB Configuration: openshift/networking/metallb-configuration.md
+
+      - Storage Management:
+          - Ceph Rebalance Issue: openshift/storagemanagement/ceph-rebalanceissue.md
+          - Storage Node Replacement: openshift/storagemanagement/storage-node-replacement.md
+
+      - Tools Management TS: openshift/tools-management-ts/ts-tools.md
+
+      - Troubleshooting:
+          - Nsenter Usage: openshift/troubleshooting/nsenter.md
+
+      - User Management:
+          - Remove Kubeadmin: openshift/usermanagement/remove-kubeadmin.md
+          - User Management: openshift/usermanagement/user-management.md
+
+  - OpenStack:
+      - (Add OpenStack documents here when ready)
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - admonition
+  - codehilite
+  - tables
+  - footnotes
+  - attr_list
+  - def_list
+
+plugins:
+  - search
+extra:
+  footer: |
+    <div style="text-align: center;">
+      <img src="images/logo.png" alt="Red Hat Logo" style="width: 100px; height: auto;">
+    </div>
+

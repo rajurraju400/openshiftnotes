@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>ACM Local Backup - OpenShift Notes</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">OpenShift Notes</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Git Helper</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../git-helper/ncd-git-backup/" class="dropdown-item">Git Backup</a>
+</li>
+                                    
+<li>
+    <a href="../../../git-helper/ncd-git-restore/" class="dropdown-item">Git Restore</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Deployment Scripts</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../git-helper/Deployment/backupconfig.sh" class="dropdown-item">Backup Config</a>
+</li>
+            
+<li>
+    <a href="../../../git-helper/Deployment/newgitserver.sh" class="dropdown-item">New Git Server</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">OpenShift</a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Backup & Restore</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../ACM-GEO-RED/" class="dropdown-item">ACM GEO Red</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">ACM Local Backup</a>
+</li>
+            
+<li>
+    <a href="../AWS-S3/" class="dropdown-item">AWS S3 Backup</a>
+</li>
+            
+<li>
+    <a href="../etcd-backup/" class="dropdown-item">ETCD Backup</a>
+</li>
+            
+<li>
+    <a href="../etcd-restore/" class="dropdown-item">ETCD Restore</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">CNF Onboarding Support</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../CNF-onboarding-support/image-tls-issue/" class="dropdown-item">Image TLS Issue</a>
+</li>
+            
+<li>
+    <a href="../../CNF-onboarding-support/oclogin-tls-issue/" class="dropdown-item">OCLogin TLS Issue</a>
+</li>
+            
+<li>
+    <a href="../../CNF-onboarding-support/proxy-cache-pod/" class="dropdown-item">Proxy Cache Pod</a>
+</li>
+    </ul>
+  </li>
+                                    
+<li>
+    <a href="../../deployment/readme/" class="dropdown-item">Deployment</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Maintenance</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../maintenace/cluster-stop-start/" class="dropdown-item">Cluster Stop/Start</a>
+</li>
+            
+<li>
+    <a href="../../maintenace/reboot-nodes/" class="dropdown-item">Reboot Nodes</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Networking</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../networking/metalb-troubleshooting/" class="dropdown-item">MetalLB Troubleshooting</a>
+</li>
+            
+<li>
+    <a href="../../networking/metallb-configuration/" class="dropdown-item">MetalLB Configuration</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Storage Management</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../storagemanagement/ceph-rebalanceissue/" class="dropdown-item">Ceph Rebalance Issue</a>
+</li>
+            
+<li>
+    <a href="../../storagemanagement/storage-node-replacement/" class="dropdown-item">Storage Node Replacement</a>
+</li>
+    </ul>
+  </li>
+                                    
+<li>
+    <a href="../../tools-management-ts/ts-tools/" class="dropdown-item">Tools Management TS</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Troubleshooting</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../troubleshooting/nsenter/" class="dropdown-item">Nsenter Usage</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">User Management</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../usermanagement/remove-kubeadmin/" class="dropdown-item">Remove Kubeadmin</a>
+</li>
+            
+<li>
+    <a href="../../usermanagement/user-management/" class="dropdown-item">User Management</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../ACM-GEO-RED/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../AWS-S3/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<p>both cluster</p>
+<p>active hub:</p>
+<p>[root@ncputility ~ panhub_rc]$ source /root/panhubrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!</p>
+<p>Login successful.</p>
+<p>You have access to 108 projects, the list has been suppressed. You can list all projects with 'oc projects'</p>
+<p>Using project "default".
+[root@ncputility ~ panhub_rc]$ oc edit multiclusterhubs.operator.open-cluster-management.io -n open-cluster-management multiclusterhub
+multiclusterhub.operator.open-cluster-management.io/multiclusterhub edited
+[root@ncputility ~ panhub_rc]$ oc edit multiclusterhubs.operator.open-cluster-management.io -n open-cluster-management multiclusterhub
+Edit cancelled, no changes made.
+[root@ncputility ~ panhub_rc]$</p>
+<p>Active hub: </p>
+<p>[root@dom14npv101-infra-manager ~ hubrc]# cd /root/raj/amc-backup
+[root@dom14npv101-infra-manager ~ hubrc]# ll
+total 24
+drwxr-xr-x. 7 root root 4096 May  1 17:46 ../
+-rw-r--r--. 1 root root  257 May  1 17:47 bucketclass-noobaa-default-backing-store.yaml
+-rw-r--r--. 1 root root  290 May  1 17:48 ObjectBucketClaim.yaml
+-rw-r--r--. 1 root root  116 May  1 17:50 secret.txt
+-rw-r--r--. 1 root root  293 May  1 17:52 secret.yaml
+-rw-r--r--. 1 root root 2329 May  1 17:58 DataProtectionApplication.yaml
+drwxr-xr-x. 2 root root  164 May  1 17:58 ./
+[root@dom14npv101-infra-manager ~ hubrc]# oc apply -f secret.yaml
+secret/cloud-credentials created
+[root@dom14npv101-infra-manager ~ hubrc]# oc apply -f DataProtectionApplication.yaml
+dataprotectionapplication.oadp.openshift.io/velero-acm-backup created
+[root@dom14npv101-infra-manager ~ hubrc]# oc get backupstoragelocations.velero.io
+No resources found in ncd-cbur namespace.
+[root@dom14npv101-infra-manager ~ hubrc]# oc get backupstoragelocations.velero.io -n open-cluster-management-backup
+NAME                  PHASE       LAST VALIDATED   AGE   DEFAULT
+velero-acm-backup-1   Available   22s              33s   true
+[root@dom14npv101-infra-manager ~ hubrc]# oc get appprojects.argoproj.io -n openshift-gitops | grep -v default
+NAME                  AGE
+site-config-project   59d
+site-policy-project   59d
+[root@dom14npv101-infra-manager ~ hubrc]# oc get appprojects.argoproj.io -n openshift-gitops -l velero.io/exclude-from-backup
+NAME                  AGE
+site-config-project   59d
+site-policy-project   59d
+[root@dom14npv101-infra-manager ~ hubrc]# oc get applications.argoproj.io -n openshift-gitops -l velero.io/exclude-from-backup
+NAME                        SYNC STATUS   HEALTH STATUS
+ncpvnpvlab1-site-configs    Synced        Healthy
+ncpvnpvlab1-site-policies   Synced        Healthy
+ncpvnpvmgt-site-configs     Synced        Healthy
+ncpvnpvmgt-site-policies    Synced        Healthy
+[root@dom14npv101-infra-manager ~ hubrc]# cat &gt; backup.yaml
+apiVersion: cluster.open-cluster-management.io/v1beta1
+kind: BackupSchedule
+metadata:
+  name: schedule-acm
+  namespace: open-cluster-management-backup
+spec:
+  veleroSchedule: 0 22 * * *
+  veleroTtl: 120h
+^C
+[root@dom14npv101-infra-manager ~ hubrc]# date
+Thu May  1 06:04:49 PM UTC 2025
+[root@dom14npv101-infra-manager ~ hubrc]# vi backup.yaml
+[root@dom14npv101-infra-manager ~ hubrc]# oc apply  -f  backup.yaml
+backupschedule.cluster.open-cluster-management.io/schedule-acm created
+[root@dom14npv101-infra-manager ~ hubrc]# oc get backupstoragelocations.velero.io -A
+NAMESPACE                        NAME                  PHASE       LAST VALIDATED   AGE     DEFAULT
+open-cluster-management-backup   velero-acm-backup-1   Available   4s               5m15s   true
+[root@dom14npv101-infra-manager ~ hubrc]# oc describe backupstoragelocations.velero.io velero-acm-backup-1 -n open-cluster-management-backup
+Name:         velero-acm-backup-1
+Namespace:    open-cluster-management-backup
+Labels:       app.kubernetes.io/component=bsl
+              app.kubernetes.io/instance=velero-acm-backup-1
+              app.kubernetes.io/managed-by=oadp-operator
+              app.kubernetes.io/name=oadp-operator-velero
+              openshift.io/oadp=True
+              openshift.io/oadp-registry=True
+Annotations:  <none>
+API Version:  velero.io/v1
+Kind:         BackupStorageLocation
+Metadata:
+  Creation Timestamp:  2025-05-01T18:02:31Z
+  Generation:          13
+  Owner References:
+    API Version:           oadp.openshift.io/v1alpha1
+    Block Owner Deletion:  true
+    Controller:            true
+    Kind:                  DataProtectionApplication
+    Name:                  velero-acm-backup
+    UID:                   89734e12-0144-4376-954d-cb13cde17515
+  Resource Version:        142419914
+  UID:                     52b6b341-5e36-4e02-bc98-15622be65673
+Spec:
+  Config:
+    Checksum Algorithm:
+    Profile:             default
+    Region:              none
+    s3ForcePathStyle:    true
+    s3Url:               https://s3-openshift-storage.apps.ncpvnpvmgt.pnwlab.nsn-rdnet.net
+  Credential:
+    Key:    cloud
+    Name:   cloud-credentials
+  Default:  true
+  Object Storage:
+    Bucket:   acm-backups-bcf1990d-0846-4a6d-8518-67db81ebee63
+    Ca Cert:  LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURERENDQWZTZ0F3SUJBZ0lCQVRBTkJna3Foa2lHOXcwQkFRc0ZBREFtTVNRd0lnWURWUVFEREJ0cGJtZHkKWlhOekxXOXdaWEpoZEc5eVFERTNOREV4TXpJek16RXdIaGNOTWpVd016QTBNak0xTWpF        d1doY05NamN3TXpBMApNak0xTWpFeFdqQW1NU1F3SWdZRFZRUUREQnRwYm1keVpYTnpMVzl3WlhKaGRHOXlRREUzTkRFeE16SXpNekV3CmdnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUURLOUhrUkd4VWNPRnZjcHVZc1dLdWQKd2ltMFBWc3B3VU        1LNXgyejhBQWJ1eGhuOTRFWThWbk9tSkJUVkhqRnIvbmI0SjRzYldzN3JBbXZINWpjbTdzbApMYW1wWU1uUWlSamtrdE5FSVV3Rm9LVm9VU3ZRSWtiTHJlZk1hcjJYSENOOEU0dHVHeXA3U1c1YjBMRjc4cUY5CktIY0ttMXBDVi9NR3lyU1RtMkx0SmtBcnM5d0lsL0ZPYmox        UEcvUmsvQThtRHZhalBmSUVGbU8yMHduWEQ5bWcKZDVIVk1ZVzkyWWRWVDZPR0FWMEZUNCtJNzNibEdyK3pqQUJzMklxTnUzQ3h0cHlucXMvVVV6RGFodGRvc2ZxSgpWeHhaTUFaZlRENTk0UUtzMFZhamR2aTU1Z1pPejVBQXRLSG96Rm85TWk5dklXblpwR3Z0T2xINnIyVE        ZmSytmCkFnTUJBQUdqUlRCRE1BNEdBMVVkRHdFQi93UUVBd0lDcERBU0JnTlZIUk1CQWY4RUNEQUdBUUgvQWdFQU1CMEcKQTFVZERnUVdCQlRJNVRqeVp2aUJ1NE0wNzd6Mk9PY0lDRmkwMURBTkJna3Foa2lHOXcwQkFRc0ZBQU9DQVFFQQpuNG96eWZha0sySUFqb3dFSlZE        bFNMMlp4YVJuWmJFcjVLanhJbjhiQ0tjaUdBK0h2UURuY0UzK1BzSTJDZGxpCjhXQlR4ZnJ3aFoxTVZ2YjVySmlsTXpZUklQamJaanUrbitaNlB0SGJYMEZDb2Q0elpaYkZBOFQvNlZXUkJSSmUKL3VMaXU3VVRENjJQRDgydVlNSmJFTDNTa1V6b1U5T2NXMSt1S1R3UG56NG        VFblVvNzVnbVlUWnBybkhKSEttNAowUVljTlF6RndHR3JnQnNuTy8wRW94Z2Roa09keENlWFBqRUpURnZXRTdpRjhYWTlKQVZKMVpCcStuZUNoMmRCCkowRGRkaGZjMDhtUnpHbStkVXRyeCtZMnRoSXBxWVUreTN1WDZaM09TcDVNeFIvQzMvelRGR2pqK3pKUmNIOTIKUmtH        c2V5bGNCYXpYbmVvWXgzdEVxUT09Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K
+    Prefix:   velero
+  Provider:   aws
+Status:
+  Last Synced Time:      2025-05-01T18:07:42Z
+  Last Validation Time:  2025-05-01T18:07:42Z
+  Phase:                 Available
+Events:
+  Type    Reason                           Age    From            Message
+  ----    ------                           ----   ----            -------
+  Normal  BackupStorageLocationReconciled  5m33s  DPA-controller  performed created on backupstoragelocation open-cluster-management-backup/velero-acm-backup-1
+[root@dom14npv101-infra-manager ~ hubrc]# oc get pods -n  open-cluster-management-backup
+NAME                                                 READY   STATUS    RESTARTS   AGE
+cluster-backup-chart-clusterbackup-698656f7f-cqxxj   1/1     Running   0          24d
+cluster-backup-chart-clusterbackup-698656f7f-dvdz8   1/1     Running   0          24d
+node-agent-brq4q                                     1/1     Running   0          6m6s
+node-agent-j9xm8                                     1/1     Running   0          6m6s
+node-agent-mlrwk                                     1/1     Running   0          6m6s
+node-agent-nkb7v                                     1/1     Running   0          6m6s
+node-agent-sgqxw                                     1/1     Running   0          6m6s
+openshift-adp-controller-manager-74f799649f-v2slw    1/1     Running   0          24d
+velero-549fbfb95d-s966g                              1/1     Running   0          6m6s
+[root@dom14npv101-infra-manager ~ hubrc]# oc -n open-cluster-management-backup exec -it velero-549fbfb95d-s966g -- ./velero backup-location get
+Defaulted container "velero" out of: velero, openshift-velero-plugin (init), velero-plugin-for-aws (init)
+NAME                  PROVIDER   BUCKET/PREFIX                                             PHASE       LAST VALIDATED                  ACCESS MODE   DEFAULT
+velero-acm-backup-1   aws        acm-backups-bcf1990d-0846-4a6d-8518-67db81ebee63/velero   Available   2025-05-01 18:08:42 +0000 UTC   ReadWrite     true
+[root@dom14npv101-infra-manager ~ hubrc]# oc -n open-cluster-management-backup exec -it velero-549fbfb95d-s966g -- ./velero backup get
+Defaulted container "velero" out of: velero, openshift-velero-plugin (init), velero-plugin-for-aws (init)
+NAME                                            STATUS      ERRORS   WARNINGS   CREATED                         EXPIRES   STORAGE LOCATION      SELECTOR
+acm-credentials-schedule-20250501180616         Completed   0        0          2025-05-01 18:06:17 +0000 UTC   4d        velero-acm-backup-1   <none>
+acm-managed-clusters-schedule-20250501180616    Completed   0        0          2025-05-01 18:06:18 +0000 UTC   4d        velero-acm-backup-1   <none>
+acm-resources-generic-schedule-20250501180616   Completed   0        0          2025-05-01 18:06:20 +0000 UTC   4d        velero-acm-backup-1   cluster.open-cluster-management.io/backup
+acm-resources-schedule-20250501180616           Completed   0        0          2025-05-01 18:06:29 +0000 UTC   4d        velero-acm-backup-1   !cluster.open-cluster-management.io/backup,!policy.open-cluste        r-management.io/root-policy
+acm-validation-policy-schedule-20250501180616   Completed   0        0          2025-05-01 18:06:30 +0000 UTC   1d        velero-acm-backup-1   <none>
+[root@dom14npv101-infra-manager ~ hubrc]# date
+Thu May  1 06:09:39 PM UTC 2025
+[root@dom14npv101-infra-manager ~ hubrc]# </p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
