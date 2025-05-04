@@ -1,481 +1,1665 @@
-<!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../../../img/favicon.ico">
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for OpenShift installation, backup, storage, troubleshooting, and more.">
+      
+      
+        <meta name="author" content="venkatapathirajr">
+      
+      
+      
+        <link rel="prev" href="../../storagemanagement/storage-node-replacement/">
+      
+      
+        <link rel="next" href="../../troubleshooting/nsenter/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
         <title>Tools Management TS - OpenShift Notes</title>
-        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
-        <link href="../../../css/brands.min.css" rel="stylesheet">
-        <link href="../../../css/solid.min.css" rel="stylesheet">
-        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
-        <link href="../../../css/base.css" rel="stylesheet">
-        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
-        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
-    </head>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="../../..">OpenShift Notes</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="../../.." class="nav-link">Home</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Git Helper</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../../../git-helper/ncd-git-backup/" class="dropdown-item">Git Backup</a>
-</li>
-                                    
-<li>
-    <a href="../../../git-helper/ncd-git-restore/" class="dropdown-item">Git Restore</a>
-</li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Deployment Scripts</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../../git-helper/Deployment/backupconfig.sh" class="dropdown-item">Backup Config</a>
-</li>
-            
-<li>
-    <a href="../../../git-helper/Deployment/newgitserver.sh" class="dropdown-item">New Git Server</a>
-</li>
-    </ul>
-  </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">OpenShift</a>
-                                <ul class="dropdown-menu">
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Backup & Restore</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../backup-restore/ACM-GEO-RED/" class="dropdown-item">ACM GEO Red</a>
-</li>
-            
-<li>
-    <a href="../../backup-restore/ACM-localbackup/" class="dropdown-item">ACM Local Backup</a>
-</li>
-            
-<li>
-    <a href="../../backup-restore/AWS-S3/" class="dropdown-item">AWS S3 Backup</a>
-</li>
-            
-<li>
-    <a href="../../backup-restore/etcd-backup/" class="dropdown-item">ETCD Backup</a>
-</li>
-            
-<li>
-    <a href="../../backup-restore/etcd-restore/" class="dropdown-item">ETCD Restore</a>
-</li>
-    </ul>
-  </li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">CNF Onboarding Support</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../CNF-onboarding-support/image-tls-issue/" class="dropdown-item">Image TLS Issue</a>
-</li>
-            
-<li>
-    <a href="../../CNF-onboarding-support/oclogin-tls-issue/" class="dropdown-item">OCLogin TLS Issue</a>
-</li>
-            
-<li>
-    <a href="../../CNF-onboarding-support/proxy-cache-pod/" class="dropdown-item">Proxy Cache Pod</a>
-</li>
-    </ul>
-  </li>
-                                    
-<li>
-    <a href="../../deployment/readme/" class="dropdown-item">Deployment</a>
-</li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Maintenance</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../maintenace/cluster-stop-start/" class="dropdown-item">Cluster Stop/Start</a>
-</li>
-            
-<li>
-    <a href="../../maintenace/reboot-nodes/" class="dropdown-item">Reboot Nodes</a>
-</li>
-    </ul>
-  </li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Networking</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../networking/metalb-troubleshooting/" class="dropdown-item">MetalLB Troubleshooting</a>
-</li>
-            
-<li>
-    <a href="../../networking/metallb-configuration/" class="dropdown-item">MetalLB Configuration</a>
-</li>
-    </ul>
-  </li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Storage Management</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../storagemanagement/ceph-rebalanceissue/" class="dropdown-item">Ceph Rebalance Issue</a>
-</li>
-            
-<li>
-    <a href="../../storagemanagement/storage-node-replacement/" class="dropdown-item">Storage Node Replacement</a>
-</li>
-    </ul>
-  </li>
-                                    
-<li>
-    <a href="./" class="dropdown-item active" aria-current="page">Tools Management TS</a>
-</li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Troubleshooting</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../troubleshooting/nsenter/" class="dropdown-item">Nsenter Usage</a>
-</li>
-    </ul>
-  </li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">User Management</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../usermanagement/remove-kubeadmin/" class="dropdown-item">Remove Kubeadmin</a>
-</li>
-            
-<li>
-    <a href="../../usermanagement/user-management/" class="dropdown-item">User Management</a>
-</li>
-    </ul>
-  </li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ms-md-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../../storagemanagement/storage-node-replacement/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../../troubleshooting/nsenter/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-bs-level="1"><a href="#this-documentation-help-to-setup-some-troubleshooting-tools-installation-on-the-openshift-infra" class="nav-link">This documentation help to setup some troubleshooting tools installation on the openshift infra.</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-bs-level="2"><a href="#tcpdump" class="nav-link">TCPDUMP</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-bs-level="2"><a href="#sos-report" class="nav-link">sos report</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Red Hat Text";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/redhat-style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-<h1 id="this-documentation-help-to-setup-some-troubleshooting-tools-installation-on-the-openshift-infra">This documentation help to setup some troubleshooting tools installation on the openshift infra.</h1>
-<h2 id="tcpdump">TCPDUMP</h2>
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#this-documentation-help-to-setup-some-troubleshooting-tools-installation-on-the-openshift-infra" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="OpenShift Notes" class="md-header__button md-logo" aria-label="OpenShift Notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenShift Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tools Management TS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="OpenShift Notes" class="md-nav__button md-logo" aria-label="OpenShift Notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    OpenShift Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Git Helper
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Git Helper
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git-helper/ncd-git-backup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git Backup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git-helper/ncd-git-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment Scripts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment Scripts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git-helper/Deployment/backupconfig.sh" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Config
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git-helper/Deployment/newgitserver.sh" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    New Git Server (v1)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OpenShift
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            OpenShift
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Backup & Restore
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Backup & Restore
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backup-restore/ACM-GEO-RED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ACM GEO Red
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backup-restore/ACM-localbackup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ACM Local Backup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backup-restore/AWS-S3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWS S3 Backup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backup-restore/etcd-backup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ETCD Backup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backup-restore/etcd-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ETCD Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    CNF Onboarding Support
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            CNF Onboarding Support
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CNF-onboarding-support/image-tls-issue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Image TLS Issue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CNF-onboarding-support/oclogin-tls-issue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OCLogin TLS Issue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CNF-onboarding-support/proxy-cache-pod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Proxy Cache Pod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Maintenance
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Maintenance
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenace/cluster-stop-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster Stop/Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenace/reboot-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reboot Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Networking
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Networking
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/metalb-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MetalLB Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/metallb-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MetalLB Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Storage Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Storage Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storagemanagement/ceph-rebalanceissue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ceph Rebalance Issue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storagemanagement/storage-node-replacement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Storage Node Replacement
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Tools Management TS
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tools Management TS
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tcpdump" class="md-nav__link">
+    <span class="md-ellipsis">
+      TCPDUMP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sos-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      sos report
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sos report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/nsenter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nsenter Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            User Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usermanagement/remove-kubeadmin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remove Kubeadmin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usermanagement/user-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OpenStack
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            OpenStack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../(Add OpenStack documents here when ready)" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    None
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tcpdump" class="md-nav__link">
+    <span class="md-ellipsis">
+      TCPDUMP
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sos-report" class="md-nav__link">
+    <span class="md-ellipsis">
+      sos report
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="sos report">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="this-documentation-help-to-setup-some-troubleshooting-tools-installation-on-the-openshift-infra">This documentation help to setup some troubleshooting tools installation on the openshift infra.<a class="headerlink" href="#this-documentation-help-to-setup-some-troubleshooting-tools-installation-on-the-openshift-infra" title="Permanent link">&para;</a></h1>
+<h2 id="tcpdump">TCPDUMP<a class="headerlink" href="#tcpdump" title="Permanent link">&para;</a></h2>
 <ol>
 <li>login to node via ssh or debug utitiy </li>
 </ol>
-<pre><code>[root@ncputility ~ pancwl_rc]$ ssh core@gateway2.panclypcwl01.mnc020.mcc714
-Red Hat Enterprise Linux CoreOS 416.94.202407081958-0
-  Part of OpenShift 4.16, RHCOS is a Kubernetes-native operating system
-  managed by the Machine Config Operator (`clusteroperator/machine-config`).
+<div class="codehilite"><pre><span></span><code><span class="err">[</span><span class="n">root</span><span class="nv">@ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="err">]</span><span class="n">$</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="n">core</span><span class="nv">@gateway2.panclypcwl01.mnc020.mcc714</span>
+<span class="n">Red</span><span class="w"> </span><span class="n">Hat</span><span class="w"> </span><span class="n">Enterprise</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="n">CoreOS</span><span class="w"> </span><span class="mf">416.94.202407081958</span><span class="o">-</span><span class="mi">0</span>
+<span class="w">  </span><span class="n">Part</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">OpenShift</span><span class="w"> </span><span class="mf">4.16</span><span class="p">,</span><span class="w"> </span><span class="n">RHCOS</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Kubernetes</span><span class="o">-</span><span class="n">native</span><span class="w"> </span><span class="n">operating</span><span class="w"> </span><span class="k">system</span>
+<span class="w">  </span><span class="n">managed</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Machine</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="n">Operator</span><span class="w"> </span><span class="p">(</span><span class="n n-Quoted">`clusteroperator/machine-config`</span><span class="p">).</span>
 
-WARNING: Direct SSH access to machines is not recommended; instead,
-make configuration changes via `machineconfig` objects:
-  https://docs.openshift.com/container-platform/4.16/architecture/architecture-rhcos.html
+<span class="n">WARNING</span><span class="o">:</span><span class="w"> </span><span class="n">Direct</span><span class="w"> </span><span class="n">SSH</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">machines</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">recommended</span><span class="p">;</span><span class="w"> </span><span class="n">instead</span><span class="p">,</span>
+<span class="n">make</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">changes</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n n-Quoted">`machineconfig`</span><span class="w"> </span><span class="n">objects</span><span class="o">:</span>
+<span class="w">  </span><span class="n">https</span><span class="o">://</span><span class="n">docs</span><span class="p">.</span><span class="n">openshift</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">container</span><span class="o">-</span><span class="n">platform</span><span class="o">/</span><span class="mf">4.16</span><span class="o">/</span><span class="n">architecture</span><span class="o">/</span><span class="n">architecture</span><span class="o">-</span><span class="n">rhcos</span><span class="p">.</span><span class="n">html</span>
 
----
-[core@gateway2 ~]$
-</code></pre>
+<span class="o">---</span>
+<span class="err">[</span><span class="n">core</span><span class="nv">@gateway2</span><span class="w"> </span><span class="o">~</span><span class="err">]</span><span class="n">$</span>
+</code></pre></div>
+
 <ol>
 <li>become root and update the toolbox rc file here.
     a. use your hub cluster quay to avoid ssl certificate trust error. </li>
 </ol>
-<pre><code>[root@gateway2 ~]# cat /root/.toolboxrc
-#REGISTRY=ncputility.panclyphub01.mnc020.mcc714:8443/ocmirror/rhel9
-REGISTRY=quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9
-IMAGE=support-tools:latest
-[root@gateway2 ~]#
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="c1"># cat /root/.toolboxrc</span>
+<span class="c1">#REGISTRY=ncputility.panclyphub01.mnc020.mcc714:8443/ocmirror/rhel9</span>
+<span class="n">REGISTRY</span><span class="o">=</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">panclyphub01</span><span class="o">.</span><span class="n">mnc020</span><span class="o">.</span><span class="n">mcc714</span><span class="o">/</span><span class="n">ocmirror</span><span class="o">/</span><span class="n">rhel9</span>
+<span class="n">IMAGE</span><span class="o">=</span><span class="n">support</span><span class="o">-</span><span class="n">tools</span><span class="p">:</span><span class="n">latest</span>
+<span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="c1">#</span>
+</code></pre></div>
 
-</code></pre>
 <ol>
 <li>now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. </li>
 </ol>
-<pre><code>[root@gateway2 ~]# toolbox
-.toolboxrc file detected, overriding defaults...
-Trying to pull quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest...
-Getting image source signatures
-Copying blob f5e6502d2728 done   |
-Copying blob ebc7dc32a098 done   |
-Copying config affd08d3be done   |
-Writing manifest to image destination
-affd08d3bead20c55f40f08270d477b1524d9d7a2db25235956c7858755ef5f3
-Spawning a container 'toolbox-root' with image 'quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest'
-Detected RUN label in the container image. Using that as the default...
-6bdff24c2e5da044965e2cec8eea58c3d86668f3a5bbe1e2d34495e956fdf0d7
-toolbox-root
-Container started successfully. To exit, type 'exit'.
-[root@gateway2 /]#
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="c1"># toolbox</span>
+<span class="o">.</span><span class="n">toolboxrc</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">detected</span><span class="p">,</span><span class="w"> </span><span class="n">overriding</span><span class="w"> </span><span class="n">defaults</span><span class="o">...</span>
+<span class="n">Trying</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">panclyphub01</span><span class="o">.</span><span class="n">mnc020</span><span class="o">.</span><span class="n">mcc714</span><span class="o">/</span><span class="n">ocmirror</span><span class="o">/</span><span class="n">rhel9</span><span class="o">/</span><span class="n">support</span><span class="o">-</span><span class="n">tools</span><span class="p">:</span><span class="n">latest</span><span class="o">...</span>
+<span class="n">Getting</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">signatures</span>
+<span class="n">Copying</span><span class="w"> </span><span class="n">blob</span><span class="w"> </span><span class="n">f5e6502d2728</span><span class="w"> </span><span class="n">done</span><span class="w">   </span><span class="o">|</span>
+<span class="n">Copying</span><span class="w"> </span><span class="n">blob</span><span class="w"> </span><span class="n">ebc7dc32a098</span><span class="w"> </span><span class="n">done</span><span class="w">   </span><span class="o">|</span>
+<span class="n">Copying</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="n">affd08d3be</span><span class="w"> </span><span class="n">done</span><span class="w">   </span><span class="o">|</span>
+<span class="n">Writing</span><span class="w"> </span><span class="n">manifest</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">destination</span>
+<span class="n">affd08d3bead20c55f40f08270d477b1524d9d7a2db25235956c7858755ef5f3</span>
+<span class="n">Spawning</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">container</span><span class="w"> </span><span class="s1">&#39;toolbox-root&#39;</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="s1">&#39;quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest&#39;</span>
+<span class="n">Detected</span><span class="w"> </span><span class="n">RUN</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">container</span><span class="w"> </span><span class="n">image</span><span class="o">.</span><span class="w"> </span><span class="n">Using</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">default</span><span class="o">...</span>
+<span class="mi">6</span><span class="n">bdff24c2e5da044965e2cec8eea58c3d86668f3a5bbe1e2d34495e956fdf0d7</span>
+<span class="n">toolbox</span><span class="o">-</span><span class="n">root</span>
+<span class="n">Container</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="n">successfully</span><span class="o">.</span><span class="w"> </span><span class="n">To</span><span class="w"> </span><span class="n">exit</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="s1">&#39;exit&#39;</span><span class="o">.</span>
+<span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">/</span><span class="p">]</span><span class="c1">#</span>
+</code></pre></div>
 
-</code></pre>
 <ol>
 <li>now run tcpdump command against any linux network interface. </li>
 </ol>
-<pre><code>[root@gateway2 /]# tcpdump -i vlan104 host 10.89.97.162 -n
-dropped privs to tcpdump
-tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
-listening on vlan104, link-type EN10MB (Ethernet), snapshot length 262144 bytes
-11:09:46.575071 ARP, Request who-has 10.89.97.167 tell 10.89.97.162, length 42
-11:09:46.847283 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:47.111266 ARP, Request who-has 10.89.97.166 tell 10.89.97.162, length 42
-11:09:47.575002 ARP, Request who-has 10.89.97.167 tell 10.89.97.162, length 42
-11:09:47.614353 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:48.110974 ARP, Request who-has 10.89.97.166 tell 10.89.97.162, length 42
-11:09:48.398615 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:49.165561 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:49.944591 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:50.708761 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:51.486902 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:52.262277 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:53.022279 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:53.796498 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:54.578752 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:55.339790 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:56.093946 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:56.871023 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:57.655185 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:58.416364 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:59.198508 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:09:59.976760 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:00.160910 IP 10.89.97.165.37680 &gt; 10.89.97.162.bgp: Flags [P.], seq 207097212:207097231, ack 3177745402, win 64, options [nop,nop,TS val 4011175388 ecr 3700362321], length 19: BGP
-11:10:00.162044 IP 10.89.97.162.bgp &gt; 10.89.97.165.37680: Flags [.], ack 19, win 23411, options [nop,nop,TS val 3700389294 ecr 4011175388], length 0
-11:10:00.738822 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:01.497752 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:02.254817 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:03.028798 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:03.209179 IP 10.89.97.162.bgp &gt; 10.89.97.165.37680: Flags [P.], seq 1:20, ack 19, win 23411, options [nop,nop,TS val 3700392341 ecr 4011175388], length 19: BGP
-11:10:03.209205 IP 10.89.97.165.37680 &gt; 10.89.97.162.bgp: Flags [.], ack 20, win 64, options [nop,nop,TS val 4011178436 ecr 3700392341], length 0
-11:10:03.798017 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:04.086263 ARP, Request who-has 10.89.97.163 tell 10.89.97.162, length 42
-11:10:04.564104 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:05.086213 ARP, Request who-has 10.89.97.163 tell 10.89.97.162, length 42
-11:10:05.343276 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:06.086632 ARP, Request who-has 10.89.97.163 tell 10.89.97.162, length 42
-11:10:06.110449 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:06.906665 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:07.686809 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:08.455977 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:09.231136 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:10.002335 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:10.792658 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-11:10:11.561799 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
-^C
-44 packets captured
-44 packets received by filter
-0 packets dropped by kernel
-[root@gateway2 /]# 
-</code></pre>
-<h2 id="sos-report">sos report</h2>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@gateway2 /</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">tcpdump</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">vlan104</span><span class="w"> </span><span class="k">host</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="w"> </span><span class="o">-</span><span class="n">n</span>
+<span class="n">dropped</span><span class="w"> </span><span class="n">privs</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">tcpdump</span>
+<span class="nl">tcpdump</span><span class="p">:</span><span class="w"> </span><span class="n">verbose</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="n">suppressed</span><span class="p">,</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="o">-</span><span class="n">v</span><span class="o">[</span><span class="n">v</span><span class="o">]</span><span class="p">...</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">full</span><span class="w"> </span><span class="n">protocol</span><span class="w"> </span><span class="n">decode</span>
+<span class="n">listening</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">vlan104</span><span class="p">,</span><span class="w"> </span><span class="n">link</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="n">EN10MB</span><span class="w"> </span><span class="p">(</span><span class="n">Ethernet</span><span class="p">),</span><span class="w"> </span><span class="n">snapshot</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">262144</span><span class="w"> </span><span class="n">bytes</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">46.575071</span><span class="w"> </span><span class="n">ARP</span><span class="p">,</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="n">who</span><span class="o">-</span><span class="n">has</span><span class="w"> </span><span class="mf">10.89.97.167</span><span class="w"> </span><span class="n">tell</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">42</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">46.847283</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">47.111266</span><span class="w"> </span><span class="n">ARP</span><span class="p">,</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="n">who</span><span class="o">-</span><span class="n">has</span><span class="w"> </span><span class="mf">10.89.97.166</span><span class="w"> </span><span class="n">tell</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">42</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">47.575002</span><span class="w"> </span><span class="n">ARP</span><span class="p">,</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="n">who</span><span class="o">-</span><span class="n">has</span><span class="w"> </span><span class="mf">10.89.97.167</span><span class="w"> </span><span class="n">tell</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">42</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">47.614353</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">48.110974</span><span class="w"> </span><span class="n">ARP</span><span class="p">,</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="n">who</span><span class="o">-</span><span class="n">has</span><span class="w"> </span><span class="mf">10.89.97.166</span><span class="w"> </span><span class="n">tell</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">42</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">48.398615</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">49.165561</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">49.944591</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">50.708761</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">51.486902</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">52.262277</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">53.022279</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">53.796498</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">54.578752</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">55.339790</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">56.093946</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">56.871023</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">57.655185</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">58.416364</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">59.198508</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">09</span><span class="err">:</span><span class="mf">59.976760</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">00.160910</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.165.37680</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">.</span><span class="nl">bgp</span><span class="p">:</span><span class="w"> </span><span class="n">Flags</span><span class="w"> </span><span class="o">[</span><span class="n">P.</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">seq</span><span class="w"> </span><span class="mi">207097212</span><span class="err">:</span><span class="mi">207097231</span><span class="p">,</span><span class="w"> </span><span class="n">ack</span><span class="w"> </span><span class="mi">3177745402</span><span class="p">,</span><span class="w"> </span><span class="n">win</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="o">[</span><span class="n">nop,nop,TS val 4011175388 ecr 3700362321</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="w"> </span><span class="n">BGP</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">00.162044</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">.</span><span class="n">bgp</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165.37680</span><span class="err">:</span><span class="w"> </span><span class="n">Flags</span><span class="w"> </span><span class="o">[</span><span class="n">.</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">ack</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w"> </span><span class="n">win</span><span class="w"> </span><span class="mi">23411</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="o">[</span><span class="n">nop,nop,TS val 3700389294 ecr 4011175388</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">0</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">00.738822</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">01.497752</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">02.254817</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">03.028798</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">03.209179</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">.</span><span class="n">bgp</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165.37680</span><span class="err">:</span><span class="w"> </span><span class="n">Flags</span><span class="w"> </span><span class="o">[</span><span class="n">P.</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">seq</span><span class="w"> </span><span class="mi">1</span><span class="err">:</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">ack</span><span class="w"> </span><span class="mi">19</span><span class="p">,</span><span class="w"> </span><span class="n">win</span><span class="w"> </span><span class="mi">23411</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="o">[</span><span class="n">nop,nop,TS val 3700392341 ecr 4011175388</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="w"> </span><span class="n">BGP</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">03.209205</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.165.37680</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">.</span><span class="nl">bgp</span><span class="p">:</span><span class="w"> </span><span class="n">Flags</span><span class="w"> </span><span class="o">[</span><span class="n">.</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">ack</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">win</span><span class="w"> </span><span class="mi">64</span><span class="p">,</span><span class="w"> </span><span class="n">options</span><span class="w"> </span><span class="o">[</span><span class="n">nop,nop,TS val 4011178436 ecr 3700392341</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">0</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">03.798017</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">04.086263</span><span class="w"> </span><span class="n">ARP</span><span class="p">,</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="n">who</span><span class="o">-</span><span class="n">has</span><span class="w"> </span><span class="mf">10.89.97.163</span><span class="w"> </span><span class="n">tell</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">42</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">04.564104</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">05.086213</span><span class="w"> </span><span class="n">ARP</span><span class="p">,</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="n">who</span><span class="o">-</span><span class="n">has</span><span class="w"> </span><span class="mf">10.89.97.163</span><span class="w"> </span><span class="n">tell</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">42</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">05.343276</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">06.086632</span><span class="w"> </span><span class="n">ARP</span><span class="p">,</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="n">who</span><span class="o">-</span><span class="n">has</span><span class="w"> </span><span class="mf">10.89.97.163</span><span class="w"> </span><span class="n">tell</span><span class="w"> </span><span class="mf">10.89.97.162</span><span class="p">,</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="mi">42</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">06.110449</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">06.906665</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">07.686809</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">08.455977</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">09.231136</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">10.002335</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">10.792658</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="mi">11</span><span class="err">:</span><span class="mi">10</span><span class="err">:</span><span class="mf">11.561799</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="mf">10.89.97.162.49152</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mf">10.89.97.165</span><span class="p">.</span><span class="n">bfd</span><span class="o">-</span><span class="nl">control</span><span class="p">:</span><span class="w"> </span><span class="n">BCM</span><span class="o">-</span><span class="n">LI</span><span class="o">-</span><span class="nl">SHIM</span><span class="p">:</span><span class="w"> </span><span class="n">direction</span><span class="w"> </span><span class="n">unused</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">type</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="n">pkt</span><span class="o">-</span><span class="n">subtype</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">VLAN</span><span class="w"> </span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="n">li</span><span class="o">-</span><span class="n">id</span><span class="w"> </span><span class="mi">2097944</span>
+<span class="o">^</span><span class="n">C</span>
+<span class="mi">44</span><span class="w"> </span><span class="n">packets</span><span class="w"> </span><span class="n">captured</span>
+<span class="mi">44</span><span class="w"> </span><span class="n">packets</span><span class="w"> </span><span class="n">received</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="k">filter</span>
+<span class="mi">0</span><span class="w"> </span><span class="n">packets</span><span class="w"> </span><span class="n">dropped</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">kernel</span>
+<span class="o">[</span><span class="n">root@gateway2 /</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<h2 id="sos-report">sos report<a class="headerlink" href="#sos-report" title="Permanent link">&para;</a></h2>
 <ol>
 <li>login to node via ssh or debug utitiy </li>
 </ol>
-<pre><code>[root@ncputility ~ pancwl_rc]$ ssh core@gateway2.panclypcwl01.mnc020.mcc714
-Red Hat Enterprise Linux CoreOS 416.94.202407081958-0
-  Part of OpenShift 4.16, RHCOS is a Kubernetes-native operating system
-  managed by the Machine Config Operator (`clusteroperator/machine-config`).
+<div class="codehilite"><pre><span></span><code><span class="err">[</span><span class="n">root</span><span class="nv">@ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="err">]</span><span class="n">$</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="n">core</span><span class="nv">@gateway2.panclypcwl01.mnc020.mcc714</span>
+<span class="n">Red</span><span class="w"> </span><span class="n">Hat</span><span class="w"> </span><span class="n">Enterprise</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="n">CoreOS</span><span class="w"> </span><span class="mf">416.94.202407081958</span><span class="o">-</span><span class="mi">0</span>
+<span class="w">  </span><span class="n">Part</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">OpenShift</span><span class="w"> </span><span class="mf">4.16</span><span class="p">,</span><span class="w"> </span><span class="n">RHCOS</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Kubernetes</span><span class="o">-</span><span class="n">native</span><span class="w"> </span><span class="n">operating</span><span class="w"> </span><span class="k">system</span>
+<span class="w">  </span><span class="n">managed</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Machine</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="n">Operator</span><span class="w"> </span><span class="p">(</span><span class="n n-Quoted">`clusteroperator/machine-config`</span><span class="p">).</span>
 
-WARNING: Direct SSH access to machines is not recommended; instead,
-make configuration changes via `machineconfig` objects:
-  https://docs.openshift.com/container-platform/4.16/architecture/architecture-rhcos.html
+<span class="n">WARNING</span><span class="o">:</span><span class="w"> </span><span class="n">Direct</span><span class="w"> </span><span class="n">SSH</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">machines</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">recommended</span><span class="p">;</span><span class="w"> </span><span class="n">instead</span><span class="p">,</span>
+<span class="n">make</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">changes</span><span class="w"> </span><span class="n">via</span><span class="w"> </span><span class="n n-Quoted">`machineconfig`</span><span class="w"> </span><span class="n">objects</span><span class="o">:</span>
+<span class="w">  </span><span class="n">https</span><span class="o">://</span><span class="n">docs</span><span class="p">.</span><span class="n">openshift</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">container</span><span class="o">-</span><span class="n">platform</span><span class="o">/</span><span class="mf">4.16</span><span class="o">/</span><span class="n">architecture</span><span class="o">/</span><span class="n">architecture</span><span class="o">-</span><span class="n">rhcos</span><span class="p">.</span><span class="n">html</span>
 
----
-[core@gateway2 ~]$
-</code></pre>
+<span class="o">---</span>
+<span class="err">[</span><span class="n">core</span><span class="nv">@gateway2</span><span class="w"> </span><span class="o">~</span><span class="err">]</span><span class="n">$</span>
+</code></pre></div>
+
 <ol>
 <li>become root and update the toolbox rc file here.
     a. use your hub cluster quay to avoid ssl certificate trust error. </li>
 </ol>
-<pre><code>[root@gateway2 ~]# cat /root/.toolboxrc
-#REGISTRY=ncputility.panclyphub01.mnc020.mcc714:8443/ocmirror/rhel9
-REGISTRY=quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9
-IMAGE=support-tools:latest
-[root@gateway2 ~]#
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="c1"># cat /root/.toolboxrc</span>
+<span class="c1">#REGISTRY=ncputility.panclyphub01.mnc020.mcc714:8443/ocmirror/rhel9</span>
+<span class="n">REGISTRY</span><span class="o">=</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">panclyphub01</span><span class="o">.</span><span class="n">mnc020</span><span class="o">.</span><span class="n">mcc714</span><span class="o">/</span><span class="n">ocmirror</span><span class="o">/</span><span class="n">rhel9</span>
+<span class="n">IMAGE</span><span class="o">=</span><span class="n">support</span><span class="o">-</span><span class="n">tools</span><span class="p">:</span><span class="n">latest</span>
+<span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="c1">#</span>
+</code></pre></div>
 
-</code></pre>
 <ol>
 <li>now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. </li>
 </ol>
-<pre><code>[root@gateway2 ~]# toolbox
-.toolboxrc file detected, overriding defaults...
-Trying to pull quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest...
-Getting image source signatures
-Copying blob f5e6502d2728 done   |
-Copying blob ebc7dc32a098 done   |
-Copying config affd08d3be done   |
-Writing manifest to image destination
-affd08d3bead20c55f40f08270d477b1524d9d7a2db25235956c7858755ef5f3
-Spawning a container 'toolbox-root' with image 'quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest'
-Detected RUN label in the container image. Using that as the default...
-6bdff24c2e5da044965e2cec8eea58c3d86668f3a5bbe1e2d34495e956fdf0d7
-toolbox-root
-Container started successfully. To exit, type 'exit'.
-[root@gateway2 /]#
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="c1"># toolbox</span>
+<span class="o">.</span><span class="n">toolboxrc</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">detected</span><span class="p">,</span><span class="w"> </span><span class="n">overriding</span><span class="w"> </span><span class="n">defaults</span><span class="o">...</span>
+<span class="n">Trying</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">panclyphub01</span><span class="o">.</span><span class="n">mnc020</span><span class="o">.</span><span class="n">mcc714</span><span class="o">/</span><span class="n">ocmirror</span><span class="o">/</span><span class="n">rhel9</span><span class="o">/</span><span class="n">support</span><span class="o">-</span><span class="n">tools</span><span class="p">:</span><span class="n">latest</span><span class="o">...</span>
+<span class="n">Getting</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">signatures</span>
+<span class="n">Copying</span><span class="w"> </span><span class="n">blob</span><span class="w"> </span><span class="n">f5e6502d2728</span><span class="w"> </span><span class="n">done</span><span class="w">   </span><span class="o">|</span>
+<span class="n">Copying</span><span class="w"> </span><span class="n">blob</span><span class="w"> </span><span class="n">ebc7dc32a098</span><span class="w"> </span><span class="n">done</span><span class="w">   </span><span class="o">|</span>
+<span class="n">Copying</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="n">affd08d3be</span><span class="w"> </span><span class="n">done</span><span class="w">   </span><span class="o">|</span>
+<span class="n">Writing</span><span class="w"> </span><span class="n">manifest</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">destination</span>
+<span class="n">affd08d3bead20c55f40f08270d477b1524d9d7a2db25235956c7858755ef5f3</span>
+<span class="n">Spawning</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">container</span><span class="w"> </span><span class="s1">&#39;toolbox-root&#39;</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="s1">&#39;quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest&#39;</span>
+<span class="n">Detected</span><span class="w"> </span><span class="n">RUN</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">container</span><span class="w"> </span><span class="n">image</span><span class="o">.</span><span class="w"> </span><span class="n">Using</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">default</span><span class="o">...</span>
+<span class="mi">6</span><span class="n">bdff24c2e5da044965e2cec8eea58c3d86668f3a5bbe1e2d34495e956fdf0d7</span>
+<span class="n">toolbox</span><span class="o">-</span><span class="n">root</span>
+<span class="n">Container</span><span class="w"> </span><span class="n">started</span><span class="w"> </span><span class="n">successfully</span><span class="o">.</span><span class="w"> </span><span class="n">To</span><span class="w"> </span><span class="n">exit</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="s1">&#39;exit&#39;</span><span class="o">.</span>
+<span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">/</span><span class="p">]</span><span class="c1">#</span>
+</code></pre></div>
 
-</code></pre>
 <ol>
 <li>now use sosreport from here </li>
 </ol>
-<pre><code>sos report -k crio.all=on -k crio.logs=on  -k podman.all=on -k podman.logs=on
-</code></pre>
-<h4 id="references">References</h4>
+<div class="codehilite"><pre><span></span><code>sos report -k crio.all=on -k crio.logs=on  -k podman.all=on -k podman.logs=on
+</code></pre></div>
+
+<h4 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h4>
 <ul>
 <li><a href="https://access.redhat.com/solutions/7046419">Recovering a node that has lost all networking in OpenShift 4</a></li>
-</ul></div>
-            </div>
-        </div>
+</ul>
 
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script src="../../../js/bootstrap.bundle.min.js"></script>
-        <script>
-            var base_url = "../../..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../../../js/base.js"></script>
-        <script src="../../../search/main.js"></script>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-
-    </body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
 </html>
