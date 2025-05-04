@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Reboot Nodes - OpenShift Notes</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">OpenShift Notes</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Git Helper</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../git-helper/ncd-git-backup/" class="dropdown-item">Git Backup</a>
+</li>
+                                    
+<li>
+    <a href="../../../git-helper/ncd-git-restore/" class="dropdown-item">Git Restore</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Deployment Scripts</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../git-helper/Deployment/backupconfig.sh" class="dropdown-item">Backup Config</a>
+</li>
+            
+<li>
+    <a href="../../../git-helper/Deployment/newgitserver.sh" class="dropdown-item">New Git Server</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">OpenShift</a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Backup & Restore</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../backup-restore/ACM-GEO-RED/" class="dropdown-item">ACM GEO Red</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/ACM-localbackup/" class="dropdown-item">ACM Local Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/AWS-S3/" class="dropdown-item">AWS S3 Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/etcd-backup/" class="dropdown-item">ETCD Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/etcd-restore/" class="dropdown-item">ETCD Restore</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">CNF Onboarding Support</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../CNF-onboarding-support/image-tls-issue/" class="dropdown-item">Image TLS Issue</a>
+</li>
+            
+<li>
+    <a href="../../CNF-onboarding-support/oclogin-tls-issue/" class="dropdown-item">OCLogin TLS Issue</a>
+</li>
+            
+<li>
+    <a href="../../CNF-onboarding-support/proxy-cache-pod/" class="dropdown-item">Proxy Cache Pod</a>
+</li>
+    </ul>
+  </li>
+                                    
+<li>
+    <a href="../../deployment/readme/" class="dropdown-item">Deployment</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Maintenance</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../cluster-stop-start/" class="dropdown-item">Cluster Stop/Start</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Reboot Nodes</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Networking</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../networking/metalb-troubleshooting/" class="dropdown-item">MetalLB Troubleshooting</a>
+</li>
+            
+<li>
+    <a href="../../networking/metallb-configuration/" class="dropdown-item">MetalLB Configuration</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Storage Management</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../storagemanagement/ceph-rebalanceissue/" class="dropdown-item">Ceph Rebalance Issue</a>
+</li>
+            
+<li>
+    <a href="../../storagemanagement/storage-node-replacement/" class="dropdown-item">Storage Node Replacement</a>
+</li>
+    </ul>
+  </li>
+                                    
+<li>
+    <a href="../../tools-management-ts/ts-tools/" class="dropdown-item">Tools Management TS</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Troubleshooting</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../troubleshooting/nsenter/" class="dropdown-item">Nsenter Usage</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">User Management</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../usermanagement/remove-kubeadmin/" class="dropdown-item">Remove Kubeadmin</a>
+</li>
+            
+<li>
+    <a href="../../usermanagement/user-management/" class="dropdown-item">User Management</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../cluster-stop-start/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../networking/metalb-troubleshooting/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#rebooting-nodes-on-the-openshift-cluster" class="nav-link">Rebooting nodes on the openshift cluster</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#master-node-reboot" class="nav-link">Master node reboot</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#storage-node-reboot" class="nav-link">Storage node reboot</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="rebooting-nodes-on-the-openshift-cluster">Rebooting nodes on the openshift cluster</h1>
+<blockquote>
+<p>steps to show, boot on master, worker/gateway and storage. </p>
+</blockquote>
+<h2 id="master-node-reboot">Master node reboot</h2>
+<ol>
+<li>login to right cluster using cluster-admin based role. </li>
+</ol>
+<pre><code>
+[root@dom14npv101-infra-manager ~ management]# source  /root/raj/managementrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 99 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project &quot;default&quot;.
+[root@dom14npv101-infra-manager ~ management]# 
+</code></pre>
+<ol>
+<li>get the list of storage nodes and also check the ceph status. </li>
+</ol>
+<pre><code>[root@dom14npv101-infra-manager ~ management]# oc get nodes |grep -i master
+ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
+ncpvnpvmgt-master-102.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
+ncpvnpvmgt-master-103.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
+[root@dom14npv101-infra-manager ~ management]#
+
+</code></pre>
+<ol>
+<li>drain the node completely </li>
+</ol>
+<pre><code>node=ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net
+oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force 
+oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force --disable-eviction 
+</code></pre>
+<ol>
+<li>trigger the shutdown now. </li>
+</ol>
+<pre><code>oc debug node/$node -- chroot /host shutdown -r +1 
+</code></pre>
+<ol>
+<li>once this server came up, waiting for server to be in ready state </li>
+</ol>
+<pre><code>oc wait --for=condition=Ready node/$node --timeout=800s 
+</code></pre>
+<ol>
+<li>uncordon the node and make it schedulable now. </li>
+</ol>
+<pre><code>oc adm uncordon $node 
+</code></pre>
+<h2 id="storage-node-reboot">Storage node reboot</h2>
+<ol>
+<li>login to right cluster using cluster-admin based role. </li>
+</ol>
+<pre><code>
+[root@dom14npv101-infra-manager ~ management]# source  /root/raj/managementrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 99 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project &quot;default&quot;.
+[root@dom14npv101-infra-manager ~ management]# 
+</code></pre>
+<ol>
+<li>get the list of storage nodes and also check the ceph status. </li>
+</ol>
+<pre><code>[root@dom14npv101-infra-manager ~ vlabrc]# oc get no |grep -i storage
+ncpvnpvlab1-storage-101.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     24d   v1.29.10+67d3387
+ncpvnpvlab1-storage-102.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     26d   v1.29.10+67d3387
+ncpvnpvlab1-storage-103.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     26d   v1.29.10+67d3387
+ncpvnpvlab1-storage-201.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     24d   v1.29.10+67d3387
+ncpvnpvlab1-storage-202.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     26d   v1.29.10+67d3387
+ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     26d   v1.29.10+67d3387
+[root@dom14npv101-infra-manager ~ vlabrc]# 
+
+[root@dom14npv101-infra-manager ~ vlabrc]# oc exec -it $(oc get pod -n openshift-storage -l app=rook-ceph-operator -o name) -n openshift-storage -- ceph -s -c /var/lib/rook/openshift-storage/openshift-storage.config
+</code></pre>
+<ol>
+<li>define a variable called and value as respective storage node, easy run of reboot</li>
+</ol>
+<pre><code>[root@dom14npv101-infra-manager ~ vlabrc]# node=ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net
+
+</code></pre>
+<ol>
+<li>get the list ceph storage related pods </li>
+</ol>
+<pre><code>[root@dom14npv101-infra-manager ~ vlabrc]# oc -n openshift-storage get po -o wide | grep -e mon -e osd | grep  ${node}|grep -iv complete|awk '{print $1}'
+rook-ceph-osd-12-589c6485c9-ptqs7
+rook-ceph-osd-16-74cbc54b4f-tg8lw
+rook-ceph-osd-2-7fcc4ff664-hjc2w
+rook-ceph-osd-26-67d86fbf5d-lqdv8
+rook-ceph-osd-30-78fb4f588b-474jn
+rook-ceph-osd-37-bd549c676-jn5ld
+rook-ceph-osd-40-5b4ddb6d7d-7qd8z
+rook-ceph-osd-6-5b64cf8d49-n55zf
+[root@dom14npv101-infra-manager ~ vlabrc]# 
+</code></pre>
+<ol>
+<li>use notepad++ to create these following commands to remove those pods on that host. </li>
+</ol>
+<pre><code>[root@dom14npv101-infra-manager ~ vlabrc]# oc -n openshift-storage scale deployment rook-ceph-osd-12 --replicas=0
+oc -n openshift-storage scale deployment rook-ceph-osd-16 --replicas=0
+oc -n openshift-storage scale deployment rook-ceph-osd-2  --replicas=0
+oc -n openshift-storage scale deployment rook-ceph-osd-26 --replicas=0
+oc -n openshift-storage scale deployment rook-ceph-osd-30 --replicas=0
+oc -n openshift-storage scale deployment rook-ceph-osd-37 --replicas=0
+oc -n openshift-storage scale deployment rook-ceph-osd-40 --replicas=0
+oc -n openshift-storage scale deployment rook-ceph-osd-6  --replicas=0
+deployment.apps/rook-ceph-osd-12 scaled
+deployment.apps/rook-ceph-osd-16 scaled
+deployment.apps/rook-ceph-osd-2 scaled
+deployment.apps/rook-ceph-osd-26 scaled
+deployment.apps/rook-ceph-osd-30 scaled
+deployment.apps/rook-ceph-osd-37 scaled
+deployment.apps/rook-ceph-osd-40 scaled
+deployment.apps/rook-ceph-osd-6 scaled
+[root@dom14npv101-infra-manager ~ vlabrc]#
+</code></pre>
+<ol>
+<li>Completely drain that storage node, using oc adm command </li>
+</ol>
+<pre><code>[root@dom14npv101-infra-manager ~ vlabrc]#oc adm drain ${node} --delete-emptydir-data --ignore-daemonsets=true --timeout=500s --force
+node/ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net cordoned
+Warning: ignoring DaemonSet-managed Pods: openshift-cluster-node-tuning-operator/tuned-kqqfn, openshift-dns/dns-default-27nmr, openshift-dns/node-resolver-4dcng, openshift-image-registry/node-ca-2xtbk, openshift-ingress-canary/ingress-canary-285m2, openshift-local-storage/diskmaker-discovery-zmmwj, openshift-local-storage/diskmaker-manager-dvpjq, openshift-logging/collector-7g5zv, openshift-machine-config-operator/machine-config-daemon-c7c4v, openshift-monitoring/node-exporter-gsh5l, openshift-multus/multus-6q7c8, openshift-multus/multus-additional-cni-plugins-pwq85, openshift-multus/network-metrics-daemon-f6flp, openshift-multus/whereabouts-reconciler-fjpmv, openshift-network-diagnostics/network-check-target-9h7cj, openshift-network-operator/iptables-alerter-km8jq, openshift-nmstate/nmstate-handler-6hmz9, openshift-operators/istio-cni-node-v2-5-4qpnk, openshift-ovn-kubernetes/ovnkube-node-w672f, openshift-storage/csi-cephfsplugin-ck4mf, openshift-storage/csi-rbdplugin-gkmjm
+evicting pod openshift-storage/rook-ceph-osd-6-5b64cf8d49-n55zf
+evicting pod openshift-compliance/openscap-pod-24dd5998a72563f75be98757ffbe02e424df617e
+evicting pod openshift-storage/rook-ceph-crashcollector-9c7a6e51d7dc201a808c754612468a82-j84n5
+evicting pod openshift-storage/rook-ceph-mds-ocs-storagecluster-cephfilesystem-b-78f7bbf8bn4rl
+evicting pod openshift-storage/rook-ceph-mgr-b-5468b7cf-nx4d4
+evicting pod openshift-storage/rook-ceph-osd-40-5b4ddb6d7d-7qd8z
+evicting pod openshift-storage/rook-ceph-exporter-9c7a6e51d7dc201a808c754612468a82-c854b4r2tn4
+evicting pod openshift-compliance/openscap-pod-5f54688367da49304dfd83a2e0d564582b073f2b
+pod/openscap-pod-5f54688367da49304dfd83a2e0d564582b073f2b evicted
+pod/openscap-pod-24dd5998a72563f75be98757ffbe02e424df617e evicted
+pod/rook-ceph-crashcollector-9c7a6e51d7dc201a808c754612468a82-j84n5 evicted
+pod/rook-ceph-mgr-b-5468b7cf-nx4d4 evicted
+pod/rook-ceph-exporter-9c7a6e51d7dc201a808c754612468a82-c854b4r2tn4 evicted
+pod/rook-ceph-mds-ocs-storagecluster-cephfilesystem-b-78f7bbf8bn4rl evicted
+node/ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net drained
+[root@dom14npv101-infra-manager ~ vlabrc]#
+</code></pre>
+<ol>
+<li>reboot the respective storage node using following command. </li>
+</ol>
+<pre><code>[root@dom14npv101-infra-manager ~ vlabrc]#oc debug node/${node} -- chroot /host systemctl reboot 
+</code></pre>
+<ol>
+<li>waiting for node to be fully up. then check the kubelet status </li>
+</ol>
+<pre><code>[root@dom14npv101-infra-manager ~ vlabrc]# oc get no |grep -i storage
+ncpvnpvlab1-storage-101.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     24d   v1.29.10+67d3387
+ncpvnpvlab1-storage-102.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     26d   v1.29.10+67d3387
+ncpvnpvlab1-storage-103.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     26d   v1.29.10+67d3387
+ncpvnpvlab1-storage-201.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     24d   v1.29.10+67d3387
+ncpvnpvlab1-storage-202.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     26d   v1.29.10+67d3387
+ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready,sechd-disable        storage,worker                     26d   v1.29.10+67d3387
+[root@dom14npv101-infra-manager ~ vlabrc]# 
+</code></pre>
+<ol>
+<li>uncordon the storage node.</li>
+</ol>
+<pre><code>[root@dom14npv101-infra-manager ~ vlabrc]# oc adm uncordon ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net 
+</code></pre>
+<ol>
+<li>check the ceph health and wait for all osd to be fully up.  give 10mins</li>
+</ol>
+<pre><code>[root@dom14npv101-infra-manager ~ vlabrc]# oc exec -it $(oc get pod -n openshift-storage -l app=rook-ceph-operator -o name) -n openshift-storage -- ceph -s -c /var/lib/rook/openshift-storage/openshift-storage.config
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>MetalLB Troubleshooting - OpenShift Notes</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">OpenShift Notes</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Git Helper</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../git-helper/ncd-git-backup/" class="dropdown-item">Git Backup</a>
+</li>
+                                    
+<li>
+    <a href="../../../git-helper/ncd-git-restore/" class="dropdown-item">Git Restore</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Deployment Scripts</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../git-helper/Deployment/backupconfig.sh" class="dropdown-item">Backup Config</a>
+</li>
+            
+<li>
+    <a href="../../../git-helper/Deployment/newgitserver.sh" class="dropdown-item">New Git Server</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">OpenShift</a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Backup & Restore</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../backup-restore/ACM-GEO-RED/" class="dropdown-item">ACM GEO Red</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/ACM-localbackup/" class="dropdown-item">ACM Local Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/AWS-S3/" class="dropdown-item">AWS S3 Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/etcd-backup/" class="dropdown-item">ETCD Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/etcd-restore/" class="dropdown-item">ETCD Restore</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">CNF Onboarding Support</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../CNF-onboarding-support/image-tls-issue/" class="dropdown-item">Image TLS Issue</a>
+</li>
+            
+<li>
+    <a href="../../CNF-onboarding-support/oclogin-tls-issue/" class="dropdown-item">OCLogin TLS Issue</a>
+</li>
+            
+<li>
+    <a href="../../CNF-onboarding-support/proxy-cache-pod/" class="dropdown-item">Proxy Cache Pod</a>
+</li>
+    </ul>
+  </li>
+                                    
+<li>
+    <a href="../../deployment/readme/" class="dropdown-item">Deployment</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Maintenance</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../maintenace/cluster-stop-start/" class="dropdown-item">Cluster Stop/Start</a>
+</li>
+            
+<li>
+    <a href="../../maintenace/reboot-nodes/" class="dropdown-item">Reboot Nodes</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Networking</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">MetalLB Troubleshooting</a>
+</li>
+            
+<li>
+    <a href="../metallb-configuration/" class="dropdown-item">MetalLB Configuration</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Storage Management</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../storagemanagement/ceph-rebalanceissue/" class="dropdown-item">Ceph Rebalance Issue</a>
+</li>
+            
+<li>
+    <a href="../../storagemanagement/storage-node-replacement/" class="dropdown-item">Storage Node Replacement</a>
+</li>
+    </ul>
+  </li>
+                                    
+<li>
+    <a href="../../tools-management-ts/ts-tools/" class="dropdown-item">Tools Management TS</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Troubleshooting</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../troubleshooting/nsenter/" class="dropdown-item">Nsenter Usage</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">User Management</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../usermanagement/remove-kubeadmin/" class="dropdown-item">Remove Kubeadmin</a>
+</li>
+            
+<li>
+    <a href="../../usermanagement/user-management/" class="dropdown-item">User Management</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../../maintenace/reboot-nodes/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../metallb-configuration/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#metalb-configuration-troubleshooting" class="nav-link">metalb configuration troubleshooting</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="metalb-configuration-troubleshooting">metalb configuration troubleshooting</h1>
+<ol>
+<li>login to cluster </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ source /root/pancwlrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 113 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project &quot;ncd01pan&quot;.
+
+</code></pre>
+<ol>
+<li>check for <code>metallb-system</code> namespace exist</li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc get ns | grep -i metallb
+metallb-system                                     Active   26d
+[root@ncputility ~ pancwl_rc]$
+</code></pre>
+<ol>
+<li>check the status of the pods on the <code>metallb-system</code> namespace here. </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc get pods -n metallb-system
+NAME                                                   READY   STATUS    RESTARTS   AGE
+controller-5785bc85cb-qpk8h                            2/2     Running   0          24d
+metallb-operator-controller-manager-7bf5d8978d-clpd7   1/1     Running   0          26d
+metallb-operator-webhook-server-86784c6c8c-49ncp       1/1     Running   0          26d
+speaker-dlrn5                                          6/6     Running   0          24d
+speaker-g2g77                                          6/6     Running   0          24d
+speaker-jzbw7                                          6/6     Running   0          24d
+speaker-pjstl                                          6/6     Running   0          24d
+</code></pre>
+<ol>
+<li>check for <code>bfdprofile</code> on this cluster <blockquote>
+<p>here transmit interval and receiver interval should be equal from local and remote end. </p>
+</blockquote>
+</li>
+</ol>
+<pre><code> oc -n metallb-system get BFDProfile -o wide
+NAME                                PASSIVE MODE   TRANSMIT INTERVAL   RECEIVE INTERVAL   MULTIPLIER
+ncp-metallb-oam-pa-hn-bfd-profile   true           300                 300                3
+ncp-metallb-oam-pa-ni-bfd-profile   true           300                 300                3
+ncp-metallb-oam-pa-pa-bfd-profile   true           300                 300                3
+ncp-metallb-oam-pa-sv-bfd-profile   true           300                 300                3
+</code></pre>
+<ol>
+<li>make sure, desination having the backward route configured here .</li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc -n metallb-system get nncp -o wide
+NAME                                           STATUS      REASON
+backward-route-for-oam-pa-pa-metallb-vlan104   Available   SuccessfullyConfigured
+ncp-metallb-oam-pa-hn-route-for-switches-105   Available   SuccessfullyConfigured
+ncp-metallb-oam-pa-ni-route-for-switches-107   Available   SuccessfullyConfigured
+ncp-metallb-oam-pa-pa-route-for-switches-104   Available   SuccessfullyConfigured
+ncp-metallb-oam-pa-sv-route-for-switches-106   Available   SuccessfullyConfigured
+tenant-bond-bgp-oam-vlan104-gateway-0          Available   SuccessfullyConfigured
+tenant-bond-bgp-oam-vlan104-gateway-1          Available   SuccessfullyConfigured
+tenant-bond-bgp-oam-vlan104-gateway-2          Available   SuccessfullyConfigured
+** output omitted **
+tenantvlan-373                                 Available   SuccessfullyConfigured
+tenantvlan-374                                 Available   SuccessfullyConfigured
+</code></pre>
+<ol>
+<li>check for <code>ipaddresspool</code> exist here, so that application can create their <code>service</code> as <code>loadbalancer</code> here . </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc -n metallb-system get IPAddressPool -o wide
+NAME                                AUTO ASSIGN   AVOID BUGGY IPS   ADDRESSES
+ncp-metallb-oam-pa-hn-addresspool   false         false             [&quot;10.89.147.128/28&quot;]
+ncp-metallb-oam-pa-ni-addresspool   false         false             [&quot;10.86.10.16/28&quot;]
+ncp-metallb-oam-pa-pa-addresspool   false         false             [&quot;10.89.101.128/27&quot;,&quot;10.89.97.208/28&quot;]
+ncp-metallb-oam-pa-sv-addresspool   false         false             [&quot;10.85.186.240/28&quot;]
+</code></pre>
+<ol>
+<li>check for <code>bgppeer</code> are up on the metallb speakers thats important for this communication</li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc -n metallb-system get BGPPeer -o wide
+NAME                               ADDRESS         ASN          BFD PROFILE                         MULTI HOPS
+ncp-metallb-oam-pa-hn-bgp-peer-1   10.89.147.194   4200000320   ncp-metallb-oam-pa-hn-bfd-profile
+ncp-metallb-oam-pa-hn-bgp-peer-2   10.89.147.195   4200000320   ncp-metallb-oam-pa-hn-bfd-profile
+ncp-metallb-oam-pa-ni-bgp-peer-1   10.86.10.98     4200000320   ncp-metallb-oam-pa-ni-bfd-profile
+ncp-metallb-oam-pa-ni-bgp-peer-2   10.86.10.99     4200000320   ncp-metallb-oam-pa-ni-bfd-profile
+ncp-metallb-oam-pa-pa-bgp-peer-1   10.89.97.162    4200000320   ncp-metallb-oam-pa-pa-bfd-profile
+ncp-metallb-oam-pa-pa-bgp-peer-2   10.89.97.163    4200000320   ncp-metallb-oam-pa-pa-bfd-profile
+ncp-metallb-oam-pa-sv-bgp-peer-1   10.85.187.34    4200000320   ncp-metallb-oam-pa-sv-bfd-profile
+ncp-metallb-oam-pa-sv-bgp-peer-2   10.85.187.35    4200000320   ncp-metallb-oam-pa-sv-bfd-profile
+</code></pre>
+<ol>
+<li>check for <code>BGPAdvertisement</code> are created on this cluster and it should be in the <code>metallb-system</code> namespace. </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc -n metallb-system get BGPAdvertisement -o wide
+NAME                                      IPADDRESSPOOLS                          IPADDRESSPOOL SELECTORS   PEERS                                                                     NODE SELECTORS
+ncp-metallb-oam-pa-hn-bgp-advertisement   [&quot;ncp-metallb-oam-pa-hn-addresspool&quot;]                             [&quot;ncp-metallb-oam-pa-hn-bgp-peer-1&quot;,&quot;ncp-metallb-oam-pa-hn-bgp-peer-2&quot;]
+ncp-metallb-oam-pa-ni-bgp-advertisement   [&quot;ncp-metallb-oam-pa-ni-addresspool&quot;]                             [&quot;ncp-metallb-oam-pa-ni-bgp-peer-1&quot;,&quot;ncp-metallb-oam-pa-ni-bgp-peer-2&quot;]
+ncp-metallb-oam-pa-pa-bgp-advertisement   [&quot;ncp-metallb-oam-pa-pa-addresspool&quot;]                             [&quot;ncp-metallb-oam-pa-pa-bgp-peer-1&quot;,&quot;ncp-metallb-oam-pa-pa-bgp-peer-2&quot;]
+ncp-metallb-oam-pa-sv-bgp-advertisement   [&quot;ncp-metallb-oam-pa-sv-addresspool&quot;]                             [&quot;ncp-metallb-oam-pa-sv-bgp-peer-1&quot;,&quot;ncp-metallb-oam-pa-sv-bgp-peer-2&quot;]
+</code></pre>
+<ol>
+<li>No, error from the container logs on this namespace .</li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc -n metallb-system logs -l component=speaker
+Defaulted container &quot;speaker&quot; out of: speaker, frr, reloader, frr-metrics, kube-rbac-proxy, kube-rbac-proxy-frr, cp-frr-files (init), cp-reloader (init), cp-metrics (init)
+Defaulted container &quot;speaker&quot; out of: speaker, frr, reloader, frr-metrics, kube-rbac-proxy, kube-rbac-proxy-frr, cp-frr-files (init), cp-reloader (init), cp-metrics (init)
+Defaulted container &quot;speaker&quot; out of: speaker, frr, reloader, frr-metrics, kube-rbac-proxy, kube-rbac-proxy-frr, cp-frr-files (init), cp-reloader (init), cp-metrics (init)
+Defaulted container &quot;speaker&quot; out of: speaker, frr, reloader, frr-metrics, kube-rbac-proxy, kube-rbac-proxy-frr, cp-frr-files (init), cp-reloader (init), cp-metrics (init)
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/gateway4.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:07Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/gateway4.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:07Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/gateway3.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:12Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/gateway3.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:12Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker16.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:21Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker16.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:21Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker20.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:34Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker20.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:34Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker28.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:44Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker28.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:44Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/gateway4.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:07Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/gateway3.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:12Z&quot;}
+{&quot;caller&quot;:&quot;speakerlist.go:274&quot;,&quot;level&quot;:&quot;info&quot;,&quot;msg&quot;:&quot;triggering discovery&quot;,&quot;op&quot;:&quot;memberDiscovery&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:12Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/gateway3.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:12Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker16.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:21Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker16.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:21Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker20.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:34Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker20.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:34Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker28.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:44Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker28.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:44Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/gateway4.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:07Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/gateway4.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:07Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/gateway3.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:12Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/gateway3.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:12Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker16.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:21Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker16.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:21Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker20.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:34Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker20.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:34Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker28.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:44Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker28.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:44Z&quot;}
+{&quot;caller&quot;:&quot;speakerlist.go:274&quot;,&quot;level&quot;:&quot;info&quot;,&quot;msg&quot;:&quot;triggering discovery&quot;,&quot;op&quot;:&quot;memberDiscovery&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:07Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/gateway4.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:07Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/gateway3.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:12Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/gateway3.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:12Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker16.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:21Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker16.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:21Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker20.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:34Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker20.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:34Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:46&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;level&quot;:&quot;info&quot;,&quot;start reconcile&quot;:&quot;/appworker28.panclypcwl01.mnc020.mcc714&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:44Z&quot;}
+{&quot;caller&quot;:&quot;node_controller.go:69&quot;,&quot;controller&quot;:&quot;NodeReconciler&quot;,&quot;end reconcile&quot;:&quot;/appworker28.panclypcwl01.mnc020.mcc714&quot;,&quot;level&quot;:&quot;info&quot;,&quot;ts&quot;:&quot;2025-03-31T04:44:44Z&quot;}
+</code></pre>
+<ol>
+<li>just showing an backwards route here for comparison  and your destination should be exist here . </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc get nncp -A -o yaml
+apiVersion: v1
+items:
+- apiVersion: nmstate.io/v1
+  kind: NodeNetworkConfigurationPolicy
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {&quot;apiVersion&quot;:&quot;nmstate.io/v1&quot;,&quot;kind&quot;:&quot;NodeNetworkConfigurationPolicy&quot;,&quot;metadata&quot;:{&quot;annotations&quot;:{},&quot;name&quot;:&quot;backward-route-for-oam-pa-pa-metallb-vlan104&quot;},&quot;spec&quot;:{&quot;desiredState&quot;:{&quot;routes&quot;:{&quot;config&quot;:[{&quot;destination&quot;:&quot;10.89.100.66/32&quot;,&quot;metric&quot;:150,&quot;next-hop-address&quot;:&quot;10.89.97.161&quot;,&quot;next-hop-interface&quot;:&quot;vlan104&quot;,&quot;table-id&quot;:254},{&quot;destination&quot;:&quot;10.89.27.4/32&quot;,&quot;metric&quot;:150,&quot;next-hop-address&quot;:&quot;10.89.97.161&quot;,&quot;next-hop-interface&quot;:&quot;vlan104&quot;,&quot;table-id&quot;:254}]}},&quot;nodeSelector&quot;:{&quot;node-role.kubernetes.io/gateway&quot;:&quot;&quot;}}}
+      nmstate.io/webhook-mutating-timestamp: &quot;1743107464714866687&quot;
+    creationTimestamp: &quot;2025-03-27T20:31:04Z&quot;
+    generation: 1
+    name: backward-route-for-oam-pa-pa-metallb-vlan104
+    resourceVersion: &quot;36077334&quot;
+    uid: d72a67aa-44d0-403f-8ed5-29a49994eaf6
+  spec:
+    desiredState:
+      routes:
+        config:
+        - destination: 10.89.100.66/32
+          metric: 150
+          next-hop-address: 10.89.97.161
+          next-hop-interface: vlan104
+          table-id: 254
+        - destination: 10.89.27.4/32
+          metric: 150
+          next-hop-address: 10.89.97.161
+          next-hop-interface: vlan104
+          table-id: 254
+    nodeSelector:
+      node-role.kubernetes.io/gateway: &quot;&quot;
+  status:
+    conditions:
+    - lastHeartbeatTime: &quot;2025-03-27T20:32:10Z&quot;
+      lastTransitionTime: &quot;2025-03-27T20:32:10Z&quot;
+      message: 4/4 nodes successfully configured
+      reason: SuccessfullyConfigured
+      status: &quot;True&quot;
+      type: Available
+    - lastHeartbeatTime: &quot;2025-03-27T20:32:10Z&quot;
+      lastTransitionTime: &quot;2025-03-27T20:32:10Z&quot;
+      reason: SuccessfullyConfigured
+      status: &quot;False&quot;
+      type: Degraded
+    - lastHeartbeatTime: &quot;2025-03-27T20:32:10Z&quot;
+      lastTransitionTime: &quot;2025-03-27T20:32:10Z&quot;
+      reason: ConfigurationProgressing
+      status: &quot;False&quot;
+      type: Progressing
+    lastUnavailableNodeCountUpdate: &quot;2025-03-27T20:32:09Z&quot;
+</code></pre>
+<ol>
+<li>Check the status of local and remote configuration by login into the metallb-system namespace. </li>
+</ol>
+<p><code>bdf and bgp should be fully up</code></p>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc get -n metallb-system pods -l component=speaker -o wide
+NAME            READY   STATUS    RESTARTS   AGE   IP            NODE                                  NOMINATED NODE   READINESS GATES
+speaker-dlrn5   6/6     Running   0          24d   10.89.96.18   gateway2.panclypcwl01.mnc020.mcc714   &lt;none&gt;           &lt;none&gt;
+speaker-g2g77   6/6     Running   0          24d   10.89.96.19   gateway3.panclypcwl01.mnc020.mcc714   &lt;none&gt;           &lt;none&gt;
+speaker-jzbw7   6/6     Running   0          24d   10.89.96.17   gateway1.panclypcwl01.mnc020.mcc714   &lt;none&gt;           &lt;none&gt;
+speaker-pjstl   6/6     Running   0          24d   10.89.96.20   gateway4.panclypcwl01.mnc020.mcc714   &lt;none&gt;           &lt;none&gt;
+</code></pre>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc exec -n metallb-system  speaker-dlrn5 -c frr -- vtysh -c &quot;show running-config&quot;
+Building configuration...
+
+Current configuration:
+!
+frr version 8.3.1
+frr defaults traditional
+hostname gateway2.panclypcwl01.mnc020.mcc714
+log file /etc/frr/frr.log informational
+log timestamp precision 3
+service integrated-vtysh-config
+!
+router bgp 4200000320
+ no bgp ebgp-requires-policy
+ no bgp default ipv4-unicast
+ no bgp network import-check
+ neighbor 10.85.187.34 remote-as 4200000320
+ neighbor 10.85.187.34 bfd
+ neighbor 10.85.187.34 bfd profile ncp-metallb-oam-pa-sv-bfd-profile
+ neighbor 10.85.187.34 timers 30 90
+ neighbor 10.85.187.35 remote-as 4200000320
+ neighbor 10.85.187.35 bfd
+ neighbor 10.85.187.35 bfd profile ncp-metallb-oam-pa-sv-bfd-profile
+ neighbor 10.85.187.35 timers 30 90
+ neighbor 10.86.10.98 remote-as 4200000320
+ neighbor 10.86.10.98 bfd
+ neighbor 10.86.10.98 bfd profile ncp-metallb-oam-pa-ni-bfd-profile
+ neighbor 10.86.10.98 timers 30 90
+ neighbor 10.86.10.99 remote-as 4200000320
+ neighbor 10.86.10.99 bfd
+ neighbor 10.86.10.99 bfd profile ncp-metallb-oam-pa-ni-bfd-profile
+ neighbor 10.86.10.99 timers 30 90
+ neighbor 10.89.97.162 remote-as 4200000320
+ neighbor 10.89.97.162 bfd
+ neighbor 10.89.97.162 bfd profile ncp-metallb-oam-pa-pa-bfd-profile
+ neighbor 10.89.97.162 timers 30 90
+ neighbor 10.89.97.163 remote-as 4200000320
+ neighbor 10.89.97.163 bfd
+ neighbor 10.89.97.163 bfd profile ncp-metallb-oam-pa-pa-bfd-profile
+ neighbor 10.89.97.163 timers 30 90
+ neighbor 10.89.147.194 remote-as 4200000320
+ neighbor 10.89.147.194 bfd
+ neighbor 10.89.147.194 bfd profile ncp-metallb-oam-pa-hn-bfd-profile
+ neighbor 10.89.147.194 timers 30 90
+ neighbor 10.89.147.195 remote-as 4200000320
+ neighbor 10.89.147.195 bfd
+ neighbor 10.89.147.195 bfd profile ncp-metallb-oam-pa-hn-bfd-profile
+ neighbor 10.89.147.195 timers 30 90
+ !
+ address-family ipv4 unicast
+  network 10.89.97.210/32
+  neighbor 10.85.187.34 activate
+  neighbor 10.85.187.34 route-map 10.85.187.34-in in
+  neighbor 10.85.187.34 route-map 10.85.187.34-out out
+  neighbor 10.85.187.35 activate
+  neighbor 10.85.187.35 route-map 10.85.187.35-in in
+  neighbor 10.85.187.35 route-map 10.85.187.35-out out
+  neighbor 10.86.10.98 activate
+  neighbor 10.86.10.98 route-map 10.86.10.98-in in
+  neighbor 10.86.10.98 route-map 10.86.10.98-out out
+  neighbor 10.86.10.99 activate
+  neighbor 10.86.10.99 route-map 10.86.10.99-in in
+  neighbor 10.86.10.99 route-map 10.86.10.99-out out
+  neighbor 10.89.97.162 activate
+  neighbor 10.89.97.162 route-map 10.89.97.162-in in
+  neighbor 10.89.97.162 route-map 10.89.97.162-out out
+  neighbor 10.89.97.163 activate
+  neighbor 10.89.97.163 route-map 10.89.97.163-in in
+  neighbor 10.89.97.163 route-map 10.89.97.163-out out
+  neighbor 10.89.147.194 activate
+  neighbor 10.89.147.194 route-map 10.89.147.194-in in
+  neighbor 10.89.147.194 route-map 10.89.147.194-out out
+  neighbor 10.89.147.195 activate
+  neighbor 10.89.147.195 route-map 10.89.147.195-in in
+  neighbor 10.89.147.195 route-map 10.89.147.195-out out
+ exit-address-family
+ !
+ address-family ipv6 unicast
+  neighbor 10.85.187.34 activate
+  neighbor 10.85.187.34 route-map 10.85.187.34-in in
+  neighbor 10.85.187.34 route-map 10.85.187.34-out out
+  neighbor 10.85.187.35 activate
+  neighbor 10.85.187.35 route-map 10.85.187.35-in in
+  neighbor 10.85.187.35 route-map 10.85.187.35-out out
+  neighbor 10.86.10.98 activate
+  neighbor 10.86.10.98 route-map 10.86.10.98-in in
+  neighbor 10.86.10.98 route-map 10.86.10.98-out out
+  neighbor 10.86.10.99 activate
+  neighbor 10.86.10.99 route-map 10.86.10.99-in in
+  neighbor 10.86.10.99 route-map 10.86.10.99-out out
+  neighbor 10.89.97.162 activate
+  neighbor 10.89.97.162 route-map 10.89.97.162-in in
+  neighbor 10.89.97.162 route-map 10.89.97.162-out out
+  neighbor 10.89.97.163 activate
+  neighbor 10.89.97.163 route-map 10.89.97.163-in in
+  neighbor 10.89.97.163 route-map 10.89.97.163-out out
+  neighbor 10.89.147.194 activate
+  neighbor 10.89.147.194 route-map 10.89.147.194-in in
+  neighbor 10.89.147.194 route-map 10.89.147.194-out out
+  neighbor 10.89.147.195 activate
+  neighbor 10.89.147.195 route-map 10.89.147.195-in in
+  neighbor 10.89.147.195 route-map 10.89.147.195-out out
+ exit-address-family
+exit
+!
+ip prefix-list 10.89.97.162-pl-ipv4 seq 1 permit 10.89.97.210/32
+ip prefix-list 10.89.97.163-pl-ipv4 seq 1 permit 10.89.97.210/32
+ip prefix-list 10.85.187.34-pl-ipv4 seq 1 deny any
+ip prefix-list 10.85.187.35-pl-ipv4 seq 1 deny any
+ip prefix-list 10.86.10.98-pl-ipv4 seq 1 deny any
+ip prefix-list 10.86.10.99-pl-ipv4 seq 1 deny any
+ip prefix-list 10.89.147.194-pl-ipv4 seq 1 deny any
+ip prefix-list 10.89.147.195-pl-ipv4 seq 1 deny any
+!
+ipv6 prefix-list 10.89.97.162-pl-ipv4 seq 2 deny any
+ipv6 prefix-list 10.89.97.163-pl-ipv4 seq 2 deny any
+ipv6 prefix-list 10.85.187.34-pl-ipv4 seq 2 deny any
+ipv6 prefix-list 10.85.187.35-pl-ipv4 seq 2 deny any
+ipv6 prefix-list 10.86.10.98-pl-ipv4 seq 2 deny any
+ipv6 prefix-list 10.86.10.99-pl-ipv4 seq 2 deny any
+ipv6 prefix-list 10.89.147.194-pl-ipv4 seq 2 deny any
+ipv6 prefix-list 10.89.147.195-pl-ipv4 seq 2 deny any
+!
+route-map 10.85.187.34-in deny 20
+exit
+!
+route-map 10.85.187.34-out permit 1
+ match ip address prefix-list 10.85.187.34-pl-ipv4
+exit
+!
+route-map 10.85.187.34-out permit 2
+ match ipv6 address prefix-list 10.85.187.34-pl-ipv4
+exit
+!
+route-map 10.85.187.35-in deny 20
+exit
+!
+route-map 10.85.187.35-out permit 1
+ match ip address prefix-list 10.85.187.35-pl-ipv4
+exit
+!
+route-map 10.85.187.35-out permit 2
+ match ipv6 address prefix-list 10.85.187.35-pl-ipv4
+exit
+!
+route-map 10.86.10.98-in deny 20
+exit
+!
+route-map 10.86.10.98-out permit 1
+ match ip address prefix-list 10.86.10.98-pl-ipv4
+exit
+!
+route-map 10.86.10.98-out permit 2
+ match ipv6 address prefix-list 10.86.10.98-pl-ipv4
+exit
+!
+route-map 10.86.10.99-in deny 20
+exit
+!
+route-map 10.86.10.99-out permit 1
+ match ip address prefix-list 10.86.10.99-pl-ipv4
+exit
+!
+route-map 10.86.10.99-out permit 2
+ match ipv6 address prefix-list 10.86.10.99-pl-ipv4
+exit
+!
+route-map 10.89.147.194-in deny 20
+exit
+!
+route-map 10.89.147.194-out permit 1
+ match ip address prefix-list 10.89.147.194-pl-ipv4
+exit
+!
+route-map 10.89.147.194-out permit 2
+ match ipv6 address prefix-list 10.89.147.194-pl-ipv4
+exit
+!
+route-map 10.89.147.195-in deny 20
+exit
+!
+route-map 10.89.147.195-out permit 1
+ match ip address prefix-list 10.89.147.195-pl-ipv4
+exit
+!
+route-map 10.89.147.195-out permit 2
+ match ipv6 address prefix-list 10.89.147.195-pl-ipv4
+exit
+!
+route-map 10.89.97.162-in deny 20
+exit
+!
+route-map 10.89.97.162-out permit 1
+ match ip address prefix-list 10.89.97.162-pl-ipv4
+exit
+!
+route-map 10.89.97.162-out permit 2
+ match ipv6 address prefix-list 10.89.97.162-pl-ipv4
+exit
+!
+route-map 10.89.97.163-in deny 20
+exit
+!
+route-map 10.89.97.163-out permit 1
+ match ip address prefix-list 10.89.97.163-pl-ipv4
+exit
+!
+route-map 10.89.97.163-out permit 2
+ match ipv6 address prefix-list 10.89.97.163-pl-ipv4
+exit
+!
+ip nht resolve-via-default
+!
+ipv6 nht resolve-via-default
+!
+bfd
+ profile ncp-metallb-oam-pa-hn-bfd-profile
+  passive-mode
+ exit
+ !
+ profile ncp-metallb-oam-pa-ni-bfd-profile
+  passive-mode
+ exit
+ !
+ profile ncp-metallb-oam-pa-pa-bfd-profile
+  passive-mode
+ exit
+ !
+ profile ncp-metallb-oam-pa-sv-bfd-profile
+  passive-mode
+ exit
+ !
+exit
+!
+end
+</code></pre>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc exec -n metallb-system  speaker-dlrn5 -c frr -- vtysh -c &quot;show bgp summary&quot;
+
+IPv4 Unicast Summary (VRF default):
+BGP router identifier 172.16.2.2, local AS number 4200000320 vrf-id 0
+BGP table version 1
+RIB entries 1, using 192 bytes of memory
+Peers 8, using 5788 KiB of memory
+
+Neighbor        V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down State/PfxRcd   PfxSnt Desc
+10.85.187.34    4 4200000320         0         0        0    0    0    never       Active        0 N/A
+10.85.187.35    4 4200000320         0         0        0    0    0    never       Active        0 N/A
+10.86.10.98     4 4200000320         0         0        0    0    0    never       Active        0 N/A
+10.86.10.99     4 4200000320         0         0        0    0    0    never       Active        0 N/A
+10.89.97.162    4 4200000320      7306      7307        0    0    0 2d12h50m            0        1 N/A
+10.89.97.163    4 4200000320      7305      7307        0    0    0 2d12h50m            0        1 N/A
+10.89.147.194   4 4200000320         0         0        0    0    0    never       Active        0 N/A
+10.89.147.195   4 4200000320         0         0        0    0    0    never       Active        0 N/A
+
+Total number of neighbors 8
+
+IPv6 Unicast Summary (VRF default):
+BGP router identifier 172.16.2.2, local AS number 4200000320 vrf-id 0
+BGP table version 0
+RIB entries 0, using 0 bytes of memory
+Peers 8, using 5788 KiB of memory
+
+Neighbor        V         AS   MsgRcvd   MsgSent   TblVer  InQ OutQ  Up/Down State/PfxRcd   PfxSnt Desc
+10.85.187.34    4 4200000320         0         0        0    0    0    never       Active        0 N/A
+10.85.187.35    4 4200000320         0         0        0    0    0    never       Active        0 N/A
+10.86.10.98     4 4200000320         0         0        0    0    0    never       Active        0 N/A
+10.86.10.99     4 4200000320         0         0        0    0    0    never       Active        0 N/A
+10.89.97.162    4 4200000320      7306      7307        0    0    0 2d12h50m        NoNeg    NoNeg N/A
+10.89.97.163    4 4200000320      7305      7307        0    0    0 2d12h50m        NoNeg    NoNeg N/A
+10.89.147.194   4 4200000320         0         0        0    0    0    never       Active        0 N/A
+10.89.147.195   4 4200000320         0         0        0    0    0    never       Active        0 N/A
+
+Total number of neighbors 8
+</code></pre>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc exec -n metallb-system  speaker-dlrn5 -c frr -- vtysh -c &quot;show bfd peers brief&quot;
+Session count: 2
+SessionId  LocalAddress                             PeerAddress                             Status
+=========  ============                             ===========                             ======
+62069252   10.89.97.165                             10.89.97.162                            down
+3159552171 10.89.97.165                             10.89.97.163                            down
+</code></pre>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc exec -n metallb-system  speaker-dlrn5 -c frr -- vtysh -c &quot;show bfd peer&quot;
+BFD Peers:
+        peer 10.89.97.162 local-address 10.89.97.165 vrf default interface vlan104
+                ID: 62069252
+                Remote ID: 0
+                Passive mode
+                Status: down
+                Downtime: 2 day(s), 10 hour(s), 3 minute(s), 16 second(s)
+                Diagnostics: ok
+                Remote diagnostics: ok
+                Peer Type: dynamic
+                Local timers:
+                        Detect-multiplier: 3
+                        Receive interval: 300ms
+                        Transmission interval: 300ms
+                        Echo receive interval: 50ms
+                        Echo transmission interval: disabled
+                Remote timers:
+                        Detect-multiplier: 3
+                        Receive interval: 1000ms
+                        Transmission interval: 1000ms
+                        Echo receive interval: disabled
+
+        peer 10.89.97.163 local-address 10.89.97.165 vrf default interface vlan104
+                ID: 3159552171
+                Remote ID: 0
+                Passive mode
+                Status: down
+                Downtime: 2 day(s), 10 hour(s), 3 minute(s), 16 second(s)
+                Diagnostics: ok
+                Remote diagnostics: ok
+                Peer Type: dynamic
+                Local timers:
+                        Detect-multiplier: 3
+                        Receive interval: 300ms
+                        Transmission interval: 300ms
+                        Echo receive interval: 50ms
+                        Echo transmission interval: disabled
+                Remote timers:
+                        Detect-multiplier: 3
+                        Receive interval: 1000ms
+                        Transmission interval: 1000ms
+                        Echo receive interval: disabled
+
+</code></pre>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc exec -n metallb-system  speaker-dlrn5 -c frr -- vtysh -c &quot;show ip bgp neighbors&quot;
+BGP neighbor is 10.85.187.34, remote AS 4200000320, local AS 4200000320, internal link
+  BGP version 4, remote router ID 0.0.0.0, local router ID 172.16.2.2
+  BGP state = Active
+  Last read 2d10h03m, Last write never
+  Hold time is 90, keepalive interval is 30 seconds
+  Configured hold time is 90, keepalive interval is 30 seconds
+  Configured conditional advertisements interval is 60 seconds
+  Graceful restart information:
+    Local GR Mode: Helper*
+    Remote GR Mode: NotApplicable
+    R bit: False
+    N bit: False
+    Timers:
+      Configured Restart Time(sec): 120
+      Received Restart Time(sec): 0
+  Message statistics:
+    Inq depth is 0
+    Outq depth is 0
+                         Sent       Rcvd
+    Opens:                  0          0
+    Notifications:          0          0
+    Updates:                0          0
+    Keepalives:             0          0
+    Route Refresh:          0          0
+    Capability:             0          0
+    Total:                  0          0
+  Minimum time between advertisement runs is 0 seconds
+
+ For address family: IPv4 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.85.187.34-in
+  Route map for outgoing advertisements is *10.85.187.34-out
+  0 accepted prefixes
+
+ For address family: IPv6 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.85.187.34-in
+  Route map for outgoing advertisements is *10.85.187.34-out
+  0 accepted prefixes
+
+  Connections established 0; dropped 0
+  Last reset 2d10h03m,  Waiting for peer OPEN
+BGP Connect Retry Timer in Seconds: 120
+Next connect timer due in 80 seconds
+Read thread: off  Write thread: off  FD used: -1
+
+  BFD: Type: multi hop
+  Detect Multiplier: 3, Min Rx interval: 300, Min Tx interval: 300
+  Status: Unknown, Last update: never
+
+BGP neighbor is 10.85.187.35, remote AS 4200000320, local AS 4200000320, internal link
+  BGP version 4, remote router ID 0.0.0.0, local router ID 172.16.2.2
+  BGP state = Active
+  Last read 2d10h03m, Last write never
+  Hold time is 90, keepalive interval is 30 seconds
+  Configured hold time is 90, keepalive interval is 30 seconds
+  Configured conditional advertisements interval is 60 seconds
+  Graceful restart information:
+    Local GR Mode: Helper*
+    Remote GR Mode: NotApplicable
+    R bit: False
+    N bit: False
+    Timers:
+      Configured Restart Time(sec): 120
+      Received Restart Time(sec): 0
+  Message statistics:
+    Inq depth is 0
+    Outq depth is 0
+                         Sent       Rcvd
+    Opens:                  0          0
+    Notifications:          0          0
+    Updates:                0          0
+    Keepalives:             0          0
+    Route Refresh:          0          0
+    Capability:             0          0
+    Total:                  0          0
+  Minimum time between advertisement runs is 0 seconds
+
+ For address family: IPv4 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.85.187.35-in
+  Route map for outgoing advertisements is *10.85.187.35-out
+  0 accepted prefixes
+
+ For address family: IPv6 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.85.187.35-in
+  Route map for outgoing advertisements is *10.85.187.35-out
+  0 accepted prefixes
+
+  Connections established 0; dropped 0
+  Last reset 2d10h03m,  Waiting for peer OPEN
+BGP Connect Retry Timer in Seconds: 120
+Next connect timer due in 80 seconds
+Read thread: off  Write thread: off  FD used: -1
+
+  BFD: Type: multi hop
+  Detect Multiplier: 3, Min Rx interval: 300, Min Tx interval: 300
+  Status: Unknown, Last update: never
+
+BGP neighbor is 10.86.10.98, remote AS 4200000320, local AS 4200000320, internal link
+  BGP version 4, remote router ID 0.0.0.0, local router ID 172.16.2.2
+  BGP state = Active
+  Last read 2d10h03m, Last write never
+  Hold time is 90, keepalive interval is 30 seconds
+  Configured hold time is 90, keepalive interval is 30 seconds
+  Configured conditional advertisements interval is 60 seconds
+  Graceful restart information:
+    Local GR Mode: Helper*
+    Remote GR Mode: NotApplicable
+    R bit: False
+    N bit: False
+    Timers:
+      Configured Restart Time(sec): 120
+      Received Restart Time(sec): 0
+  Message statistics:
+    Inq depth is 0
+    Outq depth is 0
+                         Sent       Rcvd
+    Opens:                  0          0
+    Notifications:          0          0
+    Updates:                0          0
+    Keepalives:             0          0
+    Route Refresh:          0          0
+    Capability:             0          0
+    Total:                  0          0
+  Minimum time between advertisement runs is 0 seconds
+
+ For address family: IPv4 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.86.10.98-in
+  Route map for outgoing advertisements is *10.86.10.98-out
+  0 accepted prefixes
+
+ For address family: IPv6 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.86.10.98-in
+  Route map for outgoing advertisements is *10.86.10.98-out
+  0 accepted prefixes
+
+  Connections established 0; dropped 0
+  Last reset 2d10h03m,  Waiting for peer OPEN
+BGP Connect Retry Timer in Seconds: 120
+Next connect timer due in 80 seconds
+Read thread: off  Write thread: off  FD used: -1
+
+  BFD: Type: multi hop
+  Detect Multiplier: 3, Min Rx interval: 300, Min Tx interval: 300
+  Status: Unknown, Last update: never
+
+BGP neighbor is 10.86.10.99, remote AS 4200000320, local AS 4200000320, internal link
+  BGP version 4, remote router ID 0.0.0.0, local router ID 172.16.2.2
+  BGP state = Active
+  Last read 2d10h03m, Last write never
+  Hold time is 90, keepalive interval is 30 seconds
+  Configured hold time is 90, keepalive interval is 30 seconds
+  Configured conditional advertisements interval is 60 seconds
+  Graceful restart information:
+    Local GR Mode: Helper*
+    Remote GR Mode: NotApplicable
+    R bit: False
+    N bit: False
+    Timers:
+      Configured Restart Time(sec): 120
+      Received Restart Time(sec): 0
+  Message statistics:
+    Inq depth is 0
+    Outq depth is 0
+                         Sent       Rcvd
+    Opens:                  0          0
+    Notifications:          0          0
+    Updates:                0          0
+    Keepalives:             0          0
+    Route Refresh:          0          0
+    Capability:             0          0
+    Total:                  0          0
+  Minimum time between advertisement runs is 0 seconds
+
+ For address family: IPv4 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.86.10.99-in
+  Route map for outgoing advertisements is *10.86.10.99-out
+  0 accepted prefixes
+
+ For address family: IPv6 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.86.10.99-in
+  Route map for outgoing advertisements is *10.86.10.99-out
+  0 accepted prefixes
+
+  Connections established 0; dropped 0
+  Last reset 2d10h03m,  Waiting for peer OPEN
+BGP Connect Retry Timer in Seconds: 120
+Next connect timer due in 80 seconds
+Read thread: off  Write thread: off  FD used: -1
+
+  BFD: Type: multi hop
+  Detect Multiplier: 3, Min Rx interval: 300, Min Tx interval: 300
+  Status: Unknown, Last update: never
+
+BGP neighbor is 10.89.97.162, remote AS 4200000320, local AS 4200000320, internal link
+  BGP version 4, remote router ID 10.29.90.34, local router ID 172.16.2.2
+  BGP state = Established, up for 2d12h53m
+  Last read 00:00:00, Last write 00:00:03
+  Hold time is 90, keepalive interval is 30 seconds
+  Configured hold time is 90, keepalive interval is 30 seconds
+  Configured conditional advertisements interval is 60 seconds
+  Neighbor capabilities:
+    4 Byte AS: advertised and received
+    Extended Message: advertised
+    AddPath:
+      IPv4 Unicast: RX advertised
+      IPv6 Unicast: RX advertised
+    Long-lived Graceful Restart: advertised
+    Route refresh: advertised and received(new)
+    Enhanced Route Refresh: advertised
+    Address Family IPv4 Unicast: advertised and received
+    Address Family IPv6 Unicast: advertised
+    Hostname Capability: advertised (name: gateway2.panclypcwl01.mnc020.mcc714,domain name: n/a) not received
+    Graceful Restart Capability: advertised and received
+      Remote Restart timer is 300 seconds
+      Address families by peer:
+        none
+  Graceful restart information:
+    End-of-RIB send: IPv4 Unicast
+    End-of-RIB received: IPv4 Unicast
+    Local GR Mode: Helper*
+    Remote GR Mode: Helper
+    R bit: False
+    N bit: False
+    Timers:
+      Configured Restart Time(sec): 120
+      Received Restart Time(sec): 300
+    IPv4 Unicast:
+      F bit: False
+      End-of-RIB sent: Yes
+      End-of-RIB sent after update: Yes
+      End-of-RIB received: Yes
+      Timers:
+        Configured Stale Path Time(sec): 360
+    IPv6 Unicast:
+      F bit: False
+      End-of-RIB sent: No
+      End-of-RIB sent after update: No
+      End-of-RIB received: No
+      Timers:
+        Configured Stale Path Time(sec): 360
+  Message statistics:
+    Inq depth is 0
+    Outq depth is 0
+                         Sent       Rcvd
+    Opens:                  3          1
+    Notifications:          0          0
+    Updates:                2          2
+    Keepalives:          7307       7308
+    Route Refresh:          0          0
+    Capability:             0          0
+    Total:               7312       7311
+  Minimum time between advertisement runs is 0 seconds
+
+ For address family: IPv4 Unicast
+  Update group 3, subgroup 3
+  Packet Queue length 0
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.89.97.162-in
+  Route map for outgoing advertisements is *10.89.97.162-out
+  0 accepted prefixes
+
+ For address family: IPv6 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.89.97.162-in
+  Route map for outgoing advertisements is *10.89.97.162-out
+  0 accepted prefixes
+
+  Connections established 1; dropped 0
+  Last reset 2d12h55m,  Waiting for peer OPEN
+Local host: 10.89.97.165, Local port: 37680
+Foreign host: 10.89.97.162, Foreign port: 179
+Nexthop: 10.89.97.165
+Nexthop global: ::
+Nexthop local: ::
+BGP connection: shared network
+BGP Connect Retry Timer in Seconds: 120
+Read thread: on  Write thread: on  FD used: 26
+
+  BFD: Type: single hop
+  Detect Multiplier: 3, Min Rx interval: 300, Min Tx interval: 300
+  Status: Down, Last update: 2:10:03:42
+
+BGP neighbor is 10.89.97.163, remote AS 4200000320, local AS 4200000320, internal link
+  BGP version 4, remote router ID 10.29.90.38, local router ID 172.16.2.2
+  BGP state = Established, up for 2d12h53m
+  Last read 00:00:29, Last write 00:00:03
+  Hold time is 90, keepalive interval is 30 seconds
+  Configured hold time is 90, keepalive interval is 30 seconds
+  Configured conditional advertisements interval is 60 seconds
+  Neighbor capabilities:
+    4 Byte AS: advertised and received
+    Extended Message: advertised
+    AddPath:
+      IPv4 Unicast: RX advertised
+      IPv6 Unicast: RX advertised
+    Long-lived Graceful Restart: advertised
+    Route refresh: advertised and received(new)
+    Enhanced Route Refresh: advertised
+    Address Family IPv4 Unicast: advertised and received
+    Address Family IPv6 Unicast: advertised
+    Hostname Capability: advertised (name: gateway2.panclypcwl01.mnc020.mcc714,domain name: n/a) not received
+    Graceful Restart Capability: advertised and received
+      Remote Restart timer is 300 seconds
+      Address families by peer:
+        none
+  Graceful restart information:
+    End-of-RIB send: IPv4 Unicast
+    End-of-RIB received: IPv4 Unicast
+    Local GR Mode: Helper*
+    Remote GR Mode: Helper
+    R bit: False
+    N bit: False
+    Timers:
+      Configured Restart Time(sec): 120
+      Received Restart Time(sec): 300
+    IPv4 Unicast:
+      F bit: False
+      End-of-RIB sent: Yes
+      End-of-RIB sent after update: Yes
+      End-of-RIB received: Yes
+      Timers:
+        Configured Stale Path Time(sec): 360
+    IPv6 Unicast:
+      F bit: False
+      End-of-RIB sent: No
+      End-of-RIB sent after update: No
+      End-of-RIB received: No
+      Timers:
+        Configured Stale Path Time(sec): 360
+  Message statistics:
+    Inq depth is 0
+    Outq depth is 0
+                         Sent       Rcvd
+    Opens:                  3          1
+    Notifications:          0          0
+    Updates:                2          1
+    Keepalives:          7307       7307
+    Route Refresh:          0          0
+    Capability:             0          0
+    Total:               7312       7309
+  Minimum time between advertisement runs is 0 seconds
+
+ For address family: IPv4 Unicast
+  Update group 4, subgroup 4
+  Packet Queue length 0
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.89.97.163-in
+  Route map for outgoing advertisements is *10.89.97.163-out
+  0 accepted prefixes
+
+ For address family: IPv6 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.89.97.163-in
+  Route map for outgoing advertisements is *10.89.97.163-out
+  0 accepted prefixes
+
+  Connections established 1; dropped 0
+  Last reset 2d12h55m,  Waiting for peer OPEN
+Local host: 10.89.97.165, Local port: 54688
+Foreign host: 10.89.97.163, Foreign port: 179
+Nexthop: 10.89.97.165
+Nexthop global: ::
+Nexthop local: ::
+BGP connection: shared network
+BGP Connect Retry Timer in Seconds: 120
+Read thread: on  Write thread: on  FD used: 25
+
+  BFD: Type: single hop
+  Detect Multiplier: 3, Min Rx interval: 300, Min Tx interval: 300
+  Status: Down, Last update: 2:10:03:42
+
+BGP neighbor is 10.89.147.194, remote AS 4200000320, local AS 4200000320, internal link
+  BGP version 4, remote router ID 0.0.0.0, local router ID 172.16.2.2
+  BGP state = Active
+  Last read 2d10h03m, Last write never
+  Hold time is 90, keepalive interval is 30 seconds
+  Configured hold time is 90, keepalive interval is 30 seconds
+  Configured conditional advertisements interval is 60 seconds
+  Graceful restart information:
+    Local GR Mode: Helper*
+    Remote GR Mode: NotApplicable
+    R bit: False
+    N bit: False
+    Timers:
+      Configured Restart Time(sec): 120
+      Received Restart Time(sec): 0
+  Message statistics:
+    Inq depth is 0
+    Outq depth is 0
+                         Sent       Rcvd
+    Opens:                  0          0
+    Notifications:          0          0
+    Updates:                0          0
+    Keepalives:             0          0
+    Route Refresh:          0          0
+    Capability:             0          0
+    Total:                  0          0
+  Minimum time between advertisement runs is 0 seconds
+
+ For address family: IPv4 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.89.147.194-in
+  Route map for outgoing advertisements is *10.89.147.194-out
+  0 accepted prefixes
+
+ For address family: IPv6 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.89.147.194-in
+  Route map for outgoing advertisements is *10.89.147.194-out
+  0 accepted prefixes
+
+  Connections established 0; dropped 0
+  Last reset 2d10h03m,  Waiting for peer OPEN
+BGP Connect Retry Timer in Seconds: 120
+Next connect timer due in 80 seconds
+Read thread: off  Write thread: off  FD used: -1
+
+  BFD: Type: multi hop
+  Detect Multiplier: 3, Min Rx interval: 300, Min Tx interval: 300
+  Status: Unknown, Last update: never
+
+BGP neighbor is 10.89.147.195, remote AS 4200000320, local AS 4200000320, internal link
+  BGP version 4, remote router ID 0.0.0.0, local router ID 172.16.2.2
+  BGP state = Active
+  Last read 2d10h03m, Last write never
+  Hold time is 90, keepalive interval is 30 seconds
+  Configured hold time is 90, keepalive interval is 30 seconds
+  Configured conditional advertisements interval is 60 seconds
+  Graceful restart information:
+    Local GR Mode: Helper*
+    Remote GR Mode: NotApplicable
+    R bit: False
+    N bit: False
+    Timers:
+      Configured Restart Time(sec): 120
+      Received Restart Time(sec): 0
+  Message statistics:
+    Inq depth is 0
+    Outq depth is 0
+                         Sent       Rcvd
+    Opens:                  0          0
+    Notifications:          0          0
+    Updates:                0          0
+    Keepalives:             0          0
+    Route Refresh:          0          0
+    Capability:             0          0
+    Total:                  0          0
+  Minimum time between advertisement runs is 0 seconds
+
+ For address family: IPv4 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.89.147.195-in
+  Route map for outgoing advertisements is *10.89.147.195-out
+  0 accepted prefixes
+
+ For address family: IPv6 Unicast
+  Not part of any update group
+  Community attribute sent to this neighbor(all)
+  Inbound path policy configured
+  Outbound path policy configured
+  Route map for incoming advertisements is *10.89.147.195-in
+  Route map for outgoing advertisements is *10.89.147.195-out
+  0 accepted prefixes
+
+  Connections established 0; dropped 0
+  Last reset 2d10h03m,  Waiting for peer OPEN
+BGP Connect Retry Timer in Seconds: 120
+Next connect timer due in 80 seconds
+Read thread: off  Write thread: off  FD used: -1
+
+  BFD: Type: multi hop
+  Detect Multiplier: 3, Min Rx interval: 300, Min Tx interval: 300
+  Status: Unknown, Last update: never
+
+</code></pre>
+<ol>
+<li>some more additional test to show the local testing here </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ oc get svc -A -o wide |grep -i loadbalan
+ncom01pan                                          ncom01pan-citm-ingress                                     LoadBalancer   172.20.138.133   10.89.97.210                           80:32432/TCP,443:32622/TCP,2309:30135/TCP         10d   app=citm-ingress,component=controller,release=ncom01pan-citm-ingress
+[root@ncputility ~ pancwl_rc]$ nslookup 10.89.97.210
+210.97.89.10.in-addr.arpa       name = ncom01.panclyncom01.mnc020.mcc714.
+
+[root@ncputility ~ pancwl_rc]$ curl -k https://ncom01.panclyncom01.mnc020.mcc714/
+^C
+[root@ncputility ~ pancwl_rc]$ ip r get 10.89.97.210
+10.89.97.210 via 10.89.100.65 dev br308 src 10.89.100.66 uid 0
+    cache
+[root@ncputility ~ pancwl_rc]$ tracepath 10.89.97.210
+ 1?: [LOCALHOST]                      pmtu 1500
+ 1:  _gateway                                              0.184ms
+ 1:  _gateway                                              0.290ms
+ 2:  no reply
+ 3:  10.89.97.129                                          0.284ms asymm  1
+ 4:  no reply
+ 5:  10.89.97.129                                          0.264ms asymm  1
+ 6:  no reply
+ 7:  10.89.97.129                                          0.281ms asymm  1
+ 8:  no reply
+ 9:  10.89.97.129                                          0.279ms asymm  1
+10:  no reply
+11:  10.89.97.129                                          0.269ms asymm  1
+12:  no reply
+13:  10.89.97.129                                          0.280ms asymm  1
+14:  no reply
+15:  10.89.97.129                                          0.234ms asymm  1
+16:  no reply
+17:  10.89.97.129                                          0.297ms asymm  1
+18:  no reply
+19:  10.89.97.129                                          0.328ms asymm  1
+20:  no reply
+21:  10.89.97.129                                          0.292ms asymm  1
+22:  no reply
+23:  10.89.97.129                                          0.336ms asymm  1
+24:  no reply
+25:  10.89.97.129                                          0.332ms asymm  1
+26:  no reply
+27:  10.89.97.129                                          0.330ms asymm  1
+28:  no reply
+29:  10.89.97.129                                          0.332ms asymm  1
+^C
+[root@ncputility ~ pancwl_rc]$ oc get -n metallb-system pods -l component=speaker -o wide
+NAME            READY   STATUS    RESTARTS   AGE   IP            NODE                                  NOMINATED NODE   READINESS GATES
+speaker-dlrn5   6/6     Running   0          24d   10.89.96.18   gateway2.panclypcwl01.mnc020.mcc714   &lt;none&gt;           &lt;none&gt;
+speaker-g2g77   6/6     Running   0          24d   10.89.96.19   gateway3.panclypcwl01.mnc020.mcc714   &lt;none&gt;           &lt;none&gt;
+speaker-jzbw7   6/6     Running   0          24d   10.89.96.17   gateway1.panclypcwl01.mnc020.mcc714   &lt;none&gt;           &lt;none&gt;
+speaker-pjstl   6/6     Running   0          24d   10.89.96.20   gateway4.panclypcwl01.mnc020.mcc714   &lt;none&gt;           &lt;none&gt;
+[root@ncputility ~ pancwl_rc]$ oc -n metallb-system exec -it -c frr vtysh
+error: you must specify at least one command for the container
+[root@ncputility ~ pancwl_rc]$ oc -n metallb-system exec -it speaker-dlrn5 -c frr vtysh
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl exec [POD] -- [COMMAND] instead.
+
+Hello, this is FRRouting (version 8.3.1).
+Copyright 1996-2005 Kunihiro Ishiguro, et al.
+
+gateway2.panclypcwl01.mnc020.mcc714# curl
+% Unknown command: curl
+gateway2.panclypcwl01.mnc020.mcc714# exit
+[root@ncputility ~ pancwl_rc]$ oc debug -t node/gateway3.panclypcwl01.mnc020.mcc714
+Temporary namespace openshift-debug-8j8fb is created for debugging node...
+Starting pod/gateway3panclypcwl01mnc020mcc714-debug-qsrhj ...
+To use host binaries, run `chroot /host`
+Pod IP: 10.89.96.19
+If you don't see a command prompt, try pressing enter.
+sh-5.1# chroot /host
+sh-5.1# ping 10.89.97.163
+PING 10.89.97.163 (10.89.97.163) 56(84) bytes of data.
+From 10.89.97.166 icmp_seq=1 Destination Host Unreachable
+From 10.89.97.166 icmp_seq=2 Destination Host Unreachable
+From 10.89.97.166 icmp_seq=3 Destination Host Unreachable
+^C
+--- 10.89.97.163 ping statistics ---
+4 packets transmitted, 0 received, +3 errors, 100% packet loss, time 3090ms
+pipe 3
+sh-5.1# ping 10.89.97.162
+PING 10.89.97.162 (10.89.97.162) 56(84) bytes of data.
+From 10.89.97.166 icmp_seq=1 Destination Host Unreachable
+From 10.89.97.166 icmp_seq=2 Destination Host Unreachable
+From 10.89.97.166 icmp_seq=3 Destination Host Unreachable
+From 10.89.97.166 icmp_seq=4 Destination Host Unreachable
+^C
+--- 10.89.97.162 ping statistics ---
+5 packets transmitted, 0 received, +4 errors, 100% packet loss, time 4064ms
+pipe 4
+sh-5.1# ip r g 10.89.97.163
+10.89.97.163 via 10.89.97.161 dev vlan104 src 10.89.97.166 uid 0
+    cache
+sh-5.1# ip r g 10.89.97.162
+10.89.97.162 via 10.89.97.161 dev vlan104 src 10.89.97.166 uid 0
+    cache
+sh-5.1#  curl -k https://ncom01.panclyncom01.mnc020.mcc714/
+&lt;!doctype html&gt;&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,shrink-to-fit=no&quot;&gt;&lt;meta name=&quot;theme-color&quot; content=&quot;#000000&quot;&gt;&lt;link rel=&quot;manifest&quot; href=&quot;/manifest.json&quot;&gt;&lt;link rel=&quot;shortcut icon&quot; href=&quot;/favicon.ico&quot;&gt;&lt;title&gt;Nokia Cloud Operations Manager&lt;/title&gt;&lt;link href=&quot;/static/css/27.2dbd0a91.chunk.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;link href=&quot;/static/css/main.167b01c4.chunk.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;/head&gt;&lt;body&gt;&lt;noscript&gt;You need to enable JavaScript to run this app.&lt;/noscript&gt;&lt;div id=&quot;root&quot;&gt;&lt;/div&gt;&lt;script&gt;!function(e){function t(t){for(var r,o,l=t[0],c=t[1],s=t[2],u=0,d=[];u&lt;l.length;u++)o=l[u],Object.prototype.hasOwnProperty.call(n,o)&amp;&amp;n[o]&amp;&amp;d.push(n[o][0]),n[o]=0;for(r in c)Object.prototype.hasOwnProperty.call(c,r)&amp;&amp;(e[r]=c[r]);for(f&amp;&amp;f(t);d.length;)d.shift()();return i.push.apply(i,s||[]),a()}function a(){for(var e,t=0;t&lt;i.length;t++){for(var a=i[t],r=!0,o=1;o&lt;a.length;o++){var c=a[o];0!==n[c]&amp;&amp;(r=!1)}r&amp;&amp;(i.splice(t--,1),e=l(l.s=a[0]))}return e}var r={},o={25:0},n={25:0},i=[];function l(t){if(r[t])return r[t].exports;var a=r[t]={i:t,l:!1,exports:{}};return e[t].call(a.exports,a,a.exports,l),a.l=!0,a.exports}l.e=function(e){var t=[];o[e]?t.push(o[e]):0!==o[e]&amp;&amp;{2:1,5:1,6:1,7:1,8:1,11:1,12:1,13:1,14:1,15:1,16:1,17:1,18:1,19:1,20:1,21:1,22:1,26:1}[e]&amp;&amp;t.push(o[e]=new Promise((function(t,a){for(var r=&quot;static/css/&quot;+({5:&quot;[AlarmDetailsPage]&quot;,6:&quot;[AlarmPage]&quot;,7:&quot;[CatalogDetailsPage]&quot;,8:&quot;[CatalogTablePage]&quot;,9:&quot;[CloudFlowLogin]&quot;,10:&quot;[CloudFlowLogout]&quot;,11:&quot;[CsvExporterDetailsPage]&quot;,12:&quot;[DashboardPage]&quot;,13:&quot;[ExecutionDetailsPage]&quot;,14:&quot;[JobDetailsPage]&quot;,15:&quot;[JobsTablePage]&quot;,16:&quot;[ManagedWorkloadsTablePage]&quot;,17:&quot;[NSDetailsContainerPage]&quot;,18:&quot;[OperationsDetailsPage]&quot;,19:&quot;[ResourceCompositionDetailsPage]&quot;,20:&quot;[ResourceCompositionsPage]&quot;,21:&quot;[ResourcesTablePage]&quot;,22:&quot;[VimDetailsPage]&quot;,23:&quot;[loginPage]&quot;}[e]||e)+&quot;.&quot;+{0:&quot;31d6cfe0&quot;,1:&quot;31d6cfe0&quot;,2:&quot;559272a8&quot;,3:&quot;31d6cfe0&quot;,4:&quot;31d6cfe0&quot;,5:&quot;affca9cb&quot;,6:&quot;affca9cb&quot;,7:&quot;91932cb4&quot;,8:&quot;bf9ba349&quot;,9:&quot;31d6cfe0&quot;,10:&quot;31d6cfe0&quot;,11:&quot;a0ed0644&quot;,12:&quot;b2dca462&quot;,13:&quot;b77ab692&quot;,14:&quot;4ca14441&quot;,15:&quot;f59232c1&quot;,16:&quot;c1e044f2&quot;,17:&quot;398f0759&quot;,18:&quot;d8693b3e&quot;,19:&quot;7b4dfbce&quot;,20:&quot;d9277a02&quot;,21:&quot;03edf692&quot;,22:&quot;b6690f64&quot;,23:&quot;31d6cfe0&quot;,26:&quot;4391d164&quot;,28:&quot;31d6cfe0&quot;,29:&quot;31d6cfe0&quot;}[e]+&quot;.chunk.css&quot;,n=l.p+r,i=document.getElementsByTagName(&quot;link&quot;),c=0;c&lt;i.length;c++){var s=(f=i[c]).getAttribute(&quot;data-href&quot;)||f.getAttribute(&quot;href&quot;);if(&quot;stylesheet&quot;===f.rel&amp;&amp;(s===r||s===n))return t()}var u=document.getElementsByTagName(&quot;style&quot;);for(c=0;c&lt;u.length;c++){var f;if((s=(f=u[c]).getAttribute(&quot;data-href&quot;))===r||s===n)return t()}var d=document.createElement(&quot;link&quot;);d.rel=&quot;stylesheet&quot;,d.type=&quot;text/css&quot;,d.onload=t,d.onerror=function(t){var r=t&amp;&amp;t.target&amp;&amp;t.target.src||n,i=new Error(&quot;Loading CSS chunk &quot;+e+&quot; failed.\n(&quot;+r+&quot;)&quot;);i.code=&quot;CSS_CHUNK_LOAD_FAILED&quot;,i.request=r,delete o[e],d.parentNode.removeChild(d),a(i)},d.href=n,document.getElementsByTagName(&quot;head&quot;)[0].appendChild(d)})).then((function(){o[e]=0})));var a=n[e];if(0!==a)if(a)t.push(a[2]);else{var r=new Promise((function(t,r){a=n[e]=[t,r]}));t.push(a[2]=r);var i,c=document.createElement(&quot;script&quot;);c.charset=&quot;utf-8&quot;,c.timeout=120,l.nc&amp;&amp;c.setAttribute(&quot;nonce&quot;,l.nc),c.src=function(e){return l.p+&quot;static/js/&quot;+({5:&quot;[AlarmDetailsPage]&quot;,6:&quot;[AlarmPage]&quot;,7:&quot;[CatalogDetailsPage]&quot;,8:&quot;[CatalogTablePage]&quot;,9:&quot;[CloudFlowLogin]&quot;,10:&quot;[CloudFlowLogout]&quot;,11:&quot;[CsvExporterDetailsPage]&quot;,12:&quot;[DashboardPage]&quot;,13:&quot;[ExecutionDetailsPage]&quot;,14:&quot;[JobDetailsPage]&quot;,15:&quot;[JobsTablePage]&quot;,16:&quot;[ManagedWorkloadsTablePage]&quot;,17:&quot;[NSDetailsContainerPage]&quot;,18:&quot;[OperationsDetailsPage]&quot;,19:&quot;[ResourceCompositionDetailsPage]&quot;,20:&quot;[ResourceCompositionsPage]&quot;,21:&quot;[ResourcesTablePage]&quot;,22:&quot;[VimDetailsPage]&quot;,23:&quot;[loginPage]&quot;}[e]||e)+&quot;.&quot;+{0:&quot;9ea1f8f1&quot;,1:&quot;d7647e6d&quot;,2:&quot;49e46739&quot;,3:&quot;6bb32e31&quot;,4:&quot;5066ed38&quot;,5:&quot;3e390b6c&quot;,6:&quot;88b37376&quot;,7:&quot;e7438c70&quot;,8:&quot;f547dc3b&quot;,9:&quot;c157abf8&quot;,10:&quot;c3c2011c&quot;,11:&quot;62ea6190&quot;,12:&quot;c002dc82&quot;,13:&quot;f0d807bf&quot;,14:&quot;cee9c63a&quot;,15:&quot;737e42f0&quot;,16:&quot;2aae2df5&quot;,17:&quot;4a2ec46d&quot;,18:&quot;4777a959&quot;,19:&quot;f28d098b&quot;,20:&quot;7e96e980&quot;,21:&quot;abc77c4e&quot;,22:&quot;9d55d492&quot;,23:&quot;44757b03&quot;,26:&quot;c04605d3&quot;,28:&quot;52a01c15&quot;,29:&quot;f0708fbb&quot;}[e]+&quot;.chunk.js&quot;}(e);var s=new Error;i=function(t){c.onerror=c.onload=null,clearTimeout(u);var a=n[e];if(0!==a){if(a){var r=t&amp;&amp;(&quot;load&quot;===t.type?&quot;missing&quot;:t.type),o=t&amp;&amp;t.target&amp;&amp;t.target.src;s.message=&quot;Loading chunk &quot;+e+&quot; failed.\n(&quot;+r+&quot;: &quot;+o+&quot;)&quot;,s.name=&quot;ChunkLoadError&quot;,s.type=r,s.request=o,a[1](s)}n[e]=void 0}};var u=setTimeout((function(){i({type:&quot;timeout&quot;,target:c})}),12e4);c.onerror=c.onload=i,document.head.appendChild(c)}return Promise.all(t)},l.m=e,l.c=r,l.d=function(e,t,a){l.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:a})},l.r=function(e){&quot;undefined&quot;!=typeof Symbol&amp;&amp;Symbol.toStringTag&amp;&amp;Object.defineProperty(e,Symbol.toStringTag,{value:&quot;Module&quot;}),Object.defineProperty(e,&quot;__esModule&quot;,{value:!0})},l.t=function(e,t){if(1&amp;t&amp;&amp;(e=l(e)),8&amp;t)return e;if(4&amp;t&amp;&amp;&quot;object&quot;==typeof e&amp;&amp;e&amp;&amp;e.__esModule)return e;var a=Object.create(null);if(l.r(a),Object.defineProperty(a,&quot;default&quot;,{enumerable:!0,value:e}),2&amp;t&amp;&amp;&quot;string&quot;!=typeof e)for(var r in e)l.d(a,r,function(t){return e[t]}.bind(null,r));return a},l.n=function(e){var t=e&amp;&amp;e.__esModule?function(){return e.default}:function(){return e};return l.d(t,&quot;a&quot;,t),t},l.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},l.p=&quot;/&quot;,l.oe=function(e){throw console.error(e),e};var c=this.webpackJsonpfrontend=this.webpackJsonpfrontend||[],s=c.push.bind(c);c.push=t,c=c.slice();for(var u=0;u&lt;c.length;u++)t(c[u]);var f=s;a()}([])&lt;/script&gt;&lt;script src=&quot;/static/js/27.08ffca3e.chunk.js&quot;&gt;&lt;/script&gt;&lt;script src=&quot;/static/js/main.90334f28.chunk.js&quot;&gt;&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;sh-5.1#
+
+</code></pre></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

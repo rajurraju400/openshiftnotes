@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Tools Management TS - OpenShift Notes</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../../css/brands.min.css" rel="stylesheet">
+        <link href="../../../css/solid.min.css" rel="stylesheet">
+        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">OpenShift Notes</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../.." class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Git Helper</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../git-helper/ncd-git-backup/" class="dropdown-item">Git Backup</a>
+</li>
+                                    
+<li>
+    <a href="../../../git-helper/ncd-git-restore/" class="dropdown-item">Git Restore</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Deployment Scripts</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../git-helper/Deployment/backupconfig.sh" class="dropdown-item">Backup Config</a>
+</li>
+            
+<li>
+    <a href="../../../git-helper/Deployment/newgitserver.sh" class="dropdown-item">New Git Server</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">OpenShift</a>
+                                <ul class="dropdown-menu">
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Backup & Restore</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../backup-restore/ACM-GEO-RED/" class="dropdown-item">ACM GEO Red</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/ACM-localbackup/" class="dropdown-item">ACM Local Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/AWS-S3/" class="dropdown-item">AWS S3 Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/etcd-backup/" class="dropdown-item">ETCD Backup</a>
+</li>
+            
+<li>
+    <a href="../../backup-restore/etcd-restore/" class="dropdown-item">ETCD Restore</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">CNF Onboarding Support</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../CNF-onboarding-support/image-tls-issue/" class="dropdown-item">Image TLS Issue</a>
+</li>
+            
+<li>
+    <a href="../../CNF-onboarding-support/oclogin-tls-issue/" class="dropdown-item">OCLogin TLS Issue</a>
+</li>
+            
+<li>
+    <a href="../../CNF-onboarding-support/proxy-cache-pod/" class="dropdown-item">Proxy Cache Pod</a>
+</li>
+    </ul>
+  </li>
+                                    
+<li>
+    <a href="../../deployment/readme/" class="dropdown-item">Deployment</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Maintenance</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../maintenace/cluster-stop-start/" class="dropdown-item">Cluster Stop/Start</a>
+</li>
+            
+<li>
+    <a href="../../maintenace/reboot-nodes/" class="dropdown-item">Reboot Nodes</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Networking</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../networking/metalb-troubleshooting/" class="dropdown-item">MetalLB Troubleshooting</a>
+</li>
+            
+<li>
+    <a href="../../networking/metallb-configuration/" class="dropdown-item">MetalLB Configuration</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Storage Management</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../storagemanagement/ceph-rebalanceissue/" class="dropdown-item">Ceph Rebalance Issue</a>
+</li>
+            
+<li>
+    <a href="../../storagemanagement/storage-node-replacement/" class="dropdown-item">Storage Node Replacement</a>
+</li>
+    </ul>
+  </li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active" aria-current="page">Tools Management TS</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Troubleshooting</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../troubleshooting/nsenter/" class="dropdown-item">Nsenter Usage</a>
+</li>
+    </ul>
+  </li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">User Management</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../usermanagement/remove-kubeadmin/" class="dropdown-item">Remove Kubeadmin</a>
+</li>
+            
+<li>
+    <a href="../../usermanagement/user-management/" class="dropdown-item">User Management</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../../storagemanagement/storage-node-replacement/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../troubleshooting/nsenter/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-bs-level="1"><a href="#this-documentation-help-to-setup-some-troubleshooting-tools-installation-on-the-openshift-infra" class="nav-link">This documentation help to setup some troubleshooting tools installation on the openshift infra.</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-bs-level="2"><a href="#tcpdump" class="nav-link">TCPDUMP</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-bs-level="2"><a href="#sos-report" class="nav-link">sos report</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="this-documentation-help-to-setup-some-troubleshooting-tools-installation-on-the-openshift-infra">This documentation help to setup some troubleshooting tools installation on the openshift infra.</h1>
+<h2 id="tcpdump">TCPDUMP</h2>
+<ol>
+<li>login to node via ssh or debug utitiy </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ ssh core@gateway2.panclypcwl01.mnc020.mcc714
+Red Hat Enterprise Linux CoreOS 416.94.202407081958-0
+  Part of OpenShift 4.16, RHCOS is a Kubernetes-native operating system
+  managed by the Machine Config Operator (`clusteroperator/machine-config`).
+
+WARNING: Direct SSH access to machines is not recommended; instead,
+make configuration changes via `machineconfig` objects:
+  https://docs.openshift.com/container-platform/4.16/architecture/architecture-rhcos.html
+
+---
+[core@gateway2 ~]$
+</code></pre>
+<ol>
+<li>become root and update the toolbox rc file here.
+    a. use your hub cluster quay to avoid ssl certificate trust error. </li>
+</ol>
+<pre><code>[root@gateway2 ~]# cat /root/.toolboxrc
+#REGISTRY=ncputility.panclyphub01.mnc020.mcc714:8443/ocmirror/rhel9
+REGISTRY=quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9
+IMAGE=support-tools:latest
+[root@gateway2 ~]#
+
+</code></pre>
+<ol>
+<li>now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. </li>
+</ol>
+<pre><code>[root@gateway2 ~]# toolbox
+.toolboxrc file detected, overriding defaults...
+Trying to pull quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest...
+Getting image source signatures
+Copying blob f5e6502d2728 done   |
+Copying blob ebc7dc32a098 done   |
+Copying config affd08d3be done   |
+Writing manifest to image destination
+affd08d3bead20c55f40f08270d477b1524d9d7a2db25235956c7858755ef5f3
+Spawning a container 'toolbox-root' with image 'quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest'
+Detected RUN label in the container image. Using that as the default...
+6bdff24c2e5da044965e2cec8eea58c3d86668f3a5bbe1e2d34495e956fdf0d7
+toolbox-root
+Container started successfully. To exit, type 'exit'.
+[root@gateway2 /]#
+
+</code></pre>
+<ol>
+<li>now run tcpdump command against any linux network interface. </li>
+</ol>
+<pre><code>[root@gateway2 /]# tcpdump -i vlan104 host 10.89.97.162 -n
+dropped privs to tcpdump
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on vlan104, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+11:09:46.575071 ARP, Request who-has 10.89.97.167 tell 10.89.97.162, length 42
+11:09:46.847283 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:47.111266 ARP, Request who-has 10.89.97.166 tell 10.89.97.162, length 42
+11:09:47.575002 ARP, Request who-has 10.89.97.167 tell 10.89.97.162, length 42
+11:09:47.614353 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:48.110974 ARP, Request who-has 10.89.97.166 tell 10.89.97.162, length 42
+11:09:48.398615 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:49.165561 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:49.944591 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:50.708761 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:51.486902 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:52.262277 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:53.022279 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:53.796498 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:54.578752 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:55.339790 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:56.093946 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:56.871023 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:57.655185 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:58.416364 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:59.198508 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:09:59.976760 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:00.160910 IP 10.89.97.165.37680 &gt; 10.89.97.162.bgp: Flags [P.], seq 207097212:207097231, ack 3177745402, win 64, options [nop,nop,TS val 4011175388 ecr 3700362321], length 19: BGP
+11:10:00.162044 IP 10.89.97.162.bgp &gt; 10.89.97.165.37680: Flags [.], ack 19, win 23411, options [nop,nop,TS val 3700389294 ecr 4011175388], length 0
+11:10:00.738822 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:01.497752 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:02.254817 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:03.028798 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:03.209179 IP 10.89.97.162.bgp &gt; 10.89.97.165.37680: Flags [P.], seq 1:20, ack 19, win 23411, options [nop,nop,TS val 3700392341 ecr 4011175388], length 19: BGP
+11:10:03.209205 IP 10.89.97.165.37680 &gt; 10.89.97.162.bgp: Flags [.], ack 20, win 64, options [nop,nop,TS val 4011178436 ecr 3700392341], length 0
+11:10:03.798017 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:04.086263 ARP, Request who-has 10.89.97.163 tell 10.89.97.162, length 42
+11:10:04.564104 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:05.086213 ARP, Request who-has 10.89.97.163 tell 10.89.97.162, length 42
+11:10:05.343276 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:06.086632 ARP, Request who-has 10.89.97.163 tell 10.89.97.162, length 42
+11:10:06.110449 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:06.906665 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:07.686809 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:08.455977 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:09.231136 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:10.002335 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:10.792658 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+11:10:11.561799 IP 10.89.97.162.49152 &gt; 10.89.97.165.bfd-control: BCM-LI-SHIM: direction unused, pkt-type unknown, pkt-subtype single VLAN tag, li-id 2097944
+^C
+44 packets captured
+44 packets received by filter
+0 packets dropped by kernel
+[root@gateway2 /]# 
+</code></pre>
+<h2 id="sos-report">sos report</h2>
+<ol>
+<li>login to node via ssh or debug utitiy </li>
+</ol>
+<pre><code>[root@ncputility ~ pancwl_rc]$ ssh core@gateway2.panclypcwl01.mnc020.mcc714
+Red Hat Enterprise Linux CoreOS 416.94.202407081958-0
+  Part of OpenShift 4.16, RHCOS is a Kubernetes-native operating system
+  managed by the Machine Config Operator (`clusteroperator/machine-config`).
+
+WARNING: Direct SSH access to machines is not recommended; instead,
+make configuration changes via `machineconfig` objects:
+  https://docs.openshift.com/container-platform/4.16/architecture/architecture-rhcos.html
+
+---
+[core@gateway2 ~]$
+</code></pre>
+<ol>
+<li>become root and update the toolbox rc file here.
+    a. use your hub cluster quay to avoid ssl certificate trust error. </li>
+</ol>
+<pre><code>[root@gateway2 ~]# cat /root/.toolboxrc
+#REGISTRY=ncputility.panclyphub01.mnc020.mcc714:8443/ocmirror/rhel9
+REGISTRY=quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9
+IMAGE=support-tools:latest
+[root@gateway2 ~]#
+
+</code></pre>
+<ol>
+<li>now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. </li>
+</ol>
+<pre><code>[root@gateway2 ~]# toolbox
+.toolboxrc file detected, overriding defaults...
+Trying to pull quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest...
+Getting image source signatures
+Copying blob f5e6502d2728 done   |
+Copying blob ebc7dc32a098 done   |
+Copying config affd08d3be done   |
+Writing manifest to image destination
+affd08d3bead20c55f40f08270d477b1524d9d7a2db25235956c7858755ef5f3
+Spawning a container 'toolbox-root' with image 'quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest'
+Detected RUN label in the container image. Using that as the default...
+6bdff24c2e5da044965e2cec8eea58c3d86668f3a5bbe1e2d34495e956fdf0d7
+toolbox-root
+Container started successfully. To exit, type 'exit'.
+[root@gateway2 /]#
+
+</code></pre>
+<ol>
+<li>now use sosreport from here </li>
+</ol>
+<pre><code>sos report -k crio.all=on -k crio.logs=on  -k podman.all=on -k podman.logs=on
+</code></pre>
+<h4 id="references">References</h4>
+<ul>
+<li><a href="https://access.redhat.com/solutions/7046419">Recovering a node that has lost all networking in OpenShift 4</a></li>
+</ul></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
