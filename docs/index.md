@@ -6,7 +6,7 @@ title: NCP OpenShift Notes
 
 Your comprehensive troubleshooting guide to OpenShift installation, backup, storage, troubleshooting, and more.
 
-![Red Hat Logo](images/logo.png){: style="height: 80px;" }
+![Red Hat Logo](images/logowhite.png){: style="height: 80px;" }
 
 ## 📚 Documentation Overview
 
