@@ -3,7 +3,7 @@
 
 ## Delete the storage node
 
-1. Show the initial status of the storage nodes in the managed cluster (output of oc get nodes) and identify which node will be removed, e.g. storage-0.
+1) Show the initial status of the storage nodes in the managed cluster (output of oc get nodes) and identify which node will be removed, e.g. storage-0.
 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc get nodes |grep -i storage
@@ -18,7 +18,7 @@ ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready    storage,work
 
 ```
 
-2. Verify the ceph health status
+2) Verify the ceph health status
 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc exec -it $(oc get pod -n openshift-storage -l app=rook-ceph-operator -o name) -n openshift-storage -- ceph -s -c /var/lib/rook/openshift-storage/openshift-storage.config
@@ -46,7 +46,7 @@ ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready    storage,work
 [root@dom14npv101-infra-manager ~ vlabrc]#
 
 ```
-3. Identify the monitor pod (if any), and OSDs that are running in the node that you need to replace:
+3) Identify the monitor pod (if any), and OSDs that are running in the node that you need to replace:
 
 ```
 
@@ -72,7 +72,7 @@ rook-ceph-tools-6f854c4bfc-wqhm7                                  1/1     Runnin
 
 ```
 
-4. Scale down the deployments of the pods identified in the previous step: (mon, osd, crashcollector)
+4) Scale down the deployments of the pods identified in the previous step: (mon, osd, crashcollector)
 
 ```
 
@@ -102,12 +102,12 @@ deployment.apps/rook-ceph-osd-9 scaled
 
 ```
 
-5. Add the following Annotation for node deletion in the siteconfig.yaml (add crsuppression and crannotation both)
+5) Add the following Annotation for node deletion in the siteconfig.yaml (add crsuppression and crannotation both)
 
 
-6. To initiate the automated deletion process, begin by deleting the BMH CR of the control plane node that has been previously annotated with the specific “crAnnotation”.
+6) To initiate the automated deletion process, begin by deleting the BMH CR of the control plane node that has been previously annotated with the specific “crAnnotation”.
 
-7. Add “crSuppression” to SiteConfig so that node will be removed from the cluster. Note that you need to keep the “crAnnotation” on the node.
+7) Add “crSuppression” to SiteConfig so that node will be removed from the cluster. Note that you need to keep the “crAnnotation” on the node.
 
 ```
 
@@ -121,7 +121,7 @@ deployment.apps/rook-ceph-osd-9 scaled
             bmac.agent-install.openshift.io/remove-agent-and-node-on-delete: true
 
 ```
-8. Git add/commit/push the SiteConfig.yaml, so that ArgoCD syncs the updated SiteConfig to the Hub Cluster 
+8) Git add/commit/push the SiteConfig.yaml, so that ArgoCD syncs the updated SiteConfig to the Hub Cluster 
     a. The BMH on Hub cluster should start showing updated status that the node is being deprovisioning. This status change indicates that the node is undergoing the deprovisioning process, a necessary step before its complete removal.
 
 ```
@@ -130,7 +130,7 @@ ncpvnpvlab1-storage-101.ncpvnpvlab1.pnwlab.nsn-rdnet.net   deprovisioning       
 [root@dom14npv101-infra-manager ~ hubrc]#
 
 ```
-9. Cluster Administrators should wait for the BMH to finish deprovisioning and be fully deleted from the cluster environment. After ~10 minutes (this might take longer or shorter depending on your environment to complete the node clean up):
+9) Cluster Administrators should wait for the BMH to finish deprovisioning and be fully deleted from the cluster environment. After ~10 minutes (this might take longer or shorter depending on your environment to complete the node clean up):
     a. The storage node “storage-0” is powered off
     b. The BMH resource of the replaced node is deleted on the Hub Cluster.
 ```
@@ -144,7 +144,7 @@ ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net   provisioned          
 
 ```
 
-10.  “oc get node” on cluster shows that the node “storage-101” is no longer part of the cluster, only 2 storage nodes remain
+10)  “oc get node” on cluster shows that the node “storage-101” is no longer part of the cluster, only 2 storage nodes remain
 
 ncpvnpvlab1-storage-101.ncpvnpvlab1.pnwlab.nsn-rdnet.net  ---> still part of it. 
 

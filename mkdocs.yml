@@ -50,6 +50,7 @@ nav:
       - Storage Management:
           - Ceph Rebalance Issue: openshift/storagemanagement/ceph-rebalanceissue.md
           - Storage Node Replacement: openshift/storagemanagement/storage-node-replacement.md
+          - Ceph OSD recreate: openshift/storagemanagement/one-OSD-not-created.md
 
       - Tools Management TS: openshift/tools-management-ts/ts-tools.md
 

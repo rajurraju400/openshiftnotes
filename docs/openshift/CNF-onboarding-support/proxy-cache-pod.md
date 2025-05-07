@@ -2,7 +2,7 @@
 
 ## proxy-cache TLS issue. 
 
-0. Login in to CWL cluster and make sure mcp and nodes are looks good at this point, if any issue, need to be resolved first. 
+0) Login in to CWL cluster and make sure mcp and nodes are looks good at this point, if any issue, need to be resolved first. 
 
 ```
 [root@ncputility ~ pancwl_rc]$ oc get nodes
@@ -67,7 +67,7 @@ worker            rendered-worker-68cb1df39185f7ad80fda7915e4c5a42            Tr
 
 ```
 
-1. login to hub cluster and run this command 
+1) login to hub cluster and run this command 
 ```
 [root@ncputility ~ pancwl_rc]$ source /root/panhubrc
 WARNING: Using insecure TLS client config. Setting this option is not supported!
@@ -101,7 +101,7 @@ gUY2KeKz0UManwubPQNnKA==
 
 ```
 
-2. login to workload cluster and run this command 
+2) login to workload cluster and run this command 
 ```
 [root@ncputility ~ pancwl_rc]$ source /root/pancwlrc
 WARNING: Using insecure TLS client config. Setting this option is not supported!
@@ -159,7 +159,7 @@ status: {}
 [root@ncputility ~ pancwl_rc]$
 ```
 
-3. login to workload cluster add tls of hub to cwl. 
+3) login to workload cluster add tls of hub to cwl. 
 ```
 [root@ncputility ~ pancwl_rc]$ oc patch proxy cluster --patch '{"spec":{"trustedCA":{"name":"user-ca-bundle"}}}' --type=merge
 [root@ncputility ~ pancwl_rc]$ oc get proxy cluster -o yaml
@@ -182,42 +182,42 @@ status: {}
 
 ### hub quay configiration
 
-1. Open up the hub quay url 
+1) Open up the hub quay url 
 
 ### CWL quay configuration 
 
-1. Open CWL quay login via super account and created an user called cnfowners also fix the passwd.
+1) Open CWL quay login via super account and created an user called cnfowners also fix the passwd.
 
 ![alt text](image-1.png)
 ![alt text](image-2.png)
 
-2. Create an org as same as hub quay. 
+2) Create an org as same as hub quay. 
 
 ![alt text](image-3.png)
 
-3. Set the proxy cache configuration for the organization
+3) Set the proxy cache configuration for the organization
 
 ![alt text](image-5.png)
 
-4. create robot account and default permission
+4) create robot account and default permission
 
 ![alt text](image-4.png)
 
-5. Create a new team for image pull user
+5) Create a new team for image pull user
 
 ![alt text](image-6.png)
 
-6. Set default permission for the pull user (optional)
+6) Set default permission for the pull user (optional)
 
 <Organization> → Default Permissions → + Create Default Permission
 
-7. Extend the global image pull secret
+7) Extend the global image pull secret
 
 > During the Managed cluster installation, the global pull secret is configured. If the 2nd Hub Quay account and the cache account are not prepared in advance, these accounts need to be added. In case of mirrored registries, only the global pull secret can be used. It is not possible to add project specific pull secrets. For more information, see chapter Image configuration resources in document Images, available in OpenShift Container Platform Product documentation.
 
 ## Testing pod creation using `proxy-cache` quay. 
 
-1. Login the namespace with cluster admin access to grand rights for an scc. 
+1) Login the namespace with cluster admin access to grand rights for an scc. 
 ```
 [root@ncputility ~ pancwl_rc]$ source  /root/pancwlrc
 WARNING: Using insecure TLS client config. Setting this option is not supported!
@@ -229,19 +229,19 @@ You have access to 116 projects, the list has been suppressed. You can list all 
 Using project "default".
 [root@ncputility ~ pancwl_rc]$ 
 ```
-2. Grand admin rights to project. if missed during project creation phase. 
+2) Grand admin rights to project. if missed during project creation phase. 
 ```
 [root@ncputility ~ pancwl_rc]$ oc policy add-role-to-user admin  nokia  -n nokia
 clusterrole.rbac.authorization.k8s.io/admin added: "nokia"
 [root@ncputility ~ pancwl_rc]$ 
 ```
-3. Also grand scc role to default service account via anyuid. 
+3) Also grand scc role to default service account via anyuid. 
 ```
 [root@ncputility ~ pancwl_rc]$ oc adm policy add-scc-to-user anyuid -z default -n nokia
 clusterrole.rbac.authorization.k8s.io/system:openshift:scc:anyuid added: "default"
 [root@ncputility ~ pancwl_rc]$ 
 ```
-4. login to cnf tenant here .
+4) login to cnf tenant here .
 ```
 [root@ncputility ~ pancwl_rc]$ oc login -u nokia -p nokia@123
 WARNING: Using insecure TLS client config. Setting this option is not supported!
@@ -253,7 +253,7 @@ You have one project on this server: "nokia"
 Using project "nokia".
 [root@ncputility ~ pancwl_rc]$ 
 ```
-5. run an pod using proxy-cache url 
+5) run an pod using proxy-cache url 
 ```
 [root@ncputility ~ pancwl_rc]$  oc run podpingtest3 --image=ephemeral.url/cnfimages/testimage01:latest --restart=Never  -- tail -f /dev/null
 pod/podpingtest3 created
@@ -277,7 +277,7 @@ NAME           READY   STATUS              RESTARTS   AGE
 podpingtest3   0/1     ContainerCreating   0          13s
 [root@ncputility ~ pancwl_rc]$ 
 ```
-6. validate the pod status and make sure it's getting the image via proxy-cache. 
+6) validate the pod status and make sure it's getting the image via proxy-cache. 
 ```
 [root@ncputility ~ pancwl_rc]$ oc get pods
 NAME           READY   STATUS    RESTARTS   AGE
@@ -369,7 +369,7 @@ Events:
 
 ## CNF image upload using pod command 
 
-1. login to hub quay using cnfowners and org as cnfimages. 
+1) login to hub quay using cnfowners and org as cnfimages. 
 
 ```
 [root@ncputility ~ pancwl_rc]$ podman login quay-registry.apps.panclyphub01.mnc020.mcc714 -u cnfowners -p cnfowners
@@ -378,20 +378,20 @@ Login Succeeded!
 
 ```
 
-2. load the container images to log registry 
+2) load the container images to log registry 
 ```
 [root@ncputility ~ pancwl_rc]$ podman load -i <filename>.tar^C
 [root@ncputility ~ pancwl_rc]$
 ```
 
-3. tag the image to your registry here 
+3) tag the image to your registry here 
 
 ```
 [root@ncputility ~ pancwl_rc]$ podman tag quay-registry.apps.panclyphub01.mnc020.mcc714/cnfimages/testimage01 quay-registry.apps.panclyphub01.mnc020.mcc714/cnfimagesnew/testimage01:latest
 [root@ncputility ~ pancwl_rc]$
 ```
 
-4. push the image to remore registry using podman push command here .
+4) push the image to remore registry using podman push command here .
 ```
 [root@ncputility ~ pancwl_rc]$ podman push quay-registry.apps.panclyphub01.mnc020.mcc714/cnfimagesnew/testimage01:latest
 Getting image source signatures
