@@ -19,3 +19,4 @@ Your comprehensive troubleshooting guide to OpenShift installation, backup, stor
 - [Storage Management](openshift/storagemanagement/ceph-rebalanceissue.md)
 - [Tools Management](openshift/tools-management-ts/ts-tools.md)
 - [User Management](openshift/usermanagement/user-management.md)
+- [Troubleshooting and Workarounds](openshift/troubleshooting/ncom-sa.md)
