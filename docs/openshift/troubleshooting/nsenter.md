@@ -2,7 +2,7 @@
 
 > Please find the method to use nsenter, so that you will not struggle during your deployment. 
 
-1. Login to the ocp cluster with cluster admin role and find the pod name which you want to login inside the container using nsenter. `ncom01pan-caas-plugin-9bd7755bb-bb5fs` is selected.
+1) Login to the ocp cluster with cluster admin role and find the pod name which you want to login inside the container using nsenter. `ncom01pan-caas-plugin-9bd7755bb-bb5fs` is selected.
 
 
 ```
@@ -21,7 +21,7 @@ ncom01pan-caas-plugin-9bd7755bb-cwzmm                       1/1     Running     
 [root@ncputility ~ pancwl_rc]$
 ```
 
-2. execute to that node where your pod hosted, and this will be indentified from the previous command. 
+2) execute to that node where your pod hosted, and this will be indentified from the previous command. 
 ```
 [root@ncputility ~ pancwl_rc]$ oc debug -t node/appworker0.panclypcwl01.mnc020.mcc714
 Temporary namespace openshift-debug-vz9qc is created for debugging node...
@@ -33,13 +33,13 @@ sh-5.1# chroot /host
 sh-5.1#
 ```
 
-3. now find out the container id using crictl command here 
+3) now find out the container id using crictl command here 
 ```
 sh-5.1# crictl ps |grep -i ncom01pan-caas-plugin-7654b86fdb-mz5r7
 2b61910d5eb23       quay-registry.apps.panclyphub01.mnc020.mcc714/ncom01pan/ncom/caas-plugin@sha256:d6d9506d14d756ecafe7d93debcb9eeb498cc805506fb1480002713d17ce64d6   19 minutes ago      Running             cjee-wildfly                         0                   8ca17869e45fa       ncom01pan-caas-plugin-7654b86fdb-mz5r7
 
 ```
-4. find out the pid of the container using inspect command. 
+4) find out the pid of the container using inspect command. 
 
 ```
 sh-5.1# crictl inpsect 2b61910d5eb23 |grep -i pid
@@ -56,7 +56,7 @@ sh-5.1# crictl inspect 2b61910d5eb23 |grep -i pid
                 "waitpid",
 ```
 
-5. now use the toolbox command, since tcpdump is not configured on the host os level. 
+5) now use the toolbox command, since tcpdump is not configured on the host os level. 
 
 ```
 sh-5.1# toolbox

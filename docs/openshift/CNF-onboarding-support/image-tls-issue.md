@@ -8,7 +8,7 @@
 > In order to be able to push images (for example) from the infra node to this Quay, the rootCA certificate shall be put to the trusted list of the client. The Quay is exposed using the OCP’s default ingress controller, route, so its rootCA shall be fetched (if it was not swapped already).
 
 
-2. from bastion host, login to respective cluster and find the respective CWL cluster quay url. 
+1) from bastion host, login to respective cluster and find the respective CWL cluster quay url. 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc get route -A |grep -i quay
 quay-registry              quay-registry-quay                          quay-registry.apps.ncpvnpvlab1.pnwlab.nsn-rdnet.net                                                             quay-registry-quay-app                             http         edge/Redirect          None
@@ -16,14 +16,14 @@ quay-registry              quay-registry-quay-builder                  quay-regi
 [root@dom14npv101-infra-manager ~ vlabrc]# 
 ```
 
-3. first locally resolve it, so make dir and download the cert (this is resolve on that particular linux server.)
+2) first locally resolve it, so make dir and download the cert (this is resolve on that particular linux server.)
 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# sudo mkdir -p /etc/containers/certs.d/quay-registry.apps.ncpvnpvlab1.pnwlab.nsn-rdnet.net
 [root@dom14npv101-infra-manager ~ vlabrc]#
 ```
 
-4. create the ingress certificate to local host 
+3) create the ingress certificate to local host 
 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc get secrets -n openshift-ingress-operator router-ca \
@@ -55,21 +55,21 @@ ryyB1JeEPQWwewI1j7QXqg==
 
 #### On the OCP cluster level changes, TLS Creation
 
-4. Similarly if images would be pulled on the HUB cluster, its ingress’ rootCA shall be put into the image.config.openshift.io/cluster CR, as the registry is using self-signed certificate by default and treated as an insecure registry, more precisely the OCP’s ingress (if it is not swapped yet). In order to overcome issues the following commands:
+1) Similarly if images would be pulled on the HUB cluster, its ingress’ rootCA shall be put into the image.config.openshift.io/cluster CR, as the registry is using self-signed certificate by default and treated as an insecure registry, more precisely the OCP’s ingress (if it is not swapped yet). In order to overcome issues the following commands:
 ```
  [root@dom14npv101-infra-manager ~ vlabrc]# oc get secrets -n openshift-ingress-operator router-ca \
 -o jsonpath="{.data['tls\.crt']}" | base64 -d > ingress_ca.crt
 [root@dom14npv101-infra-manager ~ vlabrc]# 
 ```
 
-5. create an cm to enforce the certificate here.
+2) create an cm to enforce the certificate here.
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc create configmap registry-cas -n openshift-config \
 --from-file=quay-registry.apps.ncpvnpvlab1.pnwlab.nsn-rdnet.net=ingress_ca.crt
 configmap/registry-cas created
 [root@dom14npv101-infra-manager ~ vlabrc]# 
 ```
-6. now create an image patch to cluster iamge config. 
+3) now create an image patch to cluster iamge config. 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc patch image.config.openshift.io/cluster --patch '{"spec":
 {"additionalTrustedCA":{"name":"registry-cas"}}}' \
@@ -80,7 +80,7 @@ image.config.openshift.io/cluster patched
 
 ### Creating tls certificate on the OCP cluster as additional tls `ADD`
 
-1. oc apply is the preferred way to update an existing resource, including ConfigMaps. This command will update the ConfigMap with the new data while keeping existing data intact. If you don’t have a YAML file, you can first export the current ConfigMap to a file, edit it, and then apply the changes:
+1) oc apply is the preferred way to update an existing resource, including ConfigMaps. This command will update the ConfigMap with the new data while keeping existing data intact. If you don’t have a YAML file, you can first export the current ConfigMap to a file, edit it, and then apply the changes:
 
 
 ```
@@ -89,7 +89,7 @@ oc get configmap registry-cas -n openshift-config -o yaml > registry-cas.yaml
 oc apply -f registry-cas.yaml
 ```
 
-2. If you need to update the existing ConfigMap with new or modified data directly from the command line, you can force the update with oc create configmap using the --dry-run and --force flags:
+2) If you need to update the existing ConfigMap with new or modified data directly from the command line, you can force the update with oc create configmap using the --dry-run and --force flags:
 
 ```
 oc create configmap registry-cas -n openshift-config \
@@ -98,7 +98,7 @@ oc create configmap registry-cas -n openshift-config \
 
 ```
 
-3. Using oc patch (for small changes) Optional extra steps 
+3) Using oc patch (for small changes) Optional extra steps 
 ```
 oc patch configmap registry-cas -n openshift-config \
   --type='json' \

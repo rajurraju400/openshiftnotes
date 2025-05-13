@@ -1,6 +1,6 @@
 # metalb configuration troubleshooting 
 
-1.  login to cluster 
+1)  login to cluster 
 ```
 [root@ncputility ~ pancwl_rc]$ source /root/pancwlrc
 WARNING: Using insecure TLS client config. Setting this option is not supported!
@@ -12,7 +12,7 @@ You have access to 113 projects, the list has been suppressed. You can list all 
 Using project "ncd01pan".
 
 ```
-2. check for `metallb-system` namespace exist
+2) check for `metallb-system` namespace exist
 
 ```
 [root@ncputility ~ pancwl_rc]$ oc get ns | grep -i metallb
@@ -20,7 +20,7 @@ metallb-system                                     Active   26d
 [root@ncputility ~ pancwl_rc]$
 ```
 
-3. check the status of the pods on the `metallb-system` namespace here. 
+3) check the status of the pods on the `metallb-system` namespace here. 
 ```
 [root@ncputility ~ pancwl_rc]$ oc get pods -n metallb-system
 NAME                                                   READY   STATUS    RESTARTS   AGE
@@ -33,7 +33,7 @@ speaker-jzbw7                                          6/6     Running   0      
 speaker-pjstl                                          6/6     Running   0          24d
 ```
 
-4. check for `bfdprofile` on this cluster 
+4) check for `bfdprofile` on this cluster 
 > here transmit interval and receiver interval should be equal from local and remote end. 
 
 ```
@@ -45,7 +45,7 @@ ncp-metallb-oam-pa-pa-bfd-profile   true           300                 300      
 ncp-metallb-oam-pa-sv-bfd-profile   true           300                 300                3
 ```
 
-5. make sure, desination having the backward route configured here .
+5) make sure, desination having the backward route configured here .
 
 ```
 [root@ncputility ~ pancwl_rc]$ oc -n metallb-system get nncp -o wide
@@ -62,7 +62,7 @@ tenant-bond-bgp-oam-vlan104-gateway-2          Available   SuccessfullyConfigure
 tenantvlan-373                                 Available   SuccessfullyConfigured
 tenantvlan-374                                 Available   SuccessfullyConfigured
 ```
-6. check for `ipaddresspool` exist here, so that application can create their `service` as `loadbalancer` here . 
+6) check for `ipaddresspool` exist here, so that application can create their `service` as `loadbalancer` here . 
 
 ```
 [root@ncputility ~ pancwl_rc]$ oc -n metallb-system get IPAddressPool -o wide
@@ -73,7 +73,7 @@ ncp-metallb-oam-pa-pa-addresspool   false         false             ["10.89.101.
 ncp-metallb-oam-pa-sv-addresspool   false         false             ["10.85.186.240/28"]
 ```
 
-7. check for `bgppeer` are up on the metallb speakers thats important for this communication
+7) check for `bgppeer` are up on the metallb speakers thats important for this communication
 
 ```
 [root@ncputility ~ pancwl_rc]$ oc -n metallb-system get BGPPeer -o wide
@@ -88,7 +88,7 @@ ncp-metallb-oam-pa-sv-bgp-peer-1   10.85.187.34    4200000320   ncp-metallb-oam-
 ncp-metallb-oam-pa-sv-bgp-peer-2   10.85.187.35    4200000320   ncp-metallb-oam-pa-sv-bfd-profile
 ```
 
-8. check for `BGPAdvertisement` are created on this cluster and it should be in the `metallb-system` namespace. 
+8) check for `BGPAdvertisement` are created on this cluster and it should be in the `metallb-system` namespace. 
 
 ```
 [root@ncputility ~ pancwl_rc]$ oc -n metallb-system get BGPAdvertisement -o wide
@@ -100,7 +100,7 @@ ncp-metallb-oam-pa-sv-bgp-advertisement   ["ncp-metallb-oam-pa-sv-addresspool"] 
 ```
 
 
-10. No, error from the container logs on this namespace .
+10) No, error from the container logs on this namespace .
 
 ```
 [root@ncputility ~ pancwl_rc]$ oc -n metallb-system logs -l component=speaker
@@ -149,7 +149,7 @@ Defaulted container "speaker" out of: speaker, frr, reloader, frr-metrics, kube-
 {"caller":"node_controller.go:46","controller":"NodeReconciler","level":"info","start reconcile":"/appworker28.panclypcwl01.mnc020.mcc714","ts":"2025-03-31T04:44:44Z"}
 {"caller":"node_controller.go:69","controller":"NodeReconciler","end reconcile":"/appworker28.panclypcwl01.mnc020.mcc714","level":"info","ts":"2025-03-31T04:44:44Z"}
 ```
-11.  just showing an backwards route here for comparison  and your destination should be exist here . 
+11)  just showing an backwards route here for comparison  and your destination should be exist here . 
 ```
 [root@ncputility ~ pancwl_rc]$ oc get nncp -A -o yaml
 apiVersion: v1

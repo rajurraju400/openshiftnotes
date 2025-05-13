@@ -4,7 +4,7 @@
 ## TCPDUMP
 
 
-1. login to node via ssh or debug utitiy 
+1) login to node via ssh or debug utitiy 
 
 ```
 [root@ncputility ~ pancwl_rc]$ ssh core@gateway2.panclypcwl01.mnc020.mcc714
@@ -20,7 +20,7 @@ make configuration changes via `machineconfig` objects:
 [core@gateway2 ~]$
 ```
 
-2. become root and update the toolbox rc file here.
+2) become root and update the toolbox rc file here.
     a. use your hub cluster quay to avoid ssl certificate trust error. 
 
 ```
@@ -32,7 +32,7 @@ IMAGE=support-tools:latest
 
 ```
 
-3. now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. 
+3) now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. 
 
 
 ```
@@ -55,7 +55,7 @@ Container started successfully. To exit, type 'exit'.
 ```
 
 
-4. now run tcpdump command against any linux network interface. 
+4) now run tcpdump command against any linux network interface. 
 
 ```
 [root@gateway2 /]# tcpdump -i vlan104 host 10.89.97.162 -n
@@ -117,7 +117,7 @@ listening on vlan104, link-type EN10MB (Ethernet), snapshot length 262144 bytes
 ## sos report
 
 
-1. login to node via ssh or debug utitiy 
+1) login to node via ssh or debug utitiy 
 
 ```
 [root@ncputility ~ pancwl_rc]$ ssh core@gateway2.panclypcwl01.mnc020.mcc714
@@ -133,7 +133,7 @@ make configuration changes via `machineconfig` objects:
 [core@gateway2 ~]$
 ```
 
-2. become root and update the toolbox rc file here.
+2) become root and update the toolbox rc file here.
     a. use your hub cluster quay to avoid ssl certificate trust error. 
 
 ```
@@ -145,7 +145,7 @@ IMAGE=support-tools:latest
 
 ```
 
-3. now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. 
+3) now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. 
 
 
 ```
@@ -166,7 +166,7 @@ Container started successfully. To exit, type 'exit'.
 [root@gateway2 /]#
 
 ```
-4. now use sosreport from here 
+4) now use sosreport from here 
 
 
 ```

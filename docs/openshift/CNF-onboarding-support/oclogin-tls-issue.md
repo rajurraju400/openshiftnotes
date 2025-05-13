@@ -2,7 +2,7 @@
 
 > To login to NWC cluster, oauth-serving-cert (second certificate) to be copied to /etc/pki/ca-trust/source/anchors/ and then run sudo update-ca-trust extract command. It should be done for each NWC cluster.
  
-1. To get the certificate, execute below command on NWC cluster.
+1) To get the certificate, execute below command on NWC cluster.
  
 ```
 [root@ncputility ~ panhub_rc]$ oc get configmaps -n openshift-config-managed oauth-serving-cert -o yaml
@@ -64,8 +64,8 @@ metadata:
 
 ```
  
-2. Then copy second certificate and put it in a file. Move this file to `/etc/pki/ca-trust/source/anchors/`Post that, run `update-ca-trust extrace `command.
+2) Then copy second certificate and put it in a file. Move this file to `/etc/pki/ca-trust/source/anchors/`Post that, run `update-ca-trust extrace `command.
  
  
-3. Create separate linux user and do oc login kubeadmin, password and api url (find from the kubeconfig) file.
+3) Create separate linux user and do oc login kubeadmin, password and api url (find from the kubeconfig) file.
  

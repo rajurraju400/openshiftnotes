@@ -56,6 +56,7 @@ nav:
 
       - Troubleshooting:
           - Nsenter Usage: openshift/troubleshooting/nsenter.md
+          - NCOM Caas Issue: openshift/troubleshooting/ncomsa.md
 
       - User Management:
           - Remove Kubeadmin: openshift/usermanagement/remove-kubeadmin.md

@@ -4,12 +4,15 @@
 
 ### Problem describe:  
 
-* Problem may live with using the UserID/Password combination as opposed to token based access. There is a functionality within NCOM where when they integrate with the hub cluster, the workload clusters are automatically discovered and integrated. The access used by NCOM during this mechanism is via tokens which bypass the oauth path. 
-
+* CAAS flucatuate on the ncom, CNF onboarding may fail. in millicom, 30mins once it;s fluctuate. 
 > 
 ### Solution describe:
 
-* The auto discovery mode NCOM uses a token after discovery to integrate with the workload cluster instead of userID/password. This connection appears to be stable and does not fluctuate. So we want to use this token based access as a solution to our problem
+* The auto discovery mode NCOM uses a token after discovery to integrate with the workload cluster instead of userID/password. This connection appears to be stable and does not fluctuate. So ncom want to use this token based access as a solution to our problem. instead of user id based. 
+
+###  limitation:  
+
+* based on NCP security hardening, system token may expire within 24hrs. 
 
 
 

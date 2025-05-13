@@ -4,7 +4,7 @@
 
 ## Master node reboot
 
-1. login to right cluster using cluster-admin based role. 
+1) login to right cluster using cluster-admin based role. 
 
 ```
 
@@ -19,7 +19,7 @@ Using project "default".
 [root@dom14npv101-infra-manager ~ management]# 
 ```
 
-2. get the list of storage nodes and also check the ceph status. 
+2) get the list of master nodes and also check the node status. 
 ```
 [root@dom14npv101-infra-manager ~ management]# oc get nodes |grep -i master
 ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
@@ -28,29 +28,37 @@ ncpvnpvmgt-master-103.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,
 [root@dom14npv101-infra-manager ~ management]#
 
 ```
-3. drain the node completely 
+3) drain the node completely 
 ```
 node=ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net
 oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force 
 oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force --disable-eviction 
 ```
-4. trigger the shutdown now. 
+
+3.1) Check for any pod got stuck at termination phase or failed to evicate due to pod distrubation policy etc. 
+
+3.2) those stuck pods should be fully removed/deleted to move to next step here. 
+
+4) trigger the shutdown now. 
 ```
 oc debug node/$node -- chroot /host shutdown -r +1 
 ```
-5. once this server came up, waiting for server to be in ready state 
+5) once this server came up, waiting for server to be in ready state 
 ```
 oc wait --for=condition=Ready node/$node --timeout=800s 
 ```
 
-6. uncordon the node and make it schedulable now. 
+6) uncordon the node and make it schedulable now. 
 
 ```
 oc adm uncordon $node 
 ```
-## Storage node reboot
 
-1. login to right cluster using cluster-admin based role. 
+
+## Worker/Gateway node reboot
+
+1) login to right cluster using cluster-admin based role. 
+
 ```
 
 [root@dom14npv101-infra-manager ~ management]# source  /root/raj/managementrc
@@ -64,7 +72,57 @@ Using project "default".
 [root@dom14npv101-infra-manager ~ management]# 
 ```
 
-2. get the list of storage nodes and also check the ceph status. 
+2) get the list of worker/gateway nodes and also check the node status. 
+```
+[root@dom14npv101-infra-manager ~ management]# oc get nodes |grep -i master
+ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
+ncpvnpvmgt-master-102.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
+ncpvnpvmgt-master-103.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
+[root@dom14npv101-infra-manager ~ management]#
+
+```
+3) drain the node completely 
+```
+node=ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net
+oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force 
+oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force --disable-eviction 
+```
+
+3.1) Check for any pod got stuck at termination phase or failed to evicate due to pod distrubation policy etc. 
+
+3.2) those stuck pods should be fully removed/deleted to move to next step here. 
+
+4) trigger the shutdown now. 
+```
+oc debug node/$node -- chroot /host shutdown -r +1 
+```
+5) once this server came up, waiting for server to be in ready state 
+```
+oc wait --for=condition=Ready node/$node --timeout=800s 
+```
+
+6) uncordon the node and make it schedulable now. 
+
+```
+oc adm uncordon $node 
+```
+## Storage node reboot
+
+1) login to right cluster using cluster-admin based role. 
+```
+
+[root@dom14npv101-infra-manager ~ management]# source  /root/raj/managementrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 99 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@dom14npv101-infra-manager ~ management]# 
+```
+
+2) get the list of storage nodes and also check the ceph status. 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc get no |grep -i storage
 ncpvnpvlab1-storage-101.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                      storage,worker                     24d   v1.29.10+67d3387
@@ -79,13 +137,13 @@ ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready                
 ```
 
 
-3. define a variable called and value as respective storage node, easy run of reboot
+3) define a variable called and value as respective storage node, easy run of reboot
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# node=ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net
 
 ```
 
-4. get the list ceph storage related pods 
+4) get the list ceph storage related pods 
 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc -n openshift-storage get po -o wide | grep -e mon -e osd | grep  ${node}|grep -iv complete|awk '{print $1}'
@@ -100,7 +158,7 @@ rook-ceph-osd-6-5b64cf8d49-n55zf
 [root@dom14npv101-infra-manager ~ vlabrc]# 
 ```
 
-5. use notepad++ to create these following commands to remove those pods on that host. 
+5) use notepad++ to create these following commands to remove those pods on that host. 
 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc -n openshift-storage scale deployment rook-ceph-osd-12 --replicas=0
@@ -122,7 +180,7 @@ deployment.apps/rook-ceph-osd-6 scaled
 [root@dom14npv101-infra-manager ~ vlabrc]#
 ```
 
-6. Completely drain that storage node, using oc adm command 
+6) Completely drain that storage node, using oc adm command 
 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]#oc adm drain ${node} --delete-emptydir-data --ignore-daemonsets=true --timeout=500s --force
@@ -146,12 +204,12 @@ node/ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net drained
 [root@dom14npv101-infra-manager ~ vlabrc]#
 ```
 
-7. reboot the respective storage node using following command. 
+7) reboot the respective storage node using following command. 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]#oc debug node/${node} -- chroot /host systemctl reboot 
 ```
 
-8. waiting for node to be fully up. then check the kubelet status 
+8) waiting for node to be fully up. then check the kubelet status 
 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc get no |grep -i storage
@@ -164,13 +222,13 @@ ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net   Ready,sechd-disable  
 [root@dom14npv101-infra-manager ~ vlabrc]# 
 ```
 
-9. uncordon the storage node.
+9) uncordon the storage node.
 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc adm uncordon ncpvnpvlab1-storage-203.ncpvnpvlab1.pnwlab.nsn-rdnet.net 
 ```
 
-10. check the ceph health and wait for all osd to be fully up.  give 10mins
+10) check the ceph health and wait for all osd to be fully up.  give 10mins
 
 ```
 [root@dom14npv101-infra-manager ~ vlabrc]# oc exec -it $(oc get pod -n openshift-storage -l app=rook-ceph-operator -o name) -n openshift-storage -- ceph -s -c /var/lib/rook/openshift-storage/openshift-storage.config
