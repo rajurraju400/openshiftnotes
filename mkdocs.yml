@@ -64,10 +64,7 @@ nav:
       - User Management:
           - Remove Kubeadmin: openshift/usermanagement/remove-kubeadmin.md
           - User Management: openshift/usermanagement/user-management.md
-
-  - OpenStack:
-      - (Add OpenStack documents here when ready)
-
+          
 markdown_extensions:
   - toc:
       permalink: true
