@@ -1,589 +1,1713 @@
-<!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../../../img/favicon.ico">
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for OpenShift installation, backup, storage, troubleshooting, and more.">
+      
+      
+        <meta name="author" content="venkatapathirajr">
+      
+      
+      
+        <link rel="prev" href="../../networking/metallb-configuration/">
+      
+      
+        <link rel="next" href="../storage-node-replacement/">
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
         <title>Ceph Rebalance Issue - OpenShift Notes</title>
-        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../../css/fontawesome.min.css" rel="stylesheet">
-        <link href="../../../css/brands.min.css" rel="stylesheet">
-        <link href="../../../css/solid.min.css" rel="stylesheet">
-        <link href="../../../css/v4-font-face.min.css" rel="stylesheet">
-        <link href="../../../css/base.css" rel="stylesheet">
-        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
-        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-        <script>hljs.highlightAll();</script> 
-    </head>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="../../..">OpenShift Notes</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item">
-                                <a href="../../.." class="nav-link">Home</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Git Helper</a>
-                                <ul class="dropdown-menu">
-                                    
-<li>
-    <a href="../../../git-helper/ncd-git-backup/" class="dropdown-item">Git Backup</a>
-</li>
-                                    
-<li>
-    <a href="../../../git-helper/ncd-git-restore/" class="dropdown-item">Git Restore</a>
-</li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Deployment Scripts</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../../git-helper/Deployment/backupconfig.sh" class="dropdown-item">Backup Config</a>
-</li>
-            
-<li>
-    <a href="../../../git-helper/Deployment/newgitserver.sh" class="dropdown-item">New Git Server</a>
-</li>
-    </ul>
-  </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">OpenShift</a>
-                                <ul class="dropdown-menu">
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Backup & Restore</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../backup-restore/ACM-GEO-RED/" class="dropdown-item">ACM GEO Red</a>
-</li>
-            
-<li>
-    <a href="../../backup-restore/ACM-localbackup/" class="dropdown-item">ACM Local Backup</a>
-</li>
-            
-<li>
-    <a href="../../backup-restore/AWS-S3/" class="dropdown-item">AWS S3 Backup</a>
-</li>
-            
-<li>
-    <a href="../../backup-restore/etcd-backup/" class="dropdown-item">ETCD Backup</a>
-</li>
-            
-<li>
-    <a href="../../backup-restore/etcd-restore/" class="dropdown-item">ETCD Restore</a>
-</li>
-    </ul>
-  </li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">CNF Onboarding Support</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../CNF-onboarding-support/image-tls-issue/" class="dropdown-item">Image TLS Issue</a>
-</li>
-            
-<li>
-    <a href="../../CNF-onboarding-support/oclogin-tls-issue/" class="dropdown-item">OCLogin TLS Issue</a>
-</li>
-            
-<li>
-    <a href="../../CNF-onboarding-support/proxy-cache-pod/" class="dropdown-item">Proxy Cache Pod</a>
-</li>
-    </ul>
-  </li>
-                                    
-<li>
-    <a href="../../deployment/readme/" class="dropdown-item">Deployment</a>
-</li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Maintenance</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../maintenace/cluster-stop-start/" class="dropdown-item">Cluster Stop/Start</a>
-</li>
-            
-<li>
-    <a href="../../maintenace/reboot-nodes/" class="dropdown-item">Reboot Nodes</a>
-</li>
-    </ul>
-  </li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Networking</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../networking/metalb-troubleshooting/" class="dropdown-item">MetalLB Troubleshooting</a>
-</li>
-            
-<li>
-    <a href="../../networking/metallb-configuration/" class="dropdown-item">MetalLB Configuration</a>
-</li>
-    </ul>
-  </li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Storage Management</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="./" class="dropdown-item active" aria-current="page">Ceph Rebalance Issue</a>
-</li>
-            
-<li>
-    <a href="../storage-node-replacement/" class="dropdown-item">Storage Node Replacement</a>
-</li>
-    </ul>
-  </li>
-                                    
-<li>
-    <a href="../../tools-management-ts/ts-tools/" class="dropdown-item">Tools Management TS</a>
-</li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">Troubleshooting</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../troubleshooting/nsenter/" class="dropdown-item">Nsenter Usage</a>
-</li>
-    </ul>
-  </li>
-                                    
-  <li class="dropdown-submenu">
-    <a href="#" class="dropdown-item">User Management</a>
-    <ul class="dropdown-menu">
-            
-<li>
-    <a href="../../usermanagement/remove-kubeadmin/" class="dropdown-item">Remove Kubeadmin</a>
-</li>
-            
-<li>
-    <a href="../../usermanagement/user-management/" class="dropdown-item">User Management</a>
-</li>
-    </ul>
-  </li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ms-md-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../../networking/metallb-configuration/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../storage-node-replacement/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
-        <ul class="nav flex-column">
-        </ul>
-    </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Red Hat Text";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/redhat-style.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-<p>[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph health detail
-HEALTH_WARN 1 filesystem is degraded; 11 osds down; 3 hosts (23 osds) down; Reduced data availability: 247 pgs inactive; Degraded data redundancy: 5609127/17836029 objects degraded (31.448%), 811 pgs degraded, 839 pgs undersized; 1597 slow ops, oldest one blocked for 16139 sec, daemons [osd.0,osd.10,osd.13,osd.19,osd.22,osd.27,osd.29,osd.3,osd.35,osd.36]... have slow ops.
-[WRN] FS_DEGRADED: 1 filesystem is degraded
-    fs ocs-storagecluster-cephfilesystem is degraded
-[WRN] OSD_DOWN: 11 osds down
-    osd.7 (root=default,host=ncpvnpvlab1-storage-102-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-    osd.9 (root=default,host=ncpvnpvlab1-storage-101-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-    osd.28 (root=default,host=ncpvnpvlab1-storage-101-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-    osd.30 (root=default,host=ncpvnpvlab1-storage-203-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-    osd.31 (root=default,host=ncpvnpvlab1-storage-102-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-    osd.33 (root=default,host=ncpvnpvlab1-storage-102-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-    osd.34 (root=default,host=ncpvnpvlab1-storage-101-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-    osd.37 (root=default,host=ncpvnpvlab1-storage-203-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-    osd.40 (root=default,host=ncpvnpvlab1-storage-203-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-    osd.41 (root=default,host=ncpvnpvlab1-storage-101-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-    osd.44 (root=default,host=ncpvnpvlab1-storage-101-ncpvnpvlab1-pnwlab-nsn-rdnet-net) is down
-[WRN] OSD_HOST_DOWN: 3 hosts (23 osds) down
-    host ncpvnpvlab1-storage-101-ncpvnpvlab1-pnwlab-nsn-rdnet-net (root=default) (8 osds) is down
-    host ncpvnpvlab1-storage-203-ncpvnpvlab1-pnwlab-nsn-rdnet-net (root=default) (8 osds) is down
-    host ncpvnpvlab1-storage-102-ncpvnpvlab1-pnwlab-nsn-rdnet-net (root=default) (7 osds) is down
-[WRN] PG_AVAILABILITY: Reduced data availability: 247 pgs inactive
-    pg 9.91 is stuck inactive for 4h, current state unknown, last acting []
-    pg 9.93 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [45]
-    pg 9.97 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [47]
-    pg 9.9e is stuck inactive for 4h, current state unknown, last acting []
-    pg 9.9f is stuck inactive for 4h, current state undersized+degraded+peered, last acting [5]
-    pg 9.a0 is stuck inactive for 4h, current state unknown, last acting []
-    pg 9.a6 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [22]
-    pg 9.ab is stuck inactive for 4h, current state undersized+degraded+peered, last acting [35]
-    pg 9.ae is stuck inactive for 4h, current state undersized+degraded+peered, last acting [25]
-    pg 9.af is stuck inactive for 4h, current state undersized+degraded+peered, last acting [8]
-    pg 9.b2 is stuck inactive for 4h, current state unknown, last acting []
-    pg 9.b3 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [35]
-    pg 9.b4 is stuck inactive for 4h, current state unknown, last acting []
-    pg 9.c5 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [42]
-    pg 9.c6 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [3]
-    pg 9.c7 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [46]
-    pg 9.1e7 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [46]
-    pg 9.1eb is stuck inactive for 4h, current state undersized+degraded+peered, last acting [29]
-    pg 9.1f5 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [0]
-    pg 9.1fa is stuck inactive for 4h, current state undersized+degraded+peered, last acting [22]
-    pg 9.1fb is stuck inactive for 4h, current state unknown, last acting []
-    pg 11.95 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [46]
-    pg 11.98 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [19]
-    pg 11.9b is stuck inactive for 4h, current state undersized+degraded+peered, last acting [32]
-    pg 11.a0 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [36]
-    pg 11.a1 is stuck inactive for 4h, current state unknown, last acting []
-    pg 11.a3 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [3]
-    pg 11.a8 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [23]
-    pg 11.ac is stuck inactive for 4h, current state undersized+degraded+peered, last acting [43]
-    pg 11.b0 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [39]
-    pg 11.b3 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [3]
-    pg 11.b5 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [10]
-    pg 11.b9 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [43]
-    pg 11.bb is stuck inactive for 4h, current state unknown, last acting []
-    pg 11.bc is stuck inactive for 4h, current state undersized+degraded+peered, last acting [42]
-    pg 11.c0 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [15]
-    pg 11.c2 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [3]
-    pg 11.c3 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [3]
-    pg 12.96 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [23]
-    pg 12.9b is stuck inactive for 4h, current state undersized+degraded+peered, last acting [8]
-    pg 12.9c is stuck inactive for 4h, current state undersized+degraded+peered, last acting [38]
-    pg 12.9d is stuck inactive for 4h, current state undersized+degraded+peered, last acting [10]
-    pg 12.ab is stuck inactive for 4h, current state undersized+degraded+peered, last acting [36]
-    pg 12.af is stuck inactive for 4h, current state undersized+degraded+peered, last acting [20]
-    pg 12.b1 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [0]
-    pg 12.b4 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [13]
-    pg 12.b5 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [38]
-    pg 12.be is stuck inactive for 4h, current state undersized+degraded+peered, last acting [3]
-    pg 12.c4 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [23]
-    pg 12.c5 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [39]
-    pg 12.c7 is stuck inactive for 4h, current state undersized+degraded+peered, last acting [13]
-[WRN] PG_DEGRADED: Degraded data redundancy: 5609127/17836029 objects degraded (31.448%), 811 pgs degraded, 839 pgs undersized
-    pg 9.bf is active+undersized+degraded, acting [29,35]
-    pg 9.c0 is stuck undersized for 4h, current state active+undersized+degraded, last acting [0,45]
-    pg 9.c1 is stuck undersized for 3h, current state active+undersized+remapped, last acting [46,45]
-    pg 9.c2 is stuck undersized for 4h, current state active+undersized+degraded, last acting [10,13]
-    pg 9.c3 is stuck undersized for 4h, current state active+undersized+degraded, last acting [27,22]
-    pg 9.c4 is stuck undersized for 4h, current state active+undersized+degraded, last acting [36,45]
-    pg 9.c5 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [42]
-    pg 9.c6 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [3]
-    pg 9.c7 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [46]
-    pg 9.1e4 is stuck undersized for 4h, current state active+undersized+degraded, last acting [39,25]
-    pg 9.1e5 is stuck undersized for 4h, current state active+undersized+degraded, last acting [10,43]
-    pg 9.1e6 is stuck undersized for 4h, current state active+undersized+degraded, last acting [39,5]
-    pg 9.1e7 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [46]
-    pg 9.1e8 is stuck undersized for 4h, current state active+undersized+degraded, last acting [23,8]
-    pg 9.1e9 is stuck undersized for 4h, current state active+undersized+degraded, last acting [47,27]
-    pg 9.1ea is stuck undersized for 4h, current state active+undersized+degraded, last acting [19,36]
-    pg 9.1eb is stuck undersized for 4h, current state undersized+degraded+peered, last acting [29]
-    pg 9.1ec is stuck undersized for 4h, current state active+undersized+degraded, last acting [3,42]
-    pg 9.1ed is stuck undersized for 4h, current state active+undersized+degraded, last acting [15,43]
-    pg 9.1ee is stuck undersized for 4h, current state active+undersized+degraded, last acting [19,36]
-    pg 9.1ef is stuck undersized for 4h, current state active+undersized+degraded, last acting [0,20]
-    pg 9.1f1 is stuck undersized for 4h, current state active+undersized+degraded, last acting [47,0]
-    pg 9.1f2 is stuck undersized for 4h, current state active+undersized+degraded, last acting [42,35]
-    pg 9.1f3 is stuck undersized for 4h, current state active+undersized+degraded, last acting [47,27]
-    pg 9.1f4 is stuck undersized for 4h, current state active+undersized+degraded, last acting [36,46]
-    pg 9.1f5 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [0]
-    pg 9.1f6 is stuck undersized for 3h, current state active+undersized+degraded, last acting [38,46]
-    pg 9.1f7 is stuck undersized for 4h, current state active+undersized+degraded, last acting [3,0]
-    pg 9.1f8 is stuck undersized for 4h, current state active+undersized+degraded, last acting [3,15]
-    pg 9.1f9 is stuck undersized for 4h, current state active+undersized+degraded, last acting [15,43]
-    pg 9.1fa is stuck undersized for 4h, current state undersized+degraded+peered, last acting [22]
-    pg 9.1fc is stuck undersized for 4h, current state active+undersized+degraded, last acting [35,29]
-    pg 9.1fd is stuck undersized for 4h, current state active+undersized+degraded, last acting [5,19]
-    pg 9.1fe is stuck undersized for 4h, current state active+undersized+degraded, last acting [29,0]
-    pg 9.1ff is stuck undersized for 4h, current state active+undersized+degraded, last acting [43,27]
-    pg 11.bd is stuck undersized for 4h, current state active+undersized+degraded, last acting [10,42]
-    pg 11.c0 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [15]
-    pg 11.c1 is stuck undersized for 4h, current state active+undersized+degraded, last acting [5,32]
-    pg 11.c2 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [3]
-    pg 11.c3 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [3]
-    pg 11.c4 is stuck undersized for 4h, current state active+undersized+degraded, last acting [42,39]
-    pg 11.c5 is stuck undersized for 4h, current state active+undersized+degraded, last acting [46,27]
-    pg 11.c7 is stuck undersized for 4h, current state active+undersized+degraded, last acting [42,36]
-    pg 12.c0 is stuck undersized for 4h, current state active+undersized+degraded, last acting [47,23]
-    pg 12.c1 is stuck undersized for 4h, current state active+undersized+degraded, last acting [25,32]
-    pg 12.c2 is stuck undersized for 4h, current state active+undersized+degraded, last acting [20,0]
-    pg 12.c3 is stuck undersized for 4h, current state active+undersized+degraded, last acting [22,13]
-    pg 12.c4 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [23]
-    pg 12.c5 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [39]
-    pg 12.c6 is stuck undersized for 4h, current state active+undersized+degraded, last acting [29,32]
-    pg 12.c7 is stuck undersized for 4h, current state undersized+degraded+peered, last acting [13]
-[WRN] SLOW_OPS: 1597 slow ops, oldest one blocked for 16139 sec, daemons [osd.0,osd.10,osd.13,osd.19,osd.22,osd.27,osd.29,osd.3,osd.35,osd.36]... have slow ops.
-[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph -s
-  cluster:
-    id:     a2b0c334-ba7c-4ae1-b3f5-c6d514f19bec
-    health: HEALTH_WARN
-            1 filesystem is degraded
-            11 osds down
-            3 hosts (23 osds) down
-            Reduced data availability: 247 pgs inactive
-            Degraded data redundancy: 5609127/17836029 objects degraded (31.448%), 811 pgs degraded, 839 pgs undersized
-            1597 slow ops, oldest one blocked for 16159 sec, daemons [osd.0,osd.10,osd.13,osd.19,osd.22,osd.27,osd.29,osd.3,osd.35,osd.36]... have slow ops.</p>
-<p>services:
-    mon: 3 daemons, quorum h,j,k (age 4h)
-    mgr: a(active, since 4h), standbys: b
-    mds: 1/1 daemons up, 1 standby
-    osd: 47 osds: 24 up (since 4h), 35 in (since 4h); 42 remapped pgs</p>
-<p>data:
-    volumes: 0/1 healthy, 1 recovering
-    pools:   12 pools, 1097 pgs
-    objects: 5.95M objects, 20 TiB
-    usage:   41 TiB used, 99 TiB / 140 TiB avail
-    pgs:     3.829% pgs unknown
-             18.687% pgs not active
-             5609127/17836029 objects degraded (31.448%)
-             279094/17836029 objects misplaced (1.565%)
-             610 active+undersized+degraded
-             201 undersized+degraded+peered
-             190 active+clean
-             42  unknown
-             26  active+clean+remapped
-             16  active+undersized+remapped
-             8   active+undersized
-             4   undersized+peered</p>
-<p>[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph -s
-E0501 23:49:07.749890 2538728 memcache.go:265] couldn't get current server API group list: the server has asked for the client to provide credentials
-E0501 23:49:07.787031 2538728 memcache.go:265] couldn't get current server API group list: the server has asked for the client to provide credentials
-E0501 23:49:07.822712 2538728 memcache.go:265] couldn't get current server API group list: the server has asked for the client to provide credentials
-E0501 23:49:07.855100 2538728 memcache.go:265] couldn't get current server API group list: the server has asked for the client to provide credentials
-error: You must be logged in to the server (the server has asked for the client to provide credentials)
-[root@dom14npv101-infra-manager ~ vlabrc]# source /root/raj/
-alarms/                                health.py                              ingress_ca.crt                         ncp-health.py                          security/
-amc-backup/                            htpasswdhub                            install-config                         new.py                                 storage-logging-loki-compactor-0.yaml
-backup-etcd/                           htpasswdmang                           kubeadmin.yaml                         oauth.yaml                             testing.txt
-beacon.k8s.worker.tar                  htpasswdnlab                           localcert.crt                          pull_secret_cwl_dockerconfigjson.json  users.htpasswd
-cephvlanrc.yaml                        hubconfig                              management_new_health_output.txt       registry-cas.yaml                      vlab1config
-fedora-tools.tar.gz                    hub_new_health_output.txt              managementrc                           resourcequota.yaml                     vlabrc
-git/                                   hubrc                                  managementrcconfig                     rr.txt                                 vlabrc_new_health_output.txt
-[root@dom14npv101-infra-manager ~ vlabrc]# source /root/raj/vlabrc
-WARNING: Using insecure TLS client config. Setting this option is not supported!</p>
-<p>Login successful.</p>
-<p>You have access to 115 projects, the list has been suppressed. You can list all projects with 'oc projects'</p>
-<p>Using project "openshift-storage".
-[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph -s
-  cluster:
-    id:     a2b0c334-ba7c-4ae1-b3f5-c6d514f19bec
-    health: HEALTH_WARN
-            1 filesystem is degraded
-            11 osds down
-            3 hosts (23 osds) down
-            Reduced data availability: 247 pgs inactive
-            Degraded data redundancy: 5609127/17836029 objects degraded (31.448%), 811 pgs degraded, 839 pgs undersized
-            1597 slow ops, oldest one blocked for 24624 sec, daemons [osd.0,osd.10,osd.13,osd.19,osd.22,osd.27,osd.29,osd.3,osd.35,osd.36]... have slow ops.</p>
-<p>services:
-    mon: 3 daemons, quorum h,j,k (age 6h)
-    mgr: a(active, since 6h), standbys: b
-    mds: 1/1 daemons up, 1 standby
-    osd: 47 osds: 24 up (since 7h), 35 in (since 6h); 42 remapped pgs</p>
-<p>data:
-    volumes: 0/1 healthy, 1 recovering
-    pools:   12 pools, 1097 pgs
-    objects: 5.95M objects, 20 TiB
-    usage:   41 TiB used, 99 TiB / 140 TiB avail
-    pgs:     3.829% pgs unknown
-             18.687% pgs not active
-             5609127/17836029 objects degraded (31.448%)
-             279094/17836029 objects misplaced (1.565%)
-             610 active+undersized+degraded
-             201 undersized+degraded+peered
-             190 active+clean
-             42  unknown
-             26  active+clean+remapped
-             16  active+undersized+remapped
-             8   active+undersized
-             4   undersized+peered</p>
-<p>[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd tree
-ID   CLASS  WEIGHT     TYPE NAME                                                          STATUS  REWEIGHT  PRI-AFF
- -1         273.62927  root default
- -3          46.57520      host ncpvnpvlab1-storage-101-ncpvnpvlab1-pnwlab-nsn-rdnet-net
-  4    ssd    5.82190          osd.4                                                        down         0  1.00000
-  9    ssd    5.82190          osd.9                                                        down   1.00000  1.00000
- 14    ssd    5.82190          osd.14                                                       down         0  1.00000
- 21    ssd    5.82190          osd.21                                                       down         0  1.00000
- 28    ssd    5.82190          osd.28                                                       down   1.00000  1.00000
- 34    ssd    5.82190          osd.34                                                       down   1.00000  1.00000
- 41    ssd    5.82190          osd.41                                                       down   1.00000  1.00000
- 44    ssd    5.82190          osd.44                                                       down   1.00000  1.00000
- -7          40.75330      host ncpvnpvlab1-storage-102-ncpvnpvlab1-pnwlab-nsn-rdnet-net
-  7    ssd    5.82190          osd.7                                                        down   1.00000  1.00000
- 11    ssd    5.82190          osd.11                                                       down         0  1.00000
- 17    ssd    5.82190          osd.17                                                       down         0  1.00000
- 18    ssd    5.82190          osd.18                                                       down         0  1.00000
- 24    ssd    5.82190          osd.24                                                       down         0  1.00000
- 31    ssd    5.82190          osd.31                                                       down   1.00000  1.00000
- 33    ssd    5.82190          osd.33                                                       down   1.00000  1.00000
- -9          46.57520      host ncpvnpvlab1-storage-103-ncpvnpvlab1-pnwlab-nsn-rdnet-net
-  0    ssd    5.82190          osd.0                                                          up   1.00000  1.00000
-  5    ssd    5.82190          osd.5                                                          up   1.00000  1.00000
- 10    ssd    5.82190          osd.10                                                         up   1.00000  1.00000
- 15    ssd    5.82190          osd.15                                                         up   1.00000  1.00000
- 23    ssd    5.82190          osd.23                                                         up   1.00000  1.00000
- 25    ssd    5.82190          osd.25                                                         up   1.00000  1.00000
- 35    ssd    5.82190          osd.35                                                         up   1.00000  1.00000
- 36    ssd    5.82190          osd.36                                                         up   1.00000  1.00000
--11          46.57520      host ncpvnpvlab1-storage-201-ncpvnpvlab1-pnwlab-nsn-rdnet-net
- 19    ssd    5.82190          osd.19                                                         up   1.00000  1.00000
- 22    ssd    5.82190          osd.22                                                         up   1.00000  1.00000
- 32    ssd    5.82190          osd.32                                                         up   1.00000  1.00000
- 42    ssd    5.82190          osd.42                                                         up   1.00000  1.00000
- 43    ssd    5.82190          osd.43                                                         up   1.00000  1.00000
- 45    ssd    5.82190          osd.45                                                         up   1.00000  1.00000
- 46    ssd    5.82190          osd.46                                                         up   1.00000  1.00000
- 47    ssd    5.82190          osd.47                                                         up   1.00000  1.00000
--13          46.57520      host ncpvnpvlab1-storage-202-ncpvnpvlab1-pnwlab-nsn-rdnet-net
-  3    ssd    5.82190          osd.3                                                          up   1.00000  1.00000
-  8    ssd    5.82190          osd.8                                                          up   1.00000  1.00000
- 13    ssd    5.82190          osd.13                                                         up   1.00000  1.00000
- 20    ssd    5.82190          osd.20                                                         up   1.00000  1.00000
- 27    ssd    5.82190          osd.27                                                         up   1.00000  1.00000
- 29    ssd    5.82190          osd.29                                                         up   1.00000  1.00000
- 38    ssd    5.82190          osd.38                                                         up   1.00000  1.00000
- 39    ssd    5.82190          osd.39                                                         up   1.00000  1.00000
- -5          46.57520      host ncpvnpvlab1-storage-203-ncpvnpvlab1-pnwlab-nsn-rdnet-net
-  2    ssd    5.82190          osd.2                                                        down         0  1.00000
-  6    ssd    5.82190          osd.6                                                        down         0  1.00000
- 12    ssd    5.82190          osd.12                                                       down         0  1.00000
- 16    ssd    5.82190          osd.16                                                       down         0  1.00000
- 26    ssd    5.82190          osd.26                                                       down         0  1.00000
- 30    ssd    5.82190          osd.30                                                       down   1.00000  1.00000
- 37    ssd    5.82190          osd.37                                                       down   1.00000  1.00000
- 40    ssd    5.82190          osd.40                                                       down   1.00000  1.00000
-[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 4,9
-Error EINVAL: Expected option value to be integer, got '4,9'invalid osd id-1
-command terminated with exit code 22
-[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 4
-osd.4 is already out.
-[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 9
-marked out osd.9.
-[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 14
-osd.14 is already out.
-[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out  ^C
-[root@dom14npv101-infra-manager ~ vlabrc]#
-[root@dom14npv101-infra-manager ~ vlabrc]#
-[root@dom14npv101-infra-manager ~ vlabrc]#
-[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 4
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ceph-rebalance-issues-and-its-method-to-solve-it" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="OpenShift Notes" class="md-header__button md-logo" aria-label="OpenShift Notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OpenShift Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ceph Rebalance Issue
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="OpenShift Notes" class="md-nav__button md-logo" aria-label="OpenShift Notes" data-md-component="logo">
+      
+  <img src="../../../images/logo.png" alt="logo">
+
+    </a>
+    OpenShift Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Git Helper
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Git Helper
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git-helper/ncd-git-backup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git Backup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git-helper/ncd-git-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Git Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment Scripts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment Scripts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git-helper/Deployment/backupconfig.sh" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Config
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../git-helper/Deployment/newgitserver.sh" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    New Git Server (v1)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OpenShift
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            OpenShift
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Backup & Restore
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_1">
+            <span class="md-nav__icon md-icon"></span>
+            Backup & Restore
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backup-restore/ACM-GEO-RED/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ACM GEO Red
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backup-restore/ACM-localbackup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ACM Local Backup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backup-restore/AWS-S3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    AWS S3 Backup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backup-restore/etcd-backup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ETCD Backup
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../backup-restore/etcd-restore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    ETCD Restore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    CNF Onboarding Support
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            CNF Onboarding Support
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CNF-onboarding-support/image-tls-issue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Image TLS Issue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CNF-onboarding-support/oclogin-tls-issue/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OCLogin TLS Issue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../CNF-onboarding-support/proxy-cache-pod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Proxy Cache Pod
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../deployment/readme/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deployment
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Maintenance
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4">
+            <span class="md-nav__icon md-icon"></span>
+            Maintenance
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenace/cluster-stop-start/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Cluster Stop/Start
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../maintenace/reboot-nodes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reboot Nodes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Networking
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
+            <span class="md-nav__icon md-icon"></span>
+            Networking
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/metalb-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MetalLB Troubleshooting
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../networking/metallb-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    MetalLB Configuration
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Storage Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3_6">
+            <span class="md-nav__icon md-icon"></span>
+            Storage Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Ceph Rebalance Issue
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ceph Rebalance Issue
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ceph-rebalance-issues-and-its-method-to-solve-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ceph rebalance issues and it's method to solve it.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ceph rebalance issues and it&#39;s method to solve it.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ceph-rebalance-issue-when-failed-storagereplacement-node-old-osd-causing-an-stuck-or-rebalance-blocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      ceph rebalance issue, when failed storage/replacement node old OSD causing an stuck or rebalance blocking.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage-node-replacement/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Storage Node Replacement
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../one-OSD-not-created/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ceph OSD recreate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools-management-ts/ts-tools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tools Management TS
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_8">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/nsenter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Nsenter Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ncomsa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NCOM Caas Issue
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    User Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_9">
+            <span class="md-nav__icon md-icon"></span>
+            User Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usermanagement/remove-kubeadmin/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Remove Kubeadmin
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../usermanagement/user-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    User Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    OpenStack
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            OpenStack
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../(Add OpenStack documents here when ready)" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    None
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ceph-rebalance-issues-and-its-method-to-solve-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ceph rebalance issues and it's method to solve it.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Ceph rebalance issues and it&#39;s method to solve it.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ceph-rebalance-issue-when-failed-storagereplacement-node-old-osd-causing-an-stuck-or-rebalance-blocking" class="md-nav__link">
+    <span class="md-ellipsis">
+      ceph rebalance issue, when failed storage/replacement node old OSD causing an stuck or rebalance blocking.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Ceph Rebalance Issue</h1>
+
+<h2 id="ceph-rebalance-issues-and-its-method-to-solve-it">Ceph rebalance issues and it's method to solve it.<a class="headerlink" href="#ceph-rebalance-issues-and-its-method-to-solve-it" title="Permanent link">&para;</a></h2>
+<h3 id="ceph-rebalance-issue-when-failed-storagereplacement-node-old-osd-causing-an-stuck-or-rebalance-blocking">ceph rebalance issue, when failed storage/replacement node old OSD causing an stuck or rebalance blocking.<a class="headerlink" href="#ceph-rebalance-issue-when-failed-storagereplacement-node-old-osd-causing-an-stuck-or-rebalance-blocking" title="Permanent link">&para;</a></h3>
+<p>1) Login to OCP CWL cluster</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">source</span><span class="w">  </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">raj</span><span class="o">/</span><span class="n">vlabrc</span>
+<span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
+
+<span class="n">Login</span><span class="w"> </span><span class="n">successful</span><span class="p">.</span>
+
+<span class="n">You</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">115</span><span class="w"> </span><span class="n">projects</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">suppressed</span><span class="p">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="n">projects</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="s1">&#39;oc projects&#39;</span>
+
+<span class="k">Using</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="ss">&quot;openshift-storage&quot;</span><span class="p">.</span>
+<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">nodes</span>
+<span class="n">NAME</span><span class="w">                                                       </span><span class="n">STATUS</span><span class="w">   </span><span class="n">ROLES</span><span class="w">                              </span><span class="n">AGE</span><span class="w">     </span><span class="n">VERSION</span>
+<span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">101.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">storage</span><span class="p">,</span><span class="n">worker</span><span class="w">                     </span><span class="mi">3</span><span class="n">h49m</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">102.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">storage</span><span class="p">,</span><span class="n">worker</span><span class="w">                     </span><span class="mi">149</span><span class="n">m</span><span class="w">    </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">103.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">storage</span><span class="p">,</span><span class="n">worker</span><span class="w">                     </span><span class="mi">57</span><span class="n">d</span><span class="w">     </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">201.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">storage</span><span class="p">,</span><span class="n">worker</span><span class="w">                     </span><span class="mi">55</span><span class="n">d</span><span class="w">     </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">202.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">storage</span><span class="p">,</span><span class="n">worker</span><span class="w">                     </span><span class="mi">57</span><span class="n">d</span><span class="w">     </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">203.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">storage</span><span class="p">,</span><span class="n">worker</span><span class="w">                     </span><span class="mi">3</span><span class="n">h48m</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span><span class="w"> </span>
+
+<span class="k">output</span><span class="w"> </span><span class="n">omitted</span>
+</code></pre></div>
+
+<p>2) look at the ceph to find ceph status to know, is there any OSD's are missing. </p>
+<div class="codehilite"><pre><span></span><code><span class="nv">bash</span><span class="o">-</span><span class="mf">5.1</span><span class="p">$</span><span class="w"> </span><span class="nv">ceph</span><span class="w"> </span><span class="o">-</span><span class="nv">s</span>
+<span class="w">  </span><span class="nv">cluster</span><span class="o">:</span>
+<span class="w">    </span><span class="nv">id</span><span class="o">:</span><span class="w">     </span><span class="nv">d6599242</span><span class="o">-</span><span class="mi">8</span><span class="nv">a82</span><span class="o">-</span><span class="mi">410</span><span class="nv">c</span><span class="o">-</span><span class="nv">aa83</span><span class="o">-</span><span class="nv">c15b31d8f6c7</span>
+<span class="w">    </span><span class="nv">health</span><span class="o">:</span><span class="w"> </span><span class="nv">HEALTH_OK</span>
+
+<span class="w">  </span><span class="nv">services</span><span class="o">:</span>
+<span class="w">    </span><span class="nv">mon</span><span class="o">:</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="nv">daemons</span><span class="p">,</span><span class="w"> </span><span class="nv">quorum</span><span class="w"> </span><span class="nv">a</span><span class="p">,</span><span class="nv">b</span><span class="p">,</span><span class="nf">c</span><span class="w"> </span><span class="p">(</span><span class="nv">age</span><span class="w"> </span><span class="mi">4</span><span class="nv">h</span><span class="p">)</span>
+<span class="w">    </span><span class="nv">mgr</span><span class="o">:</span><span class="w"> </span><span class="nf">a</span><span class="p">(</span><span class="nv">active</span><span class="p">,</span><span class="w"> </span><span class="nv">since</span><span class="w"> </span><span class="mi">11</span><span class="nv">m</span><span class="p">),</span><span class="w"> </span><span class="nv">standbys</span><span class="o">:</span><span class="w"> </span><span class="nv">b</span>
+<span class="w">    </span><span class="nv">mds</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="w"> </span><span class="nv">daemons</span><span class="w"> </span><span class="nv">up</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">hot</span><span class="w"> </span><span class="nv">standby</span>
+<span class="w">    </span><span class="nv">osd</span><span class="o">:</span><span class="w"> </span><span class="mi">46</span><span class="w"> </span><span class="nv">osds</span><span class="o">:</span><span class="w"> </span><span class="mi">46</span><span class="w"> </span><span class="nf">up</span><span class="w"> </span><span class="p">(</span><span class="nv">since</span><span class="w"> </span><span class="mi">10</span><span class="nv">m</span><span class="p">),</span><span class="w"> </span><span class="mi">46</span><span class="w"> </span><span class="nf">in</span><span class="w"> </span><span class="p">(</span><span class="nv">since</span><span class="w"> </span><span class="mi">11</span><span class="nv">m</span><span class="p">)</span>
+<span class="w">    </span><span class="nv">rgw</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">daemon</span><span class="w"> </span><span class="nf">active</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="nv">hosts</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="nv">zones</span><span class="p">)</span>
+
+<span class="w">  </span><span class="nv">data</span><span class="o">:</span>
+<span class="w">    </span><span class="nv">volumes</span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="w"> </span><span class="nv">healthy</span>
+<span class="w">    </span><span class="nv">pools</span><span class="o">:</span><span class="w">   </span><span class="mi">12</span><span class="w"> </span><span class="nv">pools</span><span class="p">,</span><span class="w"> </span><span class="mi">585</span><span class="w"> </span><span class="nv">pgs</span>
+<span class="w">    </span><span class="nv">objects</span><span class="o">:</span><span class="w"> </span><span class="mf">38.37</span><span class="nv">k</span><span class="w"> </span><span class="nv">objects</span><span class="p">,</span><span class="w"> </span><span class="mi">146</span><span class="w"> </span><span class="nv">GiB</span>
+<span class="w">    </span><span class="nv">usage</span><span class="o">:</span><span class="w">   </span><span class="mi">457</span><span class="w"> </span><span class="nv">GiB</span><span class="w"> </span><span class="nv">used</span><span class="p">,</span><span class="w"> </span><span class="mi">267</span><span class="w"> </span><span class="nv">TiB</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">268</span><span class="w"> </span><span class="nv">TiB</span><span class="w"> </span><span class="nv">avail</span>
+<span class="w">    </span><span class="nv">pgs</span><span class="o">:</span><span class="w">     </span><span class="mi">585</span><span class="w"> </span><span class="nv">active</span><span class="o">+</span><span class="nv">clean</span>
+
+<span class="w">  </span><span class="nv">io</span><span class="o">:</span>
+<span class="w">    </span><span class="nv">client</span><span class="o">:</span><span class="w">   </span><span class="mi">135</span><span class="w"> </span><span class="nv">KiB</span><span class="o">/</span><span class="nv">s</span><span class="w"> </span><span class="nv">rd</span><span class="p">,</span><span class="w"> </span><span class="mi">117</span><span class="w"> </span><span class="nv">MiB</span><span class="o">/</span><span class="nv">s</span><span class="w"> </span><span class="nv">wr</span><span class="p">,</span><span class="w"> </span><span class="mi">103</span><span class="w"> </span><span class="nv">op</span><span class="o">/</span><span class="nv">s</span><span class="w"> </span><span class="nv">rd</span><span class="p">,</span><span class="w"> </span><span class="mi">73</span><span class="w"> </span><span class="nv">op</span><span class="o">/</span><span class="nv">s</span><span class="w"> </span><span class="nv">wr</span>
+
+<span class="nv">bash</span><span class="o">-</span><span class="mf">5.1</span><span class="p">$</span>
+</code></pre></div>
+
+<p>3) Let us find which node missing the OSD but counting the osd's on each nodes. </p>
+<div class="codehilite"><pre><span></span><code><span class="nv">bash</span><span class="o">-</span><span class="mf">5.1</span><span class="p">$</span><span class="w"> </span><span class="nv">ceph</span><span class="w"> </span><span class="nv">osd</span><span class="w"> </span><span class="nv">tree</span>
+<span class="nv">ID</span><span class="w">   </span><span class="nv">CLASS</span><span class="w">  </span><span class="nv">WEIGHT</span><span class="w">     </span><span class="nv">TYPE</span><span class="w"> </span><span class="nv">NAME</span><span class="w">                                                          </span><span class="nv">STATUS</span><span class="w">  </span><span class="nv">REWEIGHT</span><span class="w">  </span><span class="nv">PRI</span><span class="o">-</span><span class="nv">AFF</span>
+<span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w">         </span><span class="mf">267.80737</span><span class="w">  </span><span class="nv">root</span><span class="w"> </span><span class="nv">default</span>
+<span class="w"> </span><span class="o">-</span><span class="mi">9</span><span class="w">          </span><span class="mf">40.75330</span><span class="w">      </span><span class="nv">host</span><span class="w"> </span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">storage</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">pnwlab</span><span class="o">-</span><span class="nv">nsn</span><span class="o">-</span><span class="nv">rdnet</span><span class="o">-</span><span class="nv">net</span>
+<span class="w"> </span><span class="mi">24</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">24</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">27</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">27</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">31</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">31</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">32</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">32</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">37</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">37</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">38</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">38</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">41</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">41</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="o">-</span><span class="mi">11</span><span class="w">          </span><span class="mf">46.57520</span><span class="w">      </span><span class="nv">host</span><span class="w"> </span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">storage</span><span class="o">-</span><span class="mi">102</span><span class="o">-</span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">pnwlab</span><span class="o">-</span><span class="nv">nsn</span><span class="o">-</span><span class="nv">rdnet</span><span class="o">-</span><span class="nv">net</span>
+<span class="w"> </span><span class="mi">25</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">25</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">28</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">28</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">29</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">29</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">34</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">34</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">36</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">36</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">42</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">42</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">43</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">43</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">45</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">45</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w">          </span><span class="mf">46.57520</span><span class="w">      </span><span class="nv">host</span><span class="w"> </span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">storage</span><span class="o">-</span><span class="mi">103</span><span class="o">-</span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">pnwlab</span><span class="o">-</span><span class="nv">nsn</span><span class="o">-</span><span class="nv">rdnet</span><span class="o">-</span><span class="nv">net</span>
+<span class="w">  </span><span class="mi">0</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">0</span><span class="w">                                                          </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w">  </span><span class="mi">3</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">3</span><span class="w">                                                          </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w">  </span><span class="mi">6</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">6</span><span class="w">                                                          </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w">  </span><span class="mi">9</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">9</span><span class="w">                                                          </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">11</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">11</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">13</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">13</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">17</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">17</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">19</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">19</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="o">-</span><span class="mi">5</span><span class="w">          </span><span class="mf">46.57520</span><span class="w">      </span><span class="nv">host</span><span class="w"> </span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">storage</span><span class="o">-</span><span class="mi">201</span><span class="o">-</span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">pnwlab</span><span class="o">-</span><span class="nv">nsn</span><span class="o">-</span><span class="nv">rdnet</span><span class="o">-</span><span class="nv">net</span>
+<span class="w">  </span><span class="mi">1</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">1</span><span class="w">                                                          </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w">  </span><span class="mi">4</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">4</span><span class="w">                                                          </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w">  </span><span class="mi">8</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">8</span><span class="w">                                                          </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">10</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">10</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">14</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">14</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">18</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">18</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">20</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">20</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">21</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">21</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="o">-</span><span class="mi">7</span><span class="w">          </span><span class="mf">46.57520</span><span class="w">      </span><span class="nv">host</span><span class="w"> </span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">storage</span><span class="o">-</span><span class="mi">202</span><span class="o">-</span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">pnwlab</span><span class="o">-</span><span class="nv">nsn</span><span class="o">-</span><span class="nv">rdnet</span><span class="o">-</span><span class="nv">net</span>
+<span class="w">  </span><span class="mi">2</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">2</span><span class="w">                                                          </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w">  </span><span class="mi">5</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">5</span><span class="w">                                                          </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w">  </span><span class="mi">7</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">7</span><span class="w">                                                          </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">12</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">12</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">15</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">15</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">16</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">16</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">22</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">22</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">23</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">23</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="o">-</span><span class="mi">13</span><span class="w">          </span><span class="mf">40.75330</span><span class="w">      </span><span class="nv">host</span><span class="w"> </span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">storage</span><span class="o">-</span><span class="mi">203</span><span class="o">-</span><span class="nv">ncpvnpvlab1</span><span class="o">-</span><span class="nv">pnwlab</span><span class="o">-</span><span class="nv">nsn</span><span class="o">-</span><span class="nv">rdnet</span><span class="o">-</span><span class="nv">net</span>
+<span class="w"> </span><span class="mi">26</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">26</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">30</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">30</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">33</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">33</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">35</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">35</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">39</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">39</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">40</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">40</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">44</span><span class="w">    </span><span class="nv">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="nv">osd</span><span class="o">.</span><span class="mi">44</span><span class="w">                                                         </span><span class="nv">up</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="nv">bash</span><span class="o">-</span><span class="mf">5.1</span><span class="p">$</span>
+</code></pre></div>
+
+<p>4) check out the ceph health in detail, get better view from here</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">rsh</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">storage</span><span class="w"> </span><span class="n">pod</span><span class="o">/</span><span class="err">$</span><span class="n">CEPH_TOOL_POD</span><span class="w"> </span><span class="n">ceph</span><span class="w"> </span><span class="n">health</span><span class="w"> </span><span class="n">detail</span>
+<span class="n">HEALTH_WARN</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">filesystem</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">degraded</span><span class="p">;</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="n">osds</span><span class="w"> </span><span class="n">down</span><span class="p">;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">hosts</span><span class="w"> </span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="n">osds</span><span class="p">)</span><span class="w"> </span><span class="n">down</span><span class="p">;</span><span class="w"> </span><span class="n">Reduced</span><span class="w"> </span><span class="k">data</span><span class="w"> </span><span class="nl">availability</span><span class="p">:</span><span class="w"> </span><span class="mi">247</span><span class="w"> </span><span class="n">pgs</span><span class="w"> </span><span class="n">inactive</span><span class="p">;</span><span class="w"> </span><span class="n">Degraded</span><span class="w"> </span><span class="k">data</span><span class="w"> </span><span class="nl">redundancy</span><span class="p">:</span><span class="w"> </span><span class="mi">5609127</span><span class="o">/</span><span class="mi">17836029</span><span class="w"> </span><span class="n">objects</span><span class="w"> </span><span class="n">degraded</span><span class="w"> </span><span class="p">(</span><span class="mf">31.448</span><span class="o">%</span><span class="p">),</span><span class="w"> </span><span class="mi">811</span><span class="w"> </span><span class="n">pgs</span><span class="w"> </span><span class="n">degraded</span><span class="p">,</span><span class="w"> </span><span class="mi">839</span><span class="w"> </span><span class="n">pgs</span><span class="w"> </span><span class="n">undersized</span><span class="p">;</span><span class="w"> </span><span class="mi">1597</span><span class="w"> </span><span class="n">slow</span><span class="w"> </span><span class="n">ops</span><span class="p">,</span><span class="w"> </span><span class="n">oldest</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="n">blocked</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">16139</span><span class="w"> </span><span class="n">sec</span><span class="p">,</span><span class="w"> </span><span class="n">daemons</span><span class="w"> </span><span class="o">[</span><span class="n">osd.0,osd.10,osd.13,osd.19,osd.22,osd.27,osd.29,osd.3,osd.35,osd.36</span><span class="o">]</span><span class="p">...</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">slow</span><span class="w"> </span><span class="n">ops</span><span class="p">.</span>
+<span class="o">[</span><span class="n">WRN</span><span class="o">]</span><span class="w"> </span><span class="nl">FS_DEGRADED</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">filesystem</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">degraded</span>
+<span class="w">    </span><span class="n">fs</span><span class="w"> </span><span class="n">ocs</span><span class="o">-</span><span class="n">storagecluster</span><span class="o">-</span><span class="n">cephfilesystem</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">degraded</span>
+<span class="o">[</span><span class="n">WRN</span><span class="o">]</span><span class="w"> </span><span class="nl">OSD_DOWN</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="n">osds</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.7</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">102</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.9</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.28</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.30</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">203</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.31</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">102</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.33</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">102</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.34</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.37</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">203</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.40</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">203</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.41</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="n">osd</span><span class="mf">.44</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">,</span><span class="k">host</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="o">[</span><span class="n">WRN</span><span class="o">]</span><span class="w"> </span><span class="nl">OSD_HOST_DOWN</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="n">hosts</span><span class="w"> </span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="n">osds</span><span class="p">)</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="k">host</span><span class="w"> </span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">osds</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="k">host</span><span class="w"> </span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">203</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">osds</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="w">    </span><span class="k">host</span><span class="w"> </span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">102</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span><span class="w"> </span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="k">default</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="n">osds</span><span class="p">)</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">down</span>
+<span class="o">[</span><span class="n">WRN</span><span class="o">]</span><span class="w"> </span><span class="nl">PG_AVAILABILITY</span><span class="p">:</span><span class="w"> </span><span class="n">Reduced</span><span class="w"> </span><span class="k">data</span><span class="w"> </span><span class="nl">availability</span><span class="p">:</span><span class="w"> </span><span class="mi">247</span><span class="w"> </span><span class="n">pgs</span><span class="w"> </span><span class="n">inactive</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.91</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="err">[]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.93</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">45</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.97</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">47</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.9</span><span class="n">e</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="err">[]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.9</span><span class="n">f</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">5</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">a0</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="err">[]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">a6</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">22</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">ab</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">35</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">ae</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">25</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">af</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">8</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">b2</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="err">[]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">b3</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">35</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">b4</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="err">[]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">c5</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">42</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">c6</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">3</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.</span><span class="n">c7</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">46</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.1e7</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">46</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.1</span><span class="n">eb</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">29</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.1</span><span class="n">f5</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">0</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.1</span><span class="n">fa</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">22</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">9.1</span><span class="n">fb</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="err">[]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.95</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">46</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.98</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">19</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.9</span><span class="n">b</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">32</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">a0</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">36</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">a1</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="err">[]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">a3</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">3</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">a8</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">23</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">ac</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">43</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">b0</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">39</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">b3</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">3</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">b5</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">10</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">b9</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">43</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">bb</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="k">unknown</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="err">[]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">bc</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">42</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">c0</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">15</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">c2</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">3</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">11.</span><span class="n">c3</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">3</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.96</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">23</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.9</span><span class="n">b</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">8</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.9</span><span class="n">c</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">38</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.9</span><span class="n">d</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">10</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.</span><span class="n">ab</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">36</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.</span><span class="n">af</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">20</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.</span><span class="n">b1</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">0</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.</span><span class="n">b4</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">13</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.</span><span class="n">b5</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">38</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.</span><span class="n">be</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">3</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.</span><span class="n">c4</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">23</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.</span><span class="n">c5</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">39</span><span class="o">]</span>
+<span class="w">    </span><span class="n">pg</span><span class="w"> </span><span class="mf">12.</span><span class="n">c7</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">stuck</span><span class="w"> </span><span class="n">inactive</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">4</span><span class="n">h</span><span class="p">,</span><span class="w"> </span><span class="k">current</span><span class="w"> </span><span class="k">state</span><span class="w"> </span><span class="n">undersized</span><span class="o">+</span><span class="n">degraded</span><span class="o">+</span><span class="n">peered</span><span class="p">,</span><span class="w"> </span><span class="k">last</span><span class="w"> </span><span class="n">acting</span><span class="w"> </span><span class="o">[</span><span class="n">13</span><span class="o">]</span>
+</code></pre></div>
+
+<p>5) remove the OSD's which are part of scaled-in storage node </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">rsh</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">storage</span><span class="w"> </span><span class="n">pod</span><span class="o">/</span><span class="err">$</span><span class="n">CEPH_TOOL_POD</span><span class="w"> </span><span class="n">ceph</span><span class="w"> </span><span class="n">osd</span><span class="w"> </span><span class="n">tree</span>
+<span class="n">ID</span><span class="w">   </span><span class="k">CLASS</span><span class="w">  </span><span class="n">WEIGHT</span><span class="w">     </span><span class="n">TYPE</span><span class="w"> </span><span class="n">NAME</span><span class="w">                                                          </span><span class="n">STATUS</span><span class="w">  </span><span class="n">REWEIGHT</span><span class="w">  </span><span class="n">PRI</span><span class="o">-</span><span class="n">AFF</span>
+<span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w">         </span><span class="mf">273.62927</span><span class="w">  </span><span class="n">root</span><span class="w"> </span><span class="k">default</span>
+<span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w">          </span><span class="mf">46.57520</span><span class="w">      </span><span class="k">host</span><span class="w"> </span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mi">101</span><span class="o">-</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">pnwlab</span><span class="o">-</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">-</span><span class="n">net</span>
+<span class="w">  </span><span class="mi">4</span><span class="w">    </span><span class="n">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="n">osd</span><span class="mf">.4</span><span class="w">                                                        </span><span class="n">down</span><span class="w">         </span><span class="mi">0</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w">  </span><span class="mi">9</span><span class="w">    </span><span class="n">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="n">osd</span><span class="mf">.9</span><span class="w">                                                        </span><span class="n">down</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">14</span><span class="w">    </span><span class="n">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="n">osd</span><span class="mf">.14</span><span class="w">                                                       </span><span class="n">down</span><span class="w">         </span><span class="mi">0</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">21</span><span class="w">    </span><span class="n">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="n">osd</span><span class="mf">.21</span><span class="w">                                                       </span><span class="n">down</span><span class="w">         </span><span class="mi">0</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">28</span><span class="w">    </span><span class="n">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="n">osd</span><span class="mf">.28</span><span class="w">                                                       </span><span class="n">down</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">34</span><span class="w">    </span><span class="n">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="n">osd</span><span class="mf">.34</span><span class="w">                                                       </span><span class="n">down</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">41</span><span class="w">    </span><span class="n">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="n">osd</span><span class="mf">.41</span><span class="w">                                                       </span><span class="n">down</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="mi">44</span><span class="w">    </span><span class="n">ssd</span><span class="w">    </span><span class="mf">5.82190</span><span class="w">          </span><span class="n">osd</span><span class="mf">.44</span><span class="w">                                                       </span><span class="n">down</span><span class="w">   </span><span class="mf">1.00000</span><span class="w">  </span><span class="mf">1.00000</span>
+<span class="w"> </span><span class="err">```</span>
+
+<span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="n">remove</span><span class="w"> </span><span class="n">those</span><span class="w"> </span><span class="n">unwanted</span><span class="w"> </span><span class="n">OSD</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">completely</span><span class="p">.</span><span class="w"> </span>
+</code></pre></div>
+
+<p>oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 4
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 9
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 14
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 21
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 28
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 34
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 41
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 44
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 7
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 11
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 17
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 18
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 24
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 31
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 33
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 2
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 6
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 12
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 16
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 26
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 30
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 37
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 40
-osd.4 is already out.
+oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd out 44</p>
+<p>osd.4 is already out.
 osd.9 is already out.
 osd.14 is already out.
 osd.21 is already out.
 marked out osd.28.
 marked out osd.34.
 marked out osd.41.
-marked out osd.44.
-marked out osd.7.
-osd.11 is already out.
-osd.17 is already out.
-osd.18 is already out.
-osd.24 is already out.
-marked out osd.31.
-marked out osd.33.
-osd.2 is already out.
-osd.6 is already out.
-osd.12 is already out.
-osd.16 is already out.
-osd.26 is already out.
-marked out osd.30.
-marked out osd.37.
-marked out osd.40.
-[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 4  --yes-i-really-mean-it
+marked out osd.44.</p>
+<div class="codehilite"><pre><span></span><code><span class="mf">7</span><span class="p">)</span><span class="w"> </span><span class="n">delete</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">completely</span><span class="mf">.</span><span class="w"> </span><span class="n">using</span><span class="w"> </span><span class="n">purge</span><span class="mf">.</span><span class="w"> </span>
+</code></pre></div>
+
+<p>[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 4  --yes-i-really-mean-it
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 9  --yes-i-really-mean-it
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 14 --yes-i-really-mean-it
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 21 --yes-i-really-mean-it
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 28 --yes-i-really-mean-it
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 34 --yes-i-really-mean-it
 oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 41 --yes-i-really-mean-it
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 44 --yes-i-really-mean-it
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 7  --yes-i-really-mean-it
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 11 --yes-i-really-mean-it
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 17 --yes-i-really-mean-it
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 18 --yes-i-really-mean-it
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 24 --yes-i-really-mean-it
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 31 --yes-i-really-mean-it
-oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 33 --yes-i-really-mean-it
-purged osd.4
+oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph osd purge 44 --yes-i-really-mean-it</p>
+<p>purged osd.4
 purged osd.9
 purged osd.14
 purged osd.21
 purged osd.28
 purged osd.34
 purged osd.41
-purged osd.44
-purged osd.7
-purged osd.11
-purged osd.17
-purged osd.18
-purged osd.24
-purged osd.31
-purged osd.33
-[root@dom14npv101-infra-manager ~ vlabrc]#
-[root@dom14npv101-infra-manager ~ vlabrc]#
-[root@dom14npv101-infra-manager ~ vlabrc]#
-[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph -s
+purged osd.44</p>
+<div class="codehilite"><pre><span></span><code><span class="mf">8</span><span class="p">)</span><span class="w"> </span><span class="n">now</span><span class="w"> </span><span class="n">check</span><span class="p">,</span><span class="w"> </span><span class="n">rebalance</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">begins</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">point</span><span class="mf">.</span><span class="w"> </span>
+</code></pre></div>
+
+<p>[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph -s
   cluster:
     id:     a2b0c334-ba7c-4ae1-b3f5-c6d514f19bec
     health: HEALTH_WARN
@@ -613,114 +1737,63 @@ purged osd.33
              4   undersized+degraded+remapped+backfilling+peered</p>
 <p>io:
     client:   2.3 MiB/s wr, 0 op/s rd, 6 op/s wr
-    recovery: 1.4 GiB/s, 0 keys/s, 455 objects/s</p>
-<p>[root@dom14npv101-infra-manager ~ vlabrc]# oc rsh -n openshift-storage pod/$CEPH_TOOL_POD ceph -s
-  cluster:
-    id:     a2b0c334-ba7c-4ae1-b3f5-c6d514f19bec
-    health: HEALTH_WARN
-            1 filesystem is degraded
-            Reduced data availability: 203 pgs inactive
-            Degraded data redundancy: 5429732/17836062 objects degraded (30.442%), 800 pgs degraded, 218 pgs undersized
-            62 slow ops, oldest one blocked for 24939 sec, daemons [osd.10,osd.13,osd.19,osd.22,osd.35,osd.36,osd.42,osd.45,osd.5] have slow ops.</p>
-<p>services:
-    mon: 3 daemons, quorum h,j,k (age 6h)
-    mgr: a(active, since 6h), standbys: b
-    mds: 1/1 daemons up, 1 standby
-    osd: 32 osds: 24 up (since 7h), 24 in (since 2m); 879 remapped pgs</p>
-<p>data:
-    volumes: 0/1 healthy, 1 recovering
-    pools:   12 pools, 1097 pgs
-    objects: 5.95M objects, 20 TiB
-    usage:   42 TiB used, 98 TiB / 140 TiB avail
-    pgs:     3.829% pgs unknown
-             14.676% pgs not active
-             5429732/17836062 objects degraded (30.442%)
-             1857921/17836062 objects misplaced (10.417%)
-             639 active+undersized+degraded+remapped+backfill_wait
-             176 active+clean
-             157 undersized+degraded+remapped+backfill_wait+peered
-             79  active+remapped+backfill_wait
-             42  unknown
-             4   undersized+degraded+remapped+backfilling+peered</p>
-<p>io:
-    client:   1.5 MiB/s wr, 0 op/s rd, 6 op/s wr
-    recovery: 1.7 GiB/s, 0 keys/s, 507 objects/s</p>
-<p>[root@dom14npv101-infra-manager ~ vlabrc]# </p></div>
-            </div>
-        </div>
+    recovery: 1.4 GiB/s, 0 keys/s, 455 objects/s
+```</p>
 
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script src="../../../js/bootstrap.bundle.min.js"></script>
-        <script>
-            var base_url = "../../..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../../../js/base.js"></script>
-        <script src="../../../search/main.js"></script>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-
-    </body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../js/auth.js"></script>
+      
+    
+  </body>
 </html>

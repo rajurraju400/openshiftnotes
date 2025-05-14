@@ -11,6 +11,9 @@ theme:
   font:
     text: Red Hat Text
     code: Roboto Mono
+    
+extra_javascript:
+  - js/auth.js
 
 extra_css:
   - stylesheets/redhat-style.css
@@ -77,9 +80,13 @@ markdown_extensions:
 
 plugins:
   - search
+
 extra:
   footer: |
     <div style="text-align: center;">
-      <img src="images/logo.png" alt="Red Hat Logo" style="width: 100px; height: auto;">
+      <img src="images/logo.png" alt="Red Hat Logo" style="width: 100px;"><br>
+      <button onclick="sessionStorage.removeItem('authenticated'); location.reload();"
+              style="margin-top: 10px; padding: 6px 12px; border-radius: 4px; background-color: #cc0000; color: white; border: none; cursor: pointer;">
+        Logout
+      </button>
     </div>
-

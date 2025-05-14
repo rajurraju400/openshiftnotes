@@ -19,4 +19,10 @@ Your comprehensive troubleshooting guide to OpenShift installation, backup, stor
 - [Storage Management](openshift/storagemanagement/ceph-rebalanceissue.md)
 - [Tools Management](openshift/tools-management-ts/ts-tools.md)
 - [User Management](openshift/usermanagement/user-management.md)
-- [Troubleshooting and Workarounds](openshift/troubleshooting/ncom-sa.md)
+- [Troubleshooting and Workarounds](openshift/troubleshooting/ncomsa.md)
+
+
+<button onclick="sessionStorage.removeItem('authenticated'); location.reload();"
+        style="padding: 8px 12px; background-color: #cc0000; color: white; border: none; border-radius: 4px; cursor: pointer;">
+  Logout
+</button>

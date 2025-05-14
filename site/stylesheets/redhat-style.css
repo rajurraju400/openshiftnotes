@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;700&family=Red+Hat+Text:wght@400;700&display=swap');
+
+body {
+    font-family: 'Red Hat Text', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Red Hat Display', sans-serif;
+}
+
+
+/* Backgrounds and text */
+.md-header, .md-footer {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+}
+
+a, a:visited {
+    color: #e00;
+}
+
+a:hover {
+    color: #cc0000;
+}
+
+.md-button {
+    background-color: #cc0000;
+    color: #fff;
+    border-radius: 4px;
+}
+.md-button:hover {
+    background-color: #a30000;
+}
+
+/* Force larger logo in header */
+.md-header__button.md-logo img {
+    height: 40px !important;   /* Try increasing this */
+    max-height: 48px !important;
+    width: auto !important;
+}
