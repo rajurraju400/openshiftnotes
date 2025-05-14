@@ -1,6 +1,7 @@
 (function() {
-  if (localStorage.getItem("authenticated") === "true") {
-    return; // Already logged in
+  // Check if user is already authenticated in this session
+  if (sessionStorage.getItem("authenticated") === "true") {
+    return; // User is already logged in
   }
 
   const validUsers = {
@@ -13,16 +14,19 @@
   const inputPass = prompt("Enter password:");
 
   if (validUsers[inputUser] && validUsers[inputUser] === inputPass) {
-    localStorage.setItem("authenticated", "true");
-    localStorage.setItem("username", inputUser);
+    // Save login in session (cleared on tab close or refresh)
+    sessionStorage.setItem("authenticated", "true");
+    sessionStorage.setItem("username", inputUser);
   } else {
+    // Redirect to a custom "Access Denied" page
     window.location.href = "https://www.redhat.com/en";
   }
 })();
 
+// Optional logout button logic
 window.addEventListener("DOMContentLoaded", function() {
-  if (localStorage.getItem("authenticated") !== "true") {
-    const logoutBtn = document.getElementById("logout-button");
-    if (logoutBtn) logoutBtn.style.display = "none";
+  const logoutBtn = document.getElementById("logout-button");
+  if (logoutBtn && sessionStorage.getItem("authenticated") === "true") {
+    logoutBtn.style.display = "block";
   }
 });
