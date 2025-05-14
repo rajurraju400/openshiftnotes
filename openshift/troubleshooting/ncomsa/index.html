@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../AWS-S3/">
+        <link rel="prev" href="../nsenter/">
       
       
-        <link rel="next" href="../etcd-restore/">
+        <link rel="next" href="../../usermanagement/remove-kubeadmin/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>ETCD Backup - OpenShift Notes</title>
+        <title>NCOM Caas Issue - OpenShift Notes</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#control-plane-backup" class="md-skip">
+        <a href="#ncom-caas-fluctuate-every-1-hours-once-and-here-is-the-process-to-create-a-service-account-for-ncom-to-resolve-this-issue" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ETCD Backup
+              NCOM Caas Issue
             
           </span>
         </div>
@@ -462,20 +462,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
         
           
           <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
@@ -491,7 +489,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_1">
             <span class="md-nav__icon md-icon"></span>
             Backup & Restore
@@ -505,7 +503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ACM-GEO-RED/" class="md-nav__link">
+      <a href="../../backup-restore/ACM-GEO-RED/" class="md-nav__link">
         
   
   
@@ -528,7 +526,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ACM-localbackup/" class="md-nav__link">
+      <a href="../../backup-restore/ACM-localbackup/" class="md-nav__link">
         
   
   
@@ -551,7 +549,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AWS-S3/" class="md-nav__link">
+      <a href="../../backup-restore/AWS-S3/" class="md-nav__link">
         
   
   
@@ -571,32 +569,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    ETCD Backup
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../backup-restore/etcd-backup/" class="md-nav__link">
         
   
   
@@ -607,92 +583,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#backing-up-etcd" class="md-nav__link">
-    <span class="md-ellipsis">
-      Backing up etcd
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Backing up etcd">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#backing-up-etcd-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      Backing up etcd data
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Backing up etcd data">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#procedure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Procedure
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#automated-steps-to-run-and-copy-the-file-locally" class="md-nav__link">
-    <span class="md-ellipsis">
-      automated steps to run and copy the file locally
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      Reference
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -705,7 +595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-restore/" class="md-nav__link">
+      <a href="../../backup-restore/etcd-restore/" class="md-nav__link">
         
   
   
@@ -1193,18 +1083,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" checked>
         
           
           <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
@@ -1220,7 +1112,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_8">
             <span class="md-nav__icon md-icon"></span>
             Troubleshooting
@@ -1234,7 +1126,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/nsenter/" class="md-nav__link">
+      <a href="../nsenter/" class="md-nav__link">
         
   
   
@@ -1254,10 +1146,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../troubleshooting/ncomsa/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    NCOM Caas Issue
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1268,6 +1180,84 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ncom-caas-fluctuate-every-1-hours-once-and-here-is-the-process-to-create-a-service-account-for-ncom-to-resolve-this-issue" class="md-nav__link">
+    <span class="md-ellipsis">
+      NCOM CAAS fluctuate every 1 hours once and here is the process to create a service account for ncom to resolve this issue.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="NCOM CAAS fluctuate every 1 hours once and here is the process to create a service account for ncom to resolve this issue.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-describe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem describe:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-describe" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution describe:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      limitation:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#solution-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution steps:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      reference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1465,8 +1455,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1475,68 +1463,62 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#backing-up-etcd" class="md-nav__link">
+  <a href="#ncom-caas-fluctuate-every-1-hours-once-and-here-is-the-process-to-create-a-service-account-for-ncom-to-resolve-this-issue" class="md-nav__link">
     <span class="md-ellipsis">
-      Backing up etcd
+      NCOM CAAS fluctuate every 1 hours once and here is the process to create a service account for ncom to resolve this issue.
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Backing up etcd">
+    <nav class="md-nav" aria-label="NCOM CAAS fluctuate every 1 hours once and here is the process to create a service account for ncom to resolve this issue.">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#backing-up-etcd-data" class="md-nav__link">
+  <a href="#problem-describe" class="md-nav__link">
     <span class="md-ellipsis">
-      Backing up etcd data
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Backing up etcd data">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
+      Problem describe:
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#procedure" class="md-nav__link">
+  <a href="#solution-describe" class="md-nav__link">
     <span class="md-ellipsis">
-      Procedure
+      Solution describe:
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#automated-steps-to-run-and-copy-the-file-locally" class="md-nav__link">
+  <a href="#limitation" class="md-nav__link">
     <span class="md-ellipsis">
-      automated steps to run and copy the file locally
+      limitation:
     </span>
   </a>
   
 </li>
         
-      </ul>
-    </nav>
+          <li class="md-nav__item">
+  <a href="#solution-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution steps:
+    </span>
+  </a>
   
 </li>
         
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
+          <li class="md-nav__item">
   <a href="#reference" class="md-nav__link">
     <span class="md-ellipsis">
-      Reference
+      reference
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1556,79 +1538,95 @@
 
 
 
-<h1 id="control-plane-backup">Control plane backup<a class="headerlink" href="#control-plane-backup" title="Permanent link">&para;</a></h1>
-<h2 id="backing-up-etcd">Backing up etcd<a class="headerlink" href="#backing-up-etcd" title="Permanent link">&para;</a></h2>
-<p>etcd is the key-value store for OpenShift Container Platform, which persists the state of all resource objects.</p>
-<p>Back up your cluster’s etcd data regularly and store in a secure location ideally outside the OpenShift Container Platform environment. Do not take an etcd backup before the first certificate rotation completes, which occurs 24 hours after installation, otherwise the backup will contain expired certificates. It is also recommended to take etcd backups during non-peak usage hours because the etcd snapshot has a high I/O cost.</p>
-<p>Be sure to take an etcd backup after you upgrade your cluster. This is important because when you restore your cluster, you must use an etcd backup that was taken from the same z-stream release. For example, an OpenShift Container Platform 4.y.z cluster must use an etcd backup that was taken from 4.y.z.</p>
-<h3 id="backing-up-etcd-data">Backing up etcd data<a class="headerlink" href="#backing-up-etcd-data" title="Permanent link">&para;</a></h3>
-<h4 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h4>
+  <h1>NCOM Caas Issue</h1>
+
+<h2 id="ncom-caas-fluctuate-every-1-hours-once-and-here-is-the-process-to-create-a-service-account-for-ncom-to-resolve-this-issue">NCOM CAAS fluctuate every 1 hours once and here is the process to create a service account for ncom to resolve this issue.<a class="headerlink" href="#ncom-caas-fluctuate-every-1-hours-once-and-here-is-the-process-to-create-a-service-account-for-ncom-to-resolve-this-issue" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>Caas using user/passwd based registation is fluctuate</p>
+</blockquote>
+<h3 id="problem-describe">Problem describe:<a class="headerlink" href="#problem-describe" title="Permanent link">&para;</a></h3>
 <ul>
-<li>You have access to the cluster as a user with the cluster-admin role.</li>
-<li>You have checked whether the cluster-wide proxy is enabled.</li>
+<li>CAAS flucatuate on the ncom, CNF onboarding may fail. in millicom, 30mins once it;s fluctuate. <blockquote></blockquote>
+</li>
 </ul>
-<h4 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h4>
-<ol>
-<li>Start a debug session for a control plane node:</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>oc debug node/&lt;node_name&gt;
-</code></pre></div>
-
-<ol>
-<li>Change your root directory to /host:</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>chroot /host
-</code></pre></div>
-
-<ol>
-<li>
-<p>If the cluster-wide proxy is enabled, be sure that you have exported the NO_PROXY, HTTP_PROXY, and HTTPS_PROXY environment variables. (optional)</p>
-</li>
-<li>
-<p>Run the cluster-backup.sh script and pass in the location to save the backup to.</p>
-</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>sh-4.4# /usr/local/bin/cluster-backup.sh /home/core/assets/backup
-</code></pre></div>
-
-<p><code>Example script output</code></p>
-<div class="codehilite"><pre><span></span><code><span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">apiserver</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">kube</span><span class="o">-</span><span class="n">apiserver</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">6</span>
-<span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">controller</span><span class="o">-</span><span class="n">manager</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">kube</span><span class="o">-</span><span class="n">controller</span><span class="o">-</span><span class="n">manager</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">7</span>
-<span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">scheduler</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">kube</span><span class="o">-</span><span class="n">scheduler</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">6</span>
-<span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">etcd</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">etcd</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">3</span>
-<span class="n">ede95fe6b88b87ba86a03c15e669fb4aa5bf0991c180d3c6895ce72eaade54a1</span>
-<span class="n">etcdctl</span><span class="w"> </span><span class="n">version</span><span class="p">:</span><span class="w"> </span><span class="mf">3.4</span><span class="o">.</span><span class="mi">14</span>
-<span class="n">API</span><span class="w"> </span><span class="n">version</span><span class="p">:</span><span class="w"> </span><span class="mf">3.4</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647639.0188997</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:119&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;created temporary db file&quot;</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/home/core/assets/backup/snapshot_2021-06-25_190035.db.part&quot;</span><span class="p">}</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="s2">&quot;2021-06-25T19:00:39.030Z&quot;</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;clientv3/maintenance.go:200&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;opened snapshot stream; downloading&quot;</span><span class="p">}</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647639.0301006</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:127&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;fetching snapshot&quot;</span><span class="p">,</span><span class="s2">&quot;endpoint&quot;</span><span class="p">:</span><span class="s2">&quot;https://10.0.0.5:2379&quot;</span><span class="p">}</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="s2">&quot;2021-06-25T19:00:40.215Z&quot;</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;clientv3/maintenance.go:208&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;completed snapshot read; closing&quot;</span><span class="p">}</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647640.6032252</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:142&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;fetched snapshot&quot;</span><span class="p">,</span><span class="s2">&quot;endpoint&quot;</span><span class="p">:</span><span class="s2">&quot;https://10.0.0.5:2379&quot;</span><span class="p">,</span><span class="s2">&quot;size&quot;</span><span class="p">:</span><span class="s2">&quot;114 MB&quot;</span><span class="p">,</span><span class="s2">&quot;took&quot;</span><span class="p">:</span><span class="mf">1.584090459</span><span class="p">}</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647640.6047094</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:152&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;saved&quot;</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/home/core/assets/backup/snapshot_2021-06-25_190035.db&quot;</span><span class="p">}</span>
-<span class="n">Snapshot</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span><span class="n">backup</span><span class="o">/</span><span class="n">snapshot_2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">25</span><span class="n">_190035</span><span class="o">.</span><span class="n">db</span>
-<span class="p">{</span><span class="s2">&quot;hash&quot;</span><span class="p">:</span><span class="mi">3866667823</span><span class="p">,</span><span class="s2">&quot;revision&quot;</span><span class="p">:</span><span class="mi">31407</span><span class="p">,</span><span class="s2">&quot;totalKey&quot;</span><span class="p">:</span><span class="mi">12828</span><span class="p">,</span><span class="s2">&quot;totalSize&quot;</span><span class="p">:</span><span class="mi">114446336</span><span class="p">}</span>
-<span class="n">snapshot</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">kube</span><span class="w"> </span><span class="n">resources</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">successfully</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span><span class="n">backup</span>
-</code></pre></div>
-
-<h4 id="automated-steps-to-run-and-copy-the-file-locally">automated steps to run and copy the file locally<a class="headerlink" href="#automated-steps-to-run-and-copy-the-file-locally" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>backupdir=/tmp/backup-etcd/
-
-servername=$(oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>|grep<span class="w"> </span>-i<span class="w"> </span>master|awk<span class="w"> </span>&#39;{print<span class="w"> </span>$1}&#39;|head<span class="w"> </span>-1)
-
-[<span class="w"> </span>-d<span class="w"> </span><span class="nv">$backupdir</span>/<span class="cp">${</span><span class="n">servername</span><span class="cp">}</span><span class="w"> </span>]<span class="w"> </span>||<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$backupdir</span>/<span class="cp">${</span><span class="n">servername</span><span class="cp">}</span>
-
-execout=$(oc<span class="w"> </span>debug<span class="w"> </span>-t<span class="w"> </span>node/<span class="nv">$servername</span><span class="w"> </span>--<span class="w"> </span>chroot<span class="w"> </span>/host<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span>&#39;/usr/local/bin/cluster-backup.sh<span class="w"> </span>/home/core/assets/backup&#39;)<span class="w"> </span>
-#<span class="w"> </span>filename=$(echo<span class="w"> </span><span class="nv">$execout</span><span class="w"> </span>|<span class="w"> </span>awk<span class="w"> </span>-F&#39;path&quot;:&quot;&#39;<span class="w"> </span>&#39;{print<span class="w"> </span>$2}&#39;<span class="w"> </span>|<span class="w"> </span>awk<span class="w"> </span>-F&#39;&quot;&#39;<span class="w"> </span>&#39;{print<span class="w"> </span>$1}&#39;)<span class="w">   </span>#<span class="nt">&lt;---</span><span class="w"> </span><span class="err">not</span><span class="w"> </span><span class="err">working</span>
-<span class="err">sleep</span><span class="w"> </span><span class="err">20</span>
-
-<span class="err">oc</span><span class="w"> </span><span class="err">debug</span><span class="w"> </span><span class="err">-t</span><span class="w"> </span><span class="err">node/</span><span class="nv">$servername</span><span class="w"> </span><span class="err">--</span><span class="w"> </span><span class="err">chroot</span><span class="w"> </span><span class="err">/host</span><span class="w"> </span><span class="err">bash</span><span class="w"> </span><span class="err">-c</span><span class="w"> </span><span class="err">&#39;chown</span><span class="w"> </span><span class="err">core:core</span><span class="w"> </span><span class="err">/home/core/assets/backup/*.db&#39;</span>
-
-<span class="err">scp</span><span class="w"> </span><span class="err">-rp</span><span class="w"> </span><span class="err">core@</span><span class="nv">$servername</span><span class="err">:</span><span class="cp">${</span><span class="n">filename</span><span class="cp">}</span><span class="w"> </span><span class="nv">$backupdir</span><span class="err">/</span><span class="cp">${</span><span class="n">servername</span><span class="cp">}</span><span class="err">/</span>
-</code></pre></div>
-
-<h2 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h2>
+<h3 id="solution-describe">Solution describe:<a class="headerlink" href="#solution-describe" title="Permanent link">&para;</a></h3>
 <ul>
-<li><a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/backup_and_restore/control-plane-backup-and-restore#backup-etcd">ETCD backup and restore</a></li>
+<li>The auto discovery mode NCOM uses a token after discovery to integrate with the workload cluster instead of userID/password. This connection appears to be stable and does not fluctuate. So ncom want to use this token based access as a solution to our problem. instead of user id based. </li>
+</ul>
+<h3 id="limitation">limitation:<a class="headerlink" href="#limitation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>based on NCP security hardening, system token may expire within 24hrs. </li>
+</ul>
+<h3 id="solution-steps">Solution steps:<a class="headerlink" href="#solution-steps" title="Permanent link">&para;</a></h3>
+<p>1) You need to be logged in with a user who has cluster-admin privileges:</p>
+<p>2) Create an service account on the desired project. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="n">ncom01pan</span>
+<span class="n">Now</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="ss">&quot;ncom01pan&quot;</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="ss">&quot;https://api.panclypcwl01.mnc020.mcc714:6443&quot;</span><span class="p">.</span>
+<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
+
+<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">serviceaccount</span><span class="w"> </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span>
+<span class="n">serviceaccount</span><span class="o">/</span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span><span class="w"> </span><span class="n">created</span>
+<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
+</code></pre></div>
+
+<p>3)  Assing <code>cluster-admin</code> role to this <code>SA</code> now. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">policy</span><span class="w"> </span><span class="k">add</span><span class="o">-</span><span class="n">cluster</span><span class="o">-</span><span class="k">role</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="k">user</span><span class="w"> </span><span class="n">cluster</span><span class="o">-</span><span class="k">admin</span><span class="w"> </span><span class="o">-</span><span class="n">z</span><span class="w">  </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">ncom01pan</span>
+<span class="n">clusterrole</span><span class="p">.</span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">cluster</span><span class="o">-</span><span class="k">admin</span><span class="w"> </span><span class="nl">added</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;ncom-sa&quot;</span>
+<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
+</code></pre></div>
+
+<p>4) describe sa here, you wont see the token and it's expected on this version OCP. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">describe</span><span class="w"> </span><span class="n">sa</span><span class="w"> </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span>
+<span class="n">Name</span><span class="p">:</span><span class="w">                </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span>
+<span class="n">Namespace</span><span class="p">:</span><span class="w">           </span><span class="n">ncom01pan</span>
+<span class="n">Labels</span><span class="p">:</span><span class="w">              </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="n">Annotations</span><span class="p">:</span><span class="w">         </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="n">Image</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">secrets</span><span class="p">:</span><span class="w">  </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="n">Mountable</span><span class="w"> </span><span class="n">secrets</span><span class="p">:</span><span class="w">   </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="n">Tokens</span><span class="p">:</span><span class="w">              </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="n">Events</span><span class="p">:</span><span class="w">              </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="o">[</span><span class="n">root@ncputility</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="o">]</span><span class="err">$</span>
+</code></pre></div>
+
+<p>5) Now Manually Create a Token for the ServiceAccount. This tells Kubernetes/OpenShift to generate a token for ncom-sa and store it in the secret ncom-sa-secret.</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">pancwl_rc</span><span class="p">]</span><span class="err">$</span><span class="w"> </span><span class="nx">cat</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">secret</span><span class="p">.</span><span class="nx">yaml</span>
+<span class="nx">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="nx">v1</span>
+<span class="nx">kind</span><span class="p">:</span><span class="w"> </span><span class="nx">Secret</span>
+<span class="nx">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nx">name</span><span class="p">:</span><span class="w"> </span><span class="nx">ncom</span><span class="o">-</span><span class="nx">sa</span><span class="o">-</span><span class="nx">secret</span>
+<span class="w">  </span><span class="nx">annotations</span><span class="p">:</span>
+<span class="w">    </span><span class="nx">kubernetes</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">service</span><span class="o">-</span><span class="nx">account</span><span class="p">.</span><span class="nx">name</span><span class="p">:</span><span class="w"> </span><span class="nx">ncom</span><span class="o">-</span><span class="nx">sa</span>
+<span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">kubernetes</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">service</span><span class="o">-</span><span class="nx">account</span><span class="o">-</span><span class="nx">token</span>
+
+<span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">pancwl_rc</span><span class="p">]</span><span class="err">$</span>
+</code></pre></div>
+
+<p>6) describe sa here again. you can see the secret created. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">describe</span><span class="w"> </span><span class="n">sa</span><span class="w"> </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span>
+<span class="n">Name</span><span class="p">:</span><span class="w">                </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span>
+<span class="n">Namespace</span><span class="p">:</span><span class="w">           </span><span class="n">ncom01pan</span>
+<span class="n">Labels</span><span class="p">:</span><span class="w">              </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="n">Annotations</span><span class="p">:</span><span class="w">         </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="n">Image</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">secrets</span><span class="p">:</span><span class="w">  </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="n">Mountable</span><span class="w"> </span><span class="n">secrets</span><span class="p">:</span><span class="w">   </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="n">Tokens</span><span class="p">:</span><span class="w">              </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span><span class="o">-</span><span class="n">secret</span>
+<span class="n">Events</span><span class="p">:</span><span class="w">              </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
+<span class="o">[</span><span class="n">root@ncputility</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="o">]</span><span class="err">$</span>
+</code></pre></div>
+
+<p>7) retrive the token and share with ncom team here</p>
+<blockquote>
+<p><code>oc get secret ncom-sa-secret -n ncom01pan -o jsonpath="{.data.token}" | base64 -d</code></p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span><span class="o">-</span><span class="n">secret</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">ncom01pan</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">jsonpath</span><span class="o">=</span><span class="ss">&quot;{.data.token}&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span>
+
+<span class="n">eyJhbGciOiJSUzI1NiIsImtpZCI6IjBpd2lFcjdSU3ktY25uRDl3YTVhU0M2V0wtZ0pUWXBXM0RzMmpUTFp1N28ifQ</span><span class="p">.</span><span class="n">eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZX</span><span class="w">        </span><span class="n">Rlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJuY29tMDFwYW4iLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlY3JldC5uYW1lIjoibmNvbS1zYS1zZWNyZXQiLCJrdWJlcm5</span><span class="w">        </span><span class="n">ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoibmNvbS1zYSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjU0MDli</span><span class="w">        </span><span class="n">ZTIyLTA4YTMtNDVkNS1iNGRlLWMyOGNlMGZjYmIwMyIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpuY29tMDFwYW46bmNvbS1zYSJ9</span><span class="p">.</span><span class="n">H7EpGT0Le2evHG2UW96OO3</span><span class="o">-</span><span class="n">mvY7</span><span class="o">-</span><span class="n">Dg6nzVAgr98c</span><span class="w">        </span><span class="n">SUALecFyrEC9g</span><span class="o">-</span><span class="n">f9lYvgncS4mgQINV7voTaIYQ211AvGn6Adeu</span><span class="o">-</span><span class="n">PE3vPObxcIUA5_KJmRbKl7O1TMzqpJmIa5TnDeSLt2xN6D3bn74n1JpaGq3</span><span class="o">-</span><span class="n">VhBicA9j0jDbLVTi5EE_JGX2PkpJ</span><span class="o">-</span><span class="n">vvMhrnsGF</span><span class="w">        </span><span class="n">YzEA7oOAWwyyPMy2RPeEzKYK0bubvQaRLf2T</span><span class="o">-</span><span class="n">oZkWgXejWeLV0Z1mU12e75husjrEdu</span><span class="o">-</span><span class="n">FEfzyAEU_CQIuPAHHBC7U1OMLAuN_ehImmoLzObSCKqruLxeqIZamr6cNzZAKouc2bcdvLuDWmG3nVZRP</span><span class="w">        </span><span class="n">ZRGnRMKPGaFNPnetav0Nq5MvYy4zOAAaDWq1_B5b8iYFxCsycceqZKySe</span><span class="o">-</span><span class="n">Z_lmEw1x1lyf2I8Z5fpfaoPW_QxndSuxBrV4h6O9igZpwzoCjwq8vB838vkVMlLIcDGTViLAnLd8pl763</span><span class="o">-</span><span class="mi">1</span><span class="n">coSzqsnt</span><span class="w">        </span><span class="n">rO_eUUTZICvTzp</span><span class="o">-</span><span class="n">dA6QdZOb5SWMXj9</span><span class="o">-</span><span class="n">vqvW469rjzgaopSeS7hmUO_6BGMS7O5</span><span class="o">-</span><span class="n">nZC4PG</span><span class="o">-</span><span class="n">QPISrUKup9eAM62jssTmu2QL4</span><span class="o">-</span><span class="n">y3FbY1vjOFvJAbkEwzBhPN</span><span class="o">-</span><span class="mi">2</span><span class="n">EPEY9zUu44ZximqFwNkuR4T66u_jG</span><span class="w">        </span>
+<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
+</code></pre></div>
+
+<h3 id="reference">reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/authentication_and_authorization/understanding-and-creating-service-accounts#service-accounts-overview_understanding-service-accounts">Creating an SA and map cluster admin role</a></li>
 </ul>
 
 

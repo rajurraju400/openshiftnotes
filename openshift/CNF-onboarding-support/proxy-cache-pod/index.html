@@ -1129,6 +1129,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storagemanagement/one-OSD-not-created/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ceph OSD recreate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1211,6 +1234,29 @@
   
   <span class="md-ellipsis">
     Nsenter Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ncomsa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NCOM Caas Issue
     
   </span>
   
@@ -1500,9 +1546,7 @@
 
 <h1 id="proxy-cache-quay-based-pod-creation">Proxy-cache quay based pod creation<a class="headerlink" href="#proxy-cache-quay-based-pod-creation" title="Permanent link">&para;</a></h1>
 <h2 id="proxy-cache-tls-issue">proxy-cache TLS issue.<a class="headerlink" href="#proxy-cache-tls-issue" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Login in to CWL cluster and make sure mcp and nodes are looks good at this point, if any issue, need to be resolved first. </li>
-</ol>
+<p>0) Login in to CWL cluster and make sure mcp and nodes are looks good at this point, if any issue, need to be resolved first. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">nodes</span>
 <span class="n">NAME</span><span class="w">                                     </span><span class="n">STATUS</span><span class="w">   </span><span class="n">ROLES</span><span class="w">                              </span><span class="n">AGE</span><span class="w">   </span><span class="n">VERSION</span>
 <span class="n">appworker0</span><span class="p">.</span><span class="n">panclypcwl01</span><span class="p">.</span><span class="n">mnc020</span><span class="p">.</span><span class="n">mcc714</span><span class="w">    </span><span class="n">Ready</span><span class="w">    </span><span class="n">appworker</span><span class="p">,</span><span class="n">appworker</span><span class="o">-</span><span class="n">mcp</span><span class="o">-</span><span class="n">a</span><span class="p">,</span><span class="n">worker</span><span class="w">   </span><span class="mi">38</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.6</span><span class="o">+</span><span class="n">aba1e8d</span>
@@ -1564,9 +1608,7 @@
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
 </code></pre></div>
 
-<ol>
-<li>login to hub cluster and run this command </li>
-</ol>
+<p>1) login to hub cluster and run this command </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">panhubrc</span>
 <span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
 
@@ -1598,9 +1640,7 @@
 <span class="o">[</span><span class="n">root@ncputility ~ panhub_rc</span><span class="o">]</span><span class="err">$</span>
 </code></pre></div>
 
-<ol>
-<li>login to workload cluster and run this command </li>
-</ol>
+<p>2) login to workload cluster and run this command </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">pancwlrc</span>
 <span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
 
@@ -1657,9 +1697,7 @@
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
 </code></pre></div>
 
-<ol>
-<li>login to workload cluster add tls of hub to cwl. </li>
-</ol>
+<p>3) login to workload cluster add tls of hub to cwl. </p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">pancwl_rc</span><span class="p">]</span><span class="err">$</span><span class="w"> </span><span class="nx">oc</span><span class="w"> </span><span class="nx">patch</span><span class="w"> </span><span class="nx">proxy</span><span class="w"> </span><span class="nx">cluster</span><span class="w"> </span><span class="o">--</span><span class="nx">patch</span><span class="w"> </span><span class="err">&#39;</span><span class="p">{</span><span class="s">&quot;spec&quot;</span><span class="p">:{</span><span class="s">&quot;trustedCA&quot;</span><span class="p">:{</span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="s">&quot;user-ca-bundle&quot;</span><span class="p">}}}</span><span class="err">&#39;</span><span class="w"> </span><span class="o">--</span><span class="k">type</span><span class="p">=</span><span class="nx">merge</span>
 <span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">pancwl_rc</span><span class="p">]</span><span class="err">$</span><span class="w"> </span><span class="nx">oc</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">proxy</span><span class="w"> </span><span class="nx">cluster</span><span class="w"> </span><span class="o">-</span><span class="nx">o</span><span class="w"> </span><span class="nx">yaml</span>
 <span class="nx">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="nx">config</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">v1</span>
@@ -1679,45 +1717,27 @@
 
 <h2 id="configure-the-proxy-cache-on-the-registry-level">Configure the proxy cache on the registry level.<a class="headerlink" href="#configure-the-proxy-cache-on-the-registry-level" title="Permanent link">&para;</a></h2>
 <h3 id="hub-quay-configiration">hub quay configiration<a class="headerlink" href="#hub-quay-configiration" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Open up the hub quay url </li>
-</ol>
+<p>1) Open up the hub quay url </p>
 <h3 id="cwl-quay-configuration">CWL quay configuration<a class="headerlink" href="#cwl-quay-configuration" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Open CWL quay login via super account and created an user called cnfowners also fix the passwd.</li>
-</ol>
+<p>1) Open CWL quay login via super account and created an user called cnfowners also fix the passwd.</p>
 <p><img alt="alt text" src="../image-1.png" />
 <img alt="alt text" src="../image-2.png" /></p>
-<ol>
-<li>Create an org as same as hub quay. </li>
-</ol>
+<p>2) Create an org as same as hub quay. </p>
 <p><img alt="alt text" src="../image-3.png" /></p>
-<ol>
-<li>Set the proxy cache configuration for the organization</li>
-</ol>
+<p>3) Set the proxy cache configuration for the organization</p>
 <p><img alt="alt text" src="../image-5.png" /></p>
-<ol>
-<li>create robot account and default permission</li>
-</ol>
+<p>4) create robot account and default permission</p>
 <p><img alt="alt text" src="../image-4.png" /></p>
-<ol>
-<li>Create a new team for image pull user</li>
-</ol>
+<p>5) Create a new team for image pull user</p>
 <p><img alt="alt text" src="../image-6.png" /></p>
-<ol>
-<li>Set default permission for the pull user (optional)</li>
-</ol>
+<p>6) Set default permission for the pull user (optional)</p>
 <p><Organization> → Default Permissions → + Create Default Permission</p>
-<ol>
-<li>Extend the global image pull secret</li>
-</ol>
+<p>7) Extend the global image pull secret</p>
 <blockquote>
 <p>During the Managed cluster installation, the global pull secret is configured. If the 2nd Hub Quay account and the cache account are not prepared in advance, these accounts need to be added. In case of mirrored registries, only the global pull secret can be used. It is not possible to add project specific pull secrets. For more information, see chapter Image configuration resources in document Images, available in OpenShift Container Platform Product documentation.</p>
 </blockquote>
 <h2 id="testing-pod-creation-using-proxy-cache-quay">Testing pod creation using <code>proxy-cache</code> quay.<a class="headerlink" href="#testing-pod-creation-using-proxy-cache-quay" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Login the namespace with cluster admin access to grand rights for an scc. </li>
-</ol>
+<p>1) Login the namespace with cluster admin access to grand rights for an scc. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">source</span><span class="w">  </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">pancwlrc</span>
 <span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
 
@@ -1729,25 +1749,19 @@
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>Grand admin rights to project. if missed during project creation phase. </li>
-</ol>
+<p>2) Grand admin rights to project. if missed during project creation phase. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">policy</span><span class="w"> </span><span class="k">add</span><span class="o">-</span><span class="k">role</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="k">user</span><span class="w"> </span><span class="k">admin</span><span class="w">  </span><span class="n">nokia</span><span class="w">  </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">nokia</span>
 <span class="n">clusterrole</span><span class="p">.</span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="k">admin</span><span class="w"> </span><span class="nl">added</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;nokia&quot;</span>
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>Also grand scc role to default service account via anyuid. </li>
-</ol>
+<p>3) Also grand scc role to default service account via anyuid. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">policy</span><span class="w"> </span><span class="k">add</span><span class="o">-</span><span class="n">scc</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="k">user</span><span class="w"> </span><span class="n">anyuid</span><span class="w"> </span><span class="o">-</span><span class="n">z</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">nokia</span>
 <span class="n">clusterrole</span><span class="p">.</span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="k">system</span><span class="err">:</span><span class="nl">openshift</span><span class="p">:</span><span class="nl">scc</span><span class="p">:</span><span class="n">anyuid</span><span class="w"> </span><span class="nl">added</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;default&quot;</span>
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>login to cnf tenant here .</li>
-</ol>
+<p>4) login to cnf tenant here .</p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="p">]</span><span class="n">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">nokia</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">nokia</span><span class="mi">@123</span>
 <span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="n">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">supported</span><span class="o">!</span>
 
@@ -1759,9 +1773,7 @@
 <span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="p">]</span><span class="n">$</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>run an pod using proxy-cache url </li>
-</ol>
+<p>5) run an pod using proxy-cache url </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w">  </span><span class="n">oc</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">podpingtest3</span><span class="w"> </span><span class="c1">--image=ephemeral.url/cnfimages/testimage01:latest --restart=Never  -- tail -f /dev/null</span>
 <span class="n">pod</span><span class="o">/</span><span class="n">podpingtest3</span><span class="w"> </span><span class="n">created</span>
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">pods</span>
@@ -1785,9 +1797,7 @@
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>validate the pod status and make sure it's getting the image via proxy-cache. </li>
-</ol>
+<p>6) validate the pod status and make sure it's getting the image via proxy-cache. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">pods</span>
 <span class="n">NAME</span><span class="w">           </span><span class="n">READY</span><span class="w">   </span><span class="n">STATUS</span><span class="w">    </span><span class="n">RESTARTS</span><span class="w">   </span><span class="n">AGE</span>
 <span class="n">podpingtest3</span><span class="w">   </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="w">     </span><span class="n">Running</span><span class="w">   </span><span class="mi">0</span><span class="w">          </span><span class="mi">5</span><span class="n">m1s</span>
@@ -1872,31 +1882,23 @@
 
 <p><img alt="alt text" src="../image.png" /></p>
 <h2 id="cnf-image-upload-using-pod-command">CNF image upload using pod command<a class="headerlink" href="#cnf-image-upload-using-pod-command" title="Permanent link">&para;</a></h2>
-<ol>
-<li>login to hub quay using cnfowners and org as cnfimages. </li>
-</ol>
+<p>1) login to hub quay using cnfowners and org as cnfimages. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">podman</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">panclyphub01</span><span class="p">.</span><span class="n">mnc020</span><span class="p">.</span><span class="n">mcc714</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">cnfowners</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">cnfowners</span>
 <span class="n">Login</span><span class="w"> </span><span class="n">Succeeded</span><span class="err">!</span>
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
 </code></pre></div>
 
-<ol>
-<li>load the container images to log registry </li>
-</ol>
+<p>2) load the container images to log registry </p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="p">]</span><span class="o">$</span><span class="w"> </span><span class="n">podman</span><span class="w"> </span><span class="nb">load</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="n">filename</span><span class="o">&gt;.</span><span class="n">tar</span><span class="o">^</span><span class="n">C</span>
 <span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="p">]</span><span class="o">$</span>
 </code></pre></div>
 
-<ol>
-<li>tag the image to your registry here </li>
-</ol>
+<p>3) tag the image to your registry here </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">podman</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">panclyphub01</span><span class="p">.</span><span class="n">mnc020</span><span class="p">.</span><span class="n">mcc714</span><span class="o">/</span><span class="n">cnfimages</span><span class="o">/</span><span class="n">testimage01</span><span class="w"> </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">panclyphub01</span><span class="p">.</span><span class="n">mnc020</span><span class="p">.</span><span class="n">mcc714</span><span class="o">/</span><span class="n">cnfimagesnew</span><span class="o">/</span><span class="nl">testimage01</span><span class="p">:</span><span class="n">latest</span>
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
 </code></pre></div>
 
-<ol>
-<li>push the image to remore registry using podman push command here .</li>
-</ol>
+<p>4) push the image to remore registry using podman push command here .</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">podman</span><span class="w"> </span><span class="n">push</span><span class="w"> </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">panclyphub01</span><span class="p">.</span><span class="n">mnc020</span><span class="p">.</span><span class="n">mcc714</span><span class="o">/</span><span class="n">cnfimagesnew</span><span class="o">/</span><span class="nl">testimage01</span><span class="p">:</span><span class="n">latest</span>
 <span class="n">Getting</span><span class="w"> </span><span class="nc">image</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">signatures</span>
 <span class="n">Copying</span><span class="w"> </span><span class="k">blob</span><span class="w"> </span><span class="mi">1</span><span class="n">af69dabfc93</span><span class="w"> </span><span class="n">done</span><span class="w">   </span><span class="o">|</span>
@@ -1958,6 +1960,8 @@
     
     
       <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../js/auth.js"></script>
       
     
   </body>

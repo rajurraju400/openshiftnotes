@@ -1111,6 +1111,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storagemanagement/one-OSD-not-created/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ceph OSD recreate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1193,6 +1216,29 @@
   
   <span class="md-ellipsis">
     Nsenter Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ncomsa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NCOM Caas Issue
     
   </span>
   
@@ -1468,25 +1514,19 @@
 <blockquote>
 <p>In order to be able to push images (for example) from the infra node to this Quay, the rootCA certificate shall be put to the trusted list of the client. The Quay is exposed using the OCP’s default ingress controller, route, so its rootCA shall be fetched (if it was not swapped already).</p>
 </blockquote>
-<ol>
-<li>from bastion host, login to respective cluster and find the respective CWL cluster quay url. </li>
-</ol>
+<p>1) from bastion host, login to respective cluster and find the respective CWL cluster quay url. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">route</span><span class="w"> </span><span class="o">-</span><span class="n">A</span><span class="w"> </span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">quay</span>
 <span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="w">              </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="w">                          </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">                                                             </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">app</span><span class="w">                             </span><span class="n">http</span><span class="w">         </span><span class="n">edge</span><span class="o">/</span><span class="n">Redirect</span><span class="w">          </span><span class="k">None</span>
 <span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="w">              </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">builder</span><span class="w">                  </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">builder</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">                                  </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">app</span><span class="w">                             </span><span class="n">grpc</span><span class="w">         </span><span class="n">edge</span><span class="o">/</span><span class="n">Redirect</span><span class="w">          </span><span class="k">None</span>
 <span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>first locally resolve it, so make dir and download the cert (this is resolve on that particular linux server.)</li>
-</ol>
+<p>2) first locally resolve it, so make dir and download the cert (this is resolve on that particular linux server.)</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">containers</span><span class="o">/</span><span class="n">certs</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span>
 <span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span>
 </code></pre></div>
 
-<ol>
-<li>create the ingress certificate to local host </li>
-</ol>
+<p>3) create the ingress certificate to local host </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secrets</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">ingress</span><span class="o">-</span><span class="n">operator</span><span class="w"> </span><span class="n">router</span><span class="o">-</span><span class="n">ca</span><span class="w"> </span><span class="err">\</span>
 <span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">jsonpath</span><span class="o">=</span><span class="ss">&quot;{.data[&#39;tls\.crt&#39;]}&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">\</span>
 <span class="n">sudo</span><span class="w"> </span><span class="n">tee</span><span class="w"> </span><span class="o">-</span><span class="n">a</span><span class="w"> </span><span class="err">\</span>
@@ -1514,26 +1554,20 @@
 </code></pre></div>
 
 <h4 id="on-the-ocp-cluster-level-changes-tls-creation">On the OCP cluster level changes, TLS Creation<a class="headerlink" href="#on-the-ocp-cluster-level-changes-tls-creation" title="Permanent link">&para;</a></h4>
-<ol>
-<li>Similarly if images would be pulled on the HUB cluster, its ingress’ rootCA shall be put into the image.config.openshift.io/cluster CR, as the registry is using self-signed certificate by default and treated as an insecure registry, more precisely the OCP’s ingress (if it is not swapped yet). In order to overcome issues the following commands:</li>
-</ol>
+<p>1) Similarly if images would be pulled on the HUB cluster, its ingress’ rootCA shall be put into the image.config.openshift.io/cluster CR, as the registry is using self-signed certificate by default and treated as an insecure registry, more precisely the OCP’s ingress (if it is not swapped yet). In order to overcome issues the following commands:</p>
 <div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secrets</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">ingress</span><span class="o">-</span><span class="n">operator</span><span class="w"> </span><span class="n">router</span><span class="o">-</span><span class="n">ca</span><span class="w"> </span><span class="err">\</span>
 <span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">jsonpath</span><span class="o">=</span><span class="ss">&quot;{.data[&#39;tls\.crt&#39;]}&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ingress_ca</span><span class="p">.</span><span class="n">crt</span>
 <span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>create an cm to enforce the certificate here.</li>
-</ol>
+<p>2) create an cm to enforce the certificate here.</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">configmap</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="err">\</span>
 <span class="c1">--from-file=quay-registry.apps.ncpvnpvlab1.pnwlab.nsn-rdnet.net=ingress_ca.crt</span>
 <span class="n">configmap</span><span class="o">/</span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="n">created</span>
 <span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>now create an image patch to cluster iamge config. </li>
-</ol>
+<p>3) now create an image patch to cluster iamge config. </p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">dom14npv101</span><span class="o">-</span><span class="nx">infra</span><span class="o">-</span><span class="nx">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">vlabrc</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="nx">oc</span><span class="w"> </span><span class="nx">patch</span><span class="w"> </span><span class="nx">image</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">cluster</span><span class="w"> </span><span class="o">--</span><span class="nx">patch</span><span class="w"> </span><span class="err">&#39;</span><span class="p">{</span><span class="s">&quot;spec&quot;</span><span class="p">:</span>
 <span class="p">{</span><span class="s">&quot;additionalTrustedCA&quot;</span><span class="p">:{</span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="s">&quot;registry-cas&quot;</span><span class="p">}}}</span><span class="err">&#39;</span><span class="w"> </span>\
 <span class="o">--</span><span class="k">type</span><span class="p">=</span><span class="nx">merge</span>
@@ -1542,25 +1576,19 @@
 </code></pre></div>
 
 <h3 id="creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-add">Creating tls certificate on the OCP cluster as additional tls <code>ADD</code><a class="headerlink" href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-add" title="Permanent link">&para;</a></h3>
-<ol>
-<li>oc apply is the preferred way to update an existing resource, including ConfigMaps. This command will update the ConfigMap with the new data while keeping existing data intact. If you don’t have a YAML file, you can first export the current ConfigMap to a file, edit it, and then apply the changes:</li>
-</ol>
+<p>1) oc apply is the preferred way to update an existing resource, including ConfigMaps. This command will update the ConfigMap with the new data while keeping existing data intact. If you don’t have a YAML file, you can first export the current ConfigMap to a file, edit it, and then apply the changes:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">oc</span><span class="w"> </span><span class="n">get</span><span class="w"> </span><span class="n">configmap</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">yaml</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="p">.</span><span class="n">yaml</span>
 
 <span class="n">oc</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="p">.</span><span class="n">yaml</span>
 </code></pre></div>
 
-<ol>
-<li>If you need to update the existing ConfigMap with new or modified data directly from the command line, you can force the update with oc create configmap using the --dry-run and --force flags:</li>
-</ol>
+<p>2) If you need to update the existing ConfigMap with new or modified data directly from the command line, you can force the update with oc create configmap using the --dry-run and --force flags:</p>
 <div class="codehilite"><pre><span></span><code><span class="n">oc</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="n">configmap</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="se">\</span>
 <span class="o">--</span><span class="n">from</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="n">harbor</span><span class="p">.</span><span class="n">ncdvnpv</span><span class="p">.</span><span class="n">ncpvnpvmgt</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="o">=</span><span class="n">ingress_ca</span><span class="p">.</span><span class="n">crt</span><span class="w"> </span><span class="se">\</span>
 <span class="o">--</span><span class="n">dry</span><span class="o">-</span><span class="n">run</span><span class="o">=</span><span class="n">client</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">yaml</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">replace</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="o">-</span>
 </code></pre></div>
 
-<ol>
-<li>Using oc patch (for small changes) Optional extra steps </li>
-</ol>
+<p>3) Using oc patch (for small changes) Optional extra steps </p>
 <div class="codehilite"><pre><span></span><code><span class="nx">oc</span><span class="w"> </span><span class="nx">patch</span><span class="w"> </span><span class="nx">configmap</span><span class="w"> </span><span class="nx">registry</span><span class="o">-</span><span class="nx">cas</span><span class="w"> </span><span class="o">-</span><span class="nx">n</span><span class="w"> </span><span class="nx">openshift</span><span class="o">-</span><span class="nx">config</span><span class="w"> </span>\
 <span class="w">  </span><span class="o">--</span><span class="k">type</span><span class="p">=</span><span class="err">&#39;</span><span class="nx">json</span><span class="err">&#39;</span><span class="w"> </span>\
 <span class="w">  </span><span class="o">-</span><span class="nx">p</span><span class="p">=</span><span class="err">&#39;</span><span class="p">[{</span><span class="s">&quot;op&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;replace&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;path&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/data/harbor.ncdvnpv.ncpvnpvmgt.pnwlab.nsn-rdnet.net&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;value&quot;</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ingress_ca.crt&quot;</span><span class="p">}]</span><span class="err">&#39;</span>
@@ -1617,6 +1645,8 @@
     
     
       <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../js/auth.js"></script>
       
     
   </body>

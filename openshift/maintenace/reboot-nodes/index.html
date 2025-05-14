@@ -886,6 +886,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#workergateway-node-reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Worker/Gateway node reboot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#storage-node-reboot" class="md-nav__link">
     <span class="md-ellipsis">
       Storage node reboot
@@ -1087,6 +1096,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storagemanagement/one-OSD-not-created/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ceph OSD recreate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1169,6 +1201,29 @@
   
   <span class="md-ellipsis">
     Nsenter Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ncomsa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NCOM Caas Issue
     
   </span>
   
@@ -1390,6 +1445,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#workergateway-node-reboot" class="md-nav__link">
+    <span class="md-ellipsis">
+      Worker/Gateway node reboot
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#storage-node-reboot" class="md-nav__link">
     <span class="md-ellipsis">
       Storage node reboot
@@ -1419,9 +1483,7 @@
 <p>steps to show, boot on master, worker/gateway and storage. </p>
 </blockquote>
 <h2 id="master-node-reboot">Master node reboot<a class="headerlink" href="#master-node-reboot" title="Permanent link">&para;</a></h2>
-<ol>
-<li>login to right cluster using cluster-admin based role. </li>
-</ol>
+<p>1) login to right cluster using cluster-admin based role. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ management</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">source</span><span class="w">  </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">raj</span><span class="o">/</span><span class="n">managementrc</span>
 <span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
 
@@ -1433,9 +1495,7 @@
 <span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ management</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>get the list of storage nodes and also check the ceph status. </li>
-</ol>
+<p>2) get the list of master nodes and also check the node status. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ management</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">master</span>
 <span class="n">ncpvnpvmgt</span><span class="o">-</span><span class="n">master</span><span class="o">-</span><span class="mf">101.</span><span class="n">ncpvnpvmgt</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">    </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="w">       </span><span class="mi">32</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
 <span class="n">ncpvnpvmgt</span><span class="o">-</span><span class="n">master</span><span class="o">-</span><span class="mf">102.</span><span class="n">ncpvnpvmgt</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">    </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="w">       </span><span class="mi">32</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
@@ -1443,36 +1503,28 @@
 <span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ management</span><span class="o">]</span><span class="err">#</span>
 </code></pre></div>
 
-<ol>
-<li>drain the node completely </li>
-</ol>
+<p>3) drain the node completely </p>
 <div class="codehilite"><pre><span></span><code>node=ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net
 oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force 
 oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force --disable-eviction 
 </code></pre></div>
 
-<ol>
-<li>trigger the shutdown now. </li>
-</ol>
+<p>3.1) Check for any pod got stuck at termination phase or failed to evicate due to pod distrubation policy etc. </p>
+<p>3.2) those stuck pods should be fully removed/deleted to move to next step here. </p>
+<p>4) trigger the shutdown now. </p>
 <div class="codehilite"><pre><span></span><code>oc debug node/$node -- chroot /host shutdown -r +1 
 </code></pre></div>
 
-<ol>
-<li>once this server came up, waiting for server to be in ready state </li>
-</ol>
+<p>5) once this server came up, waiting for server to be in ready state </p>
 <div class="codehilite"><pre><span></span><code><span class="nv">oc</span><span class="w"> </span><span class="k">wait</span><span class="w"> </span><span class="o">--</span><span class="k">for</span><span class="o">=</span><span class="nv">condition</span><span class="o">=</span><span class="nv">Ready</span><span class="w"> </span><span class="nv">node</span><span class="o">/</span>$<span class="nv">node</span><span class="w"> </span><span class="o">--</span><span class="nb">timeout</span><span class="o">=</span><span class="mi">800</span><span class="nv">s</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>uncordon the node and make it schedulable now. </li>
-</ol>
+<p>6) uncordon the node and make it schedulable now. </p>
 <div class="codehilite"><pre><span></span><code>oc adm uncordon $node 
 </code></pre></div>
 
-<h2 id="storage-node-reboot">Storage node reboot<a class="headerlink" href="#storage-node-reboot" title="Permanent link">&para;</a></h2>
-<ol>
-<li>login to right cluster using cluster-admin based role. </li>
-</ol>
+<h2 id="workergateway-node-reboot">Worker/Gateway node reboot<a class="headerlink" href="#workergateway-node-reboot" title="Permanent link">&para;</a></h2>
+<p>1) login to right cluster using cluster-admin based role. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ management</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">source</span><span class="w">  </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">raj</span><span class="o">/</span><span class="n">managementrc</span>
 <span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
 
@@ -1484,9 +1536,48 @@ oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force --disable-
 <span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ management</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>get the list of storage nodes and also check the ceph status. </li>
-</ol>
+<p>2) get the list of worker/gateway nodes and also check the node status. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ management</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">master</span>
+<span class="n">ncpvnpvmgt</span><span class="o">-</span><span class="n">master</span><span class="o">-</span><span class="mf">101.</span><span class="n">ncpvnpvmgt</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">    </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="w">       </span><span class="mi">32</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">ncpvnpvmgt</span><span class="o">-</span><span class="n">master</span><span class="o">-</span><span class="mf">102.</span><span class="n">ncpvnpvmgt</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">    </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="w">       </span><span class="mi">32</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">ncpvnpvmgt</span><span class="o">-</span><span class="n">master</span><span class="o">-</span><span class="mf">103.</span><span class="n">ncpvnpvmgt</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">    </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="w">       </span><span class="mi">32</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ management</span><span class="o">]</span><span class="err">#</span>
+</code></pre></div>
+
+<p>3) drain the node completely </p>
+<div class="codehilite"><pre><span></span><code>node=ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net
+oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force 
+oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force --disable-eviction 
+</code></pre></div>
+
+<p>3.1) Check for any pod got stuck at termination phase or failed to evicate due to pod distrubation policy etc. </p>
+<p>3.2) those stuck pods should be fully removed/deleted to move to next step here. </p>
+<p>4) trigger the shutdown now. </p>
+<div class="codehilite"><pre><span></span><code>oc debug node/$node -- chroot /host shutdown -r +1 
+</code></pre></div>
+
+<p>5) once this server came up, waiting for server to be in ready state </p>
+<div class="codehilite"><pre><span></span><code><span class="nv">oc</span><span class="w"> </span><span class="k">wait</span><span class="w"> </span><span class="o">--</span><span class="k">for</span><span class="o">=</span><span class="nv">condition</span><span class="o">=</span><span class="nv">Ready</span><span class="w"> </span><span class="nv">node</span><span class="o">/</span>$<span class="nv">node</span><span class="w"> </span><span class="o">--</span><span class="nb">timeout</span><span class="o">=</span><span class="mi">800</span><span class="nv">s</span><span class="w"> </span>
+</code></pre></div>
+
+<p>6) uncordon the node and make it schedulable now. </p>
+<div class="codehilite"><pre><span></span><code>oc adm uncordon $node 
+</code></pre></div>
+
+<h2 id="storage-node-reboot">Storage node reboot<a class="headerlink" href="#storage-node-reboot" title="Permanent link">&para;</a></h2>
+<p>1) login to right cluster using cluster-admin based role. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ management</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">source</span><span class="w">  </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">raj</span><span class="o">/</span><span class="n">managementrc</span>
+<span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
+
+<span class="n">Login</span><span class="w"> </span><span class="n">successful</span><span class="p">.</span>
+
+<span class="n">You</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">99</span><span class="w"> </span><span class="n">projects</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">suppressed</span><span class="p">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="n">projects</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="s1">&#39;oc projects&#39;</span>
+
+<span class="k">Using</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="ss">&quot;default&quot;</span><span class="p">.</span>
+<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ management</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<p>2) get the list of storage nodes and also check the ceph status. </p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">vlabrc</span><span class="p">]</span><span class="c1"># oc get no |grep -i storage</span>
 <span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">101.</span><span class="n">ncpvnpvlab1</span><span class="o">.</span><span class="n">pnwlab</span><span class="o">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">.</span><span class="n">net</span><span class="w">   </span><span class="n">Ready</span><span class="w">                      </span><span class="n">storage</span><span class="p">,</span><span class="n">worker</span><span class="w">                     </span><span class="mi">24</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="o">.</span><span class="mf">29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
 <span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">102.</span><span class="n">ncpvnpvlab1</span><span class="o">.</span><span class="n">pnwlab</span><span class="o">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">.</span><span class="n">net</span><span class="w">   </span><span class="n">Ready</span><span class="w">                      </span><span class="n">storage</span><span class="p">,</span><span class="n">worker</span><span class="w">                     </span><span class="mi">26</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="o">.</span><span class="mf">29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
@@ -1499,15 +1590,11 @@ oc adm drain $node --ignore-daemonsets --delete-emptydir-data --force --disable-
 <span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">vlabrc</span><span class="p">]</span><span class="c1"># oc exec -it $(oc get pod -n openshift-storage -l app=rook-ceph-operator -o name) -n openshift-storage -- ceph -s -c /var/lib/rook/openshift-storage/openshift-storage.config</span>
 </code></pre></div>
 
-<ol>
-<li>define a variable called and value as respective storage node, easy run of reboot</li>
-</ol>
+<p>3) define a variable called and value as respective storage node, easy run of reboot</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">node</span><span class="o">=</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">203.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span>
 </code></pre></div>
 
-<ol>
-<li>get the list ceph storage related pods </li>
-</ol>
+<p>4) get the list ceph storage related pods </p>
 <div class="codehilite"><pre><span></span><code>[root@dom14npv101-infra-manager<span class="w"> </span>~<span class="w"> </span>vlabrc]#<span class="w"> </span>oc<span class="w"> </span>-n<span class="w"> </span>openshift-storage<span class="w"> </span>get<span class="w"> </span>po<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span>|<span class="w"> </span>grep<span class="w"> </span>-e<span class="w"> </span>mon<span class="w"> </span>-e<span class="w"> </span>osd<span class="w"> </span>|<span class="w"> </span>grep<span class="w">  </span><span class="cp">${</span><span class="n">node</span><span class="cp">}</span>|grep<span class="w"> </span>-iv<span class="w"> </span>complete|awk<span class="w"> </span>&#39;{print<span class="w"> </span>$1}&#39;
 rook-ceph-osd-12-589c6485c9-ptqs7
 rook-ceph-osd-16-74cbc54b4f-tg8lw
@@ -1520,9 +1607,7 @@ rook-ceph-osd-6-5b64cf8d49-n55zf
 [root@dom14npv101-infra-manager<span class="w"> </span>~<span class="w"> </span>vlabrc]#<span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>use notepad++ to create these following commands to remove those pods on that host. </li>
-</ol>
+<p>5) use notepad++ to create these following commands to remove those pods on that host. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">storage</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="n">deployment</span><span class="w"> </span><span class="n">rook</span><span class="o">-</span><span class="n">ceph</span><span class="o">-</span><span class="n">osd</span><span class="o">-</span><span class="mi">12</span><span class="w"> </span><span class="c1">--replicas=0</span>
 <span class="n">oc</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">storage</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="n">deployment</span><span class="w"> </span><span class="n">rook</span><span class="o">-</span><span class="n">ceph</span><span class="o">-</span><span class="n">osd</span><span class="o">-</span><span class="mi">16</span><span class="w"> </span><span class="c1">--replicas=0</span>
 <span class="n">oc</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">storage</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="n">deployment</span><span class="w"> </span><span class="n">rook</span><span class="o">-</span><span class="n">ceph</span><span class="o">-</span><span class="n">osd</span><span class="o">-</span><span class="mi">2</span><span class="w">  </span><span class="c1">--replicas=0</span>
@@ -1542,9 +1627,7 @@ rook-ceph-osd-6-5b64cf8d49-n55zf
 <span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span>
 </code></pre></div>
 
-<ol>
-<li>Completely drain that storage node, using oc adm command </li>
-</ol>
+<p>6) Completely drain that storage node, using oc adm command </p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">vlabrc</span><span class="p">]</span><span class="c1">#oc adm drain ${node} --delete-emptydir-data --ignore-daemonsets=true --timeout=500s --force</span>
 <span class="n">node</span><span class="o">/</span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">203.</span><span class="n">ncpvnpvlab1</span><span class="o">.</span><span class="n">pnwlab</span><span class="o">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="o">.</span><span class="n">net</span><span class="w"> </span><span class="n">cordoned</span>
 <span class="n">Warning</span><span class="p">:</span><span class="w"> </span><span class="n">ignoring</span><span class="w"> </span><span class="n">DaemonSet</span><span class="o">-</span><span class="n">managed</span><span class="w"> </span><span class="n">Pods</span><span class="p">:</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">cluster</span><span class="o">-</span><span class="n">node</span><span class="o">-</span><span class="n">tuning</span><span class="o">-</span><span class="n">operator</span><span class="o">/</span><span class="n">tuned</span><span class="o">-</span><span class="n">kqqfn</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">dns</span><span class="o">/</span><span class="n">dns</span><span class="o">-</span><span class="n">default</span><span class="o">-</span><span class="mi">27</span><span class="n">nmr</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">dns</span><span class="o">/</span><span class="n">node</span><span class="o">-</span><span class="n">resolver</span><span class="o">-</span><span class="mi">4</span><span class="n">dcng</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">image</span><span class="o">-</span><span class="n">registry</span><span class="o">/</span><span class="n">node</span><span class="o">-</span><span class="n">ca</span><span class="o">-</span><span class="mi">2</span><span class="n">xtbk</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">ingress</span><span class="o">-</span><span class="n">canary</span><span class="o">/</span><span class="n">ingress</span><span class="o">-</span><span class="n">canary</span><span class="o">-</span><span class="mi">285</span><span class="n">m2</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">local</span><span class="o">-</span><span class="n">storage</span><span class="o">/</span><span class="n">diskmaker</span><span class="o">-</span><span class="n">discovery</span><span class="o">-</span><span class="n">zmmwj</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">local</span><span class="o">-</span><span class="n">storage</span><span class="o">/</span><span class="n">diskmaker</span><span class="o">-</span><span class="n">manager</span><span class="o">-</span><span class="n">dvpjq</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">logging</span><span class="o">/</span><span class="n">collector</span><span class="o">-</span><span class="mi">7</span><span class="n">g5zv</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">machine</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">operator</span><span class="o">/</span><span class="n">machine</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">daemon</span><span class="o">-</span><span class="n">c7c4v</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">monitoring</span><span class="o">/</span><span class="n">node</span><span class="o">-</span><span class="n">exporter</span><span class="o">-</span><span class="n">gsh5l</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">multus</span><span class="o">/</span><span class="n">multus</span><span class="o">-</span><span class="mi">6</span><span class="n">q7c8</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">multus</span><span class="o">/</span><span class="n">multus</span><span class="o">-</span><span class="n">additional</span><span class="o">-</span><span class="n">cni</span><span class="o">-</span><span class="n">plugins</span><span class="o">-</span><span class="n">pwq85</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">multus</span><span class="o">/</span><span class="n">network</span><span class="o">-</span><span class="n">metrics</span><span class="o">-</span><span class="n">daemon</span><span class="o">-</span><span class="n">f6flp</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">multus</span><span class="o">/</span><span class="n">whereabouts</span><span class="o">-</span><span class="n">reconciler</span><span class="o">-</span><span class="n">fjpmv</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">network</span><span class="o">-</span><span class="n">diagnostics</span><span class="o">/</span><span class="n">network</span><span class="o">-</span><span class="n">check</span><span class="o">-</span><span class="n">target</span><span class="o">-</span><span class="mi">9</span><span class="n">h7cj</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">network</span><span class="o">-</span><span class="n">operator</span><span class="o">/</span><span class="n">iptables</span><span class="o">-</span><span class="n">alerter</span><span class="o">-</span><span class="n">km8jq</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">nmstate</span><span class="o">/</span><span class="n">nmstate</span><span class="o">-</span><span class="n">handler</span><span class="o">-</span><span class="mi">6</span><span class="n">hmz9</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">operators</span><span class="o">/</span><span class="n">istio</span><span class="o">-</span><span class="n">cni</span><span class="o">-</span><span class="n">node</span><span class="o">-</span><span class="n">v2</span><span class="o">-</span><span class="mi">5</span><span class="o">-</span><span class="mi">4</span><span class="n">qpnk</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">ovn</span><span class="o">-</span><span class="n">kubernetes</span><span class="o">/</span><span class="n">ovnkube</span><span class="o">-</span><span class="n">node</span><span class="o">-</span><span class="n">w672f</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">storage</span><span class="o">/</span><span class="n">csi</span><span class="o">-</span><span class="n">cephfsplugin</span><span class="o">-</span><span class="n">ck4mf</span><span class="p">,</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">storage</span><span class="o">/</span><span class="n">csi</span><span class="o">-</span><span class="n">rbdplugin</span><span class="o">-</span><span class="n">gkmjm</span>
@@ -1566,15 +1649,11 @@ rook-ceph-osd-6-5b64cf8d49-n55zf
 <span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">vlabrc</span><span class="p">]</span><span class="c1">#</span>
 </code></pre></div>
 
-<ol>
-<li>reboot the respective storage node using following command. </li>
-</ol>
+<p>7) reboot the respective storage node using following command. </p>
 <div class="codehilite"><pre><span></span><code>[root@dom14npv101-infra-manager<span class="w"> </span>~<span class="w"> </span>vlabrc]#oc<span class="w"> </span>debug<span class="w"> </span>node/<span class="cp">${</span><span class="n">node</span><span class="cp">}</span><span class="w"> </span>--<span class="w"> </span>chroot<span class="w"> </span>/host<span class="w"> </span>systemctl<span class="w"> </span>reboot<span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>waiting for node to be fully up. then check the kubelet status </li>
-</ol>
+<p>8) waiting for node to be fully up. then check the kubelet status </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="k">no</span><span class="w"> </span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">storage</span>
 <span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">101.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="n">Ready</span><span class="w">                      </span><span class="n">storage</span><span class="p">,</span><span class="n">worker</span><span class="w">                     </span><span class="mi">24</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
 <span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">102.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="n">Ready</span><span class="w">                      </span><span class="n">storage</span><span class="p">,</span><span class="n">worker</span><span class="w">                     </span><span class="mi">26</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
@@ -1585,15 +1664,11 @@ rook-ceph-osd-6-5b64cf8d49-n55zf
 <span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>uncordon the storage node.</li>
-</ol>
+<p>9) uncordon the storage node.</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">uncordon</span><span class="w"> </span><span class="n">ncpvnpvlab1</span><span class="o">-</span><span class="n">storage</span><span class="o">-</span><span class="mf">203.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>check the ceph health and wait for all osd to be fully up.  give 10mins</li>
-</ol>
+<p>10) check the ceph health and wait for all osd to be fully up.  give 10mins</p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">vlabrc</span><span class="p">]</span><span class="c1"># oc exec -it $(oc get pod -n openshift-storage -l app=rook-ceph-operator -o name) -n openshift-storage -- ceph -s -c /var/lib/rook/openshift-storage/openshift-storage.config</span>
 </code></pre></div>
 
@@ -1648,6 +1723,8 @@ rook-ceph-osd-6-5b64cf8d49-n55zf
     
     
       <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../js/auth.js"></script>
       
     
   </body>

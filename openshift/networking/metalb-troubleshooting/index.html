@@ -1037,6 +1037,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../storagemanagement/one-OSD-not-created/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ceph OSD recreate
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1119,6 +1142,29 @@
   
   <span class="md-ellipsis">
     Nsenter Usage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ncomsa/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NCOM Caas Issue
     
   </span>
   
@@ -1339,9 +1385,7 @@
 
 
 <h1 id="metalb-configuration-troubleshooting">metalb configuration troubleshooting<a class="headerlink" href="#metalb-configuration-troubleshooting" title="Permanent link">&para;</a></h1>
-<ol>
-<li>login to cluster </li>
-</ol>
+<p>1)  login to cluster </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">/</span><span class="n">root</span><span class="o">/</span><span class="n">pancwlrc</span>
 <span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
 
@@ -1352,17 +1396,13 @@
 <span class="k">Using</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="ss">&quot;ncd01pan&quot;</span><span class="p">.</span>
 </code></pre></div>
 
-<ol>
-<li>check for <code>metallb-system</code> namespace exist</li>
-</ol>
+<p>2) check for <code>metallb-system</code> namespace exist</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">ns</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">grep</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">metallb</span>
 <span class="n">metallb</span><span class="o">-</span><span class="k">system</span><span class="w">                                     </span><span class="n">Active</span><span class="w">   </span><span class="mi">26</span><span class="n">d</span>
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
 </code></pre></div>
 
-<ol>
-<li>check the status of the pods on the <code>metallb-system</code> namespace here. </li>
-</ol>
+<p>3) check the status of the pods on the <code>metallb-system</code> namespace here. </p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">pods</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">metallb</span><span class="o">-</span><span class="k">system</span>
 <span class="n">NAME</span><span class="w">                                                   </span><span class="n">READY</span><span class="w">   </span><span class="n">STATUS</span><span class="w">    </span><span class="n">RESTARTS</span><span class="w">   </span><span class="n">AGE</span>
 <span class="n">controller</span><span class="o">-</span><span class="mi">5785</span><span class="n">bc85cb</span><span class="o">-</span><span class="n">qpk8h</span><span class="w">                            </span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="w">     </span><span class="n">Running</span><span class="w">   </span><span class="mi">0</span><span class="w">          </span><span class="mi">24</span><span class="n">d</span>
@@ -1374,12 +1414,10 @@
 <span class="n">speaker</span><span class="o">-</span><span class="n">pjstl</span><span class="w">                                          </span><span class="mi">6</span><span class="o">/</span><span class="mi">6</span><span class="w">     </span><span class="n">Running</span><span class="w">   </span><span class="mi">0</span><span class="w">          </span><span class="mi">24</span><span class="n">d</span>
 </code></pre></div>
 
-<ol>
-<li>check for <code>bfdprofile</code> on this cluster <blockquote>
+<p>4) check for <code>bfdprofile</code> on this cluster </p>
+<blockquote>
 <p>here transmit interval and receiver interval should be equal from local and remote end. </p>
 </blockquote>
-</li>
-</ol>
 <div class="codehilite"><pre><span></span><code> oc -n metallb-system get BFDProfile -o wide
 NAME                                PASSIVE MODE   TRANSMIT INTERVAL   RECEIVE INTERVAL   MULTIPLIER
 ncp-metallb-oam-pa-hn-bfd-profile   true           300                 300                3
@@ -1388,9 +1426,7 @@ ncp-metallb-oam-pa-pa-bfd-profile   true           300                 300      
 ncp-metallb-oam-pa-sv-bfd-profile   true           300                 300                3
 </code></pre></div>
 
-<ol>
-<li>make sure, desination having the backward route configured here .</li>
-</ol>
+<p>5) make sure, desination having the backward route configured here .</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">metallb</span><span class="o">-</span><span class="k">system</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">nncp</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">wide</span>
 <span class="n">NAME</span><span class="w">                                           </span><span class="n">STATUS</span><span class="w">      </span><span class="n">REASON</span>
 <span class="n">backward</span><span class="o">-</span><span class="n">route</span><span class="o">-</span><span class="k">for</span><span class="o">-</span><span class="n">oam</span><span class="o">-</span><span class="n">pa</span><span class="o">-</span><span class="n">pa</span><span class="o">-</span><span class="n">metallb</span><span class="o">-</span><span class="n">vlan104</span><span class="w">   </span><span class="n">Available</span><span class="w">   </span><span class="n">SuccessfullyConfigured</span>
@@ -1406,9 +1442,7 @@ ncp-metallb-oam-pa-sv-bfd-profile   true           300                 300      
 <span class="n">tenantvlan</span><span class="o">-</span><span class="mi">374</span><span class="w">                                 </span><span class="n">Available</span><span class="w">   </span><span class="n">SuccessfullyConfigured</span>
 </code></pre></div>
 
-<ol>
-<li>check for <code>ipaddresspool</code> exist here, so that application can create their <code>service</code> as <code>loadbalancer</code> here . </li>
-</ol>
+<p>6) check for <code>ipaddresspool</code> exist here, so that application can create their <code>service</code> as <code>loadbalancer</code> here . </p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">pancwl_rc</span><span class="p">]</span><span class="err">$</span><span class="w"> </span><span class="nx">oc</span><span class="w"> </span><span class="o">-</span><span class="nx">n</span><span class="w"> </span><span class="nx">metallb</span><span class="o">-</span><span class="nx">system</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">IPAddressPool</span><span class="w"> </span><span class="o">-</span><span class="nx">o</span><span class="w"> </span><span class="nx">wide</span>
 <span class="nx">NAME</span><span class="w">                                </span><span class="nx">AUTO</span><span class="w"> </span><span class="nx">ASSIGN</span><span class="w">   </span><span class="nx">AVOID</span><span class="w"> </span><span class="nx">BUGGY</span><span class="w"> </span><span class="nx">IPS</span><span class="w">   </span><span class="nx">ADDRESSES</span>
 <span class="nx">ncp</span><span class="o">-</span><span class="nx">metallb</span><span class="o">-</span><span class="nx">oam</span><span class="o">-</span><span class="nx">pa</span><span class="o">-</span><span class="nx">hn</span><span class="o">-</span><span class="nx">addresspool</span><span class="w">   </span><span class="kc">false</span><span class="w">         </span><span class="kc">false</span><span class="w">             </span><span class="p">[</span><span class="s">&quot;10.89.147.128/28&quot;</span><span class="p">]</span>
@@ -1417,9 +1451,7 @@ ncp-metallb-oam-pa-sv-bfd-profile   true           300                 300      
 <span class="nx">ncp</span><span class="o">-</span><span class="nx">metallb</span><span class="o">-</span><span class="nx">oam</span><span class="o">-</span><span class="nx">pa</span><span class="o">-</span><span class="nx">sv</span><span class="o">-</span><span class="nx">addresspool</span><span class="w">   </span><span class="kc">false</span><span class="w">         </span><span class="kc">false</span><span class="w">             </span><span class="p">[</span><span class="s">&quot;10.85.186.240/28&quot;</span><span class="p">]</span>
 </code></pre></div>
 
-<ol>
-<li>check for <code>bgppeer</code> are up on the metallb speakers thats important for this communication</li>
-</ol>
+<p>7) check for <code>bgppeer</code> are up on the metallb speakers thats important for this communication</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">metallb</span><span class="o">-</span><span class="k">system</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">BGPPeer</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">wide</span>
 <span class="n">NAME</span><span class="w">                               </span><span class="n">ADDRESS</span><span class="w">         </span><span class="n">ASN</span><span class="w">          </span><span class="n">BFD</span><span class="w"> </span><span class="n">PROFILE</span><span class="w">                         </span><span class="n">MULTI</span><span class="w"> </span><span class="n">HOPS</span>
 <span class="n">ncp</span><span class="o">-</span><span class="n">metallb</span><span class="o">-</span><span class="n">oam</span><span class="o">-</span><span class="n">pa</span><span class="o">-</span><span class="n">hn</span><span class="o">-</span><span class="n">bgp</span><span class="o">-</span><span class="n">peer</span><span class="o">-</span><span class="mi">1</span><span class="w">   </span><span class="mf">10.89.147.194</span><span class="w">   </span><span class="mi">4200000320</span><span class="w">   </span><span class="n">ncp</span><span class="o">-</span><span class="n">metallb</span><span class="o">-</span><span class="n">oam</span><span class="o">-</span><span class="n">pa</span><span class="o">-</span><span class="n">hn</span><span class="o">-</span><span class="n">bfd</span><span class="o">-</span><span class="n">profile</span>
@@ -1432,9 +1464,7 @@ ncp-metallb-oam-pa-sv-bfd-profile   true           300                 300      
 <span class="n">ncp</span><span class="o">-</span><span class="n">metallb</span><span class="o">-</span><span class="n">oam</span><span class="o">-</span><span class="n">pa</span><span class="o">-</span><span class="n">sv</span><span class="o">-</span><span class="n">bgp</span><span class="o">-</span><span class="n">peer</span><span class="o">-</span><span class="mi">2</span><span class="w">   </span><span class="mf">10.85.187.35</span><span class="w">    </span><span class="mi">4200000320</span><span class="w">   </span><span class="n">ncp</span><span class="o">-</span><span class="n">metallb</span><span class="o">-</span><span class="n">oam</span><span class="o">-</span><span class="n">pa</span><span class="o">-</span><span class="n">sv</span><span class="o">-</span><span class="n">bfd</span><span class="o">-</span><span class="n">profile</span>
 </code></pre></div>
 
-<ol>
-<li>check for <code>BGPAdvertisement</code> are created on this cluster and it should be in the <code>metallb-system</code> namespace. </li>
-</ol>
+<p>8) check for <code>BGPAdvertisement</code> are created on this cluster and it should be in the <code>metallb-system</code> namespace. </p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">pancwl_rc</span><span class="p">]</span><span class="err">$</span><span class="w"> </span><span class="nx">oc</span><span class="w"> </span><span class="o">-</span><span class="nx">n</span><span class="w"> </span><span class="nx">metallb</span><span class="o">-</span><span class="nx">system</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">BGPAdvertisement</span><span class="w"> </span><span class="o">-</span><span class="nx">o</span><span class="w"> </span><span class="nx">wide</span>
 <span class="nx">NAME</span><span class="w">                                      </span><span class="nx">IPADDRESSPOOLS</span><span class="w">                          </span><span class="nx">IPADDRESSPOOL</span><span class="w"> </span><span class="nx">SELECTORS</span><span class="w">   </span><span class="nx">PEERS</span><span class="w">                                                                     </span><span class="nx">NODE</span><span class="w"> </span><span class="nx">SELECTORS</span>
 <span class="nx">ncp</span><span class="o">-</span><span class="nx">metallb</span><span class="o">-</span><span class="nx">oam</span><span class="o">-</span><span class="nx">pa</span><span class="o">-</span><span class="nx">hn</span><span class="o">-</span><span class="nx">bgp</span><span class="o">-</span><span class="nx">advertisement</span><span class="w">   </span><span class="p">[</span><span class="s">&quot;ncp-metallb-oam-pa-hn-addresspool&quot;</span><span class="p">]</span><span class="w">                             </span><span class="p">[</span><span class="s">&quot;ncp-metallb-oam-pa-hn-bgp-peer-1&quot;</span><span class="p">,</span><span class="s">&quot;ncp-metallb-oam-pa-hn-bgp-peer-2&quot;</span><span class="p">]</span>
@@ -1443,9 +1473,7 @@ ncp-metallb-oam-pa-sv-bfd-profile   true           300                 300      
 <span class="nx">ncp</span><span class="o">-</span><span class="nx">metallb</span><span class="o">-</span><span class="nx">oam</span><span class="o">-</span><span class="nx">pa</span><span class="o">-</span><span class="nx">sv</span><span class="o">-</span><span class="nx">bgp</span><span class="o">-</span><span class="nx">advertisement</span><span class="w">   </span><span class="p">[</span><span class="s">&quot;ncp-metallb-oam-pa-sv-addresspool&quot;</span><span class="p">]</span><span class="w">                             </span><span class="p">[</span><span class="s">&quot;ncp-metallb-oam-pa-sv-bgp-peer-1&quot;</span><span class="p">,</span><span class="s">&quot;ncp-metallb-oam-pa-sv-bgp-peer-2&quot;</span><span class="p">]</span>
 </code></pre></div>
 
-<ol>
-<li>No, error from the container logs on this namespace .</li>
-</ol>
+<p>10) No, error from the container logs on this namespace .</p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="p">]</span><span class="o">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">metallb</span><span class="o">-</span><span class="n">system</span><span class="w"> </span><span class="n">logs</span><span class="w"> </span><span class="o">-</span><span class="n">l</span><span class="w"> </span><span class="n">component</span><span class="o">=</span><span class="n">speaker</span>
 <span class="n">Defaulted</span><span class="w"> </span><span class="n">container</span><span class="w"> </span><span class="s2">&quot;speaker&quot;</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="n">of</span><span class="p">:</span><span class="w"> </span><span class="n">speaker</span><span class="p">,</span><span class="w"> </span><span class="n">frr</span><span class="p">,</span><span class="w"> </span><span class="n">reloader</span><span class="p">,</span><span class="w"> </span><span class="n">frr</span><span class="o">-</span><span class="n">metrics</span><span class="p">,</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">rbac</span><span class="o">-</span><span class="n">proxy</span><span class="p">,</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">rbac</span><span class="o">-</span><span class="n">proxy</span><span class="o">-</span><span class="n">frr</span><span class="p">,</span><span class="w"> </span><span class="n">cp</span><span class="o">-</span><span class="n">frr</span><span class="o">-</span><span class="n">files</span><span class="w"> </span><span class="p">(</span><span class="n">init</span><span class="p">),</span><span class="w"> </span><span class="n">cp</span><span class="o">-</span><span class="n">reloader</span><span class="w"> </span><span class="p">(</span><span class="n">init</span><span class="p">),</span><span class="w"> </span><span class="n">cp</span><span class="o">-</span><span class="n">metrics</span><span class="w"> </span><span class="p">(</span><span class="n">init</span><span class="p">)</span>
 <span class="n">Defaulted</span><span class="w"> </span><span class="n">container</span><span class="w"> </span><span class="s2">&quot;speaker&quot;</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="n">of</span><span class="p">:</span><span class="w"> </span><span class="n">speaker</span><span class="p">,</span><span class="w"> </span><span class="n">frr</span><span class="p">,</span><span class="w"> </span><span class="n">reloader</span><span class="p">,</span><span class="w"> </span><span class="n">frr</span><span class="o">-</span><span class="n">metrics</span><span class="p">,</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">rbac</span><span class="o">-</span><span class="n">proxy</span><span class="p">,</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">rbac</span><span class="o">-</span><span class="n">proxy</span><span class="o">-</span><span class="n">frr</span><span class="p">,</span><span class="w"> </span><span class="n">cp</span><span class="o">-</span><span class="n">frr</span><span class="o">-</span><span class="n">files</span><span class="w"> </span><span class="p">(</span><span class="n">init</span><span class="p">),</span><span class="w"> </span><span class="n">cp</span><span class="o">-</span><span class="n">reloader</span><span class="w"> </span><span class="p">(</span><span class="n">init</span><span class="p">),</span><span class="w"> </span><span class="n">cp</span><span class="o">-</span><span class="n">metrics</span><span class="w"> </span><span class="p">(</span><span class="n">init</span><span class="p">)</span>
@@ -1493,9 +1521,7 @@ ncp-metallb-oam-pa-sv-bfd-profile   true           300                 300      
 <span class="p">{</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;node_controller.go:69&quot;</span><span class="p">,</span><span class="s2">&quot;controller&quot;</span><span class="p">:</span><span class="s2">&quot;NodeReconciler&quot;</span><span class="p">,</span><span class="s2">&quot;end reconcile&quot;</span><span class="p">:</span><span class="s2">&quot;/appworker28.panclypcwl01.mnc020.mcc714&quot;</span><span class="p">,</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="s2">&quot;2025-03-31T04:44:44Z&quot;</span><span class="p">}</span>
 </code></pre></div>
 
-<ol>
-<li>just showing an backwards route here for comparison  and your destination should be exist here . </li>
-</ol>
+<p>11)  just showing an backwards route here for comparison  and your destination should be exist here . </p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">pancwl_rc</span><span class="p">]</span><span class="err">$</span><span class="w"> </span><span class="nx">oc</span><span class="w"> </span><span class="nx">get</span><span class="w"> </span><span class="nx">nncp</span><span class="w"> </span><span class="o">-</span><span class="nx">A</span><span class="w"> </span><span class="o">-</span><span class="nx">o</span><span class="w"> </span><span class="nx">yaml</span>
 <span class="nx">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="nx">v1</span>
 <span class="nx">items</span><span class="p">:</span>
@@ -2565,6 +2591,8 @@ ncp-metallb-oam-pa-sv-bfd-profile   true           300                 300      
     
     
       <script src="../../../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+        <script src="../../../js/auth.js"></script>
       
     
   </body>
