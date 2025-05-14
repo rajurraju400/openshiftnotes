@@ -37,3 +37,7 @@ a:hover {
     max-height: 48px !important;
     width: auto !important;
 }
+
+body.auth-protect {
+  display: none;
+}

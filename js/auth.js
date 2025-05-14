@@ -1,6 +1,8 @@
+
 (function() {
   // Check if user is already authenticated in this session
   if (sessionStorage.getItem("authenticated") === "true") {
+    document.documentElement.style.visibility = "visible";
     return; // User is already logged in
   }
 
@@ -16,6 +18,7 @@
   if (validUsers[inputUser] && validUsers[inputUser] === inputPass) {
     // Save login in session (cleared on tab close or refresh)
     sessionStorage.setItem("authenticated", "true");
+    document.documentElement.style.visibility = "visible";
     sessionStorage.setItem("username", inputUser);
   } else {
     // Redirect to a custom "Access Denied" page
