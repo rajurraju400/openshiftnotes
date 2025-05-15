@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../nsenter/">
+        <link rel="prev" href="../rolebinding/">
       
       
-        <link rel="next" href="../../usermanagement/remove-kubeadmin/">
+        <link rel="next" href="../../deployment/readme/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>NCOM Caas Issue - OpenShift Notes</title>
+        <title>Failed to configure or Degraded - OpenShift Notes</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ncom-caas-fluctuate-every-1-hours-once-and-here-is-the-process-to-create-a-service-account-for-ncom-to-resolve-this-issue" class="md-skip">
+        <a href="#troubleshooting-failed-to-configure-nncp-error-in-ocp" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              NCOM Caas Issue
+              Failed to configure or Degraded
             
           </span>
         </div>
@@ -623,18 +623,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" checked>
         
           
           <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
@@ -650,7 +652,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_2">
             <span class="md-nav__icon md-icon"></span>
             CNF Onboarding Support
@@ -664,7 +666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/image-tls-issue/" class="md-nav__link">
+      <a href="../image-tls-issue/" class="md-nav__link">
         
   
   
@@ -687,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/oclogin-tls-issue/" class="md-nav__link">
+      <a href="../oclogin-tls-issue/" class="md-nav__link">
         
   
   
@@ -710,7 +712,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/proxy-cache-pod/" class="md-nav__link">
+      <a href="../proxy-cache-pod/" class="md-nav__link">
         
   
   
@@ -733,7 +735,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/rolebinding/" class="md-nav__link">
+      <a href="../rolebinding/" class="md-nav__link">
         
   
   
@@ -753,10 +755,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/Failtoconfigure_nncp/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Failed to configure or Degraded
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -767,6 +789,117 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting-failed-to-configure-nncp-error-in-ocp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting failed to configure nncp Error in OCP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting failed to configure nncp Error in OCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-causes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Causes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Causes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#invalid-nncp-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Invalid NNCP YAML
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nmstate-operator-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      NMState Operator Issues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-labeling-mismatch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node Labeling Mismatch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#conflicting-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conflicting Policies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#insufficient-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Insufficient Permissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting Steps
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1129,20 +1262,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
         
           
           <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
@@ -1158,7 +1289,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_8">
             <span class="md-nav__icon md-icon"></span>
             Troubleshooting
@@ -1172,7 +1303,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../nsenter/" class="md-nav__link">
+      <a href="../../troubleshooting/nsenter/" class="md-nav__link">
         
   
   
@@ -1192,30 +1323,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    NCOM Caas Issue
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../troubleshooting/ncomsa/" class="md-nav__link">
         
   
   
@@ -1226,84 +1337,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#ncom-caas-fluctuate-every-1-hours-once-and-here-is-the-process-to-create-a-service-account-for-ncom-to-resolve-this-issue" class="md-nav__link">
-    <span class="md-ellipsis">
-      NCOM CAAS fluctuate every 1 hours once and here is the process to create a service account for ncom to resolve this issue.
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="NCOM CAAS fluctuate every 1 hours once and here is the process to create a service account for ncom to resolve this issue.">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#problem-describe" class="md-nav__link">
-    <span class="md-ellipsis">
-      Problem describe:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#solution-describe" class="md-nav__link">
-    <span class="md-ellipsis">
-      Solution describe:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#limitation" class="md-nav__link">
-    <span class="md-ellipsis">
-      limitation:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#solution-steps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Solution steps:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      reference
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1441,55 +1474,88 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ncom-caas-fluctuate-every-1-hours-once-and-here-is-the-process-to-create-a-service-account-for-ncom-to-resolve-this-issue" class="md-nav__link">
+  <a href="#troubleshooting-failed-to-configure-nncp-error-in-ocp" class="md-nav__link">
     <span class="md-ellipsis">
-      NCOM CAAS fluctuate every 1 hours once and here is the process to create a service account for ncom to resolve this issue.
+      Troubleshooting failed to configure nncp Error in OCP
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="NCOM CAAS fluctuate every 1 hours once and here is the process to create a service account for ncom to resolve this issue.">
+    <nav class="md-nav" aria-label="Troubleshooting failed to configure nncp Error in OCP">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#problem-describe" class="md-nav__link">
+  <a href="#common-causes" class="md-nav__link">
     <span class="md-ellipsis">
-      Problem describe:
+      Common Causes
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Causes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#invalid-nncp-yaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Invalid NNCP YAML
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#solution-describe" class="md-nav__link">
+  <a href="#nmstate-operator-issues" class="md-nav__link">
     <span class="md-ellipsis">
-      Solution describe:
+      NMState Operator Issues
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#limitation" class="md-nav__link">
+  <a href="#node-labeling-mismatch" class="md-nav__link">
     <span class="md-ellipsis">
-      limitation:
+      Node Labeling Mismatch
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#solution-steps" class="md-nav__link">
+  <a href="#conflicting-policies" class="md-nav__link">
     <span class="md-ellipsis">
-      Solution steps:
+      Conflicting Policies
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#reference" class="md-nav__link">
+  <a href="#insufficient-permissions" class="md-nav__link">
     <span class="md-ellipsis">
-      reference
+      Insufficient Permissions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#node-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node Issues
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting Steps
     </span>
   </a>
   
@@ -1516,96 +1582,46 @@
 
 
 
-  <h1>NCOM Caas Issue</h1>
+  <h1>Failed to configure or Degraded</h1>
 
-<h2 id="ncom-caas-fluctuate-every-1-hours-once-and-here-is-the-process-to-create-a-service-account-for-ncom-to-resolve-this-issue">NCOM CAAS fluctuate every 1 hours once and here is the process to create a service account for ncom to resolve this issue.<a class="headerlink" href="#ncom-caas-fluctuate-every-1-hours-once-and-here-is-the-process-to-create-a-service-account-for-ncom-to-resolve-this-issue" title="Permanent link">&para;</a></h2>
+<h2 id="troubleshooting-failed-to-configure-nncp-error-in-ocp">Troubleshooting failed to configure nncp Error in OCP<a class="headerlink" href="#troubleshooting-failed-to-configure-nncp-error-in-ocp" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p>Caas using user/passwd based registation is fluctuate</p>
+<p>When encountering a <code>failed to configure nncp</code> error in OpenShift, it typically indicates an issue with applying the <strong>Node Network Configuration Policy (NNCP)</strong> using the <strong>Kubernetes NMState Operator</strong>. also this will make application installation failed due to missing master interface. </p>
 </blockquote>
-<h3 id="problem-describe">Problem describe:<a class="headerlink" href="#problem-describe" title="Permanent link">&para;</a></h3>
+<hr />
+<h3 id="common-causes">Common Causes<a class="headerlink" href="#common-causes" title="Permanent link">&para;</a></h3>
+<h4 id="invalid-nncp-yaml">Invalid NNCP YAML<a class="headerlink" href="#invalid-nncp-yaml" title="Permanent link">&para;</a></h4>
 <ul>
-<li>CAAS flucatuate on the ncom, CNF onboarding may fail. in millicom, 30mins once it;s fluctuate. <blockquote></blockquote>
-</li>
+<li>Syntax errors</li>
+<li>Incorrect interface names or missing fields</li>
 </ul>
-<h3 id="solution-describe">Solution describe:<a class="headerlink" href="#solution-describe" title="Permanent link">&para;</a></h3>
+<h4 id="nmstate-operator-issues">NMState Operator Issues<a class="headerlink" href="#nmstate-operator-issues" title="Permanent link">&para;</a></h4>
 <ul>
-<li>The auto discovery mode NCOM uses a token after discovery to integrate with the workload cluster instead of userID/password. This connection appears to be stable and does not fluctuate. So ncom want to use this token based access as a solution to our problem. instead of user id based. </li>
+<li>Operator not installed</li>
+<li>Operator pods in failed states</li>
 </ul>
-<h3 id="limitation">limitation:<a class="headerlink" href="#limitation" title="Permanent link">&para;</a></h3>
+<h4 id="node-labeling-mismatch">Node Labeling Mismatch<a class="headerlink" href="#node-labeling-mismatch" title="Permanent link">&para;</a></h4>
 <ul>
-<li>based on NCP security hardening, system token may expire within 24hrs. </li>
+<li>NNCP uses nodeSelector that doesn’t match any node</li>
 </ul>
-<h3 id="solution-steps">Solution steps:<a class="headerlink" href="#solution-steps" title="Permanent link">&para;</a></h3>
-<p>1) You need to be logged in with a user who has cluster-admin privileges:</p>
-<p>2) Create an service account on the desired project. </p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="n">ncom01pan</span>
-<span class="n">Now</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="ss">&quot;ncom01pan&quot;</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="ss">&quot;https://api.panclypcwl01.mnc020.mcc714:6443&quot;</span><span class="p">.</span>
-<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
-
-<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">serviceaccount</span><span class="w"> </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span>
-<span class="n">serviceaccount</span><span class="o">/</span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span><span class="w"> </span><span class="n">created</span>
-<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
-</code></pre></div>
-
-<p>3)  Assing <code>cluster-admin</code> role to this <code>SA</code> now. </p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">policy</span><span class="w"> </span><span class="k">add</span><span class="o">-</span><span class="n">cluster</span><span class="o">-</span><span class="k">role</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="k">user</span><span class="w"> </span><span class="n">cluster</span><span class="o">-</span><span class="k">admin</span><span class="w"> </span><span class="o">-</span><span class="n">z</span><span class="w">  </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">ncom01pan</span>
-<span class="n">clusterrole</span><span class="p">.</span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">cluster</span><span class="o">-</span><span class="k">admin</span><span class="w"> </span><span class="nl">added</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;ncom-sa&quot;</span>
-<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
-</code></pre></div>
-
-<p>4) describe sa here, you wont see the token and it's expected on this version OCP. </p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">describe</span><span class="w"> </span><span class="n">sa</span><span class="w"> </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span>
-<span class="n">Name</span><span class="p">:</span><span class="w">                </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span>
-<span class="n">Namespace</span><span class="p">:</span><span class="w">           </span><span class="n">ncom01pan</span>
-<span class="n">Labels</span><span class="p">:</span><span class="w">              </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="n">Annotations</span><span class="p">:</span><span class="w">         </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="n">Image</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">secrets</span><span class="p">:</span><span class="w">  </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="n">Mountable</span><span class="w"> </span><span class="n">secrets</span><span class="p">:</span><span class="w">   </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="n">Tokens</span><span class="p">:</span><span class="w">              </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="n">Events</span><span class="p">:</span><span class="w">              </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="o">[</span><span class="n">root@ncputility</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="o">]</span><span class="err">$</span>
-</code></pre></div>
-
-<p>5) Now Manually Create a Token for the ServiceAccount. This tells Kubernetes/OpenShift to generate a token for ncom-sa and store it in the secret ncom-sa-secret.</p>
-<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">pancwl_rc</span><span class="p">]</span><span class="err">$</span><span class="w"> </span><span class="nx">cat</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="nx">secret</span><span class="p">.</span><span class="nx">yaml</span>
-<span class="nx">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="nx">v1</span>
-<span class="nx">kind</span><span class="p">:</span><span class="w"> </span><span class="nx">Secret</span>
-<span class="nx">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nx">name</span><span class="p">:</span><span class="w"> </span><span class="nx">ncom</span><span class="o">-</span><span class="nx">sa</span><span class="o">-</span><span class="nx">secret</span>
-<span class="w">  </span><span class="nx">annotations</span><span class="p">:</span>
-<span class="w">    </span><span class="nx">kubernetes</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">service</span><span class="o">-</span><span class="nx">account</span><span class="p">.</span><span class="nx">name</span><span class="p">:</span><span class="w"> </span><span class="nx">ncom</span><span class="o">-</span><span class="nx">sa</span>
-<span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">kubernetes</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">service</span><span class="o">-</span><span class="nx">account</span><span class="o">-</span><span class="nx">token</span>
-
-<span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">pancwl_rc</span><span class="p">]</span><span class="err">$</span>
-</code></pre></div>
-
-<p>6) describe sa here again. you can see the secret created. </p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">describe</span><span class="w"> </span><span class="n">sa</span><span class="w"> </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span>
-<span class="n">Name</span><span class="p">:</span><span class="w">                </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span>
-<span class="n">Namespace</span><span class="p">:</span><span class="w">           </span><span class="n">ncom01pan</span>
-<span class="n">Labels</span><span class="p">:</span><span class="w">              </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="n">Annotations</span><span class="p">:</span><span class="w">         </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="n">Image</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">secrets</span><span class="p">:</span><span class="w">  </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="n">Mountable</span><span class="w"> </span><span class="n">secrets</span><span class="p">:</span><span class="w">   </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="n">Tokens</span><span class="p">:</span><span class="w">              </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span><span class="o">-</span><span class="n">secret</span>
-<span class="n">Events</span><span class="p">:</span><span class="w">              </span><span class="o">&lt;</span><span class="n">none</span><span class="o">&gt;</span>
-<span class="o">[</span><span class="n">root@ncputility</span><span class="w"> </span><span class="err">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="o">]</span><span class="err">$</span>
-</code></pre></div>
-
-<p>7) retrive the token and share with ncom team here</p>
-<blockquote>
-<p><code>oc get secret ncom-sa-secret -n ncom01pan -o jsonpath="{.data.token}" | base64 -d</code></p>
-</blockquote>
-<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="n">ncom</span><span class="o">-</span><span class="n">sa</span><span class="o">-</span><span class="n">secret</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">ncom01pan</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">jsonpath</span><span class="o">=</span><span class="ss">&quot;{.data.token}&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span>
-
-<span class="n">eyJhbGciOiJSUzI1NiIsImtpZCI6IjBpd2lFcjdSU3ktY25uRDl3YTVhU0M2V0wtZ0pUWXBXM0RzMmpUTFp1N28ifQ</span><span class="p">.</span><span class="n">eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZX</span><span class="w">        </span><span class="n">Rlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJuY29tMDFwYW4iLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlY3JldC5uYW1lIjoibmNvbS1zYS1zZWNyZXQiLCJrdWJlcm5</span><span class="w">        </span><span class="n">ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoibmNvbS1zYSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjU0MDli</span><span class="w">        </span><span class="n">ZTIyLTA4YTMtNDVkNS1iNGRlLWMyOGNlMGZjYmIwMyIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDpuY29tMDFwYW46bmNvbS1zYSJ9</span><span class="p">.</span><span class="n">H7EpGT0Le2evHG2UW96OO3</span><span class="o">-</span><span class="n">mvY7</span><span class="o">-</span><span class="n">Dg6nzVAgr98c</span><span class="w">        </span><span class="n">SUALecFyrEC9g</span><span class="o">-</span><span class="n">f9lYvgncS4mgQINV7voTaIYQ211AvGn6Adeu</span><span class="o">-</span><span class="n">PE3vPObxcIUA5_KJmRbKl7O1TMzqpJmIa5TnDeSLt2xN6D3bn74n1JpaGq3</span><span class="o">-</span><span class="n">VhBicA9j0jDbLVTi5EE_JGX2PkpJ</span><span class="o">-</span><span class="n">vvMhrnsGF</span><span class="w">        </span><span class="n">YzEA7oOAWwyyPMy2RPeEzKYK0bubvQaRLf2T</span><span class="o">-</span><span class="n">oZkWgXejWeLV0Z1mU12e75husjrEdu</span><span class="o">-</span><span class="n">FEfzyAEU_CQIuPAHHBC7U1OMLAuN_ehImmoLzObSCKqruLxeqIZamr6cNzZAKouc2bcdvLuDWmG3nVZRP</span><span class="w">        </span><span class="n">ZRGnRMKPGaFNPnetav0Nq5MvYy4zOAAaDWq1_B5b8iYFxCsycceqZKySe</span><span class="o">-</span><span class="n">Z_lmEw1x1lyf2I8Z5fpfaoPW_QxndSuxBrV4h6O9igZpwzoCjwq8vB838vkVMlLIcDGTViLAnLd8pl763</span><span class="o">-</span><span class="mi">1</span><span class="n">coSzqsnt</span><span class="w">        </span><span class="n">rO_eUUTZICvTzp</span><span class="o">-</span><span class="n">dA6QdZOb5SWMXj9</span><span class="o">-</span><span class="n">vqvW469rjzgaopSeS7hmUO_6BGMS7O5</span><span class="o">-</span><span class="n">nZC4PG</span><span class="o">-</span><span class="n">QPISrUKup9eAM62jssTmu2QL4</span><span class="o">-</span><span class="n">y3FbY1vjOFvJAbkEwzBhPN</span><span class="o">-</span><span class="mi">2</span><span class="n">EPEY9zUu44ZximqFwNkuR4T66u_jG</span><span class="w">        </span>
-<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
-</code></pre></div>
-
-<h3 id="reference">reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h3>
+<h4 id="conflicting-policies">Conflicting Policies<a class="headerlink" href="#conflicting-policies" title="Permanent link">&para;</a></h4>
 <ul>
-<li><a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/authentication_and_authorization/understanding-and-creating-service-accounts#service-accounts-overview_understanding-service-accounts">Creating an SA and map cluster admin role</a></li>
+<li>Multiple NNCPs modifying the same interface</li>
 </ul>
+<h4 id="insufficient-permissions">Insufficient Permissions<a class="headerlink" href="#insufficient-permissions" title="Permanent link">&para;</a></h4>
+<ul>
+<li>NMState may lack required privileges (not applicable for CWL, since we are using blueprinted templates.)</li>
+</ul>
+<h4 id="node-issues">Node Issues<a class="headerlink" href="#node-issues" title="Permanent link">&para;</a></h4>
+<ul>
+<li>Node is <code>NotReady</code> or cordoned</li>
+</ul>
+<hr />
+<h3 id="troubleshooting-steps">Troubleshooting Steps<a class="headerlink" href="#troubleshooting-steps" title="Permanent link">&para;</a></h3>
+<p>1) Check NNCP Status</p>
+<div class="codehilite"><pre><span></span><code>oc get nncp
+oc describe nncp &lt;nncp-name&gt;
+</code></pre></div>
 
 
 
