@@ -4,7 +4,7 @@
 
 ## Problem describe
 
-* when two user or two different shell try to login with two different users or two different clusters, most recent login will be overlapped with old one. example:  both screen will be having 
+* when two user or two different shell try to login with two different users or two different clusters, most recent login will be overlapped with old one. example:  both screen will be having same login to user/cluster.
 
 
 ### Create an RC for hub cluster. 
