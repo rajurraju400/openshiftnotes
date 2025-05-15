@@ -39,6 +39,9 @@ nav:
           - Image TLS Issue: openshift/CNF-onboarding-support/image-tls-issue.md
           - OCLogin TLS Issue: openshift/CNF-onboarding-support/oclogin-tls-issue.md
           - Proxy Cache Pod: openshift/CNF-onboarding-support/proxy-cache-pod.md
+          - Role Allocation for CNF user: openshift/CNF-onboarding-support/rolebinding.md
+          - Failed to configure or Degraded: openshift/CNF-onboarding-support/Failtoconfigure_nncp.md
+          - Kubeconfig overlapping: openshift/CNF-onboarding-support/kubeconfig.md
 
       - Deployment: openshift/deployment/readme.md
 
