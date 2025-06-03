@@ -60,7 +60,7 @@
 
 
 
-### Implementation: 
+### Implementation for Network attachement role: 
 
 1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to network attachements.
 
@@ -86,6 +86,39 @@ rolebinding.rbac.authorization.k8s.io/net-attach-def-rolebinding created
 
 ```
 [root@ncputility ~ pancwl_rc]$ oc auth can-i create network-attachment-definitions.k8s.cni.cncf.io --as=paclypamrf01 -n paclypamrf01
+yes
+[root@ncputility ~ pancwl_rc]$
+```
+
+
+
+
+### Implementation for Cbur role: 
+
+1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to network attachements.
+
+```
+[root@ncputility ~ pancwl_rc]$ oc create clusterrole ncd-cbur-role \
+  --verb='*' --resource=brpolices --api-group=cbur.bcmt.local \
+  --verb='*' --resource=brhooks,brpolices --api-group=cbur.csf.nokia.com
+ 
+clusterrole.rbac.authorization.k8s.io/ncd-cbur-role created
+```
+
+2) Run this step for below cnf users requesting for access to network attachment definition and assign to their NS.
+
+```
+[root@ncputility ~ pancwl_rc]$ oc create rolebinding net-attach-def-rolebinding \
+  --clusterrole=ncd-cbur-role \
+  --user=paclypamrf01 \
+  --namespace=paclypamrf01
+rolebinding.rbac.authorization.k8s.io/net-attach-def-rolebinding created
+```
+
+3) Then validate is that user having access to it. 
+
+```
+[root@ncputility ~ pancwl_rc]$ oc auth can-i create brpolices --as=paclypamrf01 -n paclypamrf01
 yes
 [root@ncputility ~ pancwl_rc]$
 ```
