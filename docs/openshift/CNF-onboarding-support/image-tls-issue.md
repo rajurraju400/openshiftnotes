@@ -89,18 +89,18 @@ oc get configmap registry-cas -n openshift-config -o yaml > registry-cas.yaml
 oc apply -f registry-cas.yaml
 ```
 
-2) If you need to update the existing ConfigMap with new or modified data directly from the command line, you can force the update with oc create configmap using the --dry-run and --force flags:
+2) now try to prepare file for new certificate with correct file intension using `--dry-run`
 
 ```
 oc create configmap registry-cas -n openshift-config \
 --from-file=harbor.ncdvnpv.ncpvnpvmgt.pnwlab.nsn-rdnet.net=ingress_ca.crt \
---dry-run=client -o yaml | oc replace -f -
+--dry-run=client -o yaml 
 
 ```
 
-3) Using oc patch (for small changes) Optional extra steps 
+3) Now try to copy the harbor and it's certificate line's and then add it as second list of the certificate on the first yaml file and later apply it. 
 ```
-oc patch configmap registry-cas -n openshift-config \
-  --type='json' \
-  -p='[{"op": "replace", "path": "/data/harbor.ncdvnpv.ncpvnpvmgt.pnwlab.nsn-rdnet.net", "value": "ingress_ca.crt"}]'
+vi registry-cas.yaml
+
+oc apply -f registry-cas.yaml
 ```
