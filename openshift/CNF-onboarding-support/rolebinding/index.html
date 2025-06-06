@@ -893,9 +893,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
+  <a href="#implementation-for-network-attachement-role" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation:
+      Implementation for Network attachement role:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-cbur-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation for Cbur role:
     </span>
   </a>
   
@@ -1642,9 +1651,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
+  <a href="#implementation-for-network-attachement-role" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation:
+      Implementation for Network attachement role:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation-for-cbur-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation for Cbur role:
     </span>
   </a>
   
@@ -1744,7 +1762,7 @@ CI/CD pipelines running in isolated namespaces.</p>
 <p>ClusterRoleBinding: Assigns a ClusterRole to a user/group/service account cluster-wide or within a namespace (via a RoleBinding referencing a ClusterRole).</p>
 </li>
 </ul>
-<h3 id="implementation">Implementation:<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h3>
+<h3 id="implementation-for-network-attachement-role">Implementation for Network attachement role:<a class="headerlink" href="#implementation-for-network-attachement-role" title="Permanent link">&para;</a></h3>
 <p>1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to network attachements.</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">clusterrole</span><span class="w"> </span><span class="n">net</span><span class="o">-</span><span class="n">attach</span><span class="o">-</span><span class="n">def</span><span class="o">-</span><span class="n">cluster</span><span class="o">-</span><span class="k">role</span><span class="w"> </span><span class="err">\</span>
 <span class="w">  </span><span class="c1">--verb=create,get,list,watch,update,patch,delete \</span>
@@ -1765,6 +1783,58 @@ CI/CD pipelines running in isolated namespaces.</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">auth</span><span class="w"> </span><span class="n">can</span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">network</span><span class="o">-</span><span class="n">attachment</span><span class="o">-</span><span class="n">definitions</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">cni</span><span class="p">.</span><span class="n">cncf</span><span class="p">.</span><span class="n">io</span><span class="w"> </span><span class="c1">--as=paclypamrf01 -n paclypamrf01</span>
 <span class="n">yes</span>
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
+</code></pre></div>
+
+<h3 id="implementation-for-cbur-role">Implementation for Cbur role:<a class="headerlink" href="#implementation-for-cbur-role" title="Permanent link">&para;</a></h3>
+<p>1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to cbur br polices.</p>
+<blockquote>
+<p>code snippet: <code># cat  &gt; cburrole.yaml</code></p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="n">apiVersion</span><span class="o">:</span><span class="w"> </span><span class="n">rbac</span><span class="o">.</span><span class="na">authorization</span><span class="o">.</span><span class="na">k8s</span><span class="o">.</span><span class="na">io</span><span class="o">/</span><span class="n">v1</span>
+<span class="n">kind</span><span class="o">:</span><span class="w"> </span><span class="n">ClusterRole</span>
+<span class="n">metadata</span><span class="o">:</span>
+<span class="w">  </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">ncd</span><span class="o">-</span><span class="n">cbur</span><span class="o">-</span><span class="n">role</span>
+<span class="n">rules</span><span class="o">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">apiGroups</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;cbur.bcmt.local&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="n">resources</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;brpolices&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="n">verbs</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;create&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;get&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;watch&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;patch&quot;</span><span class="o">]</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">apiGroups</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;cbur.csf.nokia.com&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="n">resources</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;brhooks&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;brpolices&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="n">verbs</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;create&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;get&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;watch&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;update&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;patch&quot;</span><span class="o">]</span>
+</code></pre></div>
+
+<p>1.1) here is the command executed on this platform. just give ctrl+c at last. right after that just apply it. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ panhub_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">cat</span><span class="w">  </span><span class="o">&gt;</span><span class="w"> </span><span class="n">cburrole</span><span class="p">.</span><span class="n">yaml</span>
+<span class="nl">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1</span>
+<span class="nl">kind</span><span class="p">:</span><span class="w"> </span><span class="n">ClusterRole</span>
+<span class="nl">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">ncd</span><span class="o">-</span><span class="n">cbur</span><span class="o">-</span><span class="k">role</span>
+<span class="nl">rules</span><span class="p">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nl">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">&quot;cbur.bcmt.local&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="nl">resources</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">&quot;brpolices&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="nl">verbs</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">&quot;create&quot;, &quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;update&quot;, &quot;patch&quot;</span><span class="o">]</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nl">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">&quot;cbur.csf.nokia.com&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="nl">resources</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">&quot;brhooks&quot;, &quot;brpolices&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="nl">verbs</span><span class="p">:</span><span class="w"> </span><span class="o">[</span><span class="n">&quot;create&quot;, &quot;get&quot;, &quot;list&quot;, &quot;watch&quot;, &quot;update&quot;, &quot;patch&quot;</span><span class="o">]</span>
+<span class="o">^</span><span class="n">C</span>
+<span class="o">[</span><span class="n">root@ncputility ~ panhub_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">apply</span><span class="w">  </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">cburrole</span><span class="p">.</span><span class="n">yaml</span>
+<span class="n">clusterrole</span><span class="p">.</span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">ncd</span><span class="o">-</span><span class="n">cbur</span><span class="o">-</span><span class="k">role</span><span class="w"> </span><span class="n">created</span>
+<span class="o">[</span><span class="n">root@ncputility ~ panhub_rc</span><span class="o">]</span><span class="err">$</span>
+</code></pre></div>
+
+<p>2) Run this step for below cnf users requesting for access to cbur br polices and assign to their NS.</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ panhub_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">rolebinding</span><span class="w"> </span><span class="n">ncd</span><span class="o">-</span><span class="n">cbur</span><span class="o">-</span><span class="k">role</span><span class="o">-</span><span class="n">binding</span><span class="w"> </span><span class="err">\</span>
+<span class="w">  </span><span class="c1">--clusterrole=ncd-cbur-role \</span>
+<span class="w">  </span><span class="c1">--user=nokia \</span>
+<span class="w">  </span><span class="c1">--namespace=test01</span>
+<span class="n">rolebinding</span><span class="p">.</span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">ncd</span><span class="o">-</span><span class="n">cbur</span><span class="o">-</span><span class="k">role</span><span class="o">-</span><span class="n">binding</span><span class="w"> </span><span class="n">created</span>
+<span class="o">[</span><span class="n">root@ncputility ~ panhub_rc</span><span class="o">]</span><span class="err">$</span>
+</code></pre></div>
+
+<p>3) Then validate is that user having access to it. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ panhub_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">auth</span><span class="w"> </span><span class="n">can</span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">brpolices</span><span class="w"> </span><span class="c1">--as=nokia -n test01</span>
+<span class="n">yes</span>
+<span class="o">[</span><span class="n">root@ncputility ~ panhub_rc</span><span class="o">]</span><span class="err">$</span>
 </code></pre></div>
 
 
