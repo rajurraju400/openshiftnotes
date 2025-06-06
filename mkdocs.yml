@@ -26,6 +26,7 @@ nav:
       - Deployment Scripts:
           - Backup Config: git-helper/Deployment/backupconfig.sh
           - New Git Server (v1): git-helper/Deployment/newgitserver.sh
+          - GIT deployment: git-helper/Deployment/git-server-deployment.md
 
   - OpenShift:
       - Backup & Restore:

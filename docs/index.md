@@ -11,6 +11,7 @@ Your comprehensive troubleshooting guide to OpenShift installation, backup, stor
 ## 📚 Documentation Overview
 
 - [Git Helper](git-helper/ncd-git-backup.md)
+- [Git Deployment](git-helper/Deployment/git-server-deployment.md)
 - [OpenShift Backup & Restore](openshift/backup-restore/ACM-GEO-RED.md)
 - [CNF Onboarding Support](openshift/CNF-onboarding-support/image-tls-issue.md)
 - [Deployment Guides](openshift/deployment/readme.md)
