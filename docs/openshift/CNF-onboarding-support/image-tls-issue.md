@@ -85,8 +85,6 @@ image.config.openshift.io/cluster patched
 
 ```
 oc get configmap registry-cas -n openshift-config -o yaml > registry-cas.yaml
-
-oc apply -f registry-cas.yaml
 ```
 
 2) now try to prepare file for new certificate with correct file intension using `--dry-run`
