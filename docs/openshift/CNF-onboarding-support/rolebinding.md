@@ -95,30 +95,62 @@ yes
 
 ### Implementation for Cbur role: 
 
-1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to network attachements.
+1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to cbur br polices.
+
+> code snippet: `# cat  > cburrole.yaml`
 
 ```
-[root@ncputility ~ pancwl_rc]$ oc create clusterrole ncd-cbur-role \
-  --verb='*' --resource=brpolices --api-group=cbur.bcmt.local \
-  --verb='*' --resource=brhooks,brpolices --api-group=cbur.csf.nokia.com
- 
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ncd-cbur-role
+rules:
+  - apiGroups: ["cbur.bcmt.local"]
+    resources: ["brpolices"]
+    verbs: ["create", "get", "list", "watch", "update", "patch"]
+  - apiGroups: ["cbur.csf.nokia.com"]
+    resources: ["brhooks", "brpolices"]
+    verbs: ["create", "get", "list", "watch", "update", "patch"]
+
+```
+1.1) here is the command executed on this platform. just give ctrl+c at last. right after that just apply it. 
+
+```
+[root@ncputility ~ panhub_rc]$ cat  > cburrole.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ncd-cbur-role
+rules:
+  - apiGroups: ["cbur.bcmt.local"]
+    resources: ["brpolices"]
+    verbs: ["create", "get", "list", "watch", "update", "patch"]
+  - apiGroups: ["cbur.csf.nokia.com"]
+    resources: ["brhooks", "brpolices"]
+    verbs: ["create", "get", "list", "watch", "update", "patch"]
+^C
+[root@ncputility ~ panhub_rc]$ oc apply  -f cburrole.yaml
 clusterrole.rbac.authorization.k8s.io/ncd-cbur-role created
-```
-
-2) Run this step for below cnf users requesting for access to network attachment definition and assign to their NS.
+[root@ncputility ~ panhub_rc]$
 
 ```
-[root@ncputility ~ pancwl_rc]$ oc create rolebinding net-attach-def-rolebinding \
+
+2) Run this step for below cnf users requesting for access to cbur br polices and assign to their NS.
+
+```
+[root@ncputility ~ panhub_rc]$ oc create rolebinding ncd-cbur-role-binding \
   --clusterrole=ncd-cbur-role \
-  --user=paclypamrf01 \
-  --namespace=paclypamrf01
-rolebinding.rbac.authorization.k8s.io/net-attach-def-rolebinding created
+  --user=nokia \
+  --namespace=test01
+rolebinding.rbac.authorization.k8s.io/ncd-cbur-role-binding created
+[root@ncputility ~ panhub_rc]$
 ```
 
 3) Then validate is that user having access to it. 
 
 ```
-[root@ncputility ~ pancwl_rc]$ oc auth can-i create brpolices --as=paclypamrf01 -n paclypamrf01
+[root@ncputility ~ panhub_rc]$ oc auth can-i create brpolices --as=nokia -n test01
 yes
-[root@ncputility ~ pancwl_rc]$
+[root@ncputility ~ panhub_rc]$
+
 ```
