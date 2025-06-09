@@ -2,7 +2,7 @@
 
 ## 📐 1. Design & Planning
 
-- **Prepare the High-Level Design (HLD)** for the NCP deployment.
+- **Prepare the High-Level Design (HLD)** for the NCP deployment. (only the NCP position or dedicated document for NCP alone. not solution HLD.)
 - The HLD must be reviewed and approved by **Nokia TDL** before proceeding to the LLD phase.
 - **Develop Low-Level Designs (LLD)** for the following clusters:
   - HUB Cluster
@@ -119,3 +119,21 @@
 
 > ⚠️ **Disclaimer:**  
 > Failure to follow any of the defined steps, guidelines, or approvals outlined in this document may result in strict disciplinary action. All team members are expected to comply with the process to ensure project integrity and success.
+
+
+## 🚫 11. Don’ts by Deployment engineer
+
+
+- If a Red Hat engineer identifies any deviation from the blueprint design—whether at the hardware or software level—it must be escalated to the respective DTM.
+- The Red Hat team does not support workarounds for solution implementation. Only fully supported blueprint configurations for Nokia NCP should be used. exception only for NON-BLUEPRINT certification candidates. 
+- Red Hat engineers will not provide recommendations for solution components (e.g., choosing between NCP Quay or NCD Harbor registries for CNF). CNF teams must strictly follow the High-Level Design (HLD) documentation.
+- Red Hat teams are not involved in hardware readiness tasks such as switch configuration, OS installation for the Infra-Manager server, or creating CNF users on Infra-Manager nodes.
+- Red Hat engineers do not grant cluster-admin roles to CNF users, even temporarily. The only exceptions are for default user IDs related to NCP, NCD, and NCOM.
+- Red Hat engineers do not involved in cnf onboarding until nokia procured it offically. 
+- Red Hat team do not be involved in cluster presentation until it's approved by DTM. 
+- Red Hat team do not install any third party software, antiviruse or rpm on hub, NMC/NWC, and infra-manager nodes. 
+- Red Hat team do not install and configure DNS/NTP server for NCP installation. 
+- Red Hat team should not start the installation untill approved design documents and Redhat Entry level criteria process to be fully completed without any gap. 
+
+
+

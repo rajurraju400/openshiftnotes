@@ -1539,6 +1539,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#11-donts-by-deployment-engineer" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚫 11. Don’ts by Deployment engineer
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1679,6 +1688,15 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#11-donts-by-deployment-engineer" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚫 11. Don’ts by Deployment engineer
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1698,7 +1716,7 @@
 <h1 id="openshift-ncp-deployment-scope-of-work">OpenShift (NCP) Deployment – Scope of Work<a class="headerlink" href="#openshift-ncp-deployment-scope-of-work" title="Permanent link">&para;</a></h1>
 <h2 id="1-design-planning">📐 1. Design &amp; Planning<a class="headerlink" href="#1-design-planning" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Prepare the High-Level Design (HLD)</strong> for the NCP deployment.</li>
+<li><strong>Prepare the High-Level Design (HLD)</strong> for the NCP deployment. (only the NCP position or dedicated document for NCP alone. not solution HLD.)</li>
 <li>The HLD must be reviewed and approved by <strong>Nokia TDL</strong> before proceeding to the LLD phase.</li>
 <li><strong>Develop Low-Level Designs (LLD)</strong> for the following clusters:</li>
 <li>HUB Cluster</li>
@@ -1709,10 +1727,13 @@
 <li>Users</li>
 <li>Security Context Constraints (SCC)</li>
 <li>Required application roles, if needed (default <code>network-attach</code> and <code>cbur</code> roles should be documented).</li>
-<li>NCOM is used for CNF onboarding; no additional roles/SCCs are needed (a separate document will cover this).</li>
+<li>Collect all networking information (Metllb, ippool, backwards routes, nmstate networks etc.)</li>
+<li>NCOM is used for CNF onboarding; no additional roles/SCCs are needed (check with Raj about it.).</li>
 <li>A <strong>Red Hat architect</strong> will perform an internal review of the HLD and LLD.</li>
 <li>Both the HLD and LLD must be formally approved by <strong>Nokia TDL</strong> before any installation activities commence.</li>
 <li>The <strong>Red Hat DTM</strong> must ensure no installation begins before Nokia TDL’s approval of the design documents.</li>
+<li>Redhat Engineer should be gone through “Redhat entry level criteria” process before touching the infra. </li>
+<li>The <strong>Red Hat DTM</strong> must ensure no installation begins before Redhat Entry level criteria process to be fully completed without any gap. </li>
 </ul>
 <hr />
 <h2 id="2-mop-for-deployment">🛠️ 2. MOP for Deployment<a class="headerlink" href="#2-mop-for-deployment" title="Permanent link">&para;</a></h2>
@@ -1790,7 +1811,8 @@
 <li>Creating new users or tenants</li>
 <li>Adding subnets to IP pools</li>
 <li>Adding/changing/deleting networks/subnets for NMState, MetalLB, backward routes, etc.</li>
-<li>Handling new application prerequisites not documented in the approved LLD</li>
+<li>Handling new application prerequisites not documented in the approved LLD.</li>
+<li>Handing new changes to the cluster, scale-out, new hostgroup creation, even redeployment, NCP upgrade, Adding/modifying labels, even installing a PP on cluster. Which is not documented in the approved LLD.</li>
 <li>All such requests must be:</li>
 <li>Documented in the respective <strong>HLD/LLD</strong></li>
 <li><strong>Approved by the TDL</strong></li>
@@ -1802,6 +1824,19 @@
 <p>⚠️ <strong>Disclaimer:</strong><br />
 Failure to follow any of the defined steps, guidelines, or approvals outlined in this document may result in strict disciplinary action. All team members are expected to comply with the process to ensure project integrity and success.</p>
 </blockquote>
+<h2 id="11-donts-by-deployment-engineer">🚫 11. Don’ts by Deployment engineer<a class="headerlink" href="#11-donts-by-deployment-engineer" title="Permanent link">&para;</a></h2>
+<ul>
+<li>If a Red Hat engineer identifies any deviation from the blueprint design—whether at the hardware or software level—it must be escalated to the respective DTM.</li>
+<li>The Red Hat team does not support workarounds for solution implementation. Only fully supported blueprint configurations for Nokia NCP should be used. exception only for NON-BLUEPRINT certification candidates. </li>
+<li>Red Hat engineers will not provide recommendations for solution components (e.g., choosing between NCP Quay or NCD Harbor registries for CNF). CNF teams must strictly follow the High-Level Design (HLD) documentation.</li>
+<li>Red Hat teams are not involved in hardware readiness tasks such as switch configuration, OS installation for the Infra-Manager server, or creating CNF users on Infra-Manager nodes.</li>
+<li>Red Hat engineers do not grant cluster-admin roles to CNF users, even temporarily. The only exceptions are for default user IDs related to NCP, NCD, and NCOM.</li>
+<li>Red Hat engineers do not involved in cnf onboarding until nokia procured it offically. </li>
+<li>Red Hat team do not be involved in cluster presentation until it's approved by DTM. </li>
+<li>Red Hat team do not install any third party software, antiviruse or rpm on hub, NMC/NWC, and infra-manager nodes. </li>
+<li>Red Hat team do not install and configure DNS/NTP server for NCP installation. </li>
+<li>Red Hat team should not start the installation untill approved design documents and Redhat Entry level criteria process to be fully completed without any gap. </li>
+</ul>
 
 
 
