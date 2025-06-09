@@ -68,6 +68,10 @@ nav:
       - User Management:
           - Remove Kubeadmin: openshift/usermanagement/remove-kubeadmin.md
           - User Management: openshift/usermanagement/user-management.md
+
+      - Project Management:
+          - Scope of work: openshift/projectmanagement/scope.md
+
           
 markdown_extensions:
   - toc:

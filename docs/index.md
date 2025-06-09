@@ -21,6 +21,7 @@ Your comprehensive troubleshooting guide to OpenShift installation, backup, stor
 - [Tools Management](openshift/tools-management-ts/ts-tools.md)
 - [User Management](openshift/usermanagement/user-management.md)
 - [Troubleshooting and Workarounds](openshift/troubleshooting/ncomsa.md)
+- [Project Management](openshift/projectmanagement/scope.md)
 
 
 <button onclick="sessionStorage.removeItem('authenticated'); location.reload();"
