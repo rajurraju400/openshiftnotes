@@ -13,10 +13,14 @@
   - Users
   - Security Context Constraints (SCC)
   - Required application roles, if needed (default `network-attach` and `cbur` roles should be documented).
-  - NCOM is used for CNF onboarding; no additional roles/SCCs are needed (a separate document will cover this).
+  - Collect all networking information (Metllb, ippool, backwards routes, nmstate networks etc.)
+  - NCOM is used for CNF onboarding; no additional roles/SCCs are needed (check with Raj about it.).
 - A **Red Hat architect** will perform an internal review of the HLD and LLD.
 - Both the HLD and LLD must be formally approved by **Nokia TDL** before any installation activities commence.
 - The **Red Hat DTM** must ensure no installation begins before Nokia TDL’s approval of the design documents.
+- Redhat Engineer should be gone through “Redhat entry level criteria” process before touching the infra. 
+- The **Red Hat DTM** must ensure no installation begins before Redhat Entry level criteria process to be fully completed without any gap. 
+
 
 ---
 
@@ -102,7 +106,8 @@
   - Creating new users or tenants
   - Adding subnets to IP pools
   - Adding/changing/deleting networks/subnets for NMState, MetalLB, backward routes, etc.
-  - Handling new application prerequisites not documented in the approved LLD
+  - Handling new application prerequisites not documented in the approved LLD.
+  - Handing new changes to the cluster, scale-out, new hostgroup creation, even redeployment, NCP upgrade, Adding/modifying labels, even installing a PP on cluster. Which is not documented in the approved LLD.
 - All such requests must be:
   - Documented in the respective **HLD/LLD**
   - **Approved by the TDL**
