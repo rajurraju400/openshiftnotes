@@ -1826,16 +1826,36 @@ Failure to follow any of the defined steps, guidelines, or approvals outlined in
 </blockquote>
 <h2 id="11-donts-by-deployment-engineer">🚫 11. Don’ts by Deployment engineer<a class="headerlink" href="#11-donts-by-deployment-engineer" title="Permanent link">&para;</a></h2>
 <ul>
-<li>If a Red Hat engineer identifies any deviation from the blueprint design—whether at the hardware or software level—it must be escalated to the respective DTM.</li>
-<li>The Red Hat team does not support workarounds for solution implementation. Only fully supported blueprint configurations for Nokia NCP should be used. exception only for NON-BLUEPRINT certification candidates. </li>
-<li>Red Hat engineers will not provide recommendations for solution components (e.g., choosing between NCP Quay or NCD Harbor registries for CNF). CNF teams must strictly follow the High-Level Design (HLD) documentation.</li>
-<li>Red Hat teams are not involved in hardware readiness tasks such as switch configuration, OS installation for the Infra-Manager server, or creating CNF users on Infra-Manager nodes.</li>
-<li>Red Hat engineers do not grant cluster-admin roles to CNF users, even temporarily. The only exceptions are for default user IDs related to NCP, NCD, and NCOM.</li>
-<li>Red Hat engineers do not involved in cnf onboarding until nokia procured it offically. </li>
-<li>Red Hat team do not be involved in cluster presentation until it's approved by DTM. </li>
-<li>Red Hat team do not install any third party software, antiviruse or rpm on hub, NMC/NWC, and infra-manager nodes. </li>
-<li>Red Hat team do not install and configure DNS/NTP server for NCP installation. </li>
-<li>Red Hat team should not start the installation untill approved design documents and Redhat Entry level criteria process to be fully completed without any gap. </li>
+<li>
+<p>If a Red Hat engineer identifies any deviation from the blueprint design—whether at the hardware or software level—it must be escalated to the respective DTM.</p>
+</li>
+<li>
+<p>The Red Hat team does not support workarounds in solution implementation. Only fully supported blueprint configurations for Nokia NCP should be used. The only exception is for non-blueprint certification candidates. also Redhat not recommend any workaround. all issues need to documented by NCPFM and recommandation should be coming from NCPFM.  </p>
+</li>
+<li>
+<p>Red Hat engineers will not provide recommendations for solution components (e.g., selecting between NCP Quay or NCD Harbor registries for CNF). CNF teams must strictly adhere to the High-Level Design (HLD) documentation.</p>
+</li>
+<li>
+<p>Red Hat teams are not involved in hardware readiness tasks, such as switch configuration, OS installation for the Infra-Manager server, or creating CNF users on Infra-Manager nodes.</p>
+</li>
+<li>
+<p>Red Hat engineers do not grant cluster-admin roles to CNF users, even temporarily. Exceptions apply only to default user IDs associated with NCP, NCD, and NCOM.</p>
+</li>
+<li>
+<p>Red Hat engineers are not involved in CNF onboarding unless it has been officially procured by Nokia.</p>
+</li>
+<li>
+<p>The Red Hat team will not participate in cluster presentations until they have been formally approved by the DTM.</p>
+</li>
+<li>
+<p>Red Hat engineers will not install any third-party software, antivirus, or RPM packages on Hub, NMC/NWC, or Infra-Manager nodes.</p>
+</li>
+<li>
+<p>Red Hat teams do not install or configure DNS or NTP servers as part of the NCP installation.</p>
+</li>
+<li>
+<p>Installation activities must not begin until all design documents have been reviewed and approved, and the Red Hat Entry-Level Criteria process has been fully completed with no gaps.</p>
+</li>
 </ul>
 
 

@@ -36,6 +36,9 @@ nav:
           - ETCD Backup: openshift/backup-restore/etcd-backup.md
           - ETCD Restore: openshift/backup-restore/etcd-restore.md
 
+      - Intergrations:
+          - Clusterlogging: openshift/intergration/syslog.md
+
       - CNF Onboarding Support:
           - Image TLS Issue: openshift/CNF-onboarding-support/image-tls-issue.md
           - OCLogin TLS Issue: openshift/CNF-onboarding-support/oclogin-tls-issue.md

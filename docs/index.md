@@ -14,6 +14,7 @@ Your comprehensive troubleshooting guide to OpenShift installation, backup, stor
 - [Git Deployment](git-helper/Deployment/git-server-deployment.md)
 - [OpenShift Backup & Restore](openshift/backup-restore/ACM-GEO-RED.md)
 - [CNF Onboarding Support](openshift/CNF-onboarding-support/image-tls-issue.md)
+- [Intergrations](openshift/intergration/syslog.md)
 - [Deployment Guides](openshift/deployment/readme.md)
 - [Maintenance Procedures](openshift/maintenace/cluster-stop-start.md)
 - [Networking Configurations](openshift/networking/metalb-troubleshooting.md)
