@@ -1,6 +1,17 @@
 # Cluster logging operator
 
 
+## Limitations
+
+- Currently hub cluster cant intergrated with external log receiving server. 
+- This procedure tested only with the syslog based log server. not work with splunk etc.
+- local forwarding or external forwarding either one only works. not both. 
+
+
+## Reference 
+
+ - Documented some limitations via [NCPFM-1425](https://jiradc2.ext.net.nokia.com/browse/NCPFM-1425)
+
 ## Configuring logging operator 
 
 > Prerequisites
@@ -116,7 +127,9 @@ logging-view-plugin-566757957-nlp2n           1/1     Running   0          10d  
 
 ```
 
-3) Create the `ClusterLogForwarder` object to all log types to make them locally visible
+## Local forwarding the logs (make logs visiable on locally)
+
+1) Create the `ClusterLogForwarder` object to all log types to make them locally visible
 
 > CWL cluster can support either local forwarding or external forwarding not both. 
 
@@ -142,11 +155,12 @@ spec:
 
 ```
 
+2) continue this section `Redhat Cluster logging operator plugin enable from UI.`
+
 ## Sending logs to external syslog server
 
 > For a detailed description, see Forwarding logs using the syslog protocol in document Logging, available in OpenShift Container Platform Product Documentation.
 
-## Steps to be followed
 
 1) To send logs to the external source, ClusterLogForwarder object has to be modified, as shown in the following example.
 

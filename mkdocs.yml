@@ -29,6 +29,16 @@ nav:
           - GIT deployment: git-helper/Deployment/git-server-deployment.md
 
   - OpenShift:
+
+      - Project Management:
+          - Scope of work: openshift/projectmanagement/scope.md
+
+      - Deployment: openshift/deployment/readme.md
+
+      - User Management:
+          - Remove Kubeadmin: openshift/usermanagement/remove-kubeadmin.md
+          - User Management: openshift/usermanagement/user-management.md
+
       - Backup & Restore:
           - ACM GEO Red: openshift/backup-restore/ACM-GEO-RED.md
           - ACM Local Backup: openshift/backup-restore/ACM-localbackup.md
@@ -37,7 +47,7 @@ nav:
           - ETCD Restore: openshift/backup-restore/etcd-restore.md
 
       - Intergrations:
-          - Clusterlogging: openshift/intergration/syslog.md
+          - Clusterlogging: openshift/Intergration/syslog.md
 
       - CNF Onboarding Support:
           - Image TLS Issue: openshift/CNF-onboarding-support/image-tls-issue.md
@@ -46,8 +56,6 @@ nav:
           - Role Allocation for CNF user: openshift/CNF-onboarding-support/rolebinding.md
           - Failed to configure or Degraded: openshift/CNF-onboarding-support/Failtoconfigure_nncp.md
           - Kubeconfig overlapping: openshift/CNF-onboarding-support/kubeconfig.md
-
-      - Deployment: openshift/deployment/readme.md
 
       - Maintenance:
           - Cluster Stop/Start: openshift/maintenace/cluster-stop-start.md
@@ -68,12 +76,9 @@ nav:
           - Nsenter Usage: openshift/troubleshooting/nsenter.md
           - NCOM Caas Issue: openshift/troubleshooting/ncomsa.md
 
-      - User Management:
-          - Remove Kubeadmin: openshift/usermanagement/remove-kubeadmin.md
-          - User Management: openshift/usermanagement/user-management.md
 
-      - Project Management:
-          - Scope of work: openshift/projectmanagement/scope.md
+
+
 
           
 markdown_extensions:
