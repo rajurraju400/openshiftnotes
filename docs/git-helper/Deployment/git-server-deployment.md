@@ -110,8 +110,9 @@ helm install ncd-git -n paclypancdgit01   /root/ncd/NCD_24.9_Git_Server_ORB-RC/n
 
 ## Notes
 
-- No changes are required in the values files: `cbur-crd.yaml`, `cbur.yaml`, `post.yaml`, `redis.yaml`, and `git.yaml`.
-- Ensure the registry, certificates, and hostnames are properly configured before deployment.
+- No changes are required in the values files: `cbur-crd.yaml`.
+- update are improtant on  `cbur.yaml`, `post.yaml`, `redis.yaml`, and `git.yaml`.
+- Ensure the registry, certificates, hosts, redis and postgress service hostnames are properly configured before deployment.
 
 
 ## Download the sample files

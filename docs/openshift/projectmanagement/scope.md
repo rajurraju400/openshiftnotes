@@ -123,10 +123,11 @@
 
 ## 🚫 11. Don’ts by Deployment engineer
 
+- Installation activities must not begin until all design documents have been reviewed and approved, and the Red Hat Entry-Level Criteria process has been fully completed with no gaps.
 
 - If a Red Hat engineer identifies any deviation from the blueprint design—whether at the hardware or software level—it must be escalated to the respective DTM.
 
-- The Red Hat team does not support workarounds in solution implementation. Only fully supported blueprint configurations for Nokia NCP should be used. The only exception is for non-blueprint certification candidates. also Redhat not recommend any workaround. all issues need to documented by NCPFM and recommandation should be coming from NCPFM.  
+- The Red Hat team does not support workarounds in solution implementation. Only fully supported blueprint configurations for Nokia NCP should be used. The only exception is for non-blueprint certification candidates. also Redhat not recommend any workaround. all issues need to be documented by `NCPFM` and recommandation should be coming from `NCPFM`.  
 
 - Red Hat engineers will not provide recommendations for solution components (e.g., selecting between NCP Quay or NCD Harbor registries for CNF). CNF teams must strictly adhere to the High-Level Design (HLD) documentation.
 
@@ -136,10 +137,12 @@
 
 - Red Hat engineers are not involved in CNF onboarding unless it has been officially procured by Nokia.
 
-- The Red Hat team will not participate in cluster presentations until they have been formally approved by the DTM.
+- The Red Hat team will not participate in Customer presentations until they have been formally approved by the DTM.
 
 - Red Hat engineers will not install any third-party software, antivirus, or RPM packages on Hub, NMC/NWC, or Infra-Manager nodes.
 
 - Red Hat teams do not install or configure DNS or NTP servers as part of the NCP installation.
 
-- Installation activities must not begin until all design documents have been reviewed and approved, and the Red Hat Entry-Level Criteria process has been fully completed with no gaps.
+- RedHat teams will not provide any major updates to Nokia PM or Customers, all will go via DTM. `
+
+- RedHat team do not share the credentials or any Exit deliverable artifacts via email. It should be via SP from DTM.

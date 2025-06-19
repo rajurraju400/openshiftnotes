@@ -195,7 +195,7 @@ status: {}
 
 ![alt text](image-3.png)
 
-3) Set the proxy cache configuration for the organization
+3) Set the proxy cache configuration for the organization (in this step adding `/org-name` too, example: `quay-registry.apps.panclyphub01.mnc020.mcc714/cnfimagesnew` )
 
 ![alt text](image-5.png)
 
