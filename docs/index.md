@@ -13,7 +13,7 @@ Your comprehensive troubleshooting guide to OpenShift installation, backup, stor
 - [Git Helper](git-helper/ncd-git-backup.md)
 - [Git Deployment](git-helper/Deployment/git-server-deployment.md)
 - [Project Management](openshift/projectmanagement/scope.md)
-- [Deployment Guides](openshift/deployment/readme.md)
+- [Deployment Guides](openshift/deployment/automation/nokia-site-config-fixes.md)
 - [User Management](openshift/usermanagement/user-management.md)
 - [OpenShift Backup & Restore](openshift/backup-restore/ACM-GEO-RED.md)
 - [CNF Onboarding Support](openshift/CNF-onboarding-support/image-tls-issue.md)

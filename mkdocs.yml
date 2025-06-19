@@ -33,7 +33,8 @@ nav:
       - Project Management:
           - Scope of work: openshift/projectmanagement/scope.md
 
-      - Deployment: openshift/deployment/readme.md
+      - Deployment: 
+          - Nokia Automation Tool : openshift/deployment/automation/nokia-site-config-fixes.md
 
       - User Management:
           - Remove Kubeadmin: openshift/usermanagement/remove-kubeadmin.md
