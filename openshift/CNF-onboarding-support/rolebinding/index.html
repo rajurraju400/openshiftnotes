@@ -1233,9 +1233,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#implementation-for-securitynodescustomresourcedefinitions-role" class="md-nav__link">
+  <a href="#implementation-for-securitynodescustomresourcedefinitionsetc-role" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation for security,nodes,customresourcedefinitions role:
+      Implementation for security,nodes,customresourcedefinitions,etc role:
     </span>
   </a>
   
@@ -1723,6 +1723,98 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_12" id="__nav_3_12_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Disaster Management
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_12">
+            <span class="md-nav__icon md-icon"></span>
+            Disaster Management
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../disaster-management/infra-manager-redeployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Infra-Manager node reinstallation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../disaster-management/hub-cluster-redeployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Hub Cluster reinstalaltion
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1885,9 +1977,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#implementation-for-securitynodescustomresourcedefinitions-role" class="md-nav__link">
+  <a href="#implementation-for-securitynodescustomresourcedefinitionsetc-role" class="md-nav__link">
     <span class="md-ellipsis">
-      Implementation for security,nodes,customresourcedefinitions role:
+      Implementation for security,nodes,customresourcedefinitions,etc role:
     </span>
   </a>
   
@@ -2077,8 +2169,8 @@ rules:
 <span class="o">[</span><span class="n">root@ncputility ~ panhub_rc</span><span class="o">]</span><span class="err">$</span>
 </code></pre></div>
 
-<h3 id="implementation-for-securitynodescustomresourcedefinitions-role">Implementation for security,nodes,customresourcedefinitions role:<a class="headerlink" href="#implementation-for-securitynodescustomresourcedefinitions-role" title="Permanent link">&para;</a></h3>
-<p>1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to nodes, scc and crds.</p>
+<h3 id="implementation-for-securitynodescustomresourcedefinitionsetc-role">Implementation for security,nodes,customresourcedefinitions,etc role:<a class="headerlink" href="#implementation-for-securitynodescustomresourcedefinitionsetc-role" title="Permanent link">&para;</a></h3>
+<p>1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to nodes, scc, crds, etc.</p>
 <blockquote>
 <p>code snippet: <code># cat  &gt; read-cluster-infra-info.yaml</code></p>
 </blockquote>
@@ -2095,6 +2187,15 @@ rules:
 <span class="w">    </span><span class="n">verbs</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;get&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="o">]</span>
 <span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">apiGroups</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;apiextensions.k8s.io&quot;</span><span class="o">]</span>
 <span class="w">    </span><span class="n">resources</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;customresourcedefinitions&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="n">verbs</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;get&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="o">]</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">apiGroups</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;compliance.openshift.io&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="n">resources</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;profiles&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="n">verbs</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;get&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="o">]</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">apiGroups</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;nmstate.io&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="n">resources</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;nodenetworkconfigurationpolicies&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="n">verbs</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;get&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="o">]</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">apiGroups</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;metallb.io&quot;</span><span class="o">]</span>
+<span class="w">    </span><span class="n">resources</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;ipaddresspools&quot;</span><span class="o">]</span>
 <span class="w">    </span><span class="n">verbs</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;get&quot;</span><span class="o">,</span><span class="w"> </span><span class="s2">&quot;list&quot;</span><span class="o">]</span>
 </code></pre></div>
 
