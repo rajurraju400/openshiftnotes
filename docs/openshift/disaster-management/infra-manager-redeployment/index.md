@@ -787,7 +787,104 @@ The key's randomart image is:
 
 ### Configure Quay SSL to Match Hub Cluster TLS
 
+1) login to in the hub cluster using respective RC file. 
+```
+[root@ncputility ~ cwl_rc]$source hubrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 105 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@ncputility ~ hub_rc]$ oc get nodes
+NAME                                       STATUS   ROLES                                 AGE   VERSION
+master-0.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+master-1.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+master-2.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+[root@ncputility ~ hub_rc]$ oc get pods
+No resources found in default namespace.
+
+```
+
+2) Steps yet to added here.
+
 ### Validate Operator Catalog, ITMS, and DTMS
+
+1) login to in the hub cluster using respective RC file. 
+```
+[root@ncputility ~ cwl_rc]$source hubrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 105 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@ncputility ~ hub_rc]$ oc get nodes
+NAME                                       STATUS   ROLES                                 AGE   VERSION
+master-0.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+master-1.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+master-2.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+[root@ncputility ~ hub_rc]$ oc get pods
+No resources found in default namespace.
+
+```
+
+2)  get the oc get idms, itms and catalogsource.
+
+```
+[root@ncputility ~ hub_rc]$ oc get idms
+NAME                  AGE
+generic-0             29d
+generic-1             29d
+image-digest-mirror   30d
+operator-0            29d
+release-0             29d
+[root@ncputility ~ hub_rc]$ oc get itms
+NAME       AGE
+platform   29d
+[root@ncputility ~ hub_rc]$ oc get catalogsource -A
+NAMESPACE               NAME                       DISPLAY                    TYPE   PUBLISHER   AGE
+openshift-marketplace   cs-redhat-operator-index   Disconnected OperatorHub   grpc   Nokia       29d
+[root@ncputility ~ hub_rc]$
+```
+
+3) check the status of catalogsource on marketplace. 
+
+```
+[root@ncputility ~ hub_rc]$ oc get catalogsource cs-redhat-operator-index -n openshift-marketplace  -o yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"operators.coreos.com/v1alpha1","kind":"CatalogSource","metadata":{"annotations":{},"name":"cs-redhat-operator-index","namespace":"openshift-marketplace"},"spec":{"displayName":"Disconnected OperatorHub","image":"ncputility.pphncp01.infra.mobi.eastlink.ca:8443/ocmirror-ncp-24-7-mp1/redhat/redhat-operator-index:v4.16","publisher":"Nokia","sourceType":"grpc"}}
+  creationTimestamp: "2025-05-29T11:56:32Z"
+  generation: 1
+  name: cs-redhat-operator-index
+  namespace: openshift-marketplace
+  resourceVersion: "42579673"
+  uid: 2415d59c-172d-42e9-af1c-067c966b5222
+spec:
+  displayName: Disconnected OperatorHub
+  image: ncputility.pphncp01.infra.mobi.eastlink.ca:8443/ocmirror-ncp-24-7-mp1/redhat/redhat-operator-index:v4.16
+  publisher: Nokia
+  sourceType: grpc
+status:
+  connectionState:
+    address: cs-redhat-operator-index.openshift-marketplace.svc:50051
+    lastConnect: "2025-06-22T21:19:42Z"
+    lastObservedState: READY
+  registryService:
+    createdAt: "2025-06-22T21:15:42Z"
+    port: "50051"
+    protocol: grpc
+    serviceName: cs-redhat-operator-index
+    serviceNamespace: openshift-marketplace
+[root@ncputility ~ hub_rc]$
+
+```
 
 ### Restore SSH Key for Hub Cluster
 
