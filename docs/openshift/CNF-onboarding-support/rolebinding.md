@@ -64,7 +64,10 @@
 
 1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to network attachements.
 
-> in case need it as yaml file. ```---
+> in case need it as yaml file. (optional step)
+
+```
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -75,7 +78,7 @@ rules:
     verbs: ["create", "get", "list", "watch", "update", "patch", "delete"]
 ```
 
-
+(or)
 
 ```
 [root@ncputility ~ pancwl_rc]$ oc create clusterrole net-attach-def-cluster-role \
@@ -169,9 +172,9 @@ yes
 ```
 
 
-### Implementation for security,nodes,customresourcedefinitions role: 
+### Implementation for security,nodes,customresourcedefinitions,etc role: 
 
-1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to nodes, scc and crds.
+1) login to cluster with admin privilage and then create a new role (clusterrole) with granding access to nodes, scc, crds, etc.
 
 > code snippet: `# cat  > read-cluster-infra-info.yaml`
 
@@ -189,6 +192,15 @@ rules:
     verbs: ["get", "list"]
   - apiGroups: ["apiextensions.k8s.io"]
     resources: ["customresourcedefinitions"]
+    verbs: ["get", "list"]
+  - apiGroups: ["compliance.openshift.io"]
+    resources: ["profiles"]
+    verbs: ["get", "list"]
+  - apiGroups: ["nmstate.io"]
+    resources: ["nodenetworkconfigurationpolicies"]
+    verbs: ["get", "list"]
+  - apiGroups: ["metallb.io"]
+    resources: ["ipaddresspools"]
     verbs: ["get", "list"]
 
 ```
@@ -212,6 +224,12 @@ rules:
     verbs: ["get", "list"]
   - apiGroups: ["compliance.openshift.io"]
     resources: ["profiles"]
+    verbs: ["get", "list"]
+  - apiGroups: ["nmstate.io"]
+    resources: ["nodenetworkconfigurationpolicies"]
+    verbs: ["get", "list"]
+  - apiGroups: ["metallb.io"]
+    resources: ["ipaddresspools"]
     verbs: ["get", "list"]
 
 ^C

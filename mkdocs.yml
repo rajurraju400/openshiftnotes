@@ -77,6 +77,9 @@ nav:
           - Nsenter Usage: openshift/troubleshooting/nsenter.md
           - NCOM Caas Issue: openshift/troubleshooting/ncomsa.md
 
+      - Disaster Management:
+          - Infra-Manager node reinstallation : openshift/disaster-management/infra-manager-redeployment/index.md
+          - Hub Cluster reinstalaltion: openshift/disaster-management/hub-cluster-redeployment/index.md
 
 
 
