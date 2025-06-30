@@ -785,7 +785,7 @@ The key's randomart image is:
 
 ```
 
-### Configure Quay SSL to Match Hub Cluster TLS
+### Configure Quay SSL to Match Hub Cluster.
 
 1) login to in the hub cluster using respective RC file. 
 ```
@@ -807,7 +807,41 @@ No resources found in default namespace.
 
 ```
 
-2) Steps yet to added here.
+2) image registry access trusted store tls should be aligned with new quay certificate.
+
+```
+[root@ncputility ~ hub_rc]$ oc get image.config.openshift.io cluster -o yaml
+apiVersion: config.openshift.io/v1
+kind: Image
+metadata:
+  annotations:
+    include.release.openshift.io/ibm-cloud-managed: "true"
+    include.release.openshift.io/self-managed-high-availability: "true"
+    release.openshift.io/create-only: "true"
+  creationTimestamp: "2025-05-28T20:36:54Z"
+  generation: 2
+  name: cluster
+  ownerReferences:
+  - apiVersion: config.openshift.io/v1
+    kind: ClusterVersion
+    name: version
+    uid: 50b26a8a-dc8e-4e61-be51-3dd26be73475
+  resourceVersion: "5827630"
+  uid: 1ab8247c-d090-4652-b6fc-8631c2fab623
+spec:
+  additionalTrustedCA:
+    name: registry-cas
+[root@ncputility ~ hub_rc]$
+
+```
+
+3) based on the previous output `registry-cas` cm should be having the latest cert. 
+
+4) You can configure additional CAs with the following procedure. To configure an additional CA using existing cm `registry-cas`
+
+```
+oc create configmap registry-cas --from-file=<external_registry_address>=ca.crt -n openshift-config
+```
 
 ### Validate Operator Catalog, ITMS, and DTMS
 
@@ -1042,8 +1076,47 @@ Everything up-to-date
 
 ![alt text](image.png)
 
+4.1) Continue with step 5 to 7, if step 4 does not trigger the mcp update automatically. 
 
-5)  Machine Config Operator should start applying the changes shortly. Observe which MachineConfigPools are being updated with oc get mcp and check more details on which node is being updated by following this solution.
+5) list the mc for ssh on this hold and take a backup of it. 
+
+```
+[root@ncputility ~ hub_rc]$ oc get mc 99-master-ssh  99-worker-ssh
+NAME            GENERATEDBYCONTROLLER   IGNITIONVERSION   AGE
+99-master-ssh                           3.2.0             29d
+99-worker-ssh                           3.2.0             29d
+[root@ncputility ~ hub_rc]$ oc get mc 99-master-ssh  99-worker-ssh -o yaml > 99-master-worker-ssh.yaml
+[root@ncputility ~ hub_rc]$ 
+[root@ncputility ~ hub_rc]$ oc get mc 99-master-ssh  99-worker-ssh -o yaml > 99-master-worker-ssh-back.yaml
+[root@ncputility ~ hub_rc]$
+
+```
+
+6) update the `sshAuthorizedKeys` key with your latest key and then apply it. 
+
+```
+[root@ncputility ~ hub_rc]$ vi 99-master-worker-ssh-back.yaml
+```
+>         - name: core
+          sshAuthorizedKeys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGW2BXbCPiDgL3m4y8y3UYdehEmdUsrQBNLOR27waVBr
+            root@ncputility.pphncp01.infra.mobi.eastlink.ca
+
+this part need to updated. 
+
+7) apply the change 
+
+```
+[root@ncputility ~ hub_rc]$ oc apply -f 99-master-worker-ssh-back.yaml
+Warning: resource machineconfigs/99-master-ssh is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by oc apply. oc apply should only be used on resources created declaratively by either oc create --save-config or oc apply. The missing annotation will be patched automatically.
+machineconfig.machineconfiguration.openshift.io/99-master-ssh configured
+Warning: resource machineconfigs/99-worker-ssh is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by oc apply. oc apply should only be used on resources created declaratively by either oc create --save-config or oc apply. The missing annotation will be patched automatically.
+machineconfig.machineconfiguration.openshift.io/99-worker-ssh configured
+[root@ncputility ~ hub_rc]$
+
+```
+
+8)  Machine Config Operator should start applying the changes shortly. Observe which MachineConfigPools are being updated with oc get mcp and check more details on which node is being updated by following this solution.
 
 
 ```
@@ -1056,7 +1129,7 @@ worker   rendered-worker-9ad974bc81cec3f37ff34bd866f0e906   True      False     
 ```
 
 
-6) For more insights on how the change is being applied in a single node, then check the machine config daemon logs:
+9) For more insights on how the change is being applied in a single node, then check the machine config daemon logs:
 
 ```
 NODE='master-0.pphncp01.infra.mobi.eastlink.ca'
