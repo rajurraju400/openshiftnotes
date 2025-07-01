@@ -2784,34 +2784,14 @@ ncp_operators.partaj.tar</code> files to the Infrastructure node.</p>
 <span class="k">No</span><span class="w"> </span><span class="n">resources</span><span class="w"> </span><span class="k">found</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">namespace</span><span class="p">.</span>
 </code></pre></div>
 
-<p>2) image registry access trusted store tls should be aligned with new quay certificate.</p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ hub_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="nc">image</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">openshift</span><span class="p">.</span><span class="n">io</span><span class="w"> </span><span class="n">cluster</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">yaml</span>
-<span class="nl">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="n">openshift</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1</span>
-<span class="nl">kind</span><span class="p">:</span><span class="w"> </span><span class="nc">Image</span>
-<span class="nl">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nl">annotations</span><span class="p">:</span>
-<span class="w">    </span><span class="k">include</span><span class="p">.</span><span class="k">release</span><span class="p">.</span><span class="n">openshift</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">ibm</span><span class="o">-</span><span class="n">cloud</span><span class="o">-</span><span class="nl">managed</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;true&quot;</span>
-<span class="w">    </span><span class="k">include</span><span class="p">.</span><span class="k">release</span><span class="p">.</span><span class="n">openshift</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">self</span><span class="o">-</span><span class="n">managed</span><span class="o">-</span><span class="n">high</span><span class="o">-</span><span class="nl">availability</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;true&quot;</span>
-<span class="w">    </span><span class="k">release</span><span class="p">.</span><span class="n">openshift</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="k">create</span><span class="o">-</span><span class="k">only</span><span class="err">:</span><span class="w"> </span><span class="ss">&quot;true&quot;</span>
-<span class="w">  </span><span class="nl">creationTimestamp</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;2025-05-28T20:36:54Z&quot;</span>
-<span class="w">  </span><span class="nl">generation</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span>
-<span class="w">  </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">cluster</span>
-<span class="w">  </span><span class="nl">ownerReferences</span><span class="p">:</span>
-<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nl">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="n">openshift</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1</span>
-<span class="w">    </span><span class="nl">kind</span><span class="p">:</span><span class="w"> </span><span class="n">ClusterVersion</span>
-<span class="w">    </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">version</span>
-<span class="w">    </span><span class="nl">uid</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="n">b26a8a</span><span class="o">-</span><span class="n">dc8e</span><span class="o">-</span><span class="mf">4e61</span><span class="o">-</span><span class="n">be51</span><span class="o">-</span><span class="mi">3</span><span class="n">dd26be73475</span>
-<span class="w">  </span><span class="nl">resourceVersion</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;5827630&quot;</span>
-<span class="w">  </span><span class="nl">uid</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="n">ab8247c</span><span class="o">-</span><span class="n">d090</span><span class="o">-</span><span class="mi">4652</span><span class="o">-</span><span class="n">b6fc</span><span class="o">-</span><span class="mi">8631</span><span class="n">c2fab623</span>
-<span class="nl">spec</span><span class="p">:</span>
-<span class="w">  </span><span class="nl">additionalTrustedCA</span><span class="p">:</span>
-<span class="w">    </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span>
-<span class="o">[</span><span class="n">root@ncputility ~ hub_rc</span><span class="o">]</span><span class="err">$</span>
+<p>2) now try to prepare file for new certificate with correct file intension using --dry-run</p>
+<div class="codehilite"><pre><span></span><code>oc create configmap user-ca-bundle \
+     --from-file=ncputility.pphncp01.infra.mobi.eastlink.ca:8443=/opt/root/ca.crt \
+     -n openshift-config --dry-run=client -o yaml 
 </code></pre></div>
 
-<p>3) based on the previous output <code>registry-cas</code> cm should be having the latest cert. </p>
-<p>4) You can configure additional CAs with the following procedure. To configure an additional CA using existing cm <code>registry-cas</code></p>
-<div class="codehilite"><pre><span></span><code><span class="nx">oc</span><span class="w"> </span><span class="nx">create</span><span class="w"> </span><span class="nx">configmap</span><span class="w"> </span><span class="nx">registry</span><span class="o">-</span><span class="nx">cas</span><span class="w"> </span><span class="o">--</span><span class="nx">from</span><span class="o">-</span><span class="nx">file</span><span class="p">=&lt;</span><span class="nx">external_registry_address</span><span class="o">&gt;=</span><span class="nx">ca</span><span class="p">.</span><span class="nx">crt</span><span class="w"> </span><span class="o">-</span><span class="nx">n</span><span class="w"> </span><span class="nx">openshift</span><span class="o">-</span><span class="nx">config</span>
+<p>3) Now try to copy the ncputility and it's certificate line's and then add it as last list of the certificate on the foc edit then apply it.</p>
+<div class="codehilite"><pre><span></span><code>oc edit configmap user-ca-bundle -n openshift-config
 </code></pre></div>
 
 <h3 id="validate-operator-catalog-itms-and-dtms">Validate Operator Catalog, ITMS, and DTMS<a class="headerlink" href="#validate-operator-catalog-itms-and-dtms" title="Permanent link">&para;</a></h3>
