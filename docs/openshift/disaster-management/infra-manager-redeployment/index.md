@@ -807,41 +807,20 @@ No resources found in default namespace.
 
 ```
 
-2) image registry access trusted store tls should be aligned with new quay certificate.
+2) now try to prepare file for new certificate with correct file intension using --dry-run
 
 ```
-[root@ncputility ~ hub_rc]$ oc get image.config.openshift.io cluster -o yaml
-apiVersion: config.openshift.io/v1
-kind: Image
-metadata:
-  annotations:
-    include.release.openshift.io/ibm-cloud-managed: "true"
-    include.release.openshift.io/self-managed-high-availability: "true"
-    release.openshift.io/create-only: "true"
-  creationTimestamp: "2025-05-28T20:36:54Z"
-  generation: 2
-  name: cluster
-  ownerReferences:
-  - apiVersion: config.openshift.io/v1
-    kind: ClusterVersion
-    name: version
-    uid: 50b26a8a-dc8e-4e61-be51-3dd26be73475
-  resourceVersion: "5827630"
-  uid: 1ab8247c-d090-4652-b6fc-8631c2fab623
-spec:
-  additionalTrustedCA:
-    name: registry-cas
-[root@ncputility ~ hub_rc]$
-
+oc create configmap user-ca-bundle \
+     --from-file=ncputility.pphncp01.infra.mobi.eastlink.ca:8443=/opt/root/ca.crt \
+     -n openshift-config --dry-run=client -o yaml 
 ```
 
-3) based on the previous output `registry-cas` cm should be having the latest cert. 
-
-4) You can configure additional CAs with the following procedure. To configure an additional CA using existing cm `registry-cas`
+3) Now try to copy the ncputility and it's certificate line's and then add it as last list of the certificate on the foc edit then apply it.
 
 ```
-oc create configmap registry-cas --from-file=<external_registry_address>=ca.crt -n openshift-config
+oc edit configmap user-ca-bundle -n openshift-config
 ```
+
 
 ### Validate Operator Catalog, ITMS, and DTMS
 
