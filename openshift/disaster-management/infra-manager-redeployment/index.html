@@ -2784,13 +2784,13 @@ ncp_operators.partaj.tar</code> files to the Infrastructure node.</p>
 <span class="k">No</span><span class="w"> </span><span class="n">resources</span><span class="w"> </span><span class="k">found</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="n">namespace</span><span class="p">.</span>
 </code></pre></div>
 
-<p>2) now try to prepare file for new certificate with correct file intension using --dry-run</p>
+<p>2) now try to prepare file for new certificate with correct file content using --dry-run</p>
 <div class="codehilite"><pre><span></span><code>oc create configmap user-ca-bundle \
      --from-file=ncputility.pphncp01.infra.mobi.eastlink.ca:8443=/opt/root/ca.crt \
      -n openshift-config --dry-run=client -o yaml 
 </code></pre></div>
 
-<p>3) Now try to copy the ncputility and it's certificate line's and then add it as last list of the certificate on the foc edit then apply it.</p>
+<p>3) Now try to copy the ncputility and it's certificate line's and then add it as last list of the certificate on the edit then apply it.</p>
 <div class="codehilite"><pre><span></span><code>oc edit configmap user-ca-bundle -n openshift-config
 </code></pre></div>
 
