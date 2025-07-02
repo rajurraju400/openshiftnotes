@@ -9,7 +9,7 @@
         <meta name="description" content="Documentation for OpenShift installation, backup, storage, troubleshooting, and more.">
       
       
-        <meta name="author" content="venkatapathirajr">
+        <meta name="author" content="Venkatapathiraj">
       
       
       
@@ -24,7 +24,7 @@
     
     
       
-        <title>Infra-Manager node reinstallation - OpenShift Notes</title>
+        <title>Infra-Manager redeployment with hub/cwl cluster Post Installation - OpenShift Notes</title>
       
     
     
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Infra-Manager node reinstallation
+              Infra-Manager redeployment with hub/cwl cluster Post Installation
             
           </span>
         </div>
@@ -1697,9 +1697,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#installing-the-necessary-packages-for-the-hub-cluster-deployment" class="md-nav__link">
+  <a href="#installing-the-necessary-packages-for-the-hub-cluster" class="md-nav__link">
     <span class="md-ellipsis">
-      Installing the necessary packages for the Hub Cluster deployment
+      Installing the necessary packages for the Hub Cluster
     </span>
   </a>
   
@@ -1935,9 +1935,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#installing-the-necessary-packages-for-the-hub-cluster-deployment" class="md-nav__link">
+  <a href="#installing-the-necessary-packages-for-the-hub-cluster" class="md-nav__link">
     <span class="md-ellipsis">
-      Installing the necessary packages for the Hub Cluster deployment
+      Installing the necessary packages for the Hub Cluster
     </span>
   </a>
   
@@ -2071,7 +2071,7 @@
 <h2 id="restore-plan-highlevel">Restore plan (Highlevel)<a class="headerlink" href="#restore-plan-highlevel" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#access-reinstalled-infra-manager-node">Access Reinstalled Infra-Manager Node</a></li>
-<li><a href="#installing-the-necessary-packages-for-the-hub-cluster-deployment">Installing the necessary packages for the Hub Cluster deployment</a></li>
+<li><a href="#installing-the-necessary-packages-for-the-hub-cluster-deployment">Installing the necessary packages for the Hub Cluster</a></li>
 <li><a href="#installing-the-mirror-registry-on-the-infrastructure-manager-node">Installing the mirror-registry(infra-quay) on the infrastructure manager node</a></li>
 <li><a href="#add-the-infra-quay-registry-to-the-trusted-registries">Add the infra-quay registry to the trusted registries</a></li>
 <li><a href="#configuring-an-organization-in-quay">Configuring an organization in Quay</a></li>
@@ -2084,7 +2084,7 @@
 <li><a href="#restore-ssh-key-for-cwl-cluster">Restore SSH Key for CWL Cluster</a></li>
 </ul>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
-<h4 id="access-reinstalled-infra-manager-node">Access Reinstalled Infra-Manager Node<a class="headerlink" href="#access-reinstalled-infra-manager-node" title="Permanent link">&para;</a></h4>
+<h3 id="access-reinstalled-infra-manager-node">Access Reinstalled Infra-Manager Node<a class="headerlink" href="#access-reinstalled-infra-manager-node" title="Permanent link">&para;</a></h3>
 <p>1) Login to Customer VPN, followed by ssh to infra-manager node using username <code>ncpuser</code> with given password. </p>
 <div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="err">┌──────────────────────────────────────────────────────────────────────┐</span>
 <span class="w">    </span><span class="err">│</span><span class="w">                 </span><span class="err">•</span><span class="w"> </span><span class="n">MobaXterm</span><span class="w"> </span><span class="n">Personal</span><span class="w"> </span><span class="n">Edition</span><span class="w"> </span><span class="n">v25</span><span class="mf">.1</span><span class="w"> </span><span class="err">•</span><span class="w">                 </span><span class="err">│</span>
@@ -2112,7 +2112,7 @@
 <span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="err">#</span>
 </code></pre></div>
 
-<h4 id="installing-the-necessary-packages-for-the-hub-cluster-deployment">Installing the necessary packages for the Hub Cluster deployment<a class="headerlink" href="#installing-the-necessary-packages-for-the-hub-cluster-deployment" title="Permanent link">&para;</a></h4>
+<h3 id="installing-the-necessary-packages-for-the-hub-cluster">Installing the necessary packages for the Hub Cluster<a class="headerlink" href="#installing-the-necessary-packages-for-the-hub-cluster" title="Permanent link">&para;</a></h3>
 <p>1) Login to the node via SSH, using the user created with Administrator privileges. Root user is not needed.
     For higher security, key based authentication can be used for SSH and the password authentication may
     be disabled.</p>
@@ -2276,7 +2276,7 @@ sudo systemctl restart chronyd
 <span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="err">#</span>
 </code></pre></div>
 
-<h4 id="installing-the-mirror-registry-on-the-infrastructure-manager-node">Installing the mirror-registry on the infrastructure manager node<a class="headerlink" href="#installing-the-mirror-registry-on-the-infrastructure-manager-node" title="Permanent link">&para;</a></h4>
+<h3 id="installing-the-mirror-registry-on-the-infrastructure-manager-node">Installing the mirror-registry on the infrastructure manager node<a class="headerlink" href="#installing-the-mirror-registry-on-the-infrastructure-manager-node" title="Permanent link">&para;</a></h3>
 <p>1) Uncompress the mirror-registry, which can be found in the previously uncompressed ncp_tools.tar.gz in compressed format. This will be a local registry from where the Hub Cluster can fetch its images.</p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">ncputility</span><span class="w"> </span><span class="n">ncp</span><span class="p">]</span><span class="c1"># tar -xvf ncp_tools.tar.gz</span>
 <span class="n">butane</span><span class="o">-</span><span class="n">amd64</span>
@@ -2576,7 +2576,7 @@ sudo chown <user:user> /opt/quayroot/</p>
 <span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="n">ncp</span><span class="p">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<h4 id="add-the-infra-quay-registry-to-the-trusted-registries">Add the infra-quay registry to the trusted registries<a class="headerlink" href="#add-the-infra-quay-registry-to-the-trusted-registries" title="Permanent link">&para;</a></h4>
+<h3 id="add-the-infra-quay-registry-to-the-trusted-registries">Add the infra-quay registry to the trusted registries<a class="headerlink" href="#add-the-infra-quay-registry-to-the-trusted-registries" title="Permanent link">&para;</a></h3>
 <p>Prerequisites
 Perform the following actions:</p>
 <p>1)  Make a dir first to copy the cert.</p>
@@ -2620,13 +2620,13 @@ Perform the following actions:</p>
 <span class="o">[</span><span class="n">root@ncputility ncp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<h4 id="configuring-an-organization-in-quay">Configuring an organization in Quay<a class="headerlink" href="#configuring-an-organization-in-quay" title="Permanent link">&para;</a></h4>
+<h3 id="configuring-an-organization-in-quay">Configuring an organization in Quay<a class="headerlink" href="#configuring-an-organization-in-quay" title="Permanent link">&para;</a></h3>
 <p>1)  Create an organization in Quay:</p>
 <p><img alt="alt text" src="images/image-1.png" /></p>
 <p>2)  Click create New organization</p>
 <p><img alt="alt text" src="images/image-1.png" /></p>
 <p>3)  In the example above the ocmirror organization was created. </p>
-<h4 id="copy-openshift-related-binaries">Copy OpenShift related binaries<a class="headerlink" href="#copy-openshift-related-binaries" title="Permanent link">&para;</a></h4>
+<h3 id="copy-openshift-related-binaries">Copy OpenShift related binaries<a class="headerlink" href="#copy-openshift-related-binaries" title="Permanent link">&para;</a></h3>
 <p>1)  From the uncompressed ncp_tools.tar.gz copy (or move) the necessary binaries:</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">cd</span><span class="w"> </span><span class="n">ncp</span><span class="o">/</span>
 <span class="o">[</span><span class="n">root@ncputility ncp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="n">butane</span><span class="o">-</span><span class="n">amd64</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">butane</span>
@@ -2651,7 +2651,7 @@ Perform the following actions:</p>
 <span class="o">[</span><span class="n">root@ncputility ncp</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<h4 id="mirroring-images-to-infra-quay-mirror-registry">Mirroring images to infra-quay mirror-registry<a class="headerlink" href="#mirroring-images-to-infra-quay-mirror-registry" title="Permanent link">&para;</a></h4>
+<h3 id="mirroring-images-to-infra-quay-mirror-registry">Mirroring images to infra-quay mirror-registry<a class="headerlink" href="#mirroring-images-to-infra-quay-mirror-registry" title="Permanent link">&para;</a></h3>
 <p>1) Copy the <code>ncp-platform.partaa.tar ncp-platform.partab.tar and ncp-platform.partac.tar</code> files to the infrastructure node.</p>
 <p>2) Combine them to one: cat ncp-platform.parta* &gt; ncp-platform-parta.tar
 To avoid any connectivity issues to the infrastructure node and to avoid the mirroring process
@@ -3051,6 +3051,9 @@ If the update was successfully applied, then logs similar to below lines are exp
 
 
 
+
+  
+  
 
 
 
