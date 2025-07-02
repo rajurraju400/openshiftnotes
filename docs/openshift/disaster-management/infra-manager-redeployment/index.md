@@ -1,3 +1,10 @@
+---
+title: "Infra-Manager redeployment with hub/cwl cluster Post Installation"
+author: "Venkatapathiraj"
+toc: true
+toc-depth: 10
+---
+
 # Infra-manager node redeployment after hub and cwl clusters are deployed.
 
 
@@ -20,7 +27,7 @@
 ## Restore plan (Highlevel)
 
 * [Access Reinstalled Infra-Manager Node](#access-reinstalled-infra-manager-node)
-* [Installing the necessary packages for the Hub Cluster deployment](#installing-the-necessary-packages-for-the-hub-cluster-deployment)
+* [Installing the necessary packages for the Hub Cluster](#installing-the-necessary-packages-for-the-hub-cluster-deployment)
 * [Installing the mirror-registry(infra-quay) on the infrastructure manager node](#installing-the-mirror-registry-on-the-infrastructure-manager-node)
 * [Add the infra-quay registry to the trusted registries](#add-the-infra-quay-registry-to-the-trusted-registries)
 * [Configuring an organization in Quay](#configuring-an-organization-in-quay)
@@ -35,7 +42,7 @@
 
 ## Implementation 
 
-#### Access Reinstalled Infra-Manager Node
+### Access Reinstalled Infra-Manager Node
 
 1) Login to Customer VPN, followed by ssh to infra-manager node using username `ncpuser` with given password. 
 
@@ -68,7 +75,7 @@ Red Hat Enterprise Linux release 9.4 (Plow)
 
 ```
 
-#### Installing the necessary packages for the Hub Cluster deployment
+### Installing the necessary packages for the Hub Cluster
 
 
 1) Login to the node via SSH, using the user created with Administrator privileges. Root user is not needed.
@@ -254,7 +261,7 @@ MS Name/IP address         Stratum Poll Reach LastRx Last sample
 
 ```
 
-#### Installing the mirror-registry on the infrastructure manager node
+### Installing the mirror-registry on the infrastructure manager node
 
 1) Uncompress the mirror-registry, which can be found in the previously uncompressed ncp_tools.tar.gz in compressed format. This will be a local registry from where the Hub Cluster can fetch its images.
 
@@ -560,7 +567,7 @@ INFO[2025-03-26 17:28:27] Quay is available at https://ncputility.nokiptchub01.n
 
 
 
-#### Add the infra-quay registry to the trusted registries
+### Add the infra-quay registry to the trusted registries
 
 Prerequisites
 Perform the following actions:
@@ -613,7 +620,7 @@ Login Succeeded!
 [root@ncputility ncp]# 
 ```
 
-#### Configuring an organization in Quay
+### Configuring an organization in Quay
 
 1)	Create an organization in Quay:
 
@@ -626,7 +633,7 @@ Login Succeeded!
 3)	In the example above the ocmirror organization was created. 
 
 
-#### Copy OpenShift related binaries
+### Copy OpenShift related binaries
 
 1)	From the uncompressed ncp_tools.tar.gz copy (or move) the necessary binaries:
 
@@ -654,7 +661,7 @@ oc-mirror
 [root@ncputility ncp]# 
 ```
 
-#### Mirroring images to infra-quay mirror-registry
+### Mirroring images to infra-quay mirror-registry
 
 
 1) Copy the `ncp-platform.partaa.tar ncp-platform.partab.tar and ncp-platform.partac.tar` files to the infrastructure node.
@@ -807,7 +814,7 @@ No resources found in default namespace.
 
 ```
 
-2) now try to prepare file for new certificate with correct file intension using --dry-run
+2) now try to prepare file for new certificate with correct file content using --dry-run
 
 ```
 oc create configmap user-ca-bundle \
@@ -815,7 +822,7 @@ oc create configmap user-ca-bundle \
      -n openshift-config --dry-run=client -o yaml 
 ```
 
-3) Now try to copy the ncputility and it's certificate line's and then add it as last list of the certificate on the foc edit then apply it.
+3) Now try to copy the ncputility and it's certificate line's and then add it as last list of the certificate on the edit then apply it.
 
 ```
 oc edit configmap user-ca-bundle -n openshift-config
