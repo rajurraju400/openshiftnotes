@@ -24,6 +24,9 @@ Your comprehensive troubleshooting guide to OpenShift installation, backup, stor
 - [Tools Management](openshift/tools-management-ts/ts-tools.md)
 - [Troubleshooting and Workarounds](openshift/troubleshooting/ncomsa.md)
 - [Disaster Management](openshift/disaster-management/infra-manager-redeployment/index.md)
+- [Master Replacement](openshift/disaster-management/hub-cluster-redeployment/master-replacment.md)
+
+master-replacment.md
 
 
 

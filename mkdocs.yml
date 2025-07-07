@@ -79,7 +79,7 @@ nav:
 
       - Disaster Management:
           - Infra-Manager node reinstallation : openshift/disaster-management/infra-manager-redeployment/index.md
-          - Hub Cluster reinstallation: openshift/disaster-management/hub-cluster-redeployment/index.md
+          - Hub Cluster Master-replacement: openshift/disaster-management/hub-cluster-redeployment/master-replacment.md
 
 
 
