@@ -1,11 +1,12 @@
-# hub master replacement 
+# Hub Cluster - Master Replacement 
 
+> Here is the steps to do the master replacement on the hub cluster.  Dont use this steps for NMC/NWC.  
 
 
 ## Highlevel Steps
 
-* (Removing the failed node from the cluster)[]
-* 
+* [Removing the failed node from the cluster](#removing-the-failed-node-from-the-cluster)
+* [Adding back the node control plane node](#adding-back-the-node-control-plane-node)
 
 
 
@@ -93,15 +94,17 @@ ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   Ready                        
 
 1) First fetch the pods from the openshift-etcd namespace which have the label k8s-app=etcd.
 
+```
 [root@dom16hub101-infra-manager ~]# oc -n openshift-etcd get pods -l k8s-app=etcd -o wide
 NAME                                                    READY   STATUS    RESTARTS   AGE   IP              NODE                                               NOMINATED NODE   READINESS GATES
 etcd-ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   4/4     Running   12         74d   10.145.151.92   ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   <none>           <none>
 etcd-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   0/0     not running   12         74d   10.145.151.93   ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
 etcd-ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   4/4     Running   8          74d   10.145.151.94   ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   <none>           <none>
 [root@dom16hub101-infra-manager ~]# 
-
+```
 
 2) Start a remote shall to one of the pods which shall be running, and not scheduled on the failed node.
+
 ```
 [root@dom16hub101-infra-manager ~]# oc rsh -n openshift-etcd etcd-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
 sh-5.1# etcdctl endpoint health
@@ -110,7 +113,6 @@ https://10.145.151.94:2379 is healthy: successfully committed proposal: took = 7
 https://10.145.151.92:2379 is healthy: successfully committed proposal: took = 7.213802ms
 https://10.145.151.93:2379 is unhealthy: failed to commit proposal: context deadline exceeded
 Error: unhealthy cluster
-
 sh-5.1#
 ```
 
@@ -182,11 +184,13 @@ etcd-serving-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab           kubernet
 
 ### Fetch the output of the failed node’s machine CR
 
-It is needed to fetch the output of the failed node’s machine CR as it contains labels related to the cluster. Then it shall be m odified, e.g. status part shall be removed, annotation of last applied configuration, m`achine.openshift.op/instance-state:
+It is needed to fetch the output of the failed node’s machine CR as it contains labels related to the cluster. Then it shall be m odified, e.g. status part shall be removed, annotation of last applied configuration, `machine.openshift.op/instance-state:
 provisioned` shall be removed, creation timestamp, finalizer, generation, resource version,
 uid, from spec, the providerID shall be also removed.
 
 1) Get the list of node and find the node you want to remove from machines. 
+
+
 ```
 [root@dom16hub101-infra-manager ~]# oc get nodes
 NAME                                               STATUS                        ROLES                                 AGE   VERSION
@@ -221,13 +225,14 @@ ncpvblvhub-b6cjs-worker-0-x5dc5   Running                          74d
 
 3) take a backup of these nodes from file. 
 ```
-[root@dom16hub101-infra-manager ~]# #
-c get machines.machine.openshift.io -n openshift-machine-api -o yaml `oc get machines.machine.openshift.io -n openshift-machine-api -o wide |grep ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab|awk {'print $1'}` > backup_machine102master.yaml
-[root@dom16hub101-infra-manager ~]# oc get machines.machine -n openshift-machine-api
 [root@dom16hub101-infra-manager ~]# oc get machines.machine.openshift.io -n openshift-machine-api -o yaml `oc get machines.machine.openshift.io -n openshift-machine-api -o wide |grep ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab|awk {'print $1'}` > backup_machinemaster-102.yaml
 ```
 
 4) just collecting all those outputs here. 
+
+> just refer to productline guide for reference sample tempalte
+
+![alt text](image.png)
 
 ```
 [root@dom16hub101-infra-manager ~]# cat backup_machinemaster-102.yaml
@@ -359,126 +364,14 @@ ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   Ready                        
 ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   Ready                         gateway,worker                        74d   v1.29.10+67d3387
 ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   Ready                         gateway,worker                        74d   v1.29.10+67d3387
 
-[root@dom16hub101-infra-manager ~]# oc label node ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab cluster.ocs.openshift.io/openshift-storage-
-node/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab unlabeled
-[root@dom16hub101-infra-manager ~]#
+
 ```
 
 
 ### Removing failed node’s OSDs from ODF
 
-### Removing the node from the cluster
-
-
-## Adding back the node control plane node
-
-### Create BMH and Machine CRs
-
-### Verifying etcd
-
-### Adding back the OSDs
-
-1) The OSDs are automatically added, after the PVs are created by the Local Storage Operator.
-
-2) After adding the labels back to the node (which was applied initially during the deployment) including the `cluster.ocs.openshift.io/openshift-storage`, the Local Storage Operator’s two daemonsets pods will be scheduled on this node as well, namely the
-diskmaker discovery and the diskmaker manager. 
-
-3) The discovery will inspect the node for available disks while the manager will create the PVs which will be used by ODF.
-
-oc get pods -n openshift-local-storage -o wide
-
-4) After the new PVs are created the new OSDs deployments will be recreated and OSD pods and mon pod will start automatically.
-
-5) If those would not start automatically for some reason, the rook-ceph-operator pod shall be restarted.
-
-
-
-[root@dom16hub101-infra-manager ~]# oc debug node/ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab --chroot /host ip a s | grep 10.
-error: unknown flag: --chroot
-See 'oc debug --help' for usage.
-[root@dom16hub101-infra-manager ~]# oc debug node/ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab -- chroot /host ip a s | grep 10.
-Starting pod/ncpvblvhub-hubmaster-103ncpvblvhubt-mobilelab-debug-pvf4x ...
-To use host binaries, run `chroot /host`
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-2: enp0s20f0u10u3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 1000
-    inet 169.254.0.2/24 brd 169.254.0.255 scope link dynamic noprefixroute enp0s20f0u10u3
-3: ens1f0np0: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 9126 qdisc mq master tenant-bond-1 state UP group default qlen 1000
-4: ens1f1np1: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 9126 qdisc mq master tenant-bond-1 state UP group default qlen 1000
-5: eno12399np0: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 9126 qdisc mq master infra-bond state UP group default qlen 1000
-6: eno12409np1: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 9126 qdisc mq master infra-bond state UP group default qlen 1000
-7: ens3f0np0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
-8: ens3f1np1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
-9: ovs-system: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
-10: ovn-k8s-mp0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue state UNKNOWN group default qlen 1000
-11: genev_sys_6081: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 65000 qdisc noqueue master ovs-system state UNKNOWN group default qlen 1000
-12: br-int: <BROADCAST,MULTICAST> mtu 9026 qdisc noop state DOWN group default qlen 1000
-13: tenant-bond-1: <BROADCAST,MULTICAST,MASTER,UP,LOWER_UP> mtu 9126 qdisc noqueue state UP group default qlen 1000
-14: ten1-vlan.202@tenant-bond-1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9126 qdisc noqueue state UP group default qlen 1000
-15: infra-bond: <BROADCAST,MULTICAST,MASTER,UP,LOWER_UP> mtu 9126 qdisc noqueue state UP group default qlen 1000
-16: infra-bond.200@infra-bond: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9126 qdisc noqueue master ovs-system state UP group default qlen 1000
-17: tenant-bond-2: <NO-CARRIER,BROADCAST,MULTICAST,MASTER,UP> mtu 9126 qdisc noqueue state DOWN group default qlen 1000
-18: br-ex: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9126 qdisc noqueue state UNKNOWN group default qlen 1000
-    inet 10.145.151.94/26 brd 10.145.151.127 scope global noprefixroute br-ex
-    inet 10.145.151.74/32 scope global vip
-    inet 10.145.151.70/32 scope global vip
-    link/ether 46:10:38:6c:e1:1f brd ff:ff:ff:ff:ff:ff link-netns 6d81cd37-2550-4215-bb6a-de1bd8538f00
-    inet6 fe80::4410:38ff:fe6c:e11f/64 scope link
-36: c010da31da27dc9@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue master ovs-system state UP group default
-1604: f5a50bc28106ffb@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue master ovs-system state UP group default
-    link/ether 86:93:38:1a:8a:08 brd ff:ff:ff:ff:ff:ff link-netns 9734c9ca-4369-429e-9581-9f4d1d10fe65
-    link/ether 7a:3b:77:b5:7d:9f brd ff:ff:ff:ff:ff:ff link-netns db960360-9a29-4af5-87cb-8a282d10cad1
-910: d89dbe96556e3c4@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue master ovs-system state UP group default
-    link/ether 7e:71:15:80:ca:f8 brd ff:ff:ff:ff:ff:ff link-netns 101e0f1f-2969-48f7-9d6c-aa75e2472245
-409: e5e151095b59925@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue master ovs-system state UP group default
-410: 8355c386d4a777c@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue master ovs-system state UP group default
-    link/ether f2:e3:c9:ef:a5:28 brd ff:ff:ff:ff:ff:ff link-netns fb8f84e7-7101-445d-8f3c-815a82fdac97
-715: 21a55a1021a0098@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue master ovs-system state UP group default
-722: 406bac110a6d77f@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue master ovs-system state UP group default
-
-Removing debug pod ...
-[root@dom16hub101-infra-manager ~]#
-[root@dom16hub101-infra-manager ~]# oc debug node/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab -- chroot /host ip a s | grep 10.
-Starting pod/ncpvblvhub-hubmaster-102ncpvblvhubt-mobilelab-debug-vlgfh ...
-To use host binaries, run `chroot /host`
-1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
-2: enp0s20f0u10u3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 1000
-    inet 169.254.0.2/24 brd 169.254.0.255 scope link dynamic noprefixroute enp0s20f0u10u3
-3: ens1f0np0: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 9126 qdisc mq master tenant-bond-1 state UP group default qlen 1000
-4: ens1f1np1: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 9126 qdisc mq master tenant-bond-1 state UP group default qlen 1000
-5: eno12399np0: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 9126 qdisc mq master infra-bond state UP group default qlen 1000
-6: eno12409np1: <BROADCAST,MULTICAST,SLAVE,UP,LOWER_UP> mtu 9126 qdisc mq master infra-bond state UP group default qlen 1000
-7: ens3f0np0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
-8: ens3f1np1: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq state DOWN group default qlen 1000
-9: ovs-system: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
-10: genev_sys_6081: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 65000 qdisc noqueue master ovs-system state UNKNOWN group default qlen 1000
-11: ovn-k8s-mp0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue state UNKNOWN group default qlen 1000
-12: br-int: <BROADCAST,MULTICAST> mtu 9026 qdisc noop state DOWN group default qlen 1000
-13: tenant-bond-1: <BROADCAST,MULTICAST,MASTER,UP,LOWER_UP> mtu 9126 qdisc noqueue state UP group default qlen 1000
-14: ten1-vlan.202@tenant-bond-1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9126 qdisc noqueue state UP group default qlen 1000
-15: infra-bond: <BROADCAST,MULTICAST,MASTER,UP,LOWER_UP> mtu 9126 qdisc noqueue state UP group default qlen 1000
-16: infra-bond.200@infra-bond: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9126 qdisc noqueue master ovs-system state UP group default qlen 1000
-17: tenant-bond-2: <NO-CARRIER,BROADCAST,MULTICAST,MASTER,UP> mtu 9126 qdisc noqueue state DOWN group default qlen 1000
-18: br-ex: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9126 qdisc noqueue state UNKNOWN group default qlen 1000
-    inet 10.145.151.93/26 brd 10.145.151.127 scope global noprefixroute br-ex
-1236: 3aa4c1068d4ca9f@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue master ovs-system state UP group default
-    link/ether 56:d9:4f:3d:39:e3 brd ff:ff:ff:ff:ff:ff link-netns 5e6ae102-a8ce-4964-ad55-02b2c25bff03
-    inet6 fe80::14c4:58ff:fed6:610c/64 scope link
-    link/ether 72:46:09:32:30:4e brd ff:ff:ff:ff:ff:ff link-netns e61097e2-dfe2-4b83-aad3-fac770a17b39
-    link/ether a6:2c:42:05:97:1e brd ff:ff:ff:ff:ff:ff link-netns 46658f16-9c06-4604-9565-9c16117b1038
-    inet6 fe80::104d:4aff:fe12:7a3b/64 scope link
-    inet6 fe80::50ba:fbff:fe9a:8106/64 scope link
-    link/ether 4e:59:53:2e:fe:78 brd ff:ff:ff:ff:ff:ff link-netns 31054be2-161e-479c-a847-bc1101aa3745
-    link/ether 72:b2:cb:33:34:4d brd ff:ff:ff:ff:ff:ff link-netns 201f8aab-07ab-48ef-ad50-21017880f001
-    inet6 fe80::1027:eeff:fec3:2e17/64 scope link
-1279: a4320d3b10a7b81@if2: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9026 qdisc noqueue master ovs-system state UP group default
-
-Removing debug pod ...
-[root@dom16hub101-infra-manager ~]#
-[root@dom16hub101-infra-manager ~]#
-[root@dom16hub101-infra-manager ~]# oc get nodes | grep ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d   v1.29.10+67d3387
-[root@dom16hub101-infra-manager ~]# oc get nodes --show-labels | grep ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d   v1.29.10+67d3387   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,cluster.ocs.openshift.io/openshift-storage=,kubernetes.io/arch=amd64,kubernetes.io/hostname=ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=,node-role.kubernetes.io/master=,node-role.kubernetes.io/monitor=,node-role.kubernetes.io/worker=,node.openshift.io/os_id=rhcos
+1) Get the list of pods from `openshift-storage` namespace here. 
+``` 
 [root@dom16hub101-infra-manager ~]# oc get pods -n openshift-storage -o wide | grep -i ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
 csi-cephfsplugin-rnkrk                                            2/2     Running   6              71d   10.145.151.93    ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
 csi-rbdplugin-provisioner-646d95bdd9-496ng                        6/6     Running   0              15d   172.21.1.43      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
@@ -488,42 +381,14 @@ rook-ceph-exporter-11cef195e99cf42211bc5b21918ec486-6f8c85r84bf   1/1     Runnin
 rook-ceph-mon-a-66bcddd94-wbfs4                                   2/2     Running   0              26d   172.21.0.9       ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
 rook-ceph-osd-0-54d5b7dd6b-vjf4f                                  2/2     Running   0              27d   172.21.0.11      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
 rook-ceph-osd-5-79fb5f7965-wpgpq                                  2/2     Running   0              27d   172.21.0.17      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-[root@dom16hub101-infra-manager ~]# oc -n openshift-etcd get pods -l k8s-app=etcd -o wide
-NAME                                                    READY   STATUS    RESTARTS   AGE   IP              NODE                                               NOMINATED NODE   READINESS GATES
-etcd-ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   4/4     Running   12         74d   10.145.151.92   ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   <none>           <none>
-etcd-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   4/4     Running   12         74d   10.145.151.93   ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-etcd-ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   4/4     Running   8          74d   10.145.151.94   ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   <none>           <none>
-[root@dom16hub101-infra-manager ~]# oc get pods -n openshift-storage -o wide | grep -i ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-csi-cephfsplugin-rnkrk                                            2/2     Running   6              71d   10.145.151.93    ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-csi-rbdplugin-provisioner-646d95bdd9-496ng                        6/6     Running   0              15d   172.21.1.43      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-csi-rbdplugin-zg88h                                               3/3     Running   9              71d   10.145.151.93    ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-crashcollector-11cef195e99cf42211bc5b21918ec486-b8jpz   1/1     Running   0              26d   172.21.0.19      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-exporter-11cef195e99cf42211bc5b21918ec486-6f8c85r84bf   1/1     Running   0              26d   172.21.0.20      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-mon-a-66bcddd94-wbfs4                                   2/2     Running   0              26d   172.21.0.9       ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-osd-0-54d5b7dd6b-vjf4f                                  2/2     Running   0              27d   172.21.0.11      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-osd-5-79fb5f7965-wpgpq                                  2/2     Running   0              27d   172.21.0.17      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
+[root@dom16hub101-infra-manager ~]# 
+```
+
+2) remove the mon and osd pods running on the master2 nodes. then check the status of the pod's to make sure, it's terminated. 
+
+```
 [root@dom16hub101-infra-manager ~]# oc scale deployment rook-ceph-mon-a --replicas=0 -n openshift-storage
 deployment.apps/rook-ceph-mon-a scaled
-[root@dom16hub101-infra-manager ~]# oc scale deployment rook-ceph-osd-0 --replicas=0 -n openshift-storage
-deployment.apps/rook-ceph-osd-0 scaled
-[root@dom16hub101-infra-manager ~]# oc scale deployment rook-ceph-osd-0 --replicas=5 -n openshift-storage
-deployment.apps/rook-ceph-osd-0 scaled
-[root@dom16hub101-infra-manager ~]# oc get pods -n openshift-storage -o wide | grep -i ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-csi-cephfsplugin-rnkrk                                            2/2     Running    6              71d   10.145.151.93    ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-csi-rbdplugin-provisioner-646d95bdd9-496ng                        6/6     Running    0              15d   172.21.1.43      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-csi-rbdplugin-zg88h                                               3/3     Running    9              71d   10.145.151.93    ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-crashcollector-11cef195e99cf42211bc5b21918ec486-b8jpz   1/1     Running    0              26d   172.21.0.19      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-exporter-11cef195e99cf42211bc5b21918ec486-6f8c85r84bf   1/1     Running    0              26d   172.21.0.20      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-osd-0-54d5b7dd6b-2lnw5                                  0/2     Init:2/4   0              4s    172.21.1.124     ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-osd-0-54d5b7dd6b-9vm85                                  0/2     Init:2/4   0              4s    172.21.1.125     ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-osd-0-54d5b7dd6b-mk7tl                                  0/2     Init:1/4   0              4s    172.21.1.122     ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-osd-0-54d5b7dd6b-pnn7x                                  0/2     Init:2/4   0              4s    172.21.1.123     ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-osd-0-54d5b7dd6b-vb5c2                                  0/2     Init:2/4   0              4s    172.21.1.121     ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-rook-ceph-osd-5-79fb5f7965-wpgpq                                  2/2     Running    0              27d   172.21.0.17      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-[root@dom16hub101-infra-manager ~]#
-
-[root@dom16hub101-infra-manager ~]# oc adm cordon ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-node/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab cordoned
 [root@dom16hub101-infra-manager ~]# oc scale deployment rook-ceph-osd-0 --replicas=0 -n openshift-storage
 deployment.apps/rook-ceph-osd-0 scaled
 [root@dom16hub101-infra-manager ~]#
@@ -539,269 +404,21 @@ error: no objects passed to scale
 [root@dom16hub101-infra-manager ~]# oc get pods -n openshift-storage -o wide | grep -i ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab                csi-cephfsplugin-rnkrk                                            2/2     Running   6              71d   10.145.151.93    ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
 csi-rbdplugin-provisioner-646d95bdd9-496ng                        6/6     Running   0              15d   172.21.1.43      ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
 csi-rbdplugin-zg88h                                               3/3     Running   9              71d   10.145.151.93    ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-[root@dom16hub101-infra-manager ~]# oc -n openshift-etcd get pods -l k8s-app=etcd -o wide
-NAME                                                    READY   STATUS    RESTARTS   AGE   IP              NODE                                               NOMINATED NODE   READINESS GATES
-etcd-ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   4/4     Running   12         74d   10.145.151.92   ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   <none>           <none>
-etcd-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   4/4     Running   12         74d   10.145.151.93   ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-etcd-ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   4/4     Running   8          74d   10.145.151.94   ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   <none>           <none>
-[root@dom16hub101-infra-manager ~]#
-[root@dom16hub101-infra-manager ~]#
-[root@dom16hub101-infra-manager ~]# oc get nodes
-NAME                                               STATUS                     ROLES                                 AGE   VERSION
-ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   Ready                      control-plane,master,monitor,worker   74d   v1.29.10+67d3387
-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   Ready,SchedulingDisabled   control-plane,master,monitor,worker   74d   v1.29.10+67d3387
-ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   Ready                      control-plane,master,monitor,worker   74d   v1.29.10+67d3387
-ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   Ready                      gateway,worker                        74d   v1.29.10+67d3387
-ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   Ready                      gateway,worker                        74d   v1.29.10+67d3387
-[root@dom16hub101-infra-manager ~]# oc adm drain
-(reverse-i-search)`drain': oc adm drain ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab
-[root@dom16hub101-infra-manager ~]# oc adm drain ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab --ignore-daemonsets --delete-emptydir-data --force
-node/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab already cordoned
-Warning: ignoring DaemonSet-managed Pods: open-cluster-management-backup/node-agent-lvlpm, openshift-cluster-node-tuning-operator/tuned-2xqzr, openshift-dns/dns-default-x7x7p, openshift-dns/node-resolver-sd5qh, openshift-image-registry/node-ca-5nkn2, openshift-ingress-canary/ingress-canary-rngvh, openshift-local-storage/diskmaker-discovery-4snb5, openshift-local-storage/diskmaker-manager-vkkxk, openshift-machine-api/ironic-proxy-24kth, openshift-machine-config-operator/machine-config-daemon-9j45d, openshift-machine-config-operator/machine-config-server-ww4tz, openshift-monitoring/node-exporter-9xshs, openshift-multus/multus-additional-cni-plugins-hkcdv, openshift-multus/multus-dt7qt, openshift-multus/network-metrics-daemon-4j5fx, openshift-multus/whereabouts-reconciler-bv24v, openshift-network-diagnostics/network-check-target-btgf8, openshift-network-node-identity/network-node-identity-td874, openshift-network-operator/iptables-alerter-75rfw, openshift-nmstate/nmstate-handler-tngrh, openshift-ovn-kubernetes/ovnkube-node-svz9x, openshift-storage/csi-cephfsplugin-rnkrk, openshift-storage/csi-rbdplugin-zg88h; deleting Pods that declare no controller: openshift-etcd/etcd-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab, openshift-kube-apiserver/kube-apiserver-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab, openshift-kube-controller-manager/kube-controller-manager-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab, openshift-kube-scheduler/openshift-kube-scheduler-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod multicluster-engine/clusterclaims-controller-7d56ff6fc9-555pz
-evicting pod ncd-git/ncd-git-gitlab-shell-55ccf645ff-ks77d
-evicting pod multicluster-engine/assisted-image-service-0
-evicting pod multicluster-engine/assisted-service-96cf94d9c-wg9zh
-evicting pod ncd-db/ncd-postgresql-postgresql-ha-sentinel-8556d466c6-kd52n
-evicting pod openshift-logging/logging-loki-gateway-7687c66f64-fxd4d
-evicting pod ncd-db/ncd-postgresql-postgresql-ha-proxy-54c69f6cc-csqbz
-evicting pod open-cluster-management-observability/observability-thanos-rule-1
-evicting pod openshift-machine-api/cluster-baremetal-operator-75fbb58cc5-lpqds
-evicting pod open-cluster-management-hub/cluster-manager-registration-controller-7bcbcd64c5-s5p8l
-evicting pod open-cluster-management-observability/observability-grafana-85c6896fd4-7vxzp
-evicting pod openshift-machine-api/control-plane-machine-set-operator-65fbf4bd7-j2l2r
-evicting pod openshift-kube-apiserver/installer-56-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod openshift-apiserver/apiserver-776b5f87d7-6t6vz
-evicting pod openshift-logging/logging-loki-distributor-647986c9d4-6v25d
-evicting pod open-cluster-management-observability/observability-thanos-query-75d9d7758c-b9ndn
-evicting pod openshift-monitoring/thanos-querier-86bd945c74-5ptmn
-evicting pod openshift-logging/cluster-logging-operator-5fd7f999cc-hn5tw
-evicting pod multicluster-engine/console-mce-console-57b6b4968-jfl4x
-evicting pod openshift-kube-scheduler/openshift-kube-scheduler-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod open-cluster-management-hub/cluster-manager-addon-manager-controller-7ff747d9c4-gvlvl
-evicting pod openshift-kube-apiserver/installer-55-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod openshift-kube-apiserver/revision-pruner-57-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod ncd-git/ncd-git-praefect-0
-evicting pod openshift-etcd/revision-pruner-9-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod openshift-kube-apiserver/revision-pruner-58-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod open-cluster-management/cluster-permission-66c848c957-f7x8t
-evicting pod ncd-git/ncd-git-gitaly-default-0
-evicting pod ncd-git/ncd-git-webservice-default-69c6749944-fb4vb
-evicting pod open-cluster-management-observability/observability-thanos-receive-controller-56dc887bbf-g2xl4
-evicting pod ncd-db/ncd-postgresql-postgresql-ha-keeper-2
-evicting pod openshift-kube-apiserver/revision-pruner-56-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod openshift-logging/logging-loki-querier-67f785c56c-hdqpl
-evicting pod openshift-kube-apiserver/revision-pruner-59-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod open-cluster-management-agent/klusterlet-566f969d78-gt5ld
-evicting pod open-cluster-management-hub/cluster-manager-registration-webhook-9c6456956-k62pb
-evicting pod openshift-kube-apiserver/installer-59-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod openshift-route-controller-manager/route-controller-manager-5fcc66b66c-4gf4h
-evicting pod open-cluster-management-agent/klusterlet-agent-58cfcbdd89-glgjb
-evicting pod open-cluster-management-observability/observability-rbac-query-proxy-559d84cdb8-r8rbz
-evicting pod open-cluster-management/multiclusterhub-operator-b8594bb5b-8kdt6
-evicting pod openshift-kube-controller-manager/kube-controller-manager-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod openshift-console/console-7c7f65d4d9-dlxdv
-evicting pod open-cluster-management/grc-policy-propagator-8798d56f9-hjrpv
-evicting pod ncd-db/ncd-redis-crdb-redisio-admin-6c86857d5c-m5x22
-evicting pod open-cluster-management/klusterlet-addon-controller-v2-c6b9f6f4-zlv9s
-evicting pod open-cluster-management-backup/velero-549fbfb95d-q78p4
-evicting pod open-cluster-management-backup/cluster-backup-chart-clusterbackup-698656f7f-q9q5s
-evicting pod openshift-operators/quay-operator.v3.12.4-7c5644d54b-n9wp9
-evicting pod open-cluster-management/multicluster-integrations-6fdb6554f4-rcgpf
-evicting pod open-cluster-management-observability/observability-thanos-store-memcached-0
-evicting pod openshift-oauth-apiserver/apiserver-6796c5d69f-5xmlw
-evicting pod openshift-operators-redhat/loki-operator-controller-manager-6cd9c69c58-25q78
-evicting pod openshift-kube-apiserver/revision-pruner-55-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod openshift-logging/logging-loki-query-frontend-55bc666b5c-87hmh
-evicting pod ncd-db/ncd-redis-crdb-redisio-sentinel-1
-evicting pod openshift-authentication/oauth-openshift-84fc79f657-c9qhc
-evicting pod openshift-user-workload-monitoring/thanos-ruler-user-workload-0
-evicting pod openshift-machine-api/machine-api-operator-7dc7bbdbb6-d2mmf
-evicting pod openshift-storage/csi-rbdplugin-provisioner-646d95bdd9-496ng
-evicting pod openshift-gitops-operator/openshift-gitops-operator-controller-manager-56f89579cc-bbqgp
-evicting pod openshift-controller-manager/controller-manager-84fdfdf98b-6xbvq
-evicting pod openshift-monitoring/alertmanager-main-1
-evicting pod openshift-etcd/etcd-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod openshift-kube-apiserver/kube-apiserver-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod openshift-gitops/gitops-plugin-5dcb489f77-l4jl5
-evicting pod openshift-kube-apiserver/installer-57-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod open-cluster-management-observability/endpoint-observability-operator-64fbfbb8b6-j67mh
-evicting pod open-cluster-management-observability/observability-thanos-query-frontend-69f4fcb776-qmgw5
-evicting pod quay-registry/quay-registry-clair-app-5b9fc47b65-hpctr
-evicting pod quay-registry/quay-registry-quay-app-7446d956d5-zh4kr
-evicting pod open-cluster-management/search-api-5b6f649447-s4r79
-evicting pod openshift-machine-api/machine-api-controllers-56564f754-9ssz5
-evicting pod openshift-machine-api/cluster-autoscaler-operator-66ddd8d9c5-ktjm9
-evicting pod multicluster-engine/ocm-proxyserver-554c8fb75-x5vcr
-evicting pod openshift-kube-apiserver/installer-58-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-evicting pod openshift-monitoring/prometheus-k8s-1
-evicting pod multicluster-engine/multicluster-engine-operator-6cb65d498f-mxz4t
-pod/revision-pruner-56-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/installer-56-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-I0527 17:02:34.668429 3151066 request.go:697] Waited for 1.000860285s due to client-side throttling, not priority and fairness, request: POST:https://api.ncpvblvhub.t-mobile.lab:6443/api/v1/namespaces/open-cluster-management-hub/pods/cluster-manager-registration-webhook-9c6456956-k62pb/eviction
-pod/multiclusterhub-operator-b8594bb5b-8kdt6 evicted
-pod/thanos-querier-86bd945c74-5ptmn evicted
-pod/ncd-git-gitaly-default-0 evicted
-pod/observability-thanos-receive-controller-56dc887bbf-g2xl4 evicted
-pod/cluster-baremetal-operator-75fbb58cc5-lpqds evicted
-pod/ncd-git-gitlab-shell-55ccf645ff-ks77d evicted
-pod/openshift-kube-scheduler-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/observability-grafana-85c6896fd4-7vxzp evicted
-pod/cluster-manager-registration-webhook-9c6456956-k62pb evicted
-pod/clusterclaims-controller-7d56ff6fc9-555pz evicted
-pod/observability-thanos-query-75d9d7758c-b9ndn evicted
-pod/kube-controller-manager-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/ncd-git-praefect-0 evicted
-pod/klusterlet-addon-controller-v2-c6b9f6f4-zlv9s evicted
-pod/ncd-postgresql-postgresql-ha-proxy-54c69f6cc-csqbz evicted
-pod/cluster-manager-registration-controller-7bcbcd64c5-s5p8l evicted
-pod/logging-loki-gateway-7687c66f64-fxd4d evicted
-pod/grc-policy-propagator-8798d56f9-hjrpv evicted
-pod/assisted-image-service-0 evicted
-pod/klusterlet-566f969d78-gt5ld evicted
-pod/cluster-backup-chart-clusterbackup-698656f7f-q9q5s evicted
-pod/revision-pruner-59-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/assisted-service-96cf94d9c-wg9zh evicted
-pod/observability-thanos-rule-1 evicted
-pod/control-plane-machine-set-operator-65fbf4bd7-j2l2r evicted
-pod/klusterlet-agent-58cfcbdd89-glgjb evicted
-pod/observability-rbac-query-proxy-559d84cdb8-r8rbz evicted
-pod/route-controller-manager-5fcc66b66c-4gf4h evicted
-pod/revision-pruner-9-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/ncd-postgresql-postgresql-ha-sentinel-8556d466c6-kd52n evicted
-pod/revision-pruner-58-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/quay-operator.v3.12.4-7c5644d54b-n9wp9 evicted
-I0527 17:02:44.676775 3151066 request.go:697] Waited for 4.600338869s due to client-side throttling, not priority and fairness, request: GET:https://api.ncpvblvhub.t-mobile.lab:6443/api/v1/namespaces/open-cluster-management/pods/multicluster-integrations-6fdb6554f4-rcgpf
-pod/multicluster-integrations-6fdb6554f4-rcgpf evicted
-pod/observability-thanos-store-memcached-0 evicted
-pod/loki-operator-controller-manager-6cd9c69c58-25q78 evicted
-pod/revision-pruner-55-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/cluster-logging-operator-5fd7f999cc-hn5tw evicted
-pod/cluster-manager-addon-manager-controller-7ff747d9c4-gvlvl evicted
-pod/velero-549fbfb95d-q78p4 evicted
-pod/installer-55-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/ncd-redis-crdb-redisio-sentinel-1 evicted
-pod/installer-59-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/revision-pruner-57-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/ncd-redis-crdb-redisio-admin-6c86857d5c-m5x22 evicted
-pod/machine-api-operator-7dc7bbdbb6-d2mmf evicted
-pod/thanos-ruler-user-workload-0 evicted
-pod/csi-rbdplugin-provisioner-646d95bdd9-496ng evicted
-pod/openshift-gitops-operator-controller-manager-56f89579cc-bbqgp evicted
-pod/controller-manager-84fdfdf98b-6xbvq evicted
-pod/alertmanager-main-1 evicted
-pod/kube-apiserver-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/etcd-guard-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/gitops-plugin-5dcb489f77-l4jl5 evicted
-pod/installer-57-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/observability-thanos-query-frontend-69f4fcb776-qmgw5 evicted
-pod/endpoint-observability-operator-64fbfbb8b6-j67mh evicted
-pod/search-api-5b6f649447-s4r79 evicted
-pod/ncd-git-webservice-default-69c6749944-fb4vb evicted
-pod/machine-api-controllers-56564f754-9ssz5 evicted
-pod/cluster-autoscaler-operator-66ddd8d9c5-ktjm9 evicted
-pod/ocm-proxyserver-554c8fb75-x5vcr evicted
-pod/installer-58-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab evicted
-pod/prometheus-k8s-1 evicted
-pod/multicluster-engine-operator-6cb65d498f-mxz4t evicted
-pod/quay-registry-clair-app-5b9fc47b65-hpctr evicted
-I0527 17:02:54.876785 3151066 request.go:697] Waited for 6.390570482s due to client-side throttling, not priority and fairness, request: GET:https://api.ncpvblvhub.t-mobile.lab:6443/api/v1/namespaces/ncd-db/pods/ncd-postgresql-postgresql-ha-keeper-2
-pod/console-7c7f65d4d9-dlxdv evicted
-pod/apiserver-6796c5d69f-5xmlw evicted
-I0527 17:03:05.476638 3151066 request.go:697] Waited for 1.196994232s due to client-side throttling, not priority and fairness, request: GET:https://api.ncpvblvhub.t-mobile.lab:6443/api/v1/namespaces/quay-registry/pods/quay-registry-quay-app-7446d956d5-zh4kr
-pod/cluster-permission-66c848c957-f7x8t evicted
-pod/logging-loki-querier-67f785c56c-hdqpl evicted
-pod/logging-loki-distributor-647986c9d4-6v25d evicted
-pod/quay-registry-quay-app-7446d956d5-zh4kr evicted
-pod/oauth-openshift-84fc79f657-c9qhc evicted
-pod/console-mce-console-57b6b4968-jfl4x evicted
-pod/logging-loki-query-frontend-55bc666b5c-87hmh evicted
-pod/ncd-postgresql-postgresql-ha-keeper-2 evicted
-pod/apiserver-776b5f87d7-6t6vz evicted
-node/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab drained
 [root@dom16hub101-infra-manager ~]#
 
-[root@dom16hub101-infra-manager ~]# oc get nodes
-NAME                                               STATUS                     ROLES                                 AGE   VERSION
-ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   Ready                      control-plane,master,monitor,worker   74d   v1.29.10+67d3387
-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   Ready,SchedulingDisabled   control-plane,master,monitor,worker   74d   v1.29.10+67d3387
-ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   Ready                      control-plane,master,monitor,worker   74d   v1.29.10+67d3387
-ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   Ready                      gateway,worker                        74d   v1.29.10+67d3387
-ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   Ready                      gateway,worker                        74d   v1.29.10+67d3387
+```
 
-power off the node 
-[root@dom16hub101-infra-manager ~]# oc get nodes
-NAME                                               STATUS                        ROLES                                 AGE   VERSION
-ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   Ready                         control-plane,master,monitor,worker   74d   v1.29.10+67d3387
-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   NotReady,SchedulingDisabled   control-plane,master,monitor,worker   74d   v1.29.10+67d3387
-ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   Ready                         control-plane,master,monitor,worker   74d   v1.29.10+67d3387
-ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   Ready                         gateway,worker                        74d   v1.29.10+67d3387
-ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   Ready                         gateway,worker                        74d   v1.29.10+67d3387
-[root@dom16hub101-infra-manager ~]#
-[root@dom16hub101-infra-manager ~]# oc -n openshift-etcd get pods -l k8s-app=etcd -o wide
-NAME                                                    READY   STATUS    RESTARTS   AGE   IP              NODE                                               NOMINATED NODE   READINESS GATES
-etcd-ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   4/4     Running   12         74d   10.145.151.92   ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   <none>           <none>
-etcd-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   4/4     Running   12         74d   10.145.151.93   ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   <none>           <none>
-etcd-ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   4/4     Running   8          74d   10.145.151.94   ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   <none>           <none>
-[root@dom16hub101-infra-manager ~]# oc rsh -n openshift-etcd etcd-ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab
-sh-5.1# etcdctl endpoint health
-{"level":"warn","ts":"2025-05-27T17:09:44.374886Z","logger":"client","caller":"v3@v3.5.14/retry_interceptor.go:63","msg":"retrying of unary invoker failed","target":"etcd-endpoints://0xc00027a000/10.145.151.93:2379","attempt":0,"error":"rpc error: code = DeadlineExceeded desc = context deadline exceeded"}
-https://10.145.151.94:2379 is healthy: successfully committed proposal: took = 7.162307ms
-https://10.145.151.92:2379 is healthy: successfully committed proposal: took = 7.213802ms
-https://10.145.151.93:2379 is unhealthy: failed to commit proposal: context deadline exceeded
-Error: unhealthy cluster
-sh-5.1# etcdctl member list -w table
-+------------------+---------+--------------------------------------------------+----------------------------+----------------------------+------------+
-|        ID        | STATUS  |                       NAME                       |         PEER ADDRS         |        CLIENT ADDRS        | IS LEARNER |
-+------------------+---------+--------------------------------------------------+----------------------------+----------------------------+------------+
-| 44ad9888985e068c | started | ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab | https://10.145.151.92:2380 | https://10.145.151.92:2379 |      false |
-| f26d12a58d17e571 | started | ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab | https://10.145.151.94:2380 | https://10.145.151.94:2379 |      false |
-| fc4de79a3d723a5c | started | ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab | https://10.145.151.93:2380 | https://10.145.151.93:2379 |      false |
-+------------------+---------+--------------------------------------------------+----------------------------+----------------------------+------------+
-sh-5.1# etcdctl member remove fc4de79a3d723a5c
-Member fc4de79a3d723a5c removed from cluster 136d42915c2b0516
-sh-5.1# etcdctl member list -w table
-+------------------+---------+--------------------------------------------------+----------------------------+----------------------------+------------+
-|        ID        | STATUS  |                       NAME                       |         PEER ADDRS         |        CLIENT ADDRS        | IS LEARNER |
-+------------------+---------+--------------------------------------------------+----------------------------+----------------------------+------------+
-| 44ad9888985e068c | started | ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab | https://10.145.151.92:2380 | https://10.145.151.92:2379 |      false |
-| f26d12a58d17e571 | started | ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab | https://10.145.151.94:2380 | https://10.145.151.94:2379 |      false |
-+------------------+---------+--------------------------------------------------+----------------------------+----------------------------+------------+
-sh-5.1# etcdctl endpoint health
-{"level":"warn","ts":"2025-05-27T17:10:43.025287Z","logger":"client","caller":"v3@v3.5.14/retry_interceptor.go:63","msg":"retrying of unary invoker failed","target":"etcd-endpoints://0xc000020000/10.145.151.93:2379","attempt":0,"error":"rpc error: code = DeadlineExceeded desc = context deadline exceeded"}
-https://10.145.151.94:2379 is healthy: successfully committed proposal: took = 6.399106ms
-https://10.145.151.92:2379 is healthy: successfully committed proposal: took = 6.344247ms
-https://10.145.151.93:2379 is unhealthy: failed to commit proposal: context deadline exceeded
-Error: unhealthy cluster
-sh-5.1#
-exit
-command terminated with exit code 1
-[root@dom16hub101-infra-manager ~]# #oc patch etcd/cluster --type=merge -p '{"spec":
-{"unsupportedConfigOverrides":
-{"useUnsupportedUnsafeNonHANonProductionUnstableEtcd": true}}}'
-[root@dom16hub101-infra-manager ~]# oc patch etcd/cluster --type=merge -p '{"spec":{"unsupportedConfigOverrides":{"useUnsupportedUnsafeNonHANonProductionUnstableEtcd": true}}}'
-etcd.operator.openshift.io/cluster patched
-[root@dom16hub101-infra-manager ~]# oc get secrets -n openshift-etcd | grep master-102
-etcd-peer-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab              kubernetes.io/tls   2      74d
-etcd-serving-metrics-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   kubernetes.io/tls   2      74d
-etcd-serving-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab           kubernetes.io/tls   2      74d
-[root@dom16hub101-infra-manager ~]# #for i in `oc get secrets -n openshift-etcd | grep master-2 | awk
-'{print $1}'`; do oc delete secrets -n openshift-etcd $i; done
-[root@dom16hub101-infra-manager ~]# for i in `oc get secrets -n openshift-etcd | grep master-102 | awk '{print $1}'`; do oc delete secrets -n openshift-etcd $i; done
-secret "etcd-peer-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab" deleted
-secret "etcd-serving-metrics-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab" deleted
-secret "etcd-serving-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab" deleted
-[root@dom16hub101-infra-manager ~]# oc get secrets -n openshift-etcd | grep master-102                                                                 etcd-peer-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab              kubernetes.io/tls   2      3s
-etcd-serving-metrics-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   kubernetes.io/tls   2      2s
-etcd-serving-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab           kubernetes.io/tls   2      3s
-[root@dom16hub101-infra-manager ~]#
-[root@dom16hub101-infra-manager ~]#
-[root@dom16hub101-infra-manager ~]#
-[root@dom16hub101-infra-manager ~]# oc get machines
-No resources found in default namespace.
+2.1) remove the label from the node. 
 
-[root@dom16hub101-infra-manager ~]# oc process -n openshift-storage ocs-osd-removal -p FAILED_OSD_IDS=0,5 FORCE_OSD_REMOVAL=true | oc create -n openshift-storage -f –
-error: the path "–" does not exist
+```
+[root@dom16hub101-infra-manager ~]# oc label node ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab cluster.ocs.openshift.io/openshift-storage-
+node/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab unlabeled
+[root@dom16hub101-infra-manager ~]#
+```
+
+3) Now run the OSD removal script to delete the OSD completely from the cluster.
+
+```
 [root@dom16hub101-infra-manager ~]# oc process -n openshift-storage ocs-osd-removal -p FAILED_OSD_IDS=0,5 FORCE_OSD_REMOVAL=true | oc create -n openshift-storage -f -
 Error from server (AlreadyExists): error when creating "STDIN": jobs.batch "ocs-osd-removal-job" already exists
 [root@dom16hub101-infra-manager ~]# oc get jobs -n openshift-storage | gre removal
@@ -816,7 +433,13 @@ job.batch/ocs-osd-removal-job created
 [root@dom16hub101-infra-manager ~]# oc get jobs -n openshift-storage | grep removal
 ocs-osd-removal-job                                      1/1           13s        14s
 [root@dom16hub101-infra-manager ~]# oc delete jobs -n openshift-storage ocs-osd-removal-job                                                            job.batch "ocs-osd-removal-job" deleted
-[root@dom16hub101-infra-manager ~]# oc get pv | grep local | grep -i released
+[root@dom16hub101-infra-manager ~]#
+```
+
+4) At last remove the pv as well. post check that ceph cluster.
+
+```
+[root@dom16hub101-infra-manager ~]#oc get pv | grep local | grep -i released
 local-pv-4fcd3797                          3576Gi     RWO            Delete           Released    openshift-storage/ocs-deviceset-localblockstorage-0-data-0ll69z                      localblockstorage     <unset>                          71d
 local-pv-cb7421c8                          3576Gi     RWO            Delete           Released    openshift-storage/ocs-deviceset-localblockstorage-2-data-1w8q46                      localblockstorage     <unset>                          33d
 [root@dom16hub101-infra-manager ~]# oc delete pv local-pv-4fcd3797 local-pv-cb7421c8
@@ -827,6 +450,15 @@ persistentvolume "local-pv-cb7421c8" deleted
 [root@dom16hub101-infra-manager ~]# oc get clusteroperator baremetal
 NAME        VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
 baremetal   4.16.24   True        False         False      74d
+
+```
+
+### Removing the node from the cluster
+
+
+1) Get the node status of `master-102`. from `bmh`, `machine` etc. 
+
+```
 [root@dom16hub101-infra-manager ~]# oc get bmh -n openshift-machine-api
 NAME                                               STATE       CONSUMER                          ONLINE   ERROR   AGE
 ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-master-0         true             74d
@@ -836,12 +468,18 @@ ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-
 ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-worker-0-x5dc5   true             74d
 [root@dom16hub101-infra-manager ~]# oc delete bmh -n openshift-machine-api ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
 baremetalhost.metal3.io "ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab" deleted
+
 [root@dom16hub101-infra-manager ~]# oc get bmh -n openshift-machine-api
 NAME                                               STATE       CONSUMER                          ONLINE   ERROR   AGE
 ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-master-0         true             74d
 ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-master-2         true             74d
 ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-worker-0-mlq8w   true             74d
 ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-worker-0-x5dc5   true             74d
+[root@dom16hub101-infra-manager ~]# 
+```
+
+2) Check the `machines.machine` api and delete it. 
+```
 [root@dom16hub101-infra-manager ~]# oc get machines.machine.openshift.io -n openshift-machine-api
 NAME                              PHASE     TYPE   REGION   ZONE   AGE
 ncpvblvhub-b6cjs-master-0         Running                          74d
@@ -871,7 +509,12 @@ ncpvblvhub-b6cjs-master-0         Running                          74d
 ncpvblvhub-b6cjs-master-2         Running                          74d
 ncpvblvhub-b6cjs-worker-0-mlq8w   Running                          74d
 ncpvblvhub-b6cjs-worker-0-x5dc5   Running                          74d
-[root@dom16hub101-infra-manager ~]# oc get bmh -n openshift-machine-api
+[root@dom16hub101-infra-manager ~]# 
+```
+
+3) Now check the status of `bmh`, `machines` and `nodes`, to make sure `master-2` is completly removed. 
+```
+[root@dom16hub101-infra-manager ~]#oc get bmh -n openshift-machine-api
 NAME                                               STATE       CONSUMER                          ONLINE   ERROR   AGE
 ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-master-0         true             74d
 ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-master-2         true             74d
@@ -890,53 +533,30 @@ ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   Ready    control-plane,master
 ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   Ready    gateway,worker                        74d   v1.29.10+67d3387
 ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   Ready    gateway,worker                        74d   v1.29.10+67d3387
 [root@dom16hub101-infra-manager ~]#
+```
 
-create the BMH 
+> After this step, the node or failed parts of it can be safely replaced.
 
-[root@dom16hub101-infra-manager ~]# cat master_102_bmh.yaml
-apiVersion: metal3.io/v1alpha1
-kind: BareMetalHost
-metadata:
-  finalizers:
-  - baremetalhost.metal3.io
-  generation: 3
-  labels:
-    installer.openshift.io/role: control-plane
-  name: ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-  namespace: openshift-machine-api
-spec:
-  automatedCleaningMode: metadata
-  bmc:
-    address: ""
-    credentialsName: ""
-  bootMACAddress: c4:70:bd:f9:7f:48
-  bootMode: UEFISecureBoot
-  consumerRef:
-    apiVersion: machine.openshift.io/v1beta1
-    kind: Machine
-    name: ncpvblvhub-b6cjs-master-1
-    namespace: openshift-machine-api
-  customDeploy:
-    method: install_coreos
-  externallyProvisioned: true
-  hardwareProfile: unknown
-  online: true
-  userData:
-    name: master-user-data-managed
-    namespace: openshift-machine-api
+## Adding back the node control plane node
+
+### Create BMH and Machine CRs
 
 
-clean up the disks for the ceph use live cd to boot up and clean the disks 
+1) Check the list of nodes in cluster now. 
+```
+[root@dom16hub101-infra-manager ~]# oc get nodes
+NAME                                               STATUS   ROLES                                 AGE   VERSION
+ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d   v1.29.10+67d3387
+ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d   v1.29.10+67d3387
+ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   Ready    gateway,worker                        74d   v1.29.10+67d3387
+ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   Ready    gateway,worker                        74d   v1.29.10+67d3387
+[root@dom16hub101-infra-manager ~]#
+```
+2) In the openshift-machine-api namespace two secrets shall be created. One is for the BMC access and the other one stores the networking configuration.
 
-[root@dom16hub101-infra-manager ~]# oc apply -f master_102_bmh.yaml
-Warning: metadata.finalizers: "baremetalhost.metal3.io": prefer a domain-qualified finalizer name to avoid accidental conflicts with other finalizer writers
-baremetalhost.metal3.io/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab created
-[root@dom16hub101-infra-manager ~]# oc apply -f backup_machinemaster-102_editted.yaml
-Warning: metadata.finalizers: "machine.machine.openshift.io": prefer a domain-qualified finalizer name to avoid accidental conflicts with other finalizer writers
-machine.machine.openshift.io/ncpvblvhub-b6cjs-master-1 created
+2.0) The data of secret for BMC access is simply base64 encoded.
 
-create the bmc secret, network secret and bmh file for the node and apply it. 
-
+```
 [root@dom16hub101-infra-manager ~]# cat bmc-credential-hub.yaml
 ---
 apiVersion: v1
@@ -948,6 +568,15 @@ data:
   username: "cm9vdA=="
   password: "Y2Fsdmlu"
 type: opaque
+[root@dom16hub101-infra-manager ~]#
+```
+
+
+
+2.1) Then the networking configuration shall be created as a secret. It is needed as the default setting is DHCP for the nodes. These information can be simply copied from the agent-config.yaml which was used for the deployment of the HUB cluster. If node replacement was done (including NIC) make sure to update the MAC addresses!
+
+
+```
 [root@dom16hub101-infra-manager ~]# cat master-102_network_config.yaml
 apiVersion: v1
 kind: Secret
@@ -1057,6 +686,13 @@ stringData:
         - 5.232.32.63
         - 10.169.69.10
 
+[root@dom16hub101-infra-manager ~]#
+```
+
+
+3) create the BMH resource using `baremetalhost` file.
+
+```
 [root@dom16hub101-infra-manager ~]# cat master-102_bmh_wih_secret.yaml
 apiVersion: metal3.io/v1alpha1
 kind: BareMetalHost
@@ -1082,14 +718,32 @@ spec:
   preprovisioningNetworkDataName: openshift-master-102-network-config-secret
 [root@dom16hub101-infra-manager ~]#
 
-the node status should change from registering -> inspecting -> available. 
+```
 
+3.1) After creating this resource, the node will be inspected, and after a few minutes it shall be
+in available state.
+
+```
+[root@dom16hub101-infra-manager ~]# oc apply -f master_102_bmh.yaml
+Warning: metadata.finalizers: "baremetalhost.metal3.io": prefer a domain-qualified finalizer name to avoid accidental conflicts with other finalizer writers
+baremetalhost.metal3.io/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab created
+
+```
+
+3.2) the node status should change from registering -> inspecting -> available. 
+
+```
 [root@dom16hub101-infra-manager ~]# oc get bmh -n openshift-machine-api ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
 NAME                                               STATE          CONSUMER                    ONLINE   ERROR   AGE
 ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   available   ncpvblvhub-b6cjs-master-1   true             31m
 [root@dom16hub101-infra-manager ~]#
 
-create and apply the machines.yaml 
+```
+
+> Once the BMH is in available state, the machine CR can be created. The same shall be created which was done in chapter 1.3.
+
+6) create and apply the machines.yaml 
+```
 [root@dom16hub101-infra-manager ~]# cat backup_machinemaster-102_editted.yaml
 apiVersion: machine.openshift.io/v1beta1
 kind: Machine
@@ -1122,6 +776,11 @@ spec:
         name: master-user-data-managed
 [root@dom16hub101-infra-manager ~]#
 
+[root@dom16hub101-infra-manager ~]# oc apply -f backup_machinemaster-102_editted.yaml
+Warning: metadata.finalizers: "machine.machine.openshift.io": prefer a domain-qualified finalizer name to avoid accidental conflicts with other finalizer writers
+machine.machine.openshift.io/ncpvblvhub-b6cjs-master-1 created
+[root@dom16hub101-infra-manager ~]#
+
 [root@dom16hub101-infra-manager ~]# oc get machines.machine.openshift.io -n openshift-machine-api
 NAME                              PHASE          TYPE   REGION   ZONE   AGE
 ncpvblvhub-b6cjs-master-0         Running                               74d
@@ -1130,8 +789,9 @@ ncpvblvhub-b6cjs-master-2         Running                               74d
 ncpvblvhub-b6cjs-worker-0-mlq8w   Running                               74d
 ncpvblvhub-b6cjs-worker-0-x5dc5   Running                               74d
 [root@dom16hub101-infra-manager ~]#
-
-bmh status will change to provisioning
+```
+7) Monitor the status of bmh, will change to provisioning
+```
 [root@dom16hub101-infra-manager ~]# oc get bmh -n openshift-machine-api
 NAME                                               STATE          CONSUMER                          ONLINE   ERROR   AGE
 ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   unmanaged      ncpvblvhub-b6cjs-master-0         true             74d
@@ -1141,7 +801,7 @@ ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   unmanaged      ncpvblvhub-b6c
 ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   unmanaged      ncpvblvhub-b6cjs-worker-0-x5dc5   true             74d
 [root@dom16hub101-infra-manager ~]#
 
-nodes will be added to the cluster 
+#nodes will be added to the cluster 
 
 [root@dom16hub101-infra-manager ~]# oc get nodes
 NAME                                               STATUS   ROLES                                 AGE   VERSION
@@ -1164,501 +824,10 @@ NAME                                               STATE         CONSUMER       
 ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   provisioned   ncpvblvhub-b6cjs-master-1   true             44m
 [root@dom16hub101-infra-manager ~]#
 
+```
 
-
-
-
-
-
-[core@ncpvblvhub-hubmaster-102 ~]$
-logout
-Connection to ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab closed.
-[root@dom16hub101-infra-manager ~]# oc get bmh
-No resources found in default namespace.
-[root@dom16hub101-infra-manager ~]# oc get bmh -A
-NAMESPACE               NAME                                               STATE         CONSUMER                          ONLINE   ERROR   AGE
-ncpvblvlab1             ncpvblvlab1-master-101.ncpvblvlab1.t-mobile.lab    provisioned                                     true             54d
-ncpvblvlab1             ncpvblvlab1-master-102.ncpvblvlab1.t-mobile.lab    provisioned                                     true             53d
-ncpvblvlab1             ncpvblvlab1-master-201.ncpvblvlab1.t-mobile.lab    provisioned                                     true             54d
-ncpvblvlab1             ncpvblvlab1-storage-101.ncpvblvlab1.t-mobile.lab   provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-storage-102.ncpvblvlab1.t-mobile.lab   provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-storage-103.ncpvblvlab1.t-mobile.lab   provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-storage-201.ncpvblvlab1.t-mobile.lab   provisioned                                     true             62d
-ncpvblvlab1             ncpvblvlab1-storage-202.ncpvblvlab1.t-mobile.lab   provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-storage-203.ncpvblvlab1.t-mobile.lab   provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-101.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-102.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-103.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-104.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-105.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-106.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-107.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-108.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-109.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-110.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-111.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-112.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-113.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-114.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-115.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-116.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-117.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-118.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-119.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-120.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-121.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-122.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-201.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-202.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-203.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-204.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-205.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-206.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-207.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-208.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-209.ncpvblvlab1.t-mobile.lab    provisioned                                     true             26d
-ncpvblvlab1             ncpvblvlab1-worker-210.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-211.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-212.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-213.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-214.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-215.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-216.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-217.ncpvblvlab1.t-mobile.lab    provisioned                                     true             53d
-ncpvblvlab1             ncpvblvlab1-worker-218.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-219.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-220.ncpvblvlab1.t-mobile.lab    provisioned                                     true             62d
-ncpvblvlab1             ncpvblvlab1-worker-221.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab1             ncpvblvlab1-worker-222.ncpvblvlab1.t-mobile.lab    provisioned                                     true             64d
-ncpvblvlab2             ncpvblvlab2-master-101.ncpvblvlab2.t-mobile.lab    provisioned                                     true             21d
-ncpvblvlab2             ncpvblvlab2-master-102.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-master-201.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-storage-101.ncpvblvlab2.t-mobile.lab   provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-storage-102.ncpvblvlab2.t-mobile.lab   provisioned                                     true             60d
-ncpvblvlab2             ncpvblvlab2-storage-103.ncpvblvlab2.t-mobile.lab   provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-storage-201.ncpvblvlab2.t-mobile.lab   provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-storage-202.ncpvblvlab2.t-mobile.lab   provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-storage-203.ncpvblvlab2.t-mobile.lab   provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-101.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-102.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-103.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-104.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-105.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-106.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-107.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-108.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-109.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-110.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-111.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-112.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-113.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-114.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-115.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-116.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-117.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-118.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-119.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-120.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-121.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-122.ncpvblvlab2.t-mobile.lab    provisioned                                     true             57d
-ncpvblvlab2             ncpvblvlab2-worker-201.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-202.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-203.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-204.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-205.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-206.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-207.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-208.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-209.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-210.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-211.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-212.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-213.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-214.ncpvblvlab2.t-mobile.lab    provisioned                                     true             55d
-ncpvblvlab2             ncpvblvlab2-worker-215.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-216.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-217.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-218.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-219.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-220.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-221.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvlab2             ncpvblvlab2-worker-222.ncpvblvlab2.t-mobile.lab    provisioned                                     true             61d
-ncpvblvmgt              ncpvblvmgt-gateway-101.ncpvblvmgt.t-mobile.lab     provisioned                                     true             25d
-ncpvblvmgt              ncpvblvmgt-gateway-102.ncpvblvmgt.t-mobile.lab     provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-master-101.ncpvblvmgt.t-mobile.lab      provisioned                                     true             20d
-ncpvblvmgt              ncpvblvmgt-master-102.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-master-103.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-storage-101.ncpvblvmgt.t-mobile.lab     provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-storage-102.ncpvblvmgt.t-mobile.lab     provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-storage-103.ncpvblvmgt.t-mobile.lab     provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-storage-104.ncpvblvmgt.t-mobile.lab     provisioned                                     true             25d
-ncpvblvmgt              ncpvblvmgt-worker-101.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-worker-102.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-worker-103.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-worker-104.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-worker-105.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-worker-106.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-worker-107.ncpvblvmgt.t-mobile.lab      provisioned                                     true             26d
-ncpvblvmgt              ncpvblvmgt-worker-108.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-worker-109.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-ncpvblvmgt              ncpvblvmgt-worker-110.ncpvblvmgt.t-mobile.lab      provisioned                                     true             69d
-openshift-machine-api   ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   unmanaged     ncpvblvhub-b6cjs-master-0         true             74d
-openshift-machine-api   ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   available                                       true             24m
-openshift-machine-api   ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   unmanaged     ncpvblvhub-b6cjs-master-2         true             74d
-openshift-machine-api   ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   unmanaged     ncpvblvhub-b6cjs-worker-0-mlq8w   true             74d
-openshift-machine-api   ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   unmanaged     ncpvblvhub-b6cjs-worker-0-x5dc5   true             74d
-[root@dom16hub101-infra-manager ~]# oc get bmh -n openshift-machine-api
-NAME                                               STATE       CONSUMER                          ONLINE   ERROR   AGE
-ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-master-0         true             74d
-ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   available                                     true             24m
-ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-master-2         true             74d
-ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-worker-0-mlq8w   true             74d
-ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   unmanaged   ncpvblvhub-b6cjs-worker-0-x5dc5   true             74d
-[root@dom16hub101-infra-manager ~]# ls -ltr
-total 269344
--rw-------. 1 root root      1741 Feb 18 18:07 anaconda-ks.cfg
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Videos
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Templates
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Public
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Pictures
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Music
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Downloads
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Documents
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Desktop
-drwxr-xr-x. 3 root root        21 Feb 20 12:52 om
-drwxr-xr-x. 6 root root       185 Mar 14 14:19 abi-install
-drwxr-xr-x. 2 root root       152 Mar 25 21:17 storage-scale_fail
-drwxr-xr-x. 3 root root       159 Mar 26 16:28 site-config_prepare
-drwxr-xr-x. 4 root root        34 Mar 27 16:17 ztp
--rw-r--r--. 1 root root       902 Mar 27 16:51 oauth.yaml-hub
--rw-r--r--. 1 root root      1056 Mar 27 17:04 oauth.yaml
--rw-r--r--. 1 root root        67 Mar 27 17:49 users.htpasswd
--rw-r--r--. 1 root root        66 Mar 27 18:19 htpasswdlab
--rw-r--r--. 1 root root       794 Mar 27 18:32 oauth-nmc.yaml
--rw-r--r--. 1 root root         0 Mar 27 19:41 htpasswdnmc
--rw-r--r--. 1 root root      1119 Mar 27 21:03 tmolab1-api.pem
--rw-r--r--. 1 root root      1119 Mar 27 21:13 tmolab2-api.pem
--rw-r--r--. 1 root root       795 Mar 27 22:05 oauth_nwc1.yaml
--rw-r--r--. 1 root root       133 Mar 27 22:24 htpasswdcwl
--rw-r--r--. 1 root root        66 Mar 27 22:24 htpasswdnwc1
--rw-r--r--. 1 root root 112680960 Mar 28 16:18 minimal.iso
--rw-r--r--. 1 root root   4512768 Apr  2 16:02 busybox.tar
-drwxr-xr-x. 2 root root        49 Apr  7 17:46 healthcheck
--rw-------. 1 root root       596 Apr 17 12:21 ncpvblvmgt-kubeconfig
--rw-r--r--. 1 root root  40569495 Apr 29 18:12 quay-app1.log
--rw-r--r--. 1 root root  20354784 Apr 29 18:13 quay-app2.log
-drwxr-xr-x. 3 root root       113 Apr 29 20:08 odf_mustgather
-drwxr-xr-x. 7 root root      4096 Apr 29 20:10 must-gather
-drwxr-xr-x. 3 root root       113 Apr 29 20:13 must-gather.local.3662385339567218798
-drwxr-xr-x. 3 root root      4096 Apr 29 20:17 must-gather.local.7225453970769055250
--rw-r--r--. 1 root root      8458 May  1 20:26 multiclusterhub.yaml_backup
-drwxr-xr-x. 2 root root        71 May  1 21:25 acm-backup
--rw-r--r--. 1 root root     11553 May  2 13:44 oc_bash_completion
-drwxr-xr-x. 8 root root      4096 May  6 16:32 NCP24_7_MP1
-drwxr-xr-x. 3 root root        46 May  7 15:24 netact
-drwxr-xr-x. 2 root root        87 May  7 15:30 hubnetactCerts
--rw-r--r--. 1 root root      1463 May 13 21:04 cluster-monitoring-config.yaml
-drwxr-xr-x. 2 root root       181 May 21 14:01 kubeconfig
--rw-r--r--. 1 root root   1726769 May 26 11:10 ncdvblv-engine-cdn-788d667887-2klww.txt
--rw-r--r--. 1 root root   1370683 May 26 11:11 ncdvblv-engine-cdn-788d667887-bzz7b.txt
--rw-r--r--. 1 root root  15048264 May 26 11:12 ncdvblv-engine-operations-6c858765d6-s9bn8.txt
--rw-r--r--. 1 root root  15059439 May 26 11:12 ncdvblv-engine-operations-6c858765d6-shwmp.txt
--rw-r--r--. 1 root root  25747580 May 26 11:13 ncdvblv-engine-repo-7755f9fc45-7j2sf.txt
--rw-r--r--. 1 root root  38584969 May 26 11:13 ncdvblv-engine-repo-7755f9fc45-vk8hb.txt
--rw-r--r--. 1 root root      3052 May 26 11:15 ncdvblv-engine-repoworker-646c6d958-d2dr6.txt
--rw-r--r--. 1 root root      3052 May 26 11:15 ncdvblv-engine-repoworker-646c6d958-x9jlh.txt
-drwxr-xr-x. 3 root root      4096 May 27 16:10 mini-atp
--rw-r--r--. 1 root root      2370 May 27 17:19 backup_machinemaster-102.yaml
--rw-r--r--. 1 root root      1156 May 27 17:22 backup_machinemaster-102_editted.yaml
--rw-r--r--. 1 root root      6936 May 27 17:50 master_bmh.yaml
--rw-r--r--. 1 root root       769 May 27 17:55 master_102_bmh.yaml
--rw-r--r--. 1 root root       177 May 27 19:06 bmc-credential-hub.yaml
--rw-r--r--. 1 root root       833 May 27 19:29 master-102_bmh_wih_secret.yaml
--rw-r--r--. 1 root root      2487 May 27 20:35 master-102_network_config.yaml
-[root@dom16hub101-infra-manager ~]# cat backup_machinemaster-102_editted.yaml
-apiVersion: machine.openshift.io/v1beta1
-kind: Machine
-metadata:
-  annotations:
-    machine.openshift.io/instance-state: unmanaged
-    metal3.io/BareMetalHost: openshift-machine-api/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-  finalizers:
-  - machine.machine.openshift.io
-  generation: 3
-  labels:
-    machine.openshift.io/cluster-api-cluster: ncpvblvhub-b6cjs
-    machine.openshift.io/cluster-api-machine-role: master
-    machine.openshift.io/cluster-api-machine-type: master
-  name: ncpvblvhub-b6cjs-master-1
-  namespace: openshift-machine-api
-spec:
-  lifecycleHooks:
-    preDrain:
-    - name: EtcdQuorumOperator
-      owner: clusteroperator/etcd
-  metadata: {}
-  providerID: baremetalhost:///openshift-machine-api/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab/346b01e0-6bb8-40bd-8db3-d3eabf4d44f1
-  providerSpec:
-    value:
-      apiVersion: baremetal.cluster.k8s.io/v1alpha1
-      customDeploy:
-        method: install_coreos
-      hostSelector: {}
-      image:
-        checksum: ""
-        url: ""
-      kind: BareMetalMachineProviderSpec
-      metadata:
-        creationTimestamp: null
-      userData:
-        name: master-user-data-managed
-[root@dom16hub101-infra-manager ~]# vim backup_machinemaster-102_editted.yaml
-[root@dom16hub101-infra-manager ~]# oc apply -f backup_machinemaster-102_editted.yaml
-machine.machine.openshift.io/ncpvblvhub-b6cjs-master-1 created
-[root@dom16hub101-infra-manager ~]# oc get machine.machine -n openshift-machine-api
-NAME                              PHASE          TYPE   REGION   ZONE   AGE
-ncpvblvhub-b6cjs-master-0         Running                               74d
-ncpvblvhub-b6cjs-master-1         Provisioning                          25s
-ncpvblvhub-b6cjs-master-2         Running                               74d
-ncpvblvhub-b6cjs-worker-0-mlq8w   Running                               74d
-ncpvblvhub-b6cjs-worker-0-x5dc5   Running                               74d
-[root@dom16hub101-infra-manager ~]# ls -lrt
-total 269344
--rw-------. 1 root root      1741 Feb 18 18:07 anaconda-ks.cfg
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Videos
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Templates
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Public
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Pictures
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Music
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Downloads
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Documents
-drwxr-xr-x. 2 root root         6 Feb 19 08:51 Desktop
-drwxr-xr-x. 3 root root        21 Feb 20 12:52 om
-drwxr-xr-x. 6 root root       185 Mar 14 14:19 abi-install
-drwxr-xr-x. 2 root root       152 Mar 25 21:17 storage-scale_fail
-drwxr-xr-x. 3 root root       159 Mar 26 16:28 site-config_prepare
-drwxr-xr-x. 4 root root        34 Mar 27 16:17 ztp
--rw-r--r--. 1 root root       902 Mar 27 16:51 oauth.yaml-hub
--rw-r--r--. 1 root root      1056 Mar 27 17:04 oauth.yaml
--rw-r--r--. 1 root root        67 Mar 27 17:49 users.htpasswd
--rw-r--r--. 1 root root        66 Mar 27 18:19 htpasswdlab
--rw-r--r--. 1 root root       794 Mar 27 18:32 oauth-nmc.yaml
--rw-r--r--. 1 root root         0 Mar 27 19:41 htpasswdnmc
--rw-r--r--. 1 root root      1119 Mar 27 21:03 tmolab1-api.pem
--rw-r--r--. 1 root root      1119 Mar 27 21:13 tmolab2-api.pem
--rw-r--r--. 1 root root       795 Mar 27 22:05 oauth_nwc1.yaml
--rw-r--r--. 1 root root       133 Mar 27 22:24 htpasswdcwl
--rw-r--r--. 1 root root        66 Mar 27 22:24 htpasswdnwc1
--rw-r--r--. 1 root root 112680960 Mar 28 16:18 minimal.iso
--rw-r--r--. 1 root root   4512768 Apr  2 16:02 busybox.tar
-drwxr-xr-x. 2 root root        49 Apr  7 17:46 healthcheck
--rw-------. 1 root root       596 Apr 17 12:21 ncpvblvmgt-kubeconfig
--rw-r--r--. 1 root root  40569495 Apr 29 18:12 quay-app1.log
--rw-r--r--. 1 root root  20354784 Apr 29 18:13 quay-app2.log
-drwxr-xr-x. 3 root root       113 Apr 29 20:08 odf_mustgather
-drwxr-xr-x. 7 root root      4096 Apr 29 20:10 must-gather
-drwxr-xr-x. 3 root root       113 Apr 29 20:13 must-gather.local.3662385339567218798
-drwxr-xr-x. 3 root root      4096 Apr 29 20:17 must-gather.local.7225453970769055250
--rw-r--r--. 1 root root      8458 May  1 20:26 multiclusterhub.yaml_backup
-drwxr-xr-x. 2 root root        71 May  1 21:25 acm-backup
--rw-r--r--. 1 root root     11553 May  2 13:44 oc_bash_completion
-drwxr-xr-x. 8 root root      4096 May  6 16:32 NCP24_7_MP1
-drwxr-xr-x. 3 root root        46 May  7 15:24 netact
-drwxr-xr-x. 2 root root        87 May  7 15:30 hubnetactCerts
--rw-r--r--. 1 root root      1463 May 13 21:04 cluster-monitoring-config.yaml
-drwxr-xr-x. 2 root root       181 May 21 14:01 kubeconfig
--rw-r--r--. 1 root root   1726769 May 26 11:10 ncdvblv-engine-cdn-788d667887-2klww.txt
--rw-r--r--. 1 root root   1370683 May 26 11:11 ncdvblv-engine-cdn-788d667887-bzz7b.txt
--rw-r--r--. 1 root root  15048264 May 26 11:12 ncdvblv-engine-operations-6c858765d6-s9bn8.txt
--rw-r--r--. 1 root root  15059439 May 26 11:12 ncdvblv-engine-operations-6c858765d6-shwmp.txt
--rw-r--r--. 1 root root  25747580 May 26 11:13 ncdvblv-engine-repo-7755f9fc45-7j2sf.txt
--rw-r--r--. 1 root root  38584969 May 26 11:13 ncdvblv-engine-repo-7755f9fc45-vk8hb.txt
--rw-r--r--. 1 root root      3052 May 26 11:15 ncdvblv-engine-repoworker-646c6d958-d2dr6.txt
--rw-r--r--. 1 root root      3052 May 26 11:15 ncdvblv-engine-repoworker-646c6d958-x9jlh.txt
-drwxr-xr-x. 3 root root      4096 May 27 16:10 mini-atp
--rw-r--r--. 1 root root      2370 May 27 17:19 backup_machinemaster-102.yaml
--rw-r--r--. 1 root root      6936 May 27 17:50 master_bmh.yaml
--rw-r--r--. 1 root root       769 May 27 17:55 master_102_bmh.yaml
--rw-r--r--. 1 root root       177 May 27 19:06 bmc-credential-hub.yaml
--rw-r--r--. 1 root root       833 May 27 19:29 master-102_bmh_wih_secret.yaml
--rw-r--r--. 1 root root      2487 May 27 20:35 master-102_network_config.yaml
--rw-r--r--. 1 root root       788 May 27 21:04 backup_machinemaster-102_editted.yaml
-[root@dom16hub101-infra-manager ~]# cat master-102_bmh_wih_secret.yaml
-apiVersion: metal3.io/v1alpha1
-kind: BareMetalHost
-metadata:
-  name: ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab
-  namespace: openshift-machine-api
-spec:
-  automatedCleaningMode: disabled
-  bmc:
-    address: idrac-virtualmedia://10.145.151.15/redfish/v1/Systems/System.Embedded.1    #this is for dell server , for HP or other vendor check virtual media path
-    credentialsName: control-plane-3-bmc-secret
-    disableCertificateVerification: True
-  bootMACAddress: c4:70:bd:f9:7f:48
-  bootMode: UEFISecureBoot
-  externallyProvisioned: false
-  hardwareProfile: unknown
-  online: true
-  rootDeviceHints:
-    deviceName: /dev/disk/by-path/pci-0000:4a:00.0-scsi-0:2:0:0
-  userData:
-    name: master-user-data-managed
-    namespace: openshift-machine-api
-  preprovisioningNetworkDataName: openshift-master-102-network-config-secret
-[root@dom16hub101-infra-manager ~]# oc get machine.machine -n openshift-machine-api
-NAME                              PHASE          TYPE   REGION   ZONE   AGE
-ncpvblvhub-b6cjs-master-0         Running                               74d
-ncpvblvhub-b6cjs-master-1         Provisioning                          115s
-ncpvblvhub-b6cjs-master-2         Running                               74d
-ncpvblvhub-b6cjs-worker-0-mlq8w   Running                               74d
-ncpvblvhub-b6cjs-worker-0-x5dc5   Running                               74d
-[root@dom16hub101-infra-manager ~]# oc get machine.machine -n openshift-machine-api
-NAME                              PHASE          TYPE   REGION   ZONE   AGE
-ncpvblvhub-b6cjs-master-0         Running                               74d
-ncpvblvhub-b6cjs-master-1         Provisioning                          2m28s
-ncpvblvhub-b6cjs-master-2         Running                               74d
-ncpvblvhub-b6cjs-worker-0-mlq8w   Running                               74d
-ncpvblvhub-b6cjs-worker-0-x5dc5   Running                               74d
-[root@dom16hub101-infra-manager ~]# watch oc get machine.machine -n openshift-machine-api
-[root@dom16hub101-infra-manager ~]# oc get no
-NAME                                               STATUS   ROLES                                 AGE                                                                                                            VERSION
-ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d                                                                                                            v1.29.10+67d3387
-ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d                                                                                                            v1.29.10+67d3387
-ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   Ready    gateway,worker                        74d                                                                                                            v1.29.10+67d3387
-ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   Ready    gateway,worker                        74d                                                                                                            v1.29.10+67d3387
-[root@dom16hub101-infra-manager ~]# oc get bmh -A
-NAMESPACE               NAME                                               STATE         CONSUMER                                                                                                                                   ONLINE   ERROR   AGE
-ncpvblvlab1             ncpvblvlab1-master-101.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             54d
-ncpvblvlab1             ncpvblvlab1-master-102.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             53d
-ncpvblvlab1             ncpvblvlab1-master-201.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             54d
-ncpvblvlab1             ncpvblvlab1-storage-101.ncpvblvlab1.t-mobile.lab   provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-storage-102.ncpvblvlab1.t-mobile.lab   provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-storage-103.ncpvblvlab1.t-mobile.lab   provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-storage-201.ncpvblvlab1.t-mobile.lab   provisioned                                                                                                                                              true             62d
-ncpvblvlab1             ncpvblvlab1-storage-202.ncpvblvlab1.t-mobile.lab   provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-storage-203.ncpvblvlab1.t-mobile.lab   provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-101.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-102.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-103.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-104.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-105.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-106.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-107.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-108.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-109.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-110.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-111.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-112.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-113.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-114.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-115.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-116.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-117.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-118.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-119.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-120.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-121.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-122.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-201.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-202.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-203.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-204.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-205.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-206.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-207.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-208.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-209.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             26d
-ncpvblvlab1             ncpvblvlab1-worker-210.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-211.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-212.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-213.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-214.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-215.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-216.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-217.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             53d
-ncpvblvlab1             ncpvblvlab1-worker-218.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-219.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-220.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             62d
-ncpvblvlab1             ncpvblvlab1-worker-221.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab1             ncpvblvlab1-worker-222.ncpvblvlab1.t-mobile.lab    provisioned                                                                                                                                              true             64d
-ncpvblvlab2             ncpvblvlab2-master-101.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             21d
-ncpvblvlab2             ncpvblvlab2-master-102.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-master-201.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-storage-101.ncpvblvlab2.t-mobile.lab   provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-storage-102.ncpvblvlab2.t-mobile.lab   provisioned                                                                                                                                              true             60d
-ncpvblvlab2             ncpvblvlab2-storage-103.ncpvblvlab2.t-mobile.lab   provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-storage-201.ncpvblvlab2.t-mobile.lab   provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-storage-202.ncpvblvlab2.t-mobile.lab   provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-storage-203.ncpvblvlab2.t-mobile.lab   provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-101.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-102.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-103.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-104.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-105.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-106.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-107.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-108.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-109.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-110.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-111.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-112.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-113.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-114.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-115.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-116.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-117.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-118.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-119.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-120.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-121.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-122.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             57d
-ncpvblvlab2             ncpvblvlab2-worker-201.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-202.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-203.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-204.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-205.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-206.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-207.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-208.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-209.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-210.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-211.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-212.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-213.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-214.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             55d
-ncpvblvlab2             ncpvblvlab2-worker-215.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-216.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-217.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-218.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-219.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-220.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-221.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvlab2             ncpvblvlab2-worker-222.ncpvblvlab2.t-mobile.lab    provisioned                                                                                                                                              true             61d
-ncpvblvmgt              ncpvblvmgt-gateway-101.ncpvblvmgt.t-mobile.lab     provisioned                                                                                                                                              true             25d
-ncpvblvmgt              ncpvblvmgt-gateway-102.ncpvblvmgt.t-mobile.lab     provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-master-101.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             20d
-ncpvblvmgt              ncpvblvmgt-master-102.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-master-103.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-storage-101.ncpvblvmgt.t-mobile.lab     provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-storage-102.ncpvblvmgt.t-mobile.lab     provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-storage-103.ncpvblvmgt.t-mobile.lab     provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-storage-104.ncpvblvmgt.t-mobile.lab     provisioned                                                                                                                                              true             25d
-ncpvblvmgt              ncpvblvmgt-worker-101.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-worker-102.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-worker-103.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-worker-104.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-worker-105.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-worker-106.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-worker-107.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             26d
-ncpvblvmgt              ncpvblvmgt-worker-108.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-worker-109.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-ncpvblvmgt              ncpvblvmgt-worker-110.ncpvblvmgt.t-mobile.lab      provisioned                                                                                                                                              true             69d
-openshift-machine-api   ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   unmanaged     ncpvblvhub-b                                                                                                         6cjs-master-0         true             74d
-openshift-machine-api   ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   provisioned   ncpvblvhub-b                                                                                                         6cjs-master-1         true             37m
-openshift-machine-api   ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   unmanaged     ncpvblvhub-b                                                                                                         6cjs-master-2         true             74d
-openshift-machine-api   ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   unmanaged     ncpvblvhub-b                                                                                                         6cjs-worker-0-mlq8w   true             74d
-openshift-machine-api   ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   unmanaged     ncpvblvhub-b                                                                                                         6cjs-worker-0-x5dc5   true             74d
+8) At last node successfully added back to the cluster here. 
+```
 [root@dom16hub101-infra-manager ~]# oc get no
 NAME                                               STATUS   ROLES                                 AGE                                                                                                            VERSION
 ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d                                                                                                            v1.29.10+67d3387
@@ -1680,6 +849,23 @@ ncpvblvhub-b6cjs-master-1         Running                          15m
 ncpvblvhub-b6cjs-master-2         Running                          74d
 ncpvblvhub-b6cjs-worker-0-mlq8w   Running                          74d
 ncpvblvhub-b6cjs-worker-0-x5dc5   Running                          74d
+[root@dom16hub101-infra-manager ~]# oc get no
+NAME                                               STATUS   ROLES                                 AGE    VERSION
+ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d    v1.29.10+67d3387
+ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,worker           110s   v1.29.10+67d3387
+ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d    v1.29.10+67d3387
+ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   Ready    gateway,worker                        74d    v1.29.10+67d3387
+ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   Ready    gateway,worker                        74d    v1.29.10+67d3387
+[root@dom16hub101-infra-manager ~]#
+```
+
+
+
+### Verifying etcd
+
+1) Verify the etcd-guard-<nodename> and etcd-<nodename> pods are started and all containers of it are in running state in the openshift-etcd namespace.
+
+```
 [root@dom16hub101-infra-manager ~]# oc get no
 NAME                                               STATUS   ROLES                                 AGE    VERSION
 ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d    v1.29.10+67d3387
@@ -1770,83 +956,7 @@ operator-lifecycle-manager-catalog         4.16.24   True        False         F
 operator-lifecycle-manager-packageserver   4.16.24   True        False         False      74d
 service-ca                                 4.16.24   True        False         False      74d
 storage                                    4.16.24   True        False         False      74d
-[root@dom16hub101-infra-manager ~]# oc get co
-NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
-authentication                             4.16.24   True        False         False      3h49m
-baremetal                                  4.16.24   True        False         False      74d
-cloud-controller-manager                   4.16.24   True        False         False      74d
-cloud-credential                           4.16.24   True        False         False      74d
-cluster-autoscaler                         4.16.24   True        False         False      74d
-config-operator                            4.16.24   True        False         False      74d
-console                                    4.16.24   True        False         False      74d
-control-plane-machine-set                  4.16.24   True        False         False      74d
-csi-snapshot-controller                    4.16.24   True        False         False      74d
-dns                                        4.16.24   True        False         False      74d
-etcd                                       4.16.24   True        True          False      74d     NodeInstallerProgressing: 1 node is at revision 15; 2 nodes are at revision 17
-image-registry                             4.16.24   True        False         False      74d
-ingress                                    4.16.24   True        False         False      74d
-insights                                   4.16.24   True        False         False      74d
-kube-apiserver                             4.16.24   True        True          False      74d     NodeInstallerProgressing: 2 nodes are at revision 60; 1 node is at revision 61
-kube-controller-manager                    4.16.24   True        False         False      74d
-kube-scheduler                             4.16.24   True        False         False      74d
-kube-storage-version-migrator              4.16.24   True        False         False      13d
-machine-api                                4.16.24   True        False         False      74d
-machine-approver                           4.16.24   True        False         False      74d
-machine-config                             4.16.24   True        False         True       74d     Failed to resync 4.16.24 because: error during syncRequiredMachineConfigPools: [context deadline exceeded, failed to update clusteroperator: [client rate limiter Wait returned an error: context deadline exceeded, error MachineConfigPool worker is not ready, retrying. Status: (pool degraded: true total: 2, ready 1, updated: 1, unavailable: 1)]]
-marketplace                                4.16.24   True        False         False      74d
-monitoring                                 4.16.24   Unknown     True          Unknown    36m     Rolling out the stack.
-network                                    4.16.24   True        False         False      74d
-node-tuning                                4.16.24   True        False         False      7m27s
-openshift-apiserver                        4.16.24   True        False         False      4h18m
-openshift-controller-manager               4.16.24   True        False         False      74d
-openshift-samples                          4.16.24   True        False         False      74d
-operator-lifecycle-manager                 4.16.24   True        False         False      74d
-operator-lifecycle-manager-catalog         4.16.24   True        False         False      74d
-operator-lifecycle-manager-packageserver   4.16.24   True        False         False      74d
-service-ca                                 4.16.24   True        False         False      74d
-storage                                    4.16.24   True        False         False      74d
-[root@dom16hub101-infra-manager ~]# oc get co
-NAME                                       VERSION   AVAILABLE   PROGRESSING   DEGRADED   SINCE   MESSAGE
-authentication                             4.16.24   True        False         False      3h49m
-baremetal                                  4.16.24   True        False         False      74d
-cloud-controller-manager                   4.16.24   True        False         False      74d
-cloud-credential                           4.16.24   True        False         False      74d
-cluster-autoscaler                         4.16.24   True        False         False      74d
-config-operator                            4.16.24   True        False         False      74d
-console                                    4.16.24   True        False         False      74d
-control-plane-machine-set                  4.16.24   True        False         False      74d
-csi-snapshot-controller                    4.16.24   True        False         False      74d
-dns                                        4.16.24   True        False         False      74d
-etcd                                       4.16.24   True        True          False      74d     NodeInstallerProgressing: 1 node is at revision 15; 2 nodes are at revision 17
-image-registry                             4.16.24   True        False         False      74d
-ingress                                    4.16.24   True        False         False      74d
-insights                                   4.16.24   True        False         False      74d
-kube-apiserver                             4.16.24   True        True          False      74d     NodeInstallerProgressing: 2 nodes are at revision 60; 1 node is at revision 61
-kube-controller-manager                    4.16.24   True        False         False      74d
-kube-scheduler                             4.16.24   True        False         False      74d
-kube-storage-version-migrator              4.16.24   True        False         False      13d
-machine-api                                4.16.24   True        False         False      74d
-machine-approver                           4.16.24   True        False         False      74d
-machine-config                             4.16.24   True        False         True       74d     Failed to resync 4.16.24 because: error during syncRequiredMachineConfigPools: [context deadline exceeded, failed to update clusteroperator: [client rate limiter Wait returned an error: context deadline exceeded, error MachineConfigPool worker is not ready, retrying. Status: (pool degraded: true total: 2, ready 1, updated: 1, unavailable: 1)]]
-marketplace                                4.16.24   True        False         False      74d
-monitoring                                 4.16.24   Unknown     True          Unknown    37m     Rolling out the stack.
-network                                    4.16.24   True        False         False      74d
-node-tuning                                4.16.24   True        False         False      7m34s
-openshift-apiserver                        4.16.24   True        False         False      4h18m
-openshift-controller-manager               4.16.24   True        False         False      74d
-openshift-samples                          4.16.24   True        False         False      74d
-operator-lifecycle-manager                 4.16.24   True        False         False      74d
-operator-lifecycle-manager-catalog         4.16.24   True        False         False      74d
-operator-lifecycle-manager-packageserver   4.16.24   True        False         False      74d
-service-ca                                 4.16.24   True        False         False      74d
-storage                                    4.16.24   True        False         False      74d
-[root@dom16hub101-infra-manager ~]# oc exec -it $(oc -n openshift-etcd get pods -l k8s-app=etcd -o wide --no-headers |grep -v $master|head -n 1|awk {'print $1'}) -n openshift-etcd -- etcdctl endpoint health
-{"level":"warn","ts":"2025-05-27T21:26:31.196422Z","logger":"client","caller":"v3@v3.5.14/retry_interceptor.go:63","msg":"retrying of unary invoker failed","target":"etcd-endpoints://0xc0001f2000/10.145.151.93:2379","attempt":0,"error":"rpc error: code = DeadlineExceeded desc = latest balancer error: last connection error: connection error: desc = \"transport: Error while dialing: dial tcp 10.145.151.93:2379: connect: connection refused\""}
-https://10.145.151.94:2379 is healthy: successfully committed proposal: took = 6.840096ms
-https://10.145.151.92:2379 is healthy: successfully committed proposal: took = 6.962661ms
-https://10.145.151.93:2379 is unhealthy: failed to commit proposal: context deadline exceeded
-Error: unhealthy cluster
-command terminated with exit code 1
+
 [root@dom16hub101-infra-manager ~]# watch -n 5 oc get co
 [root@dom16hub101-infra-manager ~]# oc exec -it $(oc -n openshift-etcd get pods -l k8s-app=etcd -o wide --no-headers |grep -v $master|head -n 1|awk {'print $1'}) -n openshift-etcd -- etcdctl endpoint health
 https://10.145.151.93:2379 is healthy: successfully committed proposal: took = 6.998079ms
@@ -1854,7 +964,28 @@ https://10.145.151.92:2379 is healthy: successfully committed proposal: took = 7
 https://10.145.151.94:2379 is healthy: successfully committed proposal: took = 7.997677ms
 [root@dom16hub101-infra-manager ~]# oc patch etcd/cluster --type=merge -p '{"spec": {"unsupportedConfigOverrides": null}}'
 etcd.operator.openshift.io/cluster patched
-[root@dom16hub101-infra-manager ~]# oc get pods -n openshift-local-storage -o wide
+[root@dom16hub101-infra-manager ~]# 
+
+```
+
+### Adding back the OSDs
+
+1) The OSDs are automatically added, after the PVs are created by the Local Storage Operator.
+
+2) After adding the labels back to the node (which was applied initially during the deployment) including the `cluster.ocs.openshift.io/openshift-storage`, the Local Storage Operator’s two daemonsets pods will be scheduled on this node as well, namely the
+diskmaker discovery and the diskmaker manager. 
+
+3) The discovery will inspect the node for available disks while the manager will create the PVs which will be used by ODF.
+
+oc get pods -n openshift-local-storage -o wide
+
+4) After the new PVs are created the new OSDs deployments will be recreated and OSD pods and mon pod will start automatically.
+
+5) If those would not start automatically for some reason, the rook-ceph-operator pod shall be restarted.
+
+```
+
+[root@dom16hub101-infra-manager ~]#oc get pods -n openshift-local-storage -o wide
 NAME                                      READY   STATUS    RESTARTS        AGE   IP             NODE                                               NOMINATED NODE   READINESS GATES
 diskmaker-discovery-6mcrl                 2/2     Running   4               71d   172.20.0.163   ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   <none>           <none>
 diskmaker-discovery-9htrb                 2/2     Running   6               71d   172.20.2.141   ncpvblvhub-hubmaster-101.ncpvblvhub.t-mobile.lab   <none>           <none>
@@ -1873,103 +1004,6 @@ ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab   Ready    control-plane,master
 ncpvblvhub-hubmaster-103.ncpvblvhub.t-mobile.lab   Ready    control-plane,master,monitor,worker   74d   v1.29.10+67d3387
 ncpvblvhub-hubworker-101.ncpvblvhub.t-mobile.lab   Ready    gateway,worker                        74d   v1.29.10+67d3387
 ncpvblvhub-hubworker-102.ncpvblvhub.t-mobile.lab   Ready    gateway,worker                        74d   v1.29.10+67d3387
-[root@dom16hub101-infra-manager ~]# oc label node ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab cluster.ocs.openshift.io/openshift-storage
-error: at least one label update is required
-[root@dom16hub101-infra-manager ~]# oc label node ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab --help
-Update the labels on a resource.
-
-  *  A label key and value must begin with a letter or number, and may contain letters, numbers, hyphens, dots, and
-underscores, up to 63 characters each.
-  *  Optionally, the key can begin with a DNS subdomain prefix and a single '/', like example.com/my-app.
-  *  If --overwrite is true, then existing labels can be overwritten, otherwise attempting to overwrite a label will
-result in an error.
-  *  If --resource-version is specified, then updates will use this resource version, otherwise the existing
-resource-version will be used.
-
-Examples:
-  # Update pod 'foo' with the label 'unhealthy' and the value 'true'
-  oc label pods foo unhealthy=true
-
-  # Update pod 'foo' with the label 'status' and the value 'unhealthy', overwriting any existing value
-  oc label --overwrite pods foo status=unhealthy
-
-  # Update all pods in the namespace
-  oc label pods --all status=unhealthy
-
-  # Update a pod identified by the type and name in "pod.json"
-  oc label -f pod.json status=unhealthy
-
-  # Update pod 'foo' only if the resource is unchanged from version 1
-  oc label pods foo status=unhealthy --resource-version=1
-
-  # Update pod 'foo' by removing a label named 'bar' if it exists
-  # Does not require the --overwrite flag
-  oc label pods foo bar-
-
-Options:
-    --all=false:
-        Select all resources, in the namespace of the specified resource types
-
-    -A, --all-namespaces=false:
-        If true, check the specified action in all namespaces.
-
-    --allow-missing-template-keys=true:
-        If true, ignore any errors in templates when a field or map key is missing in the template. Only applies to
-        golang and jsonpath output formats.
-
-    --dry-run='none':
-        Must be "none", "server", or "client". If client strategy, only print the object that would be sent, without
-        sending it. If server strategy, submit server-side request without persisting the resource.
-
-    --field-manager='kubectl-label':
-        Name of the manager used to track field ownership.
-
-    --field-selector='':
-        Selector (field query) to filter on, supports '=', '==', and '!='.(e.g. --field-selector
-        key1=value1,key2=value2). The server only supports a limited number of field queries per type.
-
-    -f, --filename=[]:
-        Filename, directory, or URL to files identifying the resource to update the labels
-
-    -k, --kustomize='':
-        Process the kustomization directory. This flag can't be used together with -f or -R.
-
-    --list=false:
-        If true, display the labels for a given resource.
-
-    --local=false:
-        If true, label will NOT contact api-server but run locally.
-
-    -o, --output='':
-        Output format. One of: (json, yaml, name, go-template, go-template-file, template, templatefile, jsonpath,
-        jsonpath-as-json, jsonpath-file).
-
-    --overwrite=false:
-        If true, allow labels to be overwritten, otherwise reject label updates that overwrite existing labels.
-
-    -R, --recursive=false:
-        Process the directory used in -f, --filename recursively. Useful when you want to manage related manifests
-        organized within the same directory.
-
-    --resource-version='':
-        If non-empty, the labels update will only succeed if this is the current resource-version for the object. Only
-        valid when specifying a single resource.
-
-    -l, --selector='':
-        Selector (label query) to filter on, supports '=', '==', and '!='.(e.g. -l key1=value1,key2=value2). Matching
-        objects must satisfy all of the specified label constraints.
-
-    --show-managed-fields=false:
-        If true, keep the managedFields when printing objects in JSON or YAML format.
-
-    --template='':
-        Template string or path to template file to use when -o=go-template, -o=go-template-file. The template format
-        is golang templates [http://golang.org/pkg/text/template/#pkg-overview].
-
-Usage:
-  oc label [--overwrite] (-f FILENAME | TYPE NAME) KEY_1=VAL_1 ... KEY_N=VAL_N [--resource-version=version] [options]
-
-Use "oc options" for a list of global command-line options (applies to all commands).
 [root@dom16hub101-infra-manager ~]# oc label node ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab cluster.ocs.openshift.io/openshift-storage=
 node/ncpvblvhub-hubmaster-102.ncpvblvhub.t-mobile.lab labeled
 [root@dom16hub101-infra-manager ~]# oc get no -l  cluster.ocs.openshift.io/openshift-storage
@@ -2590,3 +1624,8 @@ storage                                    4.16.24   True        False         F
     recovery: 155 MiB/s, 41 objects/s
 
 [root@dom16hub101-infra-manager ~]#
+
+
+```
+
+> Continue the same steps for `master1` and `master3` as well, if you want to replace all three master nodes. 
