@@ -2,6 +2,14 @@
 
 > Here is the steps to do the master replacement on the hub cluster.  Dont use this steps for NMC/NWC.  
 
+## Customer Details
+
+1) This mop is created for oneweb cluster and since nokia automation tool populated incorrect /prefix for master node. 
+2) for Oneweb london site, hub cluster having two nodes with incorrect /prefix problem.
+
+## Duration
+
+* [It will take 4 hours per node + 1 hour buffer. totall 10 hours for two servers.]
 
 ## Highlevel Steps
 
