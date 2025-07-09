@@ -4,12 +4,20 @@
 
 ## Customer Details
 
-1) This mop is created for oneweb cluster and since nokia automation tool populated incorrect /prefix for master node. 
-2) for Oneweb london site, hub cluster having two nodes with incorrect /prefix problem.
+1) This mop is created for oneweb cluster and since nokia automation tool populated incorrect `/prefix` for master node. 
+
+2) for Oneweb london site, hub cluster having two nodes with incorrect `/prefix` problem.
+
 
 ## Duration
 
-* [It will take 4 hours per node + 1 hour buffer. totall 10 hours for two servers.]
+* [It will take 4 hours per node + 1 hour buffer. totall 10 hours for two servers.](#duration)
+
+## Impact
+
+* [CWL cluster LCM operation should be impacted](#impact)
+* [CNF installed on the CWL cluster remains undistrubed, because hub quay will be time to time unaccess. So application onboarding process may make hub quay to be stressed.](#impact)
+
 
 ## Highlevel Steps
 
