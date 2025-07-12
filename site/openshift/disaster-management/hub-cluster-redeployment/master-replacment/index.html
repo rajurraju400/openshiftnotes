@@ -1657,6 +1657,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#customer-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customer Details
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Duration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#highlevel-steps" class="md-nav__link">
     <span class="md-ellipsis">
       Highlevel Steps
@@ -1818,6 +1845,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#customer-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customer Details
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Duration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#highlevel-steps" class="md-nav__link">
     <span class="md-ellipsis">
       Highlevel Steps
@@ -1948,6 +2002,18 @@
 <blockquote>
 <p>Here is the steps to do the master replacement on the hub cluster.  Dont use this steps for NMC/NWC.  </p>
 </blockquote>
+<h2 id="customer-details">Customer Details<a class="headerlink" href="#customer-details" title="Permanent link">&para;</a></h2>
+<p>1) This mop is created for oneweb cluster and since nokia automation tool populated incorrect <code>/prefix</code> for master node. </p>
+<p>2) for Oneweb london site, hub cluster having two nodes with incorrect <code>/prefix</code> problem.</p>
+<h2 id="duration">Duration<a class="headerlink" href="#duration" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#duration">It will take 4 hours per node + 1 hour buffer. totall 10 hours for two servers.</a></li>
+</ul>
+<h2 id="impact">Impact<a class="headerlink" href="#impact" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="#impact">CWL cluster LCM operation should be impacted</a></li>
+<li><a href="#impact">CNF installed on the CWL cluster remains undistrubed, because hub quay will be time to time unaccess. So application onboarding process may make hub quay to be stressed.</a></li>
+</ul>
 <h2 id="highlevel-steps">Highlevel Steps<a class="headerlink" href="#highlevel-steps" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="#removing-the-failed-node-from-the-cluster">Removing the failed node from the cluster</a></li>

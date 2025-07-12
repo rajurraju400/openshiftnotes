@@ -57,6 +57,7 @@ nav:
           - Role Allocation for CNF user: openshift/CNF-onboarding-support/rolebinding.md
           - Failed to configure or Degraded: openshift/CNF-onboarding-support/Failtoconfigure_nncp.md
           - Kubeconfig overlapping: openshift/CNF-onboarding-support/kubeconfig.md
+          - NCP Standard user and role Management: openshift/CNF-onboarding-support/NCP-default-usersandrole.md
 
       - Maintenance:
           - Cluster Stop/Start: openshift/maintenace/cluster-stop-start.md
