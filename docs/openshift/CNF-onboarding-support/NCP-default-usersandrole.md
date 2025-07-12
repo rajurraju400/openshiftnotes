@@ -171,9 +171,9 @@ rules:
 2) Bind the role:
 
 ```bash
-oc create clusterrolebinding ncp-default-cnf-role-pppcf01-binding \
+oc create clusterrolebinding ncp-default-cnf-role-ppaaa01-binding \
   --clusterrole=ncp-default-cnf-role \
-  --user=pppcf01
+  --user=ppaaa01
 ```
 
 3) Validate access:

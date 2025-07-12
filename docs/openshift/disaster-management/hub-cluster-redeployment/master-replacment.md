@@ -29,6 +29,54 @@
 
 ## Removing the failed node from the cluster 
 
+### ETCD backup for master nodes. 
+
+
+1) Start a debug session for a control plane node:
+
+```
+oc debug node/<node_name>
+```
+
+2) Change your root directory to /host:
+
+```
+chroot /host
+```
+
+3) If the cluster-wide proxy is enabled, be sure that you have exported the NO_PROXY, HTTP_PROXY, and HTTPS_PROXY environment variables. (optional)
+
+
+4) Run the cluster-backup.sh script and pass in the location to save the backup to.
+
+
+```
+sh-4.4# /usr/local/bin/cluster-backup.sh /home/core/assets/backup
+```
+`Example script output `
+
+```
+found latest kube-apiserver: /etc/kubernetes/static-pod-resources/kube-apiserver-pod-6
+found latest kube-controller-manager: /etc/kubernetes/static-pod-resources/kube-controller-manager-pod-7
+found latest kube-scheduler: /etc/kubernetes/static-pod-resources/kube-scheduler-pod-6
+found latest etcd: /etc/kubernetes/static-pod-resources/etcd-pod-3
+ede95fe6b88b87ba86a03c15e669fb4aa5bf0991c180d3c6895ce72eaade54a1
+etcdctl version: 3.4.14
+API version: 3.4
+{"level":"info","ts":1624647639.0188997,"caller":"snapshot/v3_snapshot.go:119","msg":"created temporary db file","path":"/home/core/assets/backup/snapshot_2021-06-25_190035.db.part"}
+{"level":"info","ts":"2021-06-25T19:00:39.030Z","caller":"clientv3/maintenance.go:200","msg":"opened snapshot stream; downloading"}
+{"level":"info","ts":1624647639.0301006,"caller":"snapshot/v3_snapshot.go:127","msg":"fetching snapshot","endpoint":"https://10.0.0.5:2379"}
+{"level":"info","ts":"2021-06-25T19:00:40.215Z","caller":"clientv3/maintenance.go:208","msg":"completed snapshot read; closing"}
+{"level":"info","ts":1624647640.6032252,"caller":"snapshot/v3_snapshot.go:142","msg":"fetched snapshot","endpoint":"https://10.0.0.5:2379","size":"114 MB","took":1.584090459}
+{"level":"info","ts":1624647640.6047094,"caller":"snapshot/v3_snapshot.go:152","msg":"saved","path":"/home/core/assets/backup/snapshot_2021-06-25_190035.db"}
+Snapshot saved at /home/core/assets/backup/snapshot_2021-06-25_190035.db
+{"hash":3866667823,"revision":31407,"totalKey":12828,"totalSize":114446336}
+snapshot db and kube resources are successfully saved to /home/core/assets/backup
+
+```
+
+> Transfer the backup files locally on the `infra-manager` node.
+
 ### Identifying the failed control plane node
 
 1) First identify which node is the failed one, e.g. which is in NotReady state, using the `oc get nodes` command.
