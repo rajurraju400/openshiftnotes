@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../../CNF-onboarding-support/NCP-default-usersandrole/">
+        <link rel="prev" href="../kubeconfig/">
       
       
-        <link rel="next" href="../reboot-nodes/">
+        <link rel="next" href="../../maintenace/cluster-stop-start/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Cluster Stop/Start - OpenShift Notes</title>
+        <title>NCP Standard user and role Management - OpenShift Notes</title>
       
     
     
@@ -77,6 +77,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ncp-users-and-roles-as-delivery" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -108,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Cluster Stop/Start
+              NCP Standard user and role Management
             
           </span>
         </div>
@@ -940,18 +945,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
         
           
           <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
@@ -967,7 +974,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_6">
             <span class="md-nav__icon md-icon"></span>
             CNF Onboarding Support
@@ -981,7 +988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/image-tls-issue/" class="md-nav__link">
+      <a href="../image-tls-issue/" class="md-nav__link">
         
   
   
@@ -1004,7 +1011,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/oclogin-tls-issue/" class="md-nav__link">
+      <a href="../oclogin-tls-issue/" class="md-nav__link">
         
   
   
@@ -1027,7 +1034,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/proxy-cache-pod/" class="md-nav__link">
+      <a href="../proxy-cache-pod/" class="md-nav__link">
         
   
   
@@ -1050,7 +1057,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/rolebinding/" class="md-nav__link">
+      <a href="../rolebinding/" class="md-nav__link">
         
   
   
@@ -1073,7 +1080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/Failtoconfigure_nncp/" class="md-nav__link">
+      <a href="../Failtoconfigure_nncp/" class="md-nav__link">
         
   
   
@@ -1096,7 +1103,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/kubeconfig/" class="md-nav__link">
+      <a href="../kubeconfig/" class="md-nav__link">
         
   
   
@@ -1116,10 +1123,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../CNF-onboarding-support/NCP-default-usersandrole/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    NCP Standard user and role Management
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1130,6 +1159,110 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#users-and-role-management-on-hub-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Users and Role management on HUB cluster
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#users-and-role-management-on-nmcnwc-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Users and Role management on NMC/NWC clusters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Users and Role management on NMC/NWC clusters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-admin-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster-Admin Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role-management-for-cnf-users-on-nmcnwc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Management for CNF users on NMC/NWC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Role Management for CNF users on NMC/NWC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#admin-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-attachment-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Attachment Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cbur-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      CBUR Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-only-cluster-infra-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read-Only Cluster Infra Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1147,20 +1280,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_7" >
         
           
           <label class="md-nav__link" for="__nav_3_7" id="__nav_3_7_label" tabindex="0">
@@ -1176,7 +1307,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_7">
             <span class="md-nav__icon md-icon"></span>
             Maintenance
@@ -1187,17 +1318,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../maintenace/cluster-stop-start/" class="md-nav__link">
         
   
   
@@ -1208,7 +1332,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -1221,7 +1344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reboot-nodes/" class="md-nav__link">
+      <a href="../../maintenace/reboot-nodes/" class="md-nav__link">
         
   
   
@@ -1683,6 +1806,100 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#users-and-role-management-on-hub-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Users and Role management on HUB cluster
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#users-and-role-management-on-nmcnwc-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Users and Role management on NMC/NWC clusters
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Users and Role management on NMC/NWC clusters">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-admin-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster-Admin Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role-management-for-cnf-users-on-nmcnwc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Management for CNF users on NMC/NWC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Role Management for CNF users on NMC/NWC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#admin-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#network-attachment-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Attachment Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cbur-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      CBUR Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#read-only-cluster-infra-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Read-Only Cluster Infra Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -1698,9 +1915,171 @@
 
 
 
-  <h1>Cluster Stop/Start</h1>
+<h1 id="ncp-users-and-roles-as-delivery">NCP  user's and role's as delivery<a class="headerlink" href="#ncp-users-and-roles-as-delivery" title="Permanent link">&para;</a></h1>
+<p>This document outlines the list of approved user IDs and their associated access levels as permitted by management. It serves as a reference for the NCP engineering team to ensure that user and role configurations are strictly within the defined scope. No actions should be taken beyond what is specified in this document.</p>
+<blockquote>
+<p>Note: All user IDs and privileges must be provisioned exactly as outlined above. Any deviations or additional access requests require explicit approval from management.</p>
+</blockquote>
+<h2 id="users-and-role-management-on-hub-cluster">Users and Role management on HUB cluster<a class="headerlink" href="#users-and-role-management-on-hub-cluster" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>For <code>Administrator</code> level privileges</p>
+</blockquote>
+<ul>
+<li>
+<p><code>ncpadmin–</code> <code>cluster-admin</code> role – for the NCP team (our team).</p>
+</li>
+<li>
+<p><code>ncdadmin</code> – <code>cluster-admin</code> role – for the NCD team. This user will be used for NCD git installation (our team)and shared with the NCD team for ongoing lifecycle management.</p>
+</li>
+</ul>
+<h2 id="users-and-role-management-on-nmcnwc-clusters">Users and Role management on NMC/NWC clusters<a class="headerlink" href="#users-and-role-management-on-nmcnwc-clusters" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>For <code>Administrator</code> level privileges</p>
+</blockquote>
+<ul>
+<li>
+<p><code>ncpadmin</code> – <code>cluster-admin</code> role – for the NCP team (our team).</p>
+</li>
+<li>
+<p><code>ncdadmin</code> – <code>cluster-admin</code> role – for the NCD team. Used for NCD application installation by NCD team.</p>
+</li>
+<li>
+<p><code>ncomadmin</code> – <code>cluster-admin</code> role – for the NCOM team. To be used exclusively for NCOM installation.</p>
+</li>
+<li>
+<p><code>ncom-sa</code> - (<code>cluster-admin</code> role) Service Account - for NCOM Application is used via CaaS registration. We will create it for them.  </p>
+</li>
+</ul>
+<h3 id="cluster-admin-role-implementation">Cluster-Admin Role Implementation<a class="headerlink" href="#cluster-admin-role-implementation" title="Permanent link">&para;</a></h3>
+<p>No additional setup required. Clusterrole <code>cluster-admin</code> mapped to user.()</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-user<span class="w"> </span>cluster-admin<span class="w"> </span>ncpadmin
+</code></pre></div>
 
+<h2 id="role-management-for-cnf-users-on-nmcnwc">Role Management for CNF users on NMC/NWC<a class="headerlink" href="#role-management-for-cnf-users-on-nmcnwc" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>For Non-Administrator users.</p>
+</blockquote>
+<p>By default, all CNF application users are assigned the following four roles:</p>
+<ul>
+<li>
+<p><code>Admin</code> role: Full access to the entire namespace (tenant-admin role for their specific namespace/project).</p>
+</li>
+<li>
+<p><code>ncd-cbur-role</code>: Access at the namespace level, allowing users to create, update, delete, and schedule backup jobs.</p>
+</li>
+<li>
+<p><code>net-attach-def-cluster-role</code>: Access at the namespace level to create, update, delete network attachment definitions within their namespace.</p>
+</li>
+<li>
+<p><code>ncp-default-cnf-role</code>: Access at the cluster level to list, view, watch, and get information for nodes, SCC, NNCP, Metallb IP pool, static routes, backward routes, egress routes, CRDs, profiles etc.</p>
+</li>
+</ul>
+<blockquote>
+<p>Note: No need to add above four role to any of these users (ncpadmin, ncdadmin,ncomadmin and ncom-sa)</p>
+<p>Note:  Clarity - CNF id act as read-only for cluster level resources and read-write for tenant level resources.</p>
+</blockquote>
+<!-- Additionally, if users require access to other important resources at the cluster level as read only, we can add those as needed. To existing “ncp-default-cluster-role “, so automatically all cnf users will get the viewer access from there.  -->
 
+<h3 id="admin-role-implementation">Admin Role Implementation<a class="headerlink" href="#admin-role-implementation" title="Permanent link">&para;</a></h3>
+<p>No additional setup required. Role <code>admin</code> mapped to user and namespace:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>policy<span class="w"> </span>add-role-to-user<span class="w"> </span>admin<span class="w"> </span>npcvzr1np1<span class="w"> </span>-n<span class="w"> </span>npcvzr1np1
+</code></pre></div>
+
+<hr />
+<h3 id="network-attachment-role-implementation">Network Attachment Role Implementation<a class="headerlink" href="#network-attachment-role-implementation" title="Permanent link">&para;</a></h3>
+<p>1) Create <code>ClusterRole</code> for network attachment:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">net-attach-def-cluster-role</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;k8s.cni.cncf.io&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;network-attachment-definitions&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;patch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<p>2) Bind role to user in their namespace:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="w"> </span>net-attach-def-rolebinding<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--clusterrole<span class="o">=</span>net-attach-def-cluster-role<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user<span class="o">=</span>paclypamrf01<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="o">=</span>paclypamrf01
+</code></pre></div>
+
+<p>3) Validate access:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>network-attachment-definitions.k8s.cni.cncf.io<span class="w"> </span>--as<span class="o">=</span>paclypamrf01<span class="w"> </span>-n<span class="w"> </span>paclypamrf01
+</code></pre></div>
+
+<hr />
+<h3 id="cbur-role-implementation">CBUR Role Implementation<a class="headerlink" href="#cbur-role-implementation" title="Permanent link">&para;</a></h3>
+<p>1) Create <code>ClusterRole</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ncd-cbur-role</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;cbur.bcmt.local&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;brpolices&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;patch&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;cbur.csf.nokia.com&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;brhooks&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;brpolices&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;patch&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<p>2) Apply role and bind:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>cburrole.yaml
+oc<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="w"> </span>ncd-cbur-role-binding<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--clusterrole<span class="o">=</span>ncd-cbur-role<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user<span class="o">=</span>nokia<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="o">=</span>test01
+</code></pre></div>
+
+<p>3) Validate access:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>brpolices<span class="w"> </span>--as<span class="o">=</span>nokia<span class="w"> </span>-n<span class="w"> </span>test01
+</code></pre></div>
+
+<hr />
+<h3 id="read-only-cluster-infra-role-implementation">Read-Only Cluster Infra Role Implementation<a class="headerlink" href="#read-only-cluster-infra-role-implementation" title="Permanent link">&para;</a></h3>
+<p>1) Create <code>ClusterRole</code> for infra read access:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ncp-default-cnf-role</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;security.openshift.io&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;securitycontextconstraints&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;nodes&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;apiextensions.k8s.io&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;customresourcedefinitions&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;compliance.openshift.io&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;profiles&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;nmstate.io&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;nodenetworkconfigurationpolicies&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;metallb.io&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;ipaddresspools&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<p>2) Bind the role:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>clusterrolebinding<span class="w"> </span>ncp-default-cnf-role-pppcf01-binding<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--clusterrole<span class="o">=</span>ncp-default-cnf-role<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user<span class="o">=</span>pppcf01
+</code></pre></div>
+
+<p>3) Validate access:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--as<span class="o">=</span>ppaaa01
+oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>get<span class="w"> </span>scc<span class="w"> </span>--as<span class="o">=</span>ppaaa01
+oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>get<span class="w"> </span>crds<span class="w"> </span>--as<span class="o">=</span>ppaaa01
+oc<span class="w"> </span>login<span class="w"> </span>-u<span class="w"> </span>ppaaa01<span class="w"> </span>-p<span class="w"> </span>redhat123
+oc<span class="w"> </span>get<span class="w"> </span>nodes
+</code></pre></div>
+
+<hr />
 
 
 
