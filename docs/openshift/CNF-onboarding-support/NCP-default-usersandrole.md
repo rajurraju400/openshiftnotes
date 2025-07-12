@@ -6,7 +6,9 @@ This document outlines the list of approved user IDs and their associated access
 > Note: All user IDs and privileges must be provisioned exactly as outlined above. Any deviations or additional access requests require explicit approval from management.
 
 
-## Users and Role management on HUB cluster (For `Administrator` level privileges)
+## Users and Role management on HUB cluster 
+
+> For `Administrator` level privileges
 
 
 * `ncpadmin–` `cluster-admin` role – for the NCP team (our team).
@@ -14,7 +16,9 @@ This document outlines the list of approved user IDs and their associated access
 * `ncdadmin` – `cluster-admin` role – for the NCD team. This user will be used for NCD git installation (our team)and shared with the NCD team for ongoing lifecycle management.
 
 
-## Users and Role management on NMC/NWC/CWL clusters (For `Administrator` level privileges)
+
+## Users and Role management on NMC/NWC clusters 
+> For `Administrator` level privileges
 
 * `ncpadmin` – `cluster-admin` role – for the NCP team (our team).
 
@@ -22,20 +26,36 @@ This document outlines the list of approved user IDs and their associated access
 
 * `ncomadmin` – `cluster-admin` role – for the NCOM team. To be used exclusively for NCOM installation.
 
-* `ncom`-sa - (`cluster-admin` role) Service Account - for NCOM Application is used via CaaS registration. We will create it for them.  
+* `ncom-sa` - (`cluster-admin` role) Service Account - for NCOM Application is used via CaaS registration. We will create it for them.  
+
+### Cluster-Admin Role Implementation
+
+No additional setup required. Clusterrole `cluster-admin` mapped to user.()
+
+```bash
+oc adm policy add-cluster-role-to-user cluster-admin ncpadmin
+```
 
 
-## Role Management for CNF users on NMC/NWC/CWL/HUB(if any)
+
+## Role Management for CNF users on NMC/NWC
+
+> For Non-Administrator users.
 
 By default, all CNF application users are assigned the following four roles:
 
-* Admin-role: Full access to the entire namespace (tenant-admin role for their specific namespace/project).
+* `Admin` role: Full access to the entire namespace (tenant-admin role for their specific namespace/project).
 
-* ncd-cbur-role: Access at the namespace level, allowing users to create, update, delete, and schedule backup jobs.
+* `ncd-cbur-role`: Access at the namespace level, allowing users to create, update, delete, and schedule backup jobs.
 
-* net-attach-def-cluster-role: Access at the namespace level to create, update, delete network attachment definitions within their namespace.
+* `net-attach-def-cluster-role`: Access at the namespace level to create, update, delete network attachment definitions within their namespace.
 
-* ncp-default-cluster-role: Access at the cluster level to list, view, watch, and get information for nodes, SCC, NNCP, Metallb IP pool, static routes, backward routes, egress routes, CRDs, profiles.
+* `ncp-default-cnf-role`: Access at the cluster level to list, view, watch, and get information for nodes, SCC, NNCP, Metallb IP pool, static routes, backward routes, egress routes, CRDs, profiles etc.
+
+
+> Note: No need to add above four role to any of these users (ncpadmin, ncdadmin,ncomadmin and ncom-sa)
+
+> Note:  Clarity - CNF id act as read-only for cluster level resources and read-write for tenant level resources.
 
 <!-- Additionally, if users require access to other important resources at the cluster level as read only, we can add those as needed. To existing “ncp-default-cluster-role “, so automatically all cnf users will get the viewer access from there.  -->
 
@@ -52,7 +72,7 @@ oc policy add-role-to-user admin npcvzr1np1 -n npcvzr1np1
 
 ### Network Attachment Role Implementation
 
-1. Create `ClusterRole` for network attachment:
+1) Create `ClusterRole` for network attachment:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -65,7 +85,7 @@ rules:
     verbs: ["create", "get", "list", "watch", "update", "patch", "delete"]
 ```
 
-2. Bind role to user in their namespace:
+2) Bind role to user in their namespace:
 
 ```bash
 oc create rolebinding net-attach-def-rolebinding \
@@ -74,7 +94,7 @@ oc create rolebinding net-attach-def-rolebinding \
   --namespace=paclypamrf01
 ```
 
-3. Validate access:
+3) Validate access:
 
 ```bash
 oc auth can-i create network-attachment-definitions.k8s.cni.cncf.io --as=paclypamrf01 -n paclypamrf01
@@ -84,7 +104,7 @@ oc auth can-i create network-attachment-definitions.k8s.cni.cncf.io --as=paclypa
 
 ### CBUR Role Implementation
 
-1. Create `ClusterRole`:
+1) Create `ClusterRole`:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -100,7 +120,7 @@ rules:
     verbs: ["create", "get", "list", "watch", "update", "patch"]
 ```
 
-2. Apply role and bind:
+2) Apply role and bind:
 
 ```bash
 oc apply -f cburrole.yaml
@@ -110,7 +130,7 @@ oc create rolebinding ncd-cbur-role-binding \
   --namespace=test01
 ```
 
-3. Validate access:
+3) Validate access:
 
 ```bash
 oc auth can-i create brpolices --as=nokia -n test01
@@ -120,7 +140,7 @@ oc auth can-i create brpolices --as=nokia -n test01
 
 ### Read-Only Cluster Infra Role Implementation
 
-1. Create `ClusterRole` for infra read access:
+1) Create `ClusterRole` for infra read access:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -148,7 +168,7 @@ rules:
     verbs: ["get", "list"]
 ```
 
-2. Bind the role:
+2) Bind the role:
 
 ```bash
 oc create clusterrolebinding ncp-default-cnf-role-pppcf01-binding \
@@ -156,7 +176,7 @@ oc create clusterrolebinding ncp-default-cnf-role-pppcf01-binding \
   --user=pppcf01
 ```
 
-3. Validate access:
+3) Validate access:
 
 ```bash
 oc auth can-i get nodes --as=ppaaa01
