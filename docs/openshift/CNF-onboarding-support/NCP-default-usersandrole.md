@@ -188,3 +188,126 @@ oc get nodes
 
 ---
 
+## Beyond this still under the furture planning, Don't implement it. 
+
+###  TCPDUMP Role Implementation
+
+
+
+#### Create the Custom Role 
+
+1) Create the custom role. Here is the sample custom role definition yaml, customize this as per the requirements:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ncp-default-tcpdump
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/attach
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - watch
+```
+
+> apply this role using oc command `oc apply -f ncp-default-tcpdump.yaml`
+
+2) To add the custom role to specific user, execute the following command:
+
+> nokia is the username.
+
+```
+oc adm policy add-cluster-role-to-user ncp-default-tcpdump nokia
+```
+
+- At this point, Being privileged adds AllCapabilities (giving highly unrestricted access) to debug pod is need additional setting at scc level. So create a custom scc as follows:
+
+
+3) Create a custom scc with reference to 'previleged' scc:
+
+> only update the list of users ` users: [nokia,cnf1,cnf2]` # add the list of users here. 
+
+```
+#vi custom-tcpdump-previleged-scc.yaml
+
+
+allowHostDirVolumePlugin: true
+allowHostIPC: false   
+allowHostNetwork: true
+allowHostPID: true
+allowHostPorts: true
+allowPrivilegeEscalation: true
+allowPrivilegedContainer: true
+allowedCapabilities: null
+apiVersion: security.openshift.io/v1
+defaultAddCapabilities: null
+fsGroup:
+  type: RunAsAny
+groups:
+- system:authenticated 
+pods
+kind: SecurityContextConstraints
+metadata:
+  annotations:
+    include.release.openshift.io/ibm-cloud-managed: "true"
+    include.release.openshift.io/self-managed-high-availability: "true"
+    include.release.openshift.io/single-node-developer: "true"
+    kubernetes.io/description: 'privileged allows access to all privileged and host
+      features and the ability to run as any user, any group, any fsGroup, and with
+      any SELinux context.  WARNING: this is the most relaxed SCC and should be used
+      only for cluster administration. Grant with caution.'
+    release.openshift.io/create-only: "true"
+  name: privileged-new  
+priority: null
+readOnlyRootFilesystem: false
+requiredDropCapabilities: null
+runAsUser:
+  type: RunAsAny
+seLinuxContext:
+  type: MustRunAs 
+users: [nokia,cnf1,cnf2] # add the list of users here. 
+volumes:
+- configMap
+- downwardAPI
+- emptyDir
+- secret
+```
+
+> oc apply -f custom-tcpdump-previleged-scc.yaml
+
+
+4) To assign the custom-previleged-scc to specific user, execute the following:
+
+
+```
+oc adm policy add-scc-to-user custom-tcpdump-previleged-scc nokia
+
+```
+
+5) Re-login as the user with custom role and try executing debug node command:
+
+```
+oc debug node/<node-name>
+```

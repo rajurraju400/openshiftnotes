@@ -1726,6 +1726,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#etcd-backup-for-master-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      ETCD backup for master nodes.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#identifying-the-failed-control-plane-node" class="md-nav__link">
     <span class="md-ellipsis">
       Identifying the failed control plane node
@@ -1914,6 +1923,15 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#etcd-backup-for-master-nodes" class="md-nav__link">
+    <span class="md-ellipsis">
+      ETCD backup for master nodes.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#identifying-the-failed-control-plane-node" class="md-nav__link">
     <span class="md-ellipsis">
       Identifying the failed control plane node
@@ -2043,6 +2061,42 @@
 <li><a href="#adding-back-the-node-control-plane-node">Adding back the node control plane node</a></li>
 </ul>
 <h2 id="removing-the-failed-node-from-the-cluster">Removing the failed node from the cluster<a class="headerlink" href="#removing-the-failed-node-from-the-cluster" title="Permanent link">&para;</a></h2>
+<h3 id="etcd-backup-for-master-nodes">ETCD backup for master nodes.<a class="headerlink" href="#etcd-backup-for-master-nodes" title="Permanent link">&para;</a></h3>
+<p>1) Start a debug session for a control plane node:</p>
+<div class="codehilite"><pre><span></span><code>oc debug node/&lt;node_name&gt;
+</code></pre></div>
+
+<p>2) Change your root directory to /host:</p>
+<div class="codehilite"><pre><span></span><code>chroot /host
+</code></pre></div>
+
+<p>3) If the cluster-wide proxy is enabled, be sure that you have exported the NO_PROXY, HTTP_PROXY, and HTTPS_PROXY environment variables. (optional)</p>
+<p>4) Run the cluster-backup.sh script and pass in the location to save the backup to.</p>
+<div class="codehilite"><pre><span></span><code>sh-4.4# /usr/local/bin/cluster-backup.sh /home/core/assets/backup
+</code></pre></div>
+
+<p><code>Example script output</code></p>
+<div class="codehilite"><pre><span></span><code><span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">apiserver</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">kube</span><span class="o">-</span><span class="n">apiserver</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">6</span>
+<span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">controller</span><span class="o">-</span><span class="n">manager</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">kube</span><span class="o">-</span><span class="n">controller</span><span class="o">-</span><span class="n">manager</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">7</span>
+<span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">scheduler</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">kube</span><span class="o">-</span><span class="n">scheduler</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">6</span>
+<span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">etcd</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">etcd</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">3</span>
+<span class="n">ede95fe6b88b87ba86a03c15e669fb4aa5bf0991c180d3c6895ce72eaade54a1</span>
+<span class="n">etcdctl</span><span class="w"> </span><span class="n">version</span><span class="p">:</span><span class="w"> </span><span class="mf">3.4</span><span class="o">.</span><span class="mi">14</span>
+<span class="n">API</span><span class="w"> </span><span class="n">version</span><span class="p">:</span><span class="w"> </span><span class="mf">3.4</span>
+<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647639.0188997</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:119&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;created temporary db file&quot;</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/home/core/assets/backup/snapshot_2021-06-25_190035.db.part&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="s2">&quot;2021-06-25T19:00:39.030Z&quot;</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;clientv3/maintenance.go:200&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;opened snapshot stream; downloading&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647639.0301006</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:127&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;fetching snapshot&quot;</span><span class="p">,</span><span class="s2">&quot;endpoint&quot;</span><span class="p">:</span><span class="s2">&quot;https://10.0.0.5:2379&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="s2">&quot;2021-06-25T19:00:40.215Z&quot;</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;clientv3/maintenance.go:208&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;completed snapshot read; closing&quot;</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647640.6032252</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:142&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;fetched snapshot&quot;</span><span class="p">,</span><span class="s2">&quot;endpoint&quot;</span><span class="p">:</span><span class="s2">&quot;https://10.0.0.5:2379&quot;</span><span class="p">,</span><span class="s2">&quot;size&quot;</span><span class="p">:</span><span class="s2">&quot;114 MB&quot;</span><span class="p">,</span><span class="s2">&quot;took&quot;</span><span class="p">:</span><span class="mf">1.584090459</span><span class="p">}</span>
+<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647640.6047094</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:152&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;saved&quot;</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/home/core/assets/backup/snapshot_2021-06-25_190035.db&quot;</span><span class="p">}</span>
+<span class="n">Snapshot</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span><span class="n">backup</span><span class="o">/</span><span class="n">snapshot_2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">25</span><span class="n">_190035</span><span class="o">.</span><span class="n">db</span>
+<span class="p">{</span><span class="s2">&quot;hash&quot;</span><span class="p">:</span><span class="mi">3866667823</span><span class="p">,</span><span class="s2">&quot;revision&quot;</span><span class="p">:</span><span class="mi">31407</span><span class="p">,</span><span class="s2">&quot;totalKey&quot;</span><span class="p">:</span><span class="mi">12828</span><span class="p">,</span><span class="s2">&quot;totalSize&quot;</span><span class="p">:</span><span class="mi">114446336</span><span class="p">}</span>
+<span class="n">snapshot</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">kube</span><span class="w"> </span><span class="n">resources</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">successfully</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span><span class="n">backup</span>
+</code></pre></div>
+
+<blockquote>
+<p>Transfer the backup files locally on the <code>infra-manager</code> node.</p>
+</blockquote>
 <h3 id="identifying-the-failed-control-plane-node">Identifying the failed control plane node<a class="headerlink" href="#identifying-the-failed-control-plane-node" title="Permanent link">&para;</a></h3>
 <p>1) First identify which node is the failed one, e.g. which is in NotReady state, using the <code>oc get nodes</code> command.</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom16hub101-infra-manager ~</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">nodes</span>
