@@ -1259,6 +1259,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#beyond-this-still-under-the-furture-planning-dont-implement-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beyond this still under the furture planning, Don't implement it.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Beyond this still under the furture planning, Don&#39;t implement it.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcpdump-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      TCPDUMP Role Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TCPDUMP Role Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-the-custom-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create the Custom Role
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1899,6 +1938,45 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#beyond-this-still-under-the-furture-planning-dont-implement-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Beyond this still under the furture planning, Don't implement it.
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Beyond this still under the furture planning, Don&#39;t implement it.">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tcpdump-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      TCPDUMP Role Implementation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="TCPDUMP Role Implementation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-the-custom-role" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create the Custom Role
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2080,6 +2158,115 @@ oc<span class="w"> </span>get<span class="w"> </span>nodes
 </code></pre></div>
 
 <hr />
+<h2 id="beyond-this-still-under-the-furture-planning-dont-implement-it">Beyond this still under the furture planning, Don't implement it.<a class="headerlink" href="#beyond-this-still-under-the-furture-planning-dont-implement-it" title="Permanent link">&para;</a></h2>
+<h3 id="tcpdump-role-implementation">TCPDUMP Role Implementation<a class="headerlink" href="#tcpdump-role-implementation" title="Permanent link">&para;</a></h3>
+<h4 id="create-the-custom-role">Create the Custom Role<a class="headerlink" href="#create-the-custom-role" title="Permanent link">&para;</a></h4>
+<p>1) Create the custom role. Here is the sample custom role definition yaml, customize this as per the requirements:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ncp-default-tcpdump</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nodes</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">get</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">namespaces</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">get</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">list</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">watch</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;&quot;</span>
+<span class="w">  </span><span class="nt">resources</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pods</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pods/attach</span>
+<span class="w">  </span><span class="nt">verbs</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">create</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">delete</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">get</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">list</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">watch</span>
+</code></pre></div>
+
+<blockquote>
+<p>apply this role using oc command <code>oc apply -f ncp-default-tcpdump.yaml</code></p>
+</blockquote>
+<p>2) To add the custom role to specific user, execute the following command:</p>
+<blockquote>
+<p>nokia is the username.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code>oc adm policy add-cluster-role-to-user ncp-default-tcpdump nokia
+</code></pre></div>
+
+<ul>
+<li>At this point, Being privileged adds AllCapabilities (giving highly unrestricted access) to debug pod is need additional setting at scc level. So create a custom scc as follows:</li>
+</ul>
+<p>3) Create a custom scc with reference to 'previleged' scc:</p>
+<blockquote>
+<p>only update the list of users <code>users: [nokia,cnf1,cnf2]</code> # add the list of users here. </p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="nx">vi</span><span class="w"> </span><span class="nx">custom</span><span class="o">-</span><span class="nx">tcpdump</span><span class="o">-</span><span class="nx">previleged</span><span class="o">-</span><span class="nx">scc</span><span class="p">.</span><span class="nx">yaml</span>
+
+
+<span class="nx">allowHostDirVolumePlugin</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="nx">allowHostIPC</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">   </span>
+<span class="nx">allowHostNetwork</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="nx">allowHostPID</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="nx">allowHostPorts</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="nx">allowPrivilegeEscalation</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="nx">allowPrivilegedContainer</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="nx">allowedCapabilities</span><span class="p">:</span><span class="w"> </span><span class="nx">null</span>
+<span class="nx">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="nx">security</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">v1</span>
+<span class="nx">defaultAddCapabilities</span><span class="p">:</span><span class="w"> </span><span class="nx">null</span>
+<span class="nx">fsGroup</span><span class="p">:</span>
+<span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">RunAsAny</span>
+<span class="nx">groups</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">system</span><span class="p">:</span><span class="nx">authenticated</span><span class="w"> </span>
+<span class="nx">pods</span>
+<span class="nx">kind</span><span class="p">:</span><span class="w"> </span><span class="nx">SecurityContextConstraints</span>
+<span class="nx">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nx">annotations</span><span class="p">:</span>
+<span class="w">    </span><span class="nx">include</span><span class="p">.</span><span class="nx">release</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">ibm</span><span class="o">-</span><span class="nx">cloud</span><span class="o">-</span><span class="nx">managed</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="nx">include</span><span class="p">.</span><span class="nx">release</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="kp">self</span><span class="o">-</span><span class="nx">managed</span><span class="o">-</span><span class="nx">high</span><span class="o">-</span><span class="nx">availability</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="nx">include</span><span class="p">.</span><span class="nx">release</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">single</span><span class="o">-</span><span class="nx">node</span><span class="o">-</span><span class="nx">developer</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">    </span><span class="nx">kubernetes</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">description</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nx">privileged</span><span class="w"> </span><span class="nx">allows</span><span class="w"> </span><span class="nx">access</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">all</span><span class="w"> </span><span class="nx">privileged</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">host</span>
+<span class="w">      </span><span class="nx">features</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">ability</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">run</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">user</span><span class="p">,</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">group</span><span class="p">,</span><span class="w"> </span><span class="nx">any</span><span class="w"> </span><span class="nx">fsGroup</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">with</span>
+<span class="w">      </span><span class="nx">any</span><span class="w"> </span><span class="nx">SELinux</span><span class="w"> </span><span class="nx">context</span><span class="p">.</span><span class="w">  </span><span class="nx">WARNING</span><span class="p">:</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">most</span><span class="w"> </span><span class="nx">relaxed</span><span class="w"> </span><span class="nx">SCC</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="nx">should</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">used</span>
+<span class="w">      </span><span class="nx">only</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">cluster</span><span class="w"> </span><span class="nx">administration</span><span class="p">.</span><span class="w"> </span><span class="nx">Grant</span><span class="w"> </span><span class="nx">with</span><span class="w"> </span><span class="nx">caution</span><span class="p">.</span><span class="err">&#39;</span>
+<span class="w">    </span><span class="nx">release</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">create</span><span class="o">-</span><span class="nx">only</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;true&quot;</span>
+<span class="w">  </span><span class="nx">name</span><span class="p">:</span><span class="w"> </span><span class="nx">privileged</span><span class="o">-</span><span class="nx">new</span><span class="w">  </span>
+<span class="nx">priority</span><span class="p">:</span><span class="w"> </span><span class="nx">null</span>
+<span class="nx">readOnlyRootFilesystem</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span>
+<span class="nx">requiredDropCapabilities</span><span class="p">:</span><span class="w"> </span><span class="nx">null</span>
+<span class="nx">runAsUser</span><span class="p">:</span>
+<span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">RunAsAny</span>
+<span class="nx">seLinuxContext</span><span class="p">:</span>
+<span class="w">  </span><span class="k">type</span><span class="p">:</span><span class="w"> </span><span class="nx">MustRunAs</span><span class="w"> </span>
+<span class="nx">users</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="nx">nokia</span><span class="p">,</span><span class="nx">cnf1</span><span class="p">,</span><span class="nx">cnf2</span><span class="p">]</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="nx">add</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">users</span><span class="w"> </span><span class="nx">here</span><span class="p">.</span><span class="w"> </span>
+<span class="nx">volumes</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">configMap</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">downwardAPI</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">emptyDir</span>
+<span class="o">-</span><span class="w"> </span><span class="nx">secret</span>
+</code></pre></div>
+
+<blockquote>
+<p>oc apply -f custom-tcpdump-previleged-scc.yaml</p>
+</blockquote>
+<p>4) To assign the custom-previleged-scc to specific user, execute the following:</p>
+<div class="codehilite"><pre><span></span><code>oc adm policy add-scc-to-user custom-tcpdump-previleged-scc nokia
+</code></pre></div>
+
+<p>5) Re-login as the user with custom role and try executing debug node command:</p>
+<div class="codehilite"><pre><span></span><code>oc debug node/&lt;node-name&gt;
+</code></pre></div>
 
 
 
