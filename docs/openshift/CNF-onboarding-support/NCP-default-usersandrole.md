@@ -194,8 +194,6 @@ oc get nodes
 
 
 
-#### Create the Custom Role 
-
 1) Create the custom role. Here is the sample custom role definition yaml, customize this as per the requirements:
 
 ```yaml
