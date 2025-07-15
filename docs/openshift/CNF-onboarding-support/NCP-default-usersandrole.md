@@ -188,7 +188,7 @@ oc get nodes
 
 ---
 
-## Beyond this still under the furture planning, Don't implement it. 
+## Beyond this is still part of future planning. Please do not implement it at this stage.
 
 ###  TCPDUMP Role Implementation
 
