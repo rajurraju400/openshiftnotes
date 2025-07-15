@@ -166,6 +166,12 @@ rules:
   - apiGroups: ["metallb.io"]
     resources: ["ipaddresspools"]
     verbs: ["get", "list"]
+  - apiGroups: ["k8s.ovn.org"]
+    resources: ["egressips"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["k8s.cni.cncf.io"]
+    resources: ["network-attachment-definitions"]
+    verbs: ["get", "list", "watch"]
 ```
 
 2) Bind the role:
