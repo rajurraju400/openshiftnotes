@@ -172,6 +172,15 @@ rules:
   - apiGroups: ["k8s.cni.cncf.io"]
     resources: ["network-attachment-definitions"]
     verbs: ["get", "list", "watch"]
+  - apiGroups: ["topology.node.k8s.io"]
+    resources: ["noderesourcetopologies"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["sriovnetwork.openshift.io"]
+    resources: ["sriovnetworknodepolicies"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumes"]
+    verbs: ["get", "list", "watch"]
 ```
 
 2) Bind the role:
