@@ -3196,11 +3196,20 @@ If the update was successfully applied, then logs similar to below lines are exp
 <span class="o">[</span><span class="n">root@ncputility ~ hub_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
 </code></pre></div>
 
-<p>3) now try deleting some low profile pods.  like nm</p>
-<blockquote>
-<p>do proper ssh test for all the nodes. </p>
-</blockquote>
-<div class="codehilite"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="n">core</span><span class="nv">@master</span><span class="o">-</span><span class="mf">0.</span><span class="n">pphncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span>
+<p>3) now try deleting some low profile pods.  l</p>
+<div class="codehilite"><pre><span></span><code>oc get pods -A -o wide |grep -i controller 
+
+# when you delete it you should be seeing pod recreated without any issue. 
+</code></pre></div>
+
+<p>or</p>
+<div class="codehilite"><pre><span></span><code>oc debug -t node/node.name
+
+chroot /root
+
+podman pull any/image/from/infra/quay.
+
+it should not through any TLS error. 
 </code></pre></div>
 
 <h3 id="verification-for-new-ssh-key-testing-on-hub-clusters">Verification for new ssh key testing on hub clusters.<a class="headerlink" href="#verification-for-new-ssh-key-testing-on-hub-clusters" title="Permanent link">&para;</a></h3>

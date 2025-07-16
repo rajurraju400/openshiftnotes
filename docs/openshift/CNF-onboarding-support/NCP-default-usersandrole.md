@@ -52,6 +52,8 @@ By default, all CNF application users are assigned the following four roles:
 
 * `ncp-default-cnf-role`: Access at the cluster level to list, view, watch, and get information for nodes, SCC, NNCP, Metallb IP pool, static routes, backward routes, egress routes, CRDs, profiles etc.
 
+* `redisenterpriseclusters-role` :  Access at namespace level to create, update,delete,edit,patch,lig  rec based objects. 
+
 
 > Note: No need to add above four role to any of these users (ncpadmin, ncdadmin,ncomadmin and ncom-sa)
 
@@ -134,6 +136,39 @@ oc create rolebinding ncd-cbur-role-binding \
 
 ```bash
 oc auth can-i create brpolices --as=nokia -n test01
+```
+
+---
+
+### RedisEnterpriseClusters Role Implementation
+
+1) Create `ClusterRole`:
+
+```yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: redisenterpriseclusters-role
+rules:
+  - apiGroups: ["app.redislabs.com"]
+    resources: ["redisenterpriseclusters"]
+    verbs: ["get", "list", "create", "delete", "update", "patch"]
+```
+
+2) Apply role and bind:
+
+```bash
+oc apply -f redisenterpriseclusters-role.yaml
+oc create redisenterpriseclusters-role-binding \
+  --clusterrole=redisenterpriseclusters-role \
+  --user=nokia \
+  --namespace=test01
+```
+
+3) Validate access:
+
+```bash
+oc auth can-i create redisenterpriseclusters --as=nokia -n test01
 ```
 
 ---
