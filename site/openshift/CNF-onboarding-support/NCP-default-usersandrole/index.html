@@ -1246,6 +1246,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#redisenterpriseclusters-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      RedisEnterpriseClusters Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#read-only-cluster-infra-role-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       Read-Only Cluster Infra Role Implementation
@@ -1910,6 +1919,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#redisenterpriseclusters-role-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      RedisEnterpriseClusters Role Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#read-only-cluster-infra-role-implementation" class="md-nav__link">
     <span class="md-ellipsis">
       Read-Only Cluster Infra Role Implementation
@@ -2021,6 +2039,9 @@
 <li>
 <p><code>ncp-default-cnf-role</code>: Access at the cluster level to list, view, watch, and get information for nodes, SCC, NNCP, Metallb IP pool, static routes, backward routes, egress routes, CRDs, profiles etc.</p>
 </li>
+<li>
+<p><code>redisenterpriseclusters-role</code> :  Access at namespace level to create, update,delete,edit,patch,lig  rec based objects. </p>
+</li>
 </ul>
 <blockquote>
 <p>Note: No need to add above four role to any of these users (ncpadmin, ncdadmin,ncomadmin and ncom-sa)</p>
@@ -2083,6 +2104,31 @@ oc<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="
 
 <p>3) Validate access:</p>
 <div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>brpolices<span class="w"> </span>--as<span class="o">=</span>nokia<span class="w"> </span>-n<span class="w"> </span>test01
+</code></pre></div>
+
+<hr />
+<h3 id="redisenterpriseclusters-role-implementation">RedisEnterpriseClusters Role Implementation<a class="headerlink" href="#redisenterpriseclusters-role-implementation" title="Permanent link">&para;</a></h3>
+<p>1) Create <code>ClusterRole</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisenterpriseclusters-role</span>
+<span class="nt">rules</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;app.redislabs.com&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;redisenterpriseclusters&quot;</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;patch&quot;</span><span class="p p-Indicator">]</span>
+</code></pre></div>
+
+<p>2) Apply role and bind:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>redisenterpriseclusters-role.yaml
+oc<span class="w"> </span>create<span class="w"> </span>redisenterpriseclusters-role-binding<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--clusterrole<span class="o">=</span>redisenterpriseclusters-role<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user<span class="o">=</span>nokia<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="o">=</span>test01
+</code></pre></div>
+
+<p>3) Validate access:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>redisenterpriseclusters<span class="w"> </span>--as<span class="o">=</span>nokia<span class="w"> </span>-n<span class="w"> </span>test01
 </code></pre></div>
 
 <hr />

@@ -15,7 +15,7 @@
 
 ## Impact
 
-* [CWL cluster LCM operation should be impacted](#impact)
+* [CWL cluster LCM operation should not be performed](#impact)
 * [CNF installed on the CWL cluster remains undistrubed, because hub quay will be time to time unaccess. So application onboarding process may make hub quay to be stressed.](#impact)
 
 
