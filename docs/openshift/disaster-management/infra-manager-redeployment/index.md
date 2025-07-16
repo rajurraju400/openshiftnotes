@@ -38,6 +38,7 @@ toc-depth: 10
 * [Validate Operator Catalog, ITMS, and DTMS](#validate-operator-catalog-itms-and-dtms)
 * [Restore SSH Key for Hub Cluster](#restore-ssh-key-for-hub-cluster)
 * [Restore SSH Key for CWL Cluster](#restore-ssh-key-for-cwl-cluster)
+* [Verification Testing](#verification)
 
 
 ## Implementation 
@@ -1135,3 +1136,169 @@ I0111 19:59:07.372208    7993 update.go:613] machine-config-daemon initiating re
 ```
 
 
+## Verification
+
+### Verification for new infra quay TLS on the hub cluster registry. 
+
+1) Login to Customer VPN, followed by ssh to infra-manager node using username `ncpuser` with given password. 
+
+```
+    ┌──────────────────────────────────────────────────────────────────────┐
+    │                 • MobaXterm Personal Edition v25.1 •                 │
+    │               (SSH client, X server and network tools)               │
+    │                                                                      │
+    │ ⮞ SSH session to ncpuser@10.236.6.230                                │
+    │   • Direct SSH      :  ✓                                             │
+    │   • SSH compression :  ✓                                             │
+    │   • SSH-browser     :  ✓                                             │
+    │   • X11-forwarding  :  ✓  (remote display is forwarded through SSH)  │
+    │                                                                      │
+    │ ⮞ For more info, ctrl+click on help or visit our website.            │
+    └──────────────────────────────────────────────────────────────────────┘
+
+Activate the web console with: systemctl enable --now cockpit.socket
+
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Fri Jun 27 15:36:03 2025 from 10.192.52.140
+[ncpuser@ncputility ~]$
+[ncpuser@ncputility ~]$ sudo su -
+[sudo] password for ncpuser:
+[root@ncputility ~]# 
+```
+2) login to hub cluster using oc login or rc file. 
+
+```
+[root@ncputility ~ cwl_rc]$source hubrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 105 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@ncputility ~ hub_rc]$ oc get pods -n openshift-nmstate
+NAME                                       STATUS   ROLES                                 AGE   VERSION
+
+[root@ncputility ~ hub_rc]$ 
+```
+3) now try deleting some low profile pods.  like nm
+> do proper ssh test for all the nodes. 
+
+```
+ssh core@master-0.pphncp01.infra.mobi.eastlink.ca
+```
+
+
+### Verification for new ssh key testing on hub clusters. 
+
+1) Login to Customer VPN, followed by ssh to infra-manager node using username `ncpuser` with given password. 
+
+```
+    ┌──────────────────────────────────────────────────────────────────────┐
+    │                 • MobaXterm Personal Edition v25.1 •                 │
+    │               (SSH client, X server and network tools)               │
+    │                                                                      │
+    │ ⮞ SSH session to ncpuser@10.236.6.230                                │
+    │   • Direct SSH      :  ✓                                             │
+    │   • SSH compression :  ✓                                             │
+    │   • SSH-browser     :  ✓                                             │
+    │   • X11-forwarding  :  ✓  (remote display is forwarded through SSH)  │
+    │                                                                      │
+    │ ⮞ For more info, ctrl+click on help or visit our website.            │
+    └──────────────────────────────────────────────────────────────────────┘
+
+Activate the web console with: systemctl enable --now cockpit.socket
+
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Fri Jun 27 15:36:03 2025 from 10.192.52.140
+[ncpuser@ncputility ~]$
+[ncpuser@ncputility ~]$ sudo su -
+[sudo] password for ncpuser:
+[root@ncputility ~]# 
+```
+2) login to hub cluster using oc login or rc file. 
+
+login to in the hub cluster using respective RC file. 
+```
+[root@ncputility ~ cwl_rc]$source hubrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 105 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@ncputility ~ hub_rc]$ oc get nodes
+NAME                                       STATUS   ROLES                                 AGE   VERSION
+master-0.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+master-1.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+master-2.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+[root@ncputility ~ hub_rc]$ 
+```
+3) now try ssh for each and every node in the list. 
+
+> do proper ssh test for all the nodes. 
+
+```
+ssh core@master-0.pphncp01.infra.mobi.eastlink.ca
+```
+
+
+### Verification for new ssh key testing on cwl clusters. 
+
+1) Login to Customer VPN, followed by ssh to infra-manager node using username `ncpuser` with given password. 
+
+```
+    ┌──────────────────────────────────────────────────────────────────────┐
+    │                 • MobaXterm Personal Edition v25.1 •                 │
+    │               (SSH client, X server and network tools)               │
+    │                                                                      │
+    │ ⮞ SSH session to ncpuser@10.236.6.230                                │
+    │   • Direct SSH      :  ✓                                             │
+    │   • SSH compression :  ✓                                             │
+    │   • SSH-browser     :  ✓                                             │
+    │   • X11-forwarding  :  ✓  (remote display is forwarded through SSH)  │
+    │                                                                      │
+    │ ⮞ For more info, ctrl+click on help or visit our website.            │
+    └──────────────────────────────────────────────────────────────────────┘
+
+Activate the web console with: systemctl enable --now cockpit.socket
+
+Register this system with Red Hat Insights: insights-client --register
+Create an account or view all your systems at https://red.ht/insights-dashboard
+Last login: Fri Jun 27 15:36:03 2025 from 10.192.52.140
+[ncpuser@ncputility ~]$
+[ncpuser@ncputility ~]$ sudo su -
+[sudo] password for ncpuser:
+[root@ncputility ~]# 
+```
+2) login to hub cluster using oc login or rc file. 
+
+login to in the hub cluster using respective RC file. 
+```
+[root@ncputility ~ cwl_rc]$source cwlrc
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You have access to 105 projects, the list has been suppressed. You can list all projects with 'oc projects'
+
+Using project "default".
+[root@ncputility ~ cwl_rc]$ oc get nodes # this list sample, you will get big list of nodes.
+NAME                                       STATUS   ROLES                                 AGE   VERSION
+master-0.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+master-1.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+master-2.pphncp01.infra.mobi.eastlink.ca   Ready    control-plane,master,monitor,worker   30d   v1.29.10+67d3387
+
+**output omitted**
+[root@ncputility ~ cwl_rc]$ 
+```
+3) now try ssh for each and every node in the list. 
+
+> do proper ssh test for all the nodes. 
+
+```
+ssh core@master-0.pphncp01.infra.mobi.eastlink.ca
+```
