@@ -1823,6 +1823,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verification-for-new-infra-quay-tls-on-the-hub-cluster-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification for new infra quay TLS on the hub cluster registry.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-for-new-ssh-key-testing-on-hub-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification for new ssh key testing on hub clusters.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-for-new-ssh-key-testing-on-cwl-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification for new ssh key testing on cwl clusters.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2061,6 +2103,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#verification-for-new-infra-quay-tls-on-the-hub-cluster-registry" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification for new infra quay TLS on the hub cluster registry.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-for-new-ssh-key-testing-on-hub-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification for new ssh key testing on hub clusters.
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#verification-for-new-ssh-key-testing-on-cwl-clusters" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verification for new ssh key testing on cwl clusters.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2105,6 +2189,7 @@
 <li><a href="#validate-operator-catalog-itms-and-dtms">Validate Operator Catalog, ITMS, and DTMS</a></li>
 <li><a href="#restore-ssh-key-for-hub-cluster">Restore SSH Key for Hub Cluster</a></li>
 <li><a href="#restore-ssh-key-for-cwl-cluster">Restore SSH Key for CWL Cluster</a></li>
+<li><a href="#verification">Verification Testing</a></li>
 </ul>
 <h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
 <h3 id="access-reinstalled-infra-manager-node">Access Reinstalled Infra-Manager Node<a class="headerlink" href="#access-reinstalled-infra-manager-node" title="Permanent link">&para;</a></h3>
@@ -3067,6 +3152,159 @@ If the update was successfully applied, then logs similar to below lines are exp
 <span class="n">I0111</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="mi">59</span><span class="err">:</span><span class="mf">07.371253</span><span class="w">    </span><span class="mi">7993</span><span class="w"> </span><span class="k">update</span><span class="p">.</span><span class="k">go</span><span class="err">:</span><span class="mi">569</span><span class="err">]</span><span class="w"> </span><span class="n">Writing</span><span class="w"> </span><span class="n">SSHKeys</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="ss">&quot;/home/core/.ssh&quot;</span>
 <span class="p">...</span>
 <span class="n">I0111</span><span class="w"> </span><span class="mi">19</span><span class="err">:</span><span class="mi">59</span><span class="err">:</span><span class="mf">07.372208</span><span class="w">    </span><span class="mi">7993</span><span class="w"> </span><span class="k">update</span><span class="p">.</span><span class="k">go</span><span class="err">:</span><span class="mi">613</span><span class="err">]</span><span class="w"> </span><span class="n">machine</span><span class="o">-</span><span class="n">config</span><span class="o">-</span><span class="n">daemon</span><span class="w"> </span><span class="n">initiating</span><span class="w"> </span><span class="nl">reboot</span><span class="p">:</span><span class="w"> </span><span class="n">Node</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">reboot</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="n">worker</span><span class="o">-</span><span class="mi">96</span><span class="n">b48815fa067f651fa50541ea6a9b5d</span>
+</code></pre></div>
+
+<h2 id="verification">Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h2>
+<h3 id="verification-for-new-infra-quay-tls-on-the-hub-cluster-registry">Verification for new infra quay TLS on the hub cluster registry.<a class="headerlink" href="#verification-for-new-infra-quay-tls-on-the-hub-cluster-registry" title="Permanent link">&para;</a></h3>
+<p>1) Login to Customer VPN, followed by ssh to infra-manager node using username <code>ncpuser</code> with given password. </p>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="err">┌──────────────────────────────────────────────────────────────────────┐</span>
+<span class="w">    </span><span class="err">│</span><span class="w">                 </span><span class="err">•</span><span class="w"> </span><span class="n">MobaXterm</span><span class="w"> </span><span class="n">Personal</span><span class="w"> </span><span class="n">Edition</span><span class="w"> </span><span class="n">v25</span><span class="mf">.1</span><span class="w"> </span><span class="err">•</span><span class="w">                 </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">               </span><span class="p">(</span><span class="n">SSH</span><span class="w"> </span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">network</span><span class="w"> </span><span class="n">tools</span><span class="p">)</span><span class="w">               </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w"> </span><span class="err">⮞</span><span class="w"> </span><span class="n">SSH</span><span class="w"> </span><span class="n">session</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">ncpuser</span><span class="mf">@10.236.6.230</span><span class="w">                                </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">Direct</span><span class="w"> </span><span class="n">SSH</span><span class="w">      </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">                                             </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">SSH</span><span class="w"> </span><span class="n">compression</span><span class="w"> </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">                                             </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">SSH</span><span class="o">-</span><span class="n">browser</span><span class="w">     </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">                                             </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">X11</span><span class="o">-</span><span class="n">forwarding</span><span class="w">  </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">  </span><span class="p">(</span><span class="n">remote</span><span class="w"> </span><span class="n">display</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">forwarded</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="n">SSH</span><span class="p">)</span><span class="w">  </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w"> </span><span class="err">⮞</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="n">ctrl</span><span class="o">+</span><span class="n">click</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">help</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">visit</span><span class="w"> </span><span class="n">our</span><span class="w"> </span><span class="n">website</span><span class="p">.</span><span class="w">            </span><span class="err">│</span>
+<span class="w">    </span><span class="err">└──────────────────────────────────────────────────────────────────────┘</span>
+
+<span class="n">Activate</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">web</span><span class="w"> </span><span class="n">console</span><span class="w"> </span><span class="n">with</span><span class="o">:</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">enable</span><span class="w"> </span><span class="o">--</span><span class="n">now</span><span class="w"> </span><span class="n">cockpit</span><span class="p">.</span><span class="n">socket</span>
+
+<span class="n">Register</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">Red</span><span class="w"> </span><span class="n">Hat</span><span class="w"> </span><span class="n">Insights</span><span class="o">:</span><span class="w"> </span><span class="n">insights</span><span class="o">-</span><span class="n">client</span><span class="w"> </span><span class="o">--</span><span class="k">register</span>
+<span class="n">Create</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">systems</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//red.ht/insights-dashboard</span>
+<span class="n">Last</span><span class="w"> </span><span class="n">login</span><span class="o">:</span><span class="w"> </span><span class="n">Fri</span><span class="w"> </span><span class="n">Jun</span><span class="w"> </span><span class="mi">27</span><span class="w"> </span><span class="mi">15</span><span class="o">:</span><span class="mi">36</span><span class="o">:</span><span class="mo">03</span><span class="w"> </span><span class="mi">2025</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="mf">10.192.52.140</span>
+<span class="p">[</span><span class="n">ncpuser</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="n">$</span>
+<span class="p">[</span><span class="n">ncpuser</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">su</span><span class="w"> </span><span class="o">-</span>
+<span class="p">[</span><span class="n">sudo</span><span class="p">]</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">ncpuser</span><span class="o">:</span>
+<span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<p>2) login to hub cluster using oc login or rc file. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ cwl_rc</span><span class="o">]</span><span class="err">$</span><span class="n">source</span><span class="w"> </span><span class="n">hubrc</span>
+<span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
+
+<span class="n">Login</span><span class="w"> </span><span class="n">successful</span><span class="p">.</span>
+
+<span class="n">You</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">105</span><span class="w"> </span><span class="n">projects</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">suppressed</span><span class="p">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="n">projects</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="s1">&#39;oc projects&#39;</span>
+
+<span class="k">Using</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="ss">&quot;default&quot;</span><span class="p">.</span>
+<span class="o">[</span><span class="n">root@ncputility ~ hub_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">pods</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">nmstate</span>
+<span class="n">NAME</span><span class="w">                                       </span><span class="n">STATUS</span><span class="w">   </span><span class="n">ROLES</span><span class="w">                                 </span><span class="n">AGE</span><span class="w">   </span><span class="n">VERSION</span>
+
+<span class="o">[</span><span class="n">root@ncputility ~ hub_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
+</code></pre></div>
+
+<p>3) now try deleting some low profile pods.  like nm</p>
+<blockquote>
+<p>do proper ssh test for all the nodes. </p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="n">core</span><span class="nv">@master</span><span class="o">-</span><span class="mf">0.</span><span class="n">pphncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span>
+</code></pre></div>
+
+<h3 id="verification-for-new-ssh-key-testing-on-hub-clusters">Verification for new ssh key testing on hub clusters.<a class="headerlink" href="#verification-for-new-ssh-key-testing-on-hub-clusters" title="Permanent link">&para;</a></h3>
+<p>1) Login to Customer VPN, followed by ssh to infra-manager node using username <code>ncpuser</code> with given password. </p>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="err">┌──────────────────────────────────────────────────────────────────────┐</span>
+<span class="w">    </span><span class="err">│</span><span class="w">                 </span><span class="err">•</span><span class="w"> </span><span class="n">MobaXterm</span><span class="w"> </span><span class="n">Personal</span><span class="w"> </span><span class="n">Edition</span><span class="w"> </span><span class="n">v25</span><span class="mf">.1</span><span class="w"> </span><span class="err">•</span><span class="w">                 </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">               </span><span class="p">(</span><span class="n">SSH</span><span class="w"> </span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">network</span><span class="w"> </span><span class="n">tools</span><span class="p">)</span><span class="w">               </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w"> </span><span class="err">⮞</span><span class="w"> </span><span class="n">SSH</span><span class="w"> </span><span class="n">session</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">ncpuser</span><span class="mf">@10.236.6.230</span><span class="w">                                </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">Direct</span><span class="w"> </span><span class="n">SSH</span><span class="w">      </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">                                             </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">SSH</span><span class="w"> </span><span class="n">compression</span><span class="w"> </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">                                             </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">SSH</span><span class="o">-</span><span class="n">browser</span><span class="w">     </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">                                             </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">X11</span><span class="o">-</span><span class="n">forwarding</span><span class="w">  </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">  </span><span class="p">(</span><span class="n">remote</span><span class="w"> </span><span class="n">display</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">forwarded</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="n">SSH</span><span class="p">)</span><span class="w">  </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w"> </span><span class="err">⮞</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="n">ctrl</span><span class="o">+</span><span class="n">click</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">help</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">visit</span><span class="w"> </span><span class="n">our</span><span class="w"> </span><span class="n">website</span><span class="p">.</span><span class="w">            </span><span class="err">│</span>
+<span class="w">    </span><span class="err">└──────────────────────────────────────────────────────────────────────┘</span>
+
+<span class="n">Activate</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">web</span><span class="w"> </span><span class="n">console</span><span class="w"> </span><span class="n">with</span><span class="o">:</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">enable</span><span class="w"> </span><span class="o">--</span><span class="n">now</span><span class="w"> </span><span class="n">cockpit</span><span class="p">.</span><span class="n">socket</span>
+
+<span class="n">Register</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">Red</span><span class="w"> </span><span class="n">Hat</span><span class="w"> </span><span class="n">Insights</span><span class="o">:</span><span class="w"> </span><span class="n">insights</span><span class="o">-</span><span class="n">client</span><span class="w"> </span><span class="o">--</span><span class="k">register</span>
+<span class="n">Create</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">systems</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//red.ht/insights-dashboard</span>
+<span class="n">Last</span><span class="w"> </span><span class="n">login</span><span class="o">:</span><span class="w"> </span><span class="n">Fri</span><span class="w"> </span><span class="n">Jun</span><span class="w"> </span><span class="mi">27</span><span class="w"> </span><span class="mi">15</span><span class="o">:</span><span class="mi">36</span><span class="o">:</span><span class="mo">03</span><span class="w"> </span><span class="mi">2025</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="mf">10.192.52.140</span>
+<span class="p">[</span><span class="n">ncpuser</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="n">$</span>
+<span class="p">[</span><span class="n">ncpuser</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">su</span><span class="w"> </span><span class="o">-</span>
+<span class="p">[</span><span class="n">sudo</span><span class="p">]</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">ncpuser</span><span class="o">:</span>
+<span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<p>2) login to hub cluster using oc login or rc file. </p>
+<p>login to in the hub cluster using respective RC file. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ cwl_rc</span><span class="o">]</span><span class="err">$</span><span class="n">source</span><span class="w"> </span><span class="n">hubrc</span>
+<span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
+
+<span class="n">Login</span><span class="w"> </span><span class="n">successful</span><span class="p">.</span>
+
+<span class="n">You</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">105</span><span class="w"> </span><span class="n">projects</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">suppressed</span><span class="p">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="n">projects</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="s1">&#39;oc projects&#39;</span>
+
+<span class="k">Using</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="ss">&quot;default&quot;</span><span class="p">.</span>
+<span class="o">[</span><span class="n">root@ncputility ~ hub_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">nodes</span>
+<span class="n">NAME</span><span class="w">                                       </span><span class="n">STATUS</span><span class="w">   </span><span class="n">ROLES</span><span class="w">                                 </span><span class="n">AGE</span><span class="w">   </span><span class="n">VERSION</span>
+<span class="n">master</span><span class="o">-</span><span class="mf">0.</span><span class="n">pphncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="p">,</span><span class="n">worker</span><span class="w">   </span><span class="mi">30</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">master</span><span class="o">-</span><span class="mf">1.</span><span class="n">pphncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="p">,</span><span class="n">worker</span><span class="w">   </span><span class="mi">30</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">master</span><span class="o">-</span><span class="mf">2.</span><span class="n">pphncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="p">,</span><span class="n">worker</span><span class="w">   </span><span class="mi">30</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="o">[</span><span class="n">root@ncputility ~ hub_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
+</code></pre></div>
+
+<p>3) now try ssh for each and every node in the list. </p>
+<blockquote>
+<p>do proper ssh test for all the nodes. </p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="n">core</span><span class="nv">@master</span><span class="o">-</span><span class="mf">0.</span><span class="n">pphncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span>
+</code></pre></div>
+
+<h3 id="verification-for-new-ssh-key-testing-on-cwl-clusters">Verification for new ssh key testing on cwl clusters.<a class="headerlink" href="#verification-for-new-ssh-key-testing-on-cwl-clusters" title="Permanent link">&para;</a></h3>
+<p>1) Login to Customer VPN, followed by ssh to infra-manager node using username <code>ncpuser</code> with given password. </p>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="err">┌──────────────────────────────────────────────────────────────────────┐</span>
+<span class="w">    </span><span class="err">│</span><span class="w">                 </span><span class="err">•</span><span class="w"> </span><span class="n">MobaXterm</span><span class="w"> </span><span class="n">Personal</span><span class="w"> </span><span class="n">Edition</span><span class="w"> </span><span class="n">v25</span><span class="mf">.1</span><span class="w"> </span><span class="err">•</span><span class="w">                 </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">               </span><span class="p">(</span><span class="n">SSH</span><span class="w"> </span><span class="n">client</span><span class="p">,</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="n">server</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">network</span><span class="w"> </span><span class="n">tools</span><span class="p">)</span><span class="w">               </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w"> </span><span class="err">⮞</span><span class="w"> </span><span class="n">SSH</span><span class="w"> </span><span class="n">session</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">ncpuser</span><span class="mf">@10.236.6.230</span><span class="w">                                </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">Direct</span><span class="w"> </span><span class="n">SSH</span><span class="w">      </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">                                             </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">SSH</span><span class="w"> </span><span class="n">compression</span><span class="w"> </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">                                             </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">SSH</span><span class="o">-</span><span class="n">browser</span><span class="w">     </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">                                             </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">   </span><span class="err">•</span><span class="w"> </span><span class="n">X11</span><span class="o">-</span><span class="n">forwarding</span><span class="w">  </span><span class="o">:</span><span class="w">  </span><span class="err">✓</span><span class="w">  </span><span class="p">(</span><span class="n">remote</span><span class="w"> </span><span class="n">display</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">forwarded</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="n">SSH</span><span class="p">)</span><span class="w">  </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w">                                                                      </span><span class="err">│</span>
+<span class="w">    </span><span class="err">│</span><span class="w"> </span><span class="err">⮞</span><span class="w"> </span><span class="n">For</span><span class="w"> </span><span class="n">more</span><span class="w"> </span><span class="n">info</span><span class="p">,</span><span class="w"> </span><span class="n">ctrl</span><span class="o">+</span><span class="n">click</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="n">help</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">visit</span><span class="w"> </span><span class="n">our</span><span class="w"> </span><span class="n">website</span><span class="p">.</span><span class="w">            </span><span class="err">│</span>
+<span class="w">    </span><span class="err">└──────────────────────────────────────────────────────────────────────┘</span>
+
+<span class="n">Activate</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">web</span><span class="w"> </span><span class="n">console</span><span class="w"> </span><span class="n">with</span><span class="o">:</span><span class="w"> </span><span class="n">systemctl</span><span class="w"> </span><span class="n">enable</span><span class="w"> </span><span class="o">--</span><span class="n">now</span><span class="w"> </span><span class="n">cockpit</span><span class="p">.</span><span class="n">socket</span>
+
+<span class="n">Register</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">Red</span><span class="w"> </span><span class="n">Hat</span><span class="w"> </span><span class="n">Insights</span><span class="o">:</span><span class="w"> </span><span class="n">insights</span><span class="o">-</span><span class="n">client</span><span class="w"> </span><span class="o">--</span><span class="k">register</span>
+<span class="n">Create</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">account</span><span class="w"> </span><span class="n">or</span><span class="w"> </span><span class="n">view</span><span class="w"> </span><span class="n">all</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">systems</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//red.ht/insights-dashboard</span>
+<span class="n">Last</span><span class="w"> </span><span class="n">login</span><span class="o">:</span><span class="w"> </span><span class="n">Fri</span><span class="w"> </span><span class="n">Jun</span><span class="w"> </span><span class="mi">27</span><span class="w"> </span><span class="mi">15</span><span class="o">:</span><span class="mi">36</span><span class="o">:</span><span class="mo">03</span><span class="w"> </span><span class="mi">2025</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="mf">10.192.52.140</span>
+<span class="p">[</span><span class="n">ncpuser</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="n">$</span>
+<span class="p">[</span><span class="n">ncpuser</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="n">$</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">su</span><span class="w"> </span><span class="o">-</span>
+<span class="p">[</span><span class="n">sudo</span><span class="p">]</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">ncpuser</span><span class="o">:</span>
+<span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">ncputility</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<p>2) login to hub cluster using oc login or rc file. </p>
+<p>login to in the hub cluster using respective RC file. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ cwl_rc</span><span class="o">]</span><span class="err">$</span><span class="n">source</span><span class="w"> </span><span class="n">cwlrc</span>
+<span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="k">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">option</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">supported</span><span class="err">!</span>
+
+<span class="n">Login</span><span class="w"> </span><span class="n">successful</span><span class="p">.</span>
+
+<span class="n">You</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">105</span><span class="w"> </span><span class="n">projects</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">been</span><span class="w"> </span><span class="n">suppressed</span><span class="p">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="n">projects</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="s1">&#39;oc projects&#39;</span>
+
+<span class="k">Using</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="ss">&quot;default&quot;</span><span class="p">.</span>
+<span class="o">[</span><span class="n">root@ncputility ~ cwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">nodes</span><span class="w"> </span><span class="err">#</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="n">sample</span><span class="p">,</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">big</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">nodes</span><span class="p">.</span>
+<span class="n">NAME</span><span class="w">                                       </span><span class="n">STATUS</span><span class="w">   </span><span class="n">ROLES</span><span class="w">                                 </span><span class="n">AGE</span><span class="w">   </span><span class="n">VERSION</span>
+<span class="n">master</span><span class="o">-</span><span class="mf">0.</span><span class="n">pphncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="p">,</span><span class="n">worker</span><span class="w">   </span><span class="mi">30</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">master</span><span class="o">-</span><span class="mf">1.</span><span class="n">pphncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="p">,</span><span class="n">worker</span><span class="w">   </span><span class="mi">30</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+<span class="n">master</span><span class="o">-</span><span class="mf">2.</span><span class="n">pphncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span><span class="w">   </span><span class="n">Ready</span><span class="w">    </span><span class="n">control</span><span class="o">-</span><span class="n">plane</span><span class="p">,</span><span class="n">master</span><span class="p">,</span><span class="n">monitor</span><span class="p">,</span><span class="n">worker</span><span class="w">   </span><span class="mi">30</span><span class="n">d</span><span class="w">   </span><span class="n">v1</span><span class="mf">.29.10</span><span class="o">+</span><span class="mi">67</span><span class="n">d3387</span>
+
+<span class="o">**</span><span class="k">output</span><span class="w"> </span><span class="n">omitted</span><span class="o">**</span>
+<span class="o">[</span><span class="n">root@ncputility ~ cwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
+</code></pre></div>
+
+<p>3) now try ssh for each and every node in the list. </p>
+<blockquote>
+<p>do proper ssh test for all the nodes. </p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="n">ssh</span><span class="w"> </span><span class="n">core</span><span class="nv">@master</span><span class="o">-</span><span class="mf">0.</span><span class="n">pphncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span>
 </code></pre></div>
 
 

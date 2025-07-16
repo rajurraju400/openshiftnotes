@@ -1182,11 +1182,24 @@ NAME                                       STATUS   ROLES                       
 
 [root@ncputility ~ hub_rc]$ 
 ```
-3) now try deleting some low profile pods.  like nm
-> do proper ssh test for all the nodes. 
+3) now try deleting some low profile pods.  l
 
 ```
-ssh core@master-0.pphncp01.infra.mobi.eastlink.ca
+oc get pods -A -o wide |grep -i controller 
+
+# when you delete it you should be seeing pod recreated without any issue. 
+```
+
+or
+
+```
+oc debug -t node/node.name
+
+chroot /root
+
+podman pull any/image/from/infra/quay.
+
+it should not through any TLS error. 
 ```
 
 
