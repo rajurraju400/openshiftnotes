@@ -240,9 +240,9 @@ oc get nodes
 
 ## Beyond this is still part of future planning. Please do not implement it at this stage.
 
-###  TCPDUMP Role Implementation
+###  TCPDUMP Role Implementation (!!!under construction!!!)
 
-
+![alt text](image-7.png)
 
 1) Create the custom role. Here is the sample custom role definition yaml, customize this as per the requirements:
 
@@ -258,6 +258,7 @@ rules:
   - nodes
   verbs:
   - get
+  - list
 - apiGroups:
   - ""
   resources:
@@ -290,72 +291,91 @@ rules:
 oc adm policy add-cluster-role-to-user ncp-default-tcpdump nokia
 ```
 
-- At this point, Being privileged adds AllCapabilities (giving highly unrestricted access) to debug pod is need additional setting at scc level. So create a custom scc as follows:
 
-
-3) Create a custom scc with reference to 'previleged' scc:
-
-> only update the list of users ` users: [nokia,cnf1,cnf2]` # add the list of users here. 
+3) Validate with tcpdump execution
 
 ```
-#vi custom-tcpdump-previleged-scc.yaml
+[root@ncputility ~ pancwl_rc]$ oc login -u nokia -p nokia@123
+WARNING: Using insecure TLS client config. Setting this option is not supported!
 
+Login successful.
 
-allowHostDirVolumePlugin: true
-allowHostIPC: false   
-allowHostNetwork: true
-allowHostPID: true
-allowHostPorts: true
-allowPrivilegeEscalation: true
-allowPrivilegedContainer: true
-allowedCapabilities: null
-apiVersion: security.openshift.io/v1
-defaultAddCapabilities: null
-fsGroup:
-  type: RunAsAny
-groups:
-- system:authenticated 
-pods
-kind: SecurityContextConstraints
-metadata:
-  annotations:
-    include.release.openshift.io/ibm-cloud-managed: "true"
-    include.release.openshift.io/self-managed-high-availability: "true"
-    include.release.openshift.io/single-node-developer: "true"
-    kubernetes.io/description: 'privileged allows access to all privileged and host
-      features and the ability to run as any user, any group, any fsGroup, and with
-      any SELinux context.  WARNING: this is the most relaxed SCC and should be used
-      only for cluster administration. Grant with caution.'
-    release.openshift.io/create-only: "true"
-  name: privileged-new  
-priority: null
-readOnlyRootFilesystem: false
-requiredDropCapabilities: null
-runAsUser:
-  type: RunAsAny
-seLinuxContext:
-  type: MustRunAs 
-users: [nokia,cnf1,cnf2] # add the list of users here. 
-volumes:
-- configMap
-- downwardAPI
-- emptyDir
-- secret
-```
+You have access to 137 projects, the list has been suppressed. You can list all projects with 'oc projects'
 
-> oc apply -f custom-tcpdump-previleged-scc.yaml
+Using project "".
+[root@ncputility ~ pancwl_rc]$ oc get nodes |tail -5
+storage0.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     82d   v1.29.10+67d3387
+storage1.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     82d   v1.29.10+67d3387
+storage2.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     82d   v1.29.10+67d3387
+storage3.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     82d   v1.29.10+67d3387
+storage4.panclypcwl01.mnc020.mcc714      Ready    storage,worker                     82d   v1.29.10+67d3387
+[root@ncputility ~ pancwl_rc]$ oc debug -t node/storage1.panclypcwl01.mnc020.mcc714
+Starting pod/storage1panclypcwl01mnc020mcc714-debug-4zdjb ...
+To use host binaries, run `chroot /host`
+Pod IP: 10.89.96.22
+If you don't see a command prompt, try pressing enter.
+sh-5.1# chroot /host
+sh-5.1# toolbox
+.toolboxrc file detected, overriding defaults...
+Trying to pull quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest...
+Getting image source signatures
+Copying blob ebc7dc32a098 done   |
+Copying blob f5e6502d2728 done   |
+Copying config affd08d3be done   |
+Writing manifest to image destination
+affd08d3bead20c55f40f08270d477b1524d9d7a2db25235956c7858755ef5f3
+Spawning a container 'toolbox-root' with image 'quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9/support-tools:latest'
+Detected RUN label in the container image. Using that as the default...
+fd81a47b434b6ef9f1f5c1f75f016417ace0424ac444ac160920d1b56317749c
+toolbox-root
+Container started successfully. To exit, type 'exit'.
+[root@storage1 /]# ip a |grep -i vlan
+14: tenant-vlan.11@tenant-bond: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 9126 qdisc noqueue state UP group default qlen 1000
+[root@storage1 /]# tcpdump -i tenant-vlan.11
+dropped privs to tcpdump
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on tenant-vlan.11, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+00:22:01.223561 IP 172.21.1.3.6802 > 172.21.1.23.35424: Flags [P.], seq 891630642:891643891, ack 582150265, win 36945, options [nop,nop,TS val 4260967496 ecr 3116894346], length 13249
+00:22:01.223694 IP 172.21.1.23.35424 > 172.21.1.3.6802: Flags [.], ack 13249, win 42521, options [nop,nop,TS val 3116894355 ecr 4260967489], length 0
+00:22:01.223728 IP 172.21.1.23.35424 > 172.21.1.3.6802: Flags [P.], seq 1:45, ack 13249, win 42624, options [nop,nop,TS val 3116894355 ecr 4260967489], length 44
+00:22:01.224817 IP 172.21.1.23.35424 > 172.21.1.3.6802: Flags [P.], seq 45:246, ack 13249, win 42624, options [nop,nop,TS val 3116894356 ecr 4260967489], length 201
+00:22:01.224931 IP 172.21.1.3.6802 > 172.21.1.23.35424: Flags [.], ack 246, win 36944, options [nop,nop,TS val 4260967498 ecr 3116894355], length 0
+00:22:01.224932 IP 172.21.1.3.6802 > 172.21.1.23.35424: Flags [P.], seq 13249:13293, ack 246, win 36944, options [nop,nop,TS val 4260967498 ecr 3116894355], length 44
+00:22:01.230811 IP 172.21.1.3.6802 > 172.21.1.23.35424: Flags [P.], seq 13293:24555, ack 246, win 36944, options [nop,nop,TS val 4260967503 ecr 3116894355], length 11262
+00:22:01.230913 IP 172.21.1.23.35424 > 172.21.1.3.6802: Flags [.], ack 24555, win 42536, options [nop,nop,TS val 3116894362 ecr 4260967498], length 0
+00:22:01.230945 IP 172.21.1.23.35424 > 172.21.1.3.6802: Flags [P.], seq 246:290, ack 24555, win 42624, options [nop,nop,TS val 3116894362 ecr 4260967498], length 44
+00:22:01.231996 IP 172.21.1.23.35424 > 172.21.1.3.6802: Flags [P.], seq 290:491, ack 24555, win 42624, options [nop,nop,TS val 3116894363 ecr 4260967498], length 201
+00:22:01.232232 IP 172.21.1.3.6802 > 172.21.1.23.35424: Flags [.], ack 491, win 36943, options [nop,nop,TS val 4260967505 ecr 3116894362], length 0
+00:22:01.232233 IP 172.21.1.3.6802 > 172.21.1.23.35424: Flags [P.], seq 24555:24599, ack 491, win 36943, options [nop,nop,TS val 4260967505 ecr 3116894362], length 44
+00:22:01.234142 IP 172.21.1.20.48476 > 172.21.1.23.6806: Flags [P.], seq 16618268:16620391, ack 2665739091, win 190, options [nop,nop,TS val 378975619 ecr 1512308539], length 2123
+00:22:01.234143 IP 172.21.1.20.56650 > 172.21.1.25.6806: Flags [P.], seq 66939466:66941589, ack 3019954763, win 190, options [nop,nop,TS val 2352592038 ecr 2573341444], length 2123
+00:22:01.234179 IP 172.21.1.20.37550 > 172.21.1.5.6806: Flags [P.], seq 536898928:536901051, ack 2721273952, win 190, options [nop,nop,TS val 3815032447 ecr 4261087126], length 2123
+00:22:01.234180 IP 172.21.1.20.42496 > 172.21.1.27.6806: Flags [P.], seq 2279422716:2279424839, ack 1228283579, win 190, options [nop,nop,TS val 753256721 ecr 1445287494], length 2123
+00:22:01.234306 IP 172.21.1.25.6806 > 172.21.1.20.56650: Flags [P.], seq 1:2124, ack 2123, win 2416, options [nop,nop,TS val 2573344344 ecr 2352592038], length 2123
+00:22:01.234315 IP 172.21.1.23.6806 > 172.21.1.20.48476: Flags [P.], seq 1:2124, ack 2123, win 2410, options [nop,nop,TS val 1512311439 ecr 378975619], length 2123
+00:22:01.234343 IP 172.21.1.5.6806 > 172.21.1.20.37550: Flags [P.], seq 1:2124, ack 2123, win 2113, options [nop,nop,TS val 4261090026 ecr 3815032447], length 2123
+00:22:01.234379 IP 172.21.1.27.6806 > 172.21.1.20.42496: Flags [P.], seq 1:2124, ack 2123, win 2676, options [nop,nop,TS val 1445290394 ecr 753256721], length 2123
+00:22:01.234396 IP 172.21.1.20.56650 > 172.21.1.25.6806: Flags [.], ack 2124, win 190, options [nop,nop,TS val 2352592038 ecr 2573344344], length 0
+00:22:01.234402 IP 172.21.1.20.48476 > 172.21.1.23.6806: Flags [.], ack 2124, win 190, options [nop,nop,TS val 378975619 ecr 1512311439], length 0
+00:22:01.234505 IP 172.21.1.20.37550 > 172.21.1.5.6806: Flags [.], ack 2124, win 190, options [nop,nop,TS val 3815032447 ecr 4261090026], length 0
+00:22:01.234537 IP 172.21.1.20.42496 > 172.21.1.27.6806: Flags [.], ack 2124, win 190, options [nop,nop,TS val 753256721 ecr 1445290394], length 0
+00:22:01.237103 IP 172.21.1.27.37158 > 172.21.1.4.6802: Flags [.], ack 1012967756, win 40512, options [nop,nop,TS val 1680035224 ecr 16420672], length 0
+00:22:01.237103 IP 172.21.1.2.60590 > 172.21.1.7.6802: Flags [.], ack 1116017082, win 43392, options [nop,nop,TS val 3825550554 ecr 581103573], length 0
+00:22:01.237104 IP 172.21.1.19.6802 > 172.21.1.11.47258: Flags [.], ack 725570602, win 33408, options [nop,nop,TS val 1704546955 ecr 606498906], length 0
+00:22:01.237110 IP 172.21.1.27.40172 > 172.21.1.16.6802: Flags [.], ack 1828746574, win 42763, options [nop,nop,TS val 3228209995 ecr 3785675081], length 0
+00:22:01.237112 IP 172.21.1.27.6802 > 172.21.1.24.53758: Flags [.], ack 2581029255, win 40512, options [nop,nop,TS val 876559214 ecr 2297188001], length 0
+00:22:01.238104 IP 172.21.1.27.6802 > 172.21.1.7.53514: Flags [.], ack 2578143080, win 43338, options [nop,nop,TS val 2139259988 ecr 593023046], length 0
+00:22:01.238110 IP 172.21.1.23.60636 > 172.21.1.16.6802: Flags [.], ack 3061253067, win 43392, options [nop,nop,TS val 3409467790 ecr 465730765], length 0
+00:22:01.243103 IP 172.21.1.5.58300 > 172.21.1.30.6802: Flags [.], ack 3801079551, win 43968, options [nop,nop,TS val 1313654200 ecr 3953015095], length 0
+00:22:01.245254 IP 172.21.1.9.60686 > 172.21.1.19.6802: Flags [P.], seq 3886789242:3886795319, ack 4202967298, win 35133, options [nop,nop,TS val 3668480800 ecr 724885667], length 6077
+00:22:01.245268 IP 172.21.1.19.6802 > 172.21.1.9.60686: Flags [.], ack 6077, win 43537, options [nop,nop,TS val 724886173 ecr 3668480800], length 0
+00:22:01.245326 IP 172.21.1.23.6802 > 172.21.1.24.48990: Flags [P.], seq 2121865670:2121879923, ack 3941873936, win 40512, options [nop,nop,TS val 1387138236 ecr 2042625459], length 14253
+00:22:01.245327 IP 172.21.1.23.33826 > 172.21.1.4.6802: Flags [P.], seq 937574034:937588287, ack 2453757626, win 43392, options [nop,nop,TS val 3401137216 ecr 577535357], length 14253
+^C00:22:01.245336 IP 172.21.1.29.33576 > 172.21.1.27.6802: Flags [P.], seq 2841329512:2841335589, ack 1230720694, win 43392, options [nop,nop,TS val 1809019513 ecr 2541468665], length 6077
 
+37 packets captured
+11885 packets received by filter
+11538 packets dropped by kernel
+[root@storage1 /]#
 
-4) To assign the custom-previleged-scc to specific user, execute the following:
-
-
-```
-oc adm policy add-scc-to-user custom-tcpdump-previleged-scc nokia
-
-```
-
-5) Re-login as the user with custom role and try executing debug node command:
-
-```
-oc debug node/<node-name>
 ```
