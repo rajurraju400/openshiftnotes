@@ -23,7 +23,7 @@ This documentation assists the MACD team in running `tcpdump`, `sosreport`, and 
 
 ---
 
-## `tcpdump` collection
+## Tcpdump collection
 
 
 1) Login to node via ssh or debug utitiy 
@@ -115,7 +115,7 @@ toolbox
 rm -fr br-ex.pcap
 ```
 
-## `sos` report collection 
+## Sos report collection 
 
 
 1) Login to node via ssh or debug utitiy 
@@ -164,7 +164,7 @@ sos report -k crio.all=on -k crio.logs=on  -k podman.all=on -k podman.logs=on
 ```
 
 
-## `Must gather` collection
+## Must-Gather collection
 
 ### References
 
