@@ -237,12 +237,12 @@ oc get nodes
 ```
 
 ---
-
+<!-- 
 ## Beyond this is still part of future planning. Please do not implement it at this stage.
 
-###  TCPDUMP Role Implementation (!!!under construction!!!)
+###  TCPDUMP Role Implementation (under construction)
 
-![alt text](image-7.png)
+
 
 1) Create the custom role. Here is the sample custom role definition yaml, customize this as per the requirements:
 
@@ -378,4 +378,4 @@ listening on tenant-vlan.11, link-type EN10MB (Ethernet), snapshot length 262144
 11538 packets dropped by kernel
 [root@storage1 /]#
 
-```
+``` -->

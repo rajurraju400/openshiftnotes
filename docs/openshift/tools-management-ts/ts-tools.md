@@ -1,6 +1,8 @@
-# This documentation help MACD team to run tcpdump, sosreport, must gather on the Openshift cluster. 
+# MACD Guide: Tcpdump and Diagnostic Tools in OpenShift Clusters
 
+This documentation assists the MACD team in running `tcpdump`, `sosreport`, and `must-gather` on the OpenShift cluster.
 
+---
 
 ## Guidelines for MACD Team
 
@@ -17,14 +19,14 @@
   > After transferring the `.pcap` file to the infra-manager node, delete it using `rm -f <filename>` to prevent disk pressure on the host OS.
 
 - `tcpdump` should be run on physical or VLAN-based interfaces.  
-  > No capture filters should be applied during the `tcpdump` by MACD engineers.
+  > No capture filters should be applied during the `tcpdump` by MACD engineers. All Filters should be applied by CNF owners while reading it from wireshark or equivalent tools. 
 
-  
+---
 
-## TCPDUMP
+## `tcpdump` collection
 
 
-1) login to node via ssh or debug utitiy 
+1) Login to node via ssh or debug utitiy 
 
 ```
 [root@ncputility ~ pancwl_rc]$ ssh core@appworker2-5.ppwncp01.infra.mobi.eastlink.ca
@@ -51,7 +53,7 @@ sh-5.1# chroot /host
 sh-5.1# 
 ```
 
-2) now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. 
+2) Trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. 
 
 
 ```
@@ -75,7 +77,7 @@ Container started successfully. To exit, type 'exit'.
 ```
 
 
-4) now run tcpdump command against any linux network interface. 
+4) Run `tcpdump` command against any linux network interface. 
 
 ```
 [root@appworker2-5 /]# tcpdump -i br-ex -w br-ex.pcap
@@ -106,10 +108,17 @@ sh-5.1#
 scp -rp /var/lib/containers/storage/overlay/b645fb6d5a034493f332f9794cf47967ac50bb8a8e92f26e2c13da18697a5387/diff/br-ex.pcap root@infra-manager:/tmp/ 
 ```
 
-## sos report
+7) Delete the file from the node, so prevent causing an disk pressure issue. 
+
+```
+toolbox
+rm -fr br-ex.pcap
+```
+
+## `sos` report collection 
 
 
-1) login to node via ssh or debug utitiy 
+1) Login to node via ssh or debug utitiy 
 
 ```
 [root@ncputility ~ pancwl_rc]$ ssh core@gateway2.panclypcwl01.mnc020.mcc714
@@ -125,19 +134,8 @@ make configuration changes via `machineconfig` objects:
 [core@gateway2 ~]$
 ```
 
-2) become root and update the toolbox rc file here.
-    a. use your hub cluster quay to avoid ssl certificate trust error. 
 
-```
-[root@gateway2 ~]# cat /root/.toolboxrc
-#REGISTRY=ncputility.panclyphub01.mnc020.mcc714:8443/ocmirror/rhel9
-REGISTRY=quay-registry.apps.panclyphub01.mnc020.mcc714/ocmirror/rhel9
-IMAGE=support-tools:latest
-[root@gateway2 ~]#
-
-```
-
-3) now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. 
+2) Trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. 
 
 
 ```
@@ -158,7 +156,7 @@ Container started successfully. To exit, type 'exit'.
 [root@gateway2 /]#
 
 ```
-4) now use sosreport from here 
+3) now use sosreport from here 
 
 
 ```
@@ -166,6 +164,8 @@ sos report -k crio.all=on -k crio.logs=on  -k podman.all=on -k podman.logs=on
 ```
 
 
-#### References
+## `Must gather` collection
+
+### References
 
 * [Recovering a node that has lost all networking in OpenShift 4](https://access.redhat.com/solutions/7046419)
