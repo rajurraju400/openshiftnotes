@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#this-documentation-help-macd-team-to-run-tcpdump-sosreport-must-gather-on-the-openshift-cluster" class="md-skip">
+        <a href="#macd-guide-tcpdump-and-diagnostic-tools-in-openshift-clusters" class="md-skip">
           Skip to content
         </a>
       
@@ -1513,22 +1513,31 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tcpdump" class="md-nav__link">
+  <a href="#tcpdump-collection" class="md-nav__link">
     <span class="md-ellipsis">
-      TCPDUMP
+      tcpdump collection
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#sos-report" class="md-nav__link">
+  <a href="#sos-report-collection" class="md-nav__link">
     <span class="md-ellipsis">
-      sos report
+      sos report collection
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="sos report">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#must-gather-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Must gather collection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Must gather collection">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1781,22 +1790,31 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#tcpdump" class="md-nav__link">
+  <a href="#tcpdump-collection" class="md-nav__link">
     <span class="md-ellipsis">
-      TCPDUMP
+      tcpdump collection
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#sos-report" class="md-nav__link">
+  <a href="#sos-report-collection" class="md-nav__link">
     <span class="md-ellipsis">
-      sos report
+      sos report collection
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="sos report">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#must-gather-collection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Must gather collection
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Must gather collection">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1829,7 +1847,9 @@
 
 
 
-<h1 id="this-documentation-help-macd-team-to-run-tcpdump-sosreport-must-gather-on-the-openshift-cluster">This documentation help MACD team to run tcpdump, sosreport, must gather on the Openshift cluster.<a class="headerlink" href="#this-documentation-help-macd-team-to-run-tcpdump-sosreport-must-gather-on-the-openshift-cluster" title="Permanent link">&para;</a></h1>
+<h1 id="macd-guide-tcpdump-and-diagnostic-tools-in-openshift-clusters">MACD Guide: Tcpdump and Diagnostic Tools in OpenShift Clusters<a class="headerlink" href="#macd-guide-tcpdump-and-diagnostic-tools-in-openshift-clusters" title="Permanent link">&para;</a></h1>
+<p>This documentation assists the MACD team in running <code>tcpdump</code>, <code>sosreport</code>, and <code>must-gather</code> on the OpenShift cluster.</p>
+<hr />
 <h2 id="guidelines-for-macd-team">Guidelines for MACD Team<a class="headerlink" href="#guidelines-for-macd-team" title="Permanent link">&para;</a></h2>
 <ul>
 <li>
@@ -1859,12 +1879,13 @@
 <li>
 <p><code>tcpdump</code> should be run on physical or VLAN-based interfaces.  </p>
 <blockquote>
-<p>No capture filters should be applied during the <code>tcpdump</code> by MACD engineers.</p>
+<p>No capture filters should be applied during the <code>tcpdump</code> by MACD engineers. All Filters should be applied by CNF owners while reading it from wireshark or equivalent tools. </p>
 </blockquote>
 </li>
 </ul>
-<h2 id="tcpdump">TCPDUMP<a class="headerlink" href="#tcpdump" title="Permanent link">&para;</a></h2>
-<p>1) login to node via ssh or debug utitiy </p>
+<hr />
+<h2 id="tcpdump-collection"><code>tcpdump</code> collection<a class="headerlink" href="#tcpdump-collection" title="Permanent link">&para;</a></h2>
+<p>1) Login to node via ssh or debug utitiy </p>
 <div class="codehilite"><pre><span></span><code><span class="err">[</span><span class="n">root</span><span class="nv">@ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="err">]</span><span class="n">$</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="n">core</span><span class="nv">@appworker2</span><span class="o">-</span><span class="mf">5.</span><span class="n">ppwncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span>
 <span class="n">Red</span><span class="w"> </span><span class="n">Hat</span><span class="w"> </span><span class="n">Enterprise</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="n">CoreOS</span><span class="w"> </span><span class="mf">416.94.202407081958</span><span class="o">-</span><span class="mi">0</span>
 <span class="w">  </span><span class="n">Part</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">OpenShift</span><span class="w"> </span><span class="mf">4.16</span><span class="p">,</span><span class="w"> </span><span class="n">RHCOS</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Kubernetes</span><span class="o">-</span><span class="n">native</span><span class="w"> </span><span class="n">operating</span><span class="w"> </span><span class="k">system</span>
@@ -1889,7 +1910,7 @@
 <span class="s1">sh-5.1# </span>
 </code></pre></div>
 
-<p>2) now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. </p>
+<p>2) Trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. </p>
 <div class="codehilite"><pre><span></span><code><span class="n">sh</span><span class="o">-</span><span class="mf">5.1</span><span class="c1"># toolbox</span>
 <span class="n">Trying</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">registry</span><span class="o">.</span><span class="n">redhat</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">rhel9</span><span class="o">/</span><span class="n">support</span><span class="o">-</span><span class="n">tools</span><span class="p">:</span><span class="n">latest</span><span class="o">...</span>
 <span class="n">Getting</span><span class="w"> </span><span class="n">image</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="n">signatures</span>
@@ -1908,7 +1929,7 @@
 <span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">appworker2</span><span class="o">-</span><span class="mi">5</span><span class="w"> </span><span class="o">/</span><span class="p">]</span><span class="c1">#</span>
 </code></pre></div>
 
-<p>4) now run tcpdump command against any linux network interface. </p>
+<p>4) Run <code>tcpdump</code> command against any linux network interface. </p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">appworker2</span><span class="o">-</span><span class="mi">5</span><span class="w"> </span><span class="o">/</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="nx">tcpdump</span><span class="w"> </span><span class="o">-</span><span class="nx">i</span><span class="w"> </span><span class="nx">br</span><span class="o">-</span><span class="nx">ex</span><span class="w"> </span><span class="o">-</span><span class="nx">w</span><span class="w"> </span><span class="nx">br</span><span class="o">-</span><span class="nx">ex</span><span class="p">.</span><span class="nx">pcap</span>
 <span class="nx">dropped</span><span class="w"> </span><span class="nx">privs</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">tcpdump</span>
 <span class="nx">tcpdump</span><span class="p">:</span><span class="w"> </span><span class="nx">listening</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">br</span><span class="o">-</span><span class="nx">ex</span><span class="p">,</span><span class="w"> </span><span class="nx">link</span><span class="o">-</span><span class="k">type</span><span class="w"> </span><span class="nx">EN10MB</span><span class="w"> </span><span class="p">(</span><span class="nx">Ethernet</span><span class="p">),</span><span class="w"> </span><span class="nx">snapshot</span><span class="w"> </span><span class="nx">length</span><span class="w"> </span><span class="mi">262144</span><span class="w"> </span><span class="nx">bytes</span>
@@ -1931,8 +1952,13 @@
 <div class="codehilite"><pre><span></span><code><span class="n">scp</span><span class="w"> </span><span class="o">-</span><span class="n">rp</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">containers</span><span class="o">/</span><span class="n">storage</span><span class="o">/</span><span class="n">overlay</span><span class="o">/</span><span class="n">b645fb6d5a034493f332f9794cf47967ac50bb8a8e92f26e2c13da18697a5387</span><span class="o">/</span><span class="n">diff</span><span class="o">/</span><span class="n">br</span><span class="o">-</span><span class="n">ex</span><span class="o">.</span><span class="n">pcap</span><span class="w"> </span><span class="n">root</span><span class="err">@</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="p">:</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="w"> </span>
 </code></pre></div>
 
-<h2 id="sos-report">sos report<a class="headerlink" href="#sos-report" title="Permanent link">&para;</a></h2>
-<p>1) login to node via ssh or debug utitiy </p>
+<p>7) Delete the file from the node, so prevent causing an disk pressure issue. </p>
+<div class="codehilite"><pre><span></span><code><span class="n">toolbox</span>
+<span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">fr</span><span class="w"> </span><span class="n">br</span><span class="o">-</span><span class="n">ex</span><span class="o">.</span><span class="n">pcap</span>
+</code></pre></div>
+
+<h2 id="sos-report-collection"><code>sos</code> report collection<a class="headerlink" href="#sos-report-collection" title="Permanent link">&para;</a></h2>
+<p>1) Login to node via ssh or debug utitiy </p>
 <div class="codehilite"><pre><span></span><code><span class="err">[</span><span class="n">root</span><span class="nv">@ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="err">]</span><span class="n">$</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="n">core</span><span class="nv">@gateway2.panclypcwl01.mnc020.mcc714</span>
 <span class="n">Red</span><span class="w"> </span><span class="n">Hat</span><span class="w"> </span><span class="n">Enterprise</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="n">CoreOS</span><span class="w"> </span><span class="mf">416.94.202407081958</span><span class="o">-</span><span class="mi">0</span>
 <span class="w">  </span><span class="n">Part</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">OpenShift</span><span class="w"> </span><span class="mf">4.16</span><span class="p">,</span><span class="w"> </span><span class="n">RHCOS</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Kubernetes</span><span class="o">-</span><span class="n">native</span><span class="w"> </span><span class="n">operating</span><span class="w"> </span><span class="k">system</span>
@@ -1946,16 +1972,7 @@
 <span class="err">[</span><span class="n">core</span><span class="nv">@gateway2</span><span class="w"> </span><span class="o">~</span><span class="err">]</span><span class="n">$</span>
 </code></pre></div>
 
-<p>2) become root and update the toolbox rc file here.
-    a. use your hub cluster quay to avoid ssl certificate trust error. </p>
-<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="c1"># cat /root/.toolboxrc</span>
-<span class="c1">#REGISTRY=ncputility.panclyphub01.mnc020.mcc714:8443/ocmirror/rhel9</span>
-<span class="n">REGISTRY</span><span class="o">=</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">panclyphub01</span><span class="o">.</span><span class="n">mnc020</span><span class="o">.</span><span class="n">mcc714</span><span class="o">/</span><span class="n">ocmirror</span><span class="o">/</span><span class="n">rhel9</span>
-<span class="n">IMAGE</span><span class="o">=</span><span class="n">support</span><span class="o">-</span><span class="n">tools</span><span class="p">:</span><span class="n">latest</span>
-<span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="c1">#</span>
-</code></pre></div>
-
-<p>3) now trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. </p>
+<p>2) Trigger toolbox command to execute into a shell which contains all required tools like tcpdump, sosreport etc. </p>
 <div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">~</span><span class="p">]</span><span class="c1"># toolbox</span>
 <span class="o">.</span><span class="n">toolboxrc</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">detected</span><span class="p">,</span><span class="w"> </span><span class="n">overriding</span><span class="w"> </span><span class="n">defaults</span><span class="o">...</span>
 <span class="n">Trying</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">pull</span><span class="w"> </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">panclyphub01</span><span class="o">.</span><span class="n">mnc020</span><span class="o">.</span><span class="n">mcc714</span><span class="o">/</span><span class="n">ocmirror</span><span class="o">/</span><span class="n">rhel9</span><span class="o">/</span><span class="n">support</span><span class="o">-</span><span class="n">tools</span><span class="p">:</span><span class="n">latest</span><span class="o">...</span>
@@ -1973,11 +1990,12 @@
 <span class="p">[</span><span class="n">root</span><span class="err">@</span><span class="n">gateway2</span><span class="w"> </span><span class="o">/</span><span class="p">]</span><span class="c1">#</span>
 </code></pre></div>
 
-<p>4) now use sosreport from here </p>
+<p>3) now use sosreport from here </p>
 <div class="codehilite"><pre><span></span><code>sos report -k crio.all=on -k crio.logs=on  -k podman.all=on -k podman.logs=on
 </code></pre></div>
 
-<h4 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h4>
+<h2 id="must-gather-collection"><code>Must gather</code> collection<a class="headerlink" href="#must-gather-collection" title="Permanent link">&para;</a></h2>
+<h3 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h3>
 <ul>
 <li><a href="https://access.redhat.com/solutions/7046419">Recovering a node that has lost all networking in OpenShift 4</a></li>
 </ul>
