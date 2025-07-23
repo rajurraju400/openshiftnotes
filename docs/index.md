@@ -21,7 +21,6 @@ Your comprehensive troubleshooting guide to OpenShift installation, backup, stor
 - [Maintenance Procedures](openshift/maintenace/cluster-stop-start.md)
 - [Networking Configurations](openshift/networking/metalb-troubleshooting.md)
 - [Storage Management](openshift/storagemanagement/ceph-rebalanceissue.md)
-- [Tools Management](openshift/tools-management-ts/ts-tools.md)
 - [Troubleshooting and Workarounds](openshift/troubleshooting/ncomsa.md)
 - [Disaster Management](openshift/disaster-management/infra-manager-redeployment/index.md)
 - [HUB Master Replacement](openshift/disaster-management/hub-cluster-redeployment/master-replacment.md)
