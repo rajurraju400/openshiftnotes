@@ -58,7 +58,7 @@ nav:
           - Failed to configure or Degraded: openshift/CNF-onboarding-support/Failtoconfigure_nncp.md
           - Kubeconfig overlapping: openshift/CNF-onboarding-support/kubeconfig.md
           - NCP Standard user and role Management: openshift/CNF-onboarding-support/NCP-default-usersandrole.md
-          - All host OS level TS: openshift/CNF-onboarding-support/ts-tools.md
+          - Cluster Wide TS: openshift/CNF-onboarding-support/ts-tools.md
 
       - Maintenance:
           - Cluster Stop/Start: openshift/maintenace/cluster-stop-start.md
