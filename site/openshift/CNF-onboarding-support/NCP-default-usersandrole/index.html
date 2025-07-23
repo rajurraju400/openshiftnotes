@@ -1950,6 +1950,9 @@
 <p><code>ncdadmin</code> – <code>cluster-admin</code> role – for the NCD team. This user will be used for NCD git installation (our team)and shared with the NCD team for ongoing lifecycle management.</p>
 </li>
 </ul>
+<blockquote>
+<p>Note 1: if your <code>HUB</code> cluster does not planned to install <code>ncd git server</code>, you can ignore those respective user id creation.</p>
+</blockquote>
 <h2 id="users-and-role-management-on-nmcnwc-clusters">Users and Role management on NMC/NWC clusters<a class="headerlink" href="#users-and-role-management-on-nmcnwc-clusters" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>For <code>Administrator</code> level privileges</p>
@@ -1968,6 +1971,9 @@
 <p><code>ncom-sa</code> - (<code>cluster-admin</code> role) Service Account - for NCOM Application is used via CaaS registration. We will create it for them.  </p>
 </li>
 </ul>
+<blockquote>
+<p>Note 1: if your <code>NMC/NWC</code> clusters does not planned to install <code>ncd</code> or <code>ncom</code>, you can ignore those respective user id creation.</p>
+</blockquote>
 <h3 id="cluster-admin-role-implementation">Cluster-Admin Role Implementation<a class="headerlink" href="#cluster-admin-role-implementation" title="Permanent link">&para;</a></h3>
 <p>No additional setup required. Clusterrole <code>cluster-admin</code> mapped to user.()</p>
 <div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-user<span class="w"> </span>cluster-admin<span class="w"> </span>ncpadmin
@@ -1996,8 +2002,8 @@
 </li>
 </ul>
 <blockquote>
-<p>Note: No need to add above four role to any of these users (ncpadmin, ncdadmin,ncomadmin and ncom-sa)</p>
-<p>Note:  Clarity - CNF id act as read-only for cluster level resources and read-write for tenant level resources.</p>
+<p>Note 1: No need to add above four role to any of these users (ncpadmin, ncdadmin,ncomadmin and ncom-sa)</p>
+<p>Note 2: Clarity - CNF id act as read-only for cluster level resources and read-write for tenant level resources.</p>
 </blockquote>
 <!-- Additionally, if users require access to other important resources at the cluster level as read only, we can add those as needed. To existing “ncp-default-cluster-role “, so automatically all cnf users will get the viewer access from there.  -->
 

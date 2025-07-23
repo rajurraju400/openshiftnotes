@@ -26,6 +26,9 @@ This documentation assists the MACD team in running `tcpdump`, `sosreport`, and 
 ## Tcpdump collection
 
 
+> `Note 1`: Collection as much information as possible before joing the call. [ "Name of the cluster", "Application NS name", "Application pod name", "Pod hosted compute name", "vlan name to capture the trace" etc.]
+
+
 1) Login to node via ssh or debug utitiy 
 
 ```
@@ -102,7 +105,9 @@ sh-5.1#
 
 ```
 
-6) Scp to infra-manager node using scp command. 
+6) Scp to infra-manager node using scp command. if you have a `dedicated infra-manager` ask the application teams where to upload the file.
+
+> `Note 1`: Dont share file via `dedicated infra-manager` node.  its not a file sharing server. 
 
 ```
 scp -rp /var/lib/containers/storage/overlay/b645fb6d5a034493f332f9794cf47967ac50bb8a8e92f26e2c13da18697a5387/diff/br-ex.pcap root@infra-manager:/tmp/ 
@@ -114,6 +119,14 @@ scp -rp /var/lib/containers/storage/overlay/b645fb6d5a034493f332f9794cf47967ac50
 toolbox
 rm -fr br-ex.pcap
 ```
+
+> `Note 1`: It is our responsibility to `delete trace files from the OCP node` level. However, removing the trace file after download is `Nokia’s responsibility` (from shared infra-manager node or Jump server).
+
+
+> `Note 2`: If you copy the trace file to a shared `infra-manager node`, it is still the `responsibility of the application team to delete` the trace file after downloading it.
+
+> `Note 3`: if you have a `dedicated infra-manager` node, Don't share or use this node as file sharing server. Application team should be providing you the IP, user/passwd to where to upload the trace file. 
+
 
 ## Sos report collection 
 
