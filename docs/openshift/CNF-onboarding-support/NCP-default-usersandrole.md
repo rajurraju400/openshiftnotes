@@ -15,6 +15,7 @@ This document outlines the list of approved user IDs and their associated access
 
 * `ncdadmin` – `cluster-admin` role – for the NCD team. This user will be used for NCD git installation (our team)and shared with the NCD team for ongoing lifecycle management.
 
+> Note 1: if your `HUB` cluster does not planned to install `ncd git server`, you can ignore those respective user id creation.
 
 
 ## Users and Role management on NMC/NWC clusters 
@@ -27,6 +28,8 @@ This document outlines the list of approved user IDs and their associated access
 * `ncomadmin` – `cluster-admin` role – for the NCOM team. To be used exclusively for NCOM installation.
 
 * `ncom-sa` - (`cluster-admin` role) Service Account - for NCOM Application is used via CaaS registration. We will create it for them.  
+
+> Note 1: if your `NMC/NWC` clusters does not planned to install `ncd` or `ncom`, you can ignore those respective user id creation.
 
 ### Cluster-Admin Role Implementation
 
@@ -55,9 +58,9 @@ By default, all CNF application users are assigned the following four roles:
 * `redisenterpriseclusters-role` :  Access at namespace level to create, update,delete,edit,patch,lig  rec based objects. 
 
 
-> Note: No need to add above four role to any of these users (ncpadmin, ncdadmin,ncomadmin and ncom-sa)
+> Note 1: No need to add above four role to any of these users (ncpadmin, ncdadmin,ncomadmin and ncom-sa)
 
-> Note:  Clarity - CNF id act as read-only for cluster level resources and read-write for tenant level resources.
+> Note 2: Clarity - CNF id act as read-only for cluster level resources and read-write for tenant level resources.
 
 <!-- Additionally, if users require access to other important resources at the cluster level as read only, we can add those as needed. To existing “ncp-default-cluster-role “, so automatically all cnf users will get the viewer access from there.  -->
 
