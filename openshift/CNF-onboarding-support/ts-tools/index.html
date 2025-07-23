@@ -1887,6 +1887,9 @@
 </ul>
 <hr />
 <h2 id="tcpdump-collection">Tcpdump collection<a class="headerlink" href="#tcpdump-collection" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><code>Note 1</code>: Collection as much information as possible before joing the call. [ "Name of the cluster", "Application NS name", "Application pod name", "Pod hosted compute name", "vlan name to capture the trace" etc.]</p>
+</blockquote>
 <p>1) Login to node via ssh or debug utitiy </p>
 <div class="codehilite"><pre><span></span><code><span class="err">[</span><span class="n">root</span><span class="nv">@ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="err">]</span><span class="n">$</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="n">core</span><span class="nv">@appworker2</span><span class="o">-</span><span class="mf">5.</span><span class="n">ppwncp01</span><span class="p">.</span><span class="n">infra</span><span class="p">.</span><span class="n">mobi</span><span class="p">.</span><span class="n">eastlink</span><span class="p">.</span><span class="n">ca</span>
 <span class="n">Red</span><span class="w"> </span><span class="n">Hat</span><span class="w"> </span><span class="n">Enterprise</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="n">CoreOS</span><span class="w"> </span><span class="mf">416.94.202407081958</span><span class="o">-</span><span class="mi">0</span>
@@ -1950,7 +1953,10 @@
 <span class="n">sh</span><span class="o">-</span><span class="mf">5.1</span><span class="c1">#</span>
 </code></pre></div>
 
-<p>6) Scp to infra-manager node using scp command. </p>
+<p>6) Scp to infra-manager node using scp command. if you have a <code>dedicated infra-manager</code> ask the application teams where to upload the file.</p>
+<blockquote>
+<p><code>Note 1</code>: Dont share file via <code>dedicated infra-manager</code> node.  its not a file sharing server. </p>
+</blockquote>
 <div class="codehilite"><pre><span></span><code><span class="n">scp</span><span class="w"> </span><span class="o">-</span><span class="n">rp</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">containers</span><span class="o">/</span><span class="n">storage</span><span class="o">/</span><span class="n">overlay</span><span class="o">/</span><span class="n">b645fb6d5a034493f332f9794cf47967ac50bb8a8e92f26e2c13da18697a5387</span><span class="o">/</span><span class="n">diff</span><span class="o">/</span><span class="n">br</span><span class="o">-</span><span class="n">ex</span><span class="o">.</span><span class="n">pcap</span><span class="w"> </span><span class="n">root</span><span class="err">@</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="p">:</span><span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="w"> </span>
 </code></pre></div>
 
@@ -1959,6 +1965,11 @@
 <span class="n">rm</span><span class="w"> </span><span class="o">-</span><span class="n">fr</span><span class="w"> </span><span class="n">br</span><span class="o">-</span><span class="n">ex</span><span class="o">.</span><span class="n">pcap</span>
 </code></pre></div>
 
+<blockquote>
+<p><code>Note 1</code>: It is our responsibility to <code>delete trace files from the OCP node</code> level. However, removing the trace file after download is <code>Nokia’s responsibility</code> (from shared infra-manager node or Jump server).</p>
+<p><code>Note 2</code>: If you copy the trace file to a shared <code>infra-manager node</code>, it is still the <code>responsibility of the application team to delete</code> the trace file after downloading it.</p>
+<p><code>Note 3</code>: if you have a <code>dedicated infra-manager</code> node, Don't share or use this node as file sharing server. Application team should be providing you the IP, user/passwd to where to upload the trace file. </p>
+</blockquote>
 <h2 id="sos-report-collection">Sos report collection<a class="headerlink" href="#sos-report-collection" title="Permanent link">&para;</a></h2>
 <p>1) Login to node via ssh or debug utitiy </p>
 <div class="codehilite"><pre><span></span><code><span class="err">[</span><span class="n">root</span><span class="nv">@ncputility</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">pancwl_rc</span><span class="err">]</span><span class="n">$</span><span class="w"> </span><span class="n">ssh</span><span class="w"> </span><span class="n">core</span><span class="nv">@gateway2.panclypcwl01.mnc020.mcc714</span>
