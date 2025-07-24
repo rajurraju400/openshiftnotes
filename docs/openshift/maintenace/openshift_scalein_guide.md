@@ -11,7 +11,7 @@ This document outlines the steps required to **scale in** a compute node (e.g., 
 3. Remove the node definition (e.g., `appworker2`) from the SiteConfig.
 4. Commit and push the changes to the Git repository.
 
-ArgoCD will automatically sync and delete the corresponding resources from the hub cluster. However, this will **not** remove the `agents.agent-install.openshift.io` resource, which must be deleted manually.
+ArgoCD will automatically sync (if infra does not have auto sync enabeld, manually sync it) and delete the corresponding resources from the hub cluster. However, this will **not** remove the `agents.agent-install.openshift.io` resource, which must be deleted manually.
 
 ---
 
@@ -85,8 +85,8 @@ oc scale machineset <machineset-name> --replicas=<desired-count> -n openshift-ma
 
 ## Notes
 
-- Be careful when deleting or modifying cluster resources; take necessary backups or validate changes in a dev/test environment.
-- Always confirm with the platform or infra team before removing any production resources.
+- Be careful when deleting or modifying cluster resources; take necessary etcd backups and must-gather output from hub and cwl.
+- Always you informed the DTM before doing any changes to the cluster.
 - Ensure that Git and ArgoCD are synced post any changes.
 
 ---
