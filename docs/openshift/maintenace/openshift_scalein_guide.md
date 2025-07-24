@@ -56,7 +56,7 @@ oc -n openshift-machine-api patch bmh appworker2.panclypcwl01.scdsgplab.com \
 
 ---
 
-## Delete Machine Resource
+### Delete Machine Resource
 
 ```bash
 oc -n openshift-machine-api delete machine appworker2.panclypcwl01.scdsgplab.com \

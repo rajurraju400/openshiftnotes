@@ -1954,7 +1954,7 @@
 <li>Remove the node definition (e.g., <code>appworker2</code>) from the SiteConfig.</li>
 <li>Commit and push the changes to the Git repository.</li>
 </ol>
-<p>ArgoCD will automatically sync and delete the corresponding resources from the hub cluster. However, this will <strong>not</strong> remove the <code>agents.agent-install.openshift.io</code> resource, which must be deleted manually.</p>
+<p>ArgoCD will automatically sync (if infra does not have auto sync enabeld, manually sync it) and delete the corresponding resources from the hub cluster. However, this will <strong>not</strong> remove the <code>agents.agent-install.openshift.io</code> resource, which must be deleted manually.</p>
 <hr />
 <h2 id="delete-agent-resource-from-hub-cluster">Delete Agent Resource from Hub Cluster<a class="headerlink" href="#delete-agent-resource-from-hub-cluster" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>agents.agent-install.openshift.io<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>appworker2
@@ -2004,8 +2004,8 @@ oc<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api<span c
 <hr />
 <h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Be careful when deleting or modifying cluster resources; take necessary backups or validate changes in a dev/test environment.</li>
-<li>Always confirm with the platform or infra team before removing any production resources.</li>
+<li>Be careful when deleting or modifying cluster resources; take necessary etcd backups and must-gather output from hub and cwl.</li>
+<li>Always you informed the DTM before doing any changes to the cluster.</li>
 <li>Ensure that Git and ArgoCD are synced post any changes.</li>
 </ul>
 <hr />
