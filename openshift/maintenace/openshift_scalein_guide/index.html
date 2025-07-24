@@ -1374,18 +1374,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-delete-machine-resource" class="md-nav__link">
+  <a href="#delete-machine-resource" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 4: Delete Machine Resource
+      Delete Machine Resource
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-scale-in-nodes-from-initial-deployment-optional" class="md-nav__link">
+  <a href="#scale-in-nodes-from-initial-deployment-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 5: Scale-In Nodes from Initial Deployment (Optional)
+      Scale-In Nodes from Initial Deployment (Optional)
     </span>
   </a>
   
@@ -1902,18 +1902,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-4-delete-machine-resource" class="md-nav__link">
+  <a href="#delete-machine-resource" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 4: Delete Machine Resource
+      Delete Machine Resource
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#step-5-scale-in-nodes-from-initial-deployment-optional" class="md-nav__link">
+  <a href="#scale-in-nodes-from-initial-deployment-optional" class="md-nav__link">
     <span class="md-ellipsis">
-      Step 5: Scale-In Nodes from Initial Deployment (Optional)
+      Scale-In Nodes from Initial Deployment (Optional)
     </span>
   </a>
   
@@ -1985,13 +1985,13 @@ oc<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api<span c
 </code></pre></div>
 
 <hr />
-<h2 id="step-4-delete-machine-resource">Step 4: Delete Machine Resource<a class="headerlink" href="#step-4-delete-machine-resource" title="Permanent link">&para;</a></h2>
+<h2 id="delete-machine-resource">Delete Machine Resource<a class="headerlink" href="#delete-machine-resource" title="Permanent link">&para;</a></h2>
 <div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api<span class="w"> </span>delete<span class="w"> </span>machine<span class="w"> </span>appworker2.panclypcwl01.scdsgplab.com<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--kubeconfig<span class="w"> </span>/root/hubfeb19/auth/pan-cwl.yaml
 </code></pre></div>
 
 <hr />
-<h2 id="step-5-scale-in-nodes-from-initial-deployment-optional">Step 5: Scale-In Nodes from Initial Deployment (Optional)<a class="headerlink" href="#step-5-scale-in-nodes-from-initial-deployment-optional" title="Permanent link">&para;</a></h2>
+<h2 id="scale-in-nodes-from-initial-deployment-optional">Scale-In Nodes from Initial Deployment (Optional)<a class="headerlink" href="#scale-in-nodes-from-initial-deployment-optional" title="Permanent link">&para;</a></h2>
 <p>If the node you wish to scale in was part of the <strong>initial deployment</strong>, you must also update the <strong>MachineSet count</strong>:</p>
 <div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>machinesets.machine.openshift.io<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api
 </code></pre></div>
