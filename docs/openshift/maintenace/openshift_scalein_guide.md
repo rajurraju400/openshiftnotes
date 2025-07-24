@@ -56,7 +56,7 @@ oc -n openshift-machine-api patch bmh appworker2.panclypcwl01.scdsgplab.com \
 
 ---
 
-## Step 4: Delete Machine Resource
+## Delete Machine Resource
 
 ```bash
 oc -n openshift-machine-api delete machine appworker2.panclypcwl01.scdsgplab.com \
@@ -65,7 +65,7 @@ oc -n openshift-machine-api delete machine appworker2.panclypcwl01.scdsgplab.com
 
 ---
 
-## Step 5: Scale-In Nodes from Initial Deployment (Optional)
+## Scale-In Nodes from Initial Deployment (Optional)
 
 If the node you wish to scale in was part of the **initial deployment**, you must also update the **MachineSet count**:
 
