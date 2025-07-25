@@ -63,8 +63,8 @@ nav:
       - Maintenance:
           - Cluster Stop/Start: openshift/maintenace/cluster-stop-start.md
           - Reboot Nodes: openshift/maintenace/reboot-nodes.md
-          - OCP NMC/NWC Scale-in Nodes: openshift/maintenace/openshift_scalein_guide.md
-
+          - NMC/NWC Scale-In Nodes: openshift/maintenace/openshift_scalein_guide.md
+          - NMC/NWC Scale-Out Nodes: openshift/maintenace/openshift_scaleout_guide.md
       - Networking:
           - MetalLB Troubleshooting: openshift/networking/metalb-troubleshooting.md
           - MetalLB Configuration: openshift/networking/metallb-configuration.md

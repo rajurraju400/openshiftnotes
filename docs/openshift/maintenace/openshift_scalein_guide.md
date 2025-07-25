@@ -1,4 +1,4 @@
-# OpenShift Scale-In Procedure for Compute Node
+# NMC/NWC Scale-In Procedure for `Appworker/Gateway` Node
 
 This document outlines the steps required to **scale in** a compute node (e.g., `appworker2.panclypcwl01.mnc020.mcc714`) from an OpenShift cluster managed via ZTP/Agent-based deployment. This procedure assumes you are working within the OpenShift GitOps (ArgoCD) deployment flow.
 
