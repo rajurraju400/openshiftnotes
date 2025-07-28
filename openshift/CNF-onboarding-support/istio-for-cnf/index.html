@@ -13,6 +13,10 @@
       
       
       
+        <link rel="prev" href="../ts-tools/">
+      
+      
+        <link rel="next" href="../../maintenace/cluster-stop-start/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -20,7 +24,7 @@
     
     
       
-        <title>Configure the Redhat ISTIO for CNF - OpenShift Notes</title>
+        <title>Istio for CNF - OpenShift Notes</title>
       
     
     
@@ -74,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#configure-the-redhat-istio-for-cnf" class="md-skip">
+        <a href="#configuring-red-hat-istio-for-cnf-applications" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Configure the Redhat ISTIO for CNF
+              Istio for CNF
             
           </span>
         </div>
@@ -441,18 +445,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -468,7 +474,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             OpenShift
@@ -939,18 +945,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
         
           
           <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
@@ -966,7 +974,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_6">
             <span class="md-nav__icon md-icon"></span>
             CNF Onboarding Support
@@ -1152,6 +1160,122 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Istio for CNF
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Istio for CNF
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-istio-access-for-cnf-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Istio Access for CNF Namespaces
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enable Istio Access for CNF Namespaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-log-in-to-the-nwc-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Log in to the NWC Cluster
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-a-servicemeshmemberroll-smmr" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Create a ServiceMeshMemberRoll (SMMR)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Notes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1728,9 +1852,51 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#creating-meshroll-and-allow-cnf-namespace-access-istio" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating meshroll and allow cnf namespace access istio.
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-istio-access-for-cnf-namespaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Istio Access for CNF Namespaces
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Enable Istio Access for CNF Namespaces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-log-in-to-the-nwc-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Log in to the NWC Cluster
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-a-servicemeshmemberroll-smmr" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Create a ServiceMeshMemberRoll (SMMR)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#additional-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional Notes
     </span>
   </a>
   
@@ -1752,26 +1918,54 @@
 
 
 
-<h1 id="configure-the-redhat-istio-for-cnf">Configure the Redhat ISTIO for CNF<a class="headerlink" href="#configure-the-redhat-istio-for-cnf" title="Permanent link">&para;</a></h1>
-<h2 id="creating-meshroll-and-allow-cnf-namespace-access-istio">Creating meshroll and allow cnf namespace access istio.<a class="headerlink" href="#creating-meshroll-and-allow-cnf-namespace-access-istio" title="Permanent link">&para;</a></h2>
-<p>1) </p>
-<p>[root@longb92bst01 ~ cwlcluster]# cat servicemeshmemberroll.yaml
-apiVersion: maistra.io/v1
-kind: ServiceMeshMemberRoll
-metadata:
-  name: default
-  namespace: istio-system
-spec:
-  members:
-    - longb92ncc01 # your application ns name.
-[root@longb92bst01 ~ cwlcluster]#
-[root@longb92bst01 ~ cwlcluster]#
-[root@longb92bst01 ~ cwlcluster]#
-[root@longb92bst01 ~ cwlcluster]# oc apply -f servicemeshmemberroll.yaml
-servicemeshmemberroll.maistra.io/default created
-[root@longb92bst01 ~ cwlcluster]#
-[root@longb92bst01 ~ cwlcluster]#</p>
-<p>istio-injection=disabled -&gt; adding this label.</p>
+<h1 id="configuring-red-hat-istio-for-cnf-applications">Configuring Red Hat Istio for CNF Applications<a class="headerlink" href="#configuring-red-hat-istio-for-cnf-applications" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Istio installation</strong> is automated via site-specific policies on the NCP. No manual installation is required.</li>
+<li><strong>Applications cannot use Istio</strong> until a <code>ServiceMeshMemberRoll</code> (SMMR) is created for their namespace.</li>
+<li><strong>Application teams</strong> may require certain ConfigMaps from the <code>istio-system</code> namespace.</li>
+<li><strong>Application namespaces</strong> must be labeled with <code>istio-injection=enabled</code> to enable automatic sidecar injection.</li>
+</ul>
+<hr />
+<h2 id="enable-istio-access-for-cnf-namespaces">Enable Istio Access for CNF Namespaces<a class="headerlink" href="#enable-istio-access-for-cnf-namespaces" title="Permanent link">&para;</a></h2>
+<h3 id="1-log-in-to-the-nwc-cluster">1. Log in to the NWC Cluster<a class="headerlink" href="#1-log-in-to-the-nwc-cluster" title="Permanent link">&para;</a></h3>
+<p>Ensure you are logged into the OCP (NWC) cluster using a user with <code>cluster-admin</code> privileges (e.g., <code>ncpadmin</code>).</p>
+<hr />
+<h3 id="2-create-a-servicemeshmemberroll-smmr">2. Create a ServiceMeshMemberRoll (SMMR)<a class="headerlink" href="#2-create-a-servicemeshmemberroll-smmr" title="Permanent link">&para;</a></h3>
+<p>Create a <code>ServiceMeshMemberRoll</code> to register the CNF application namespace with the Istio service mesh.</p>
+<p>Here is an example manifest:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">maistra.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceMeshMemberRoll</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">istio-system</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">members</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">longb92ncc01</span><span class="w">  </span><span class="c1"># Replace with your application namespace</span>
+</code></pre></div>
+
+<p>Apply the manifest:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>servicemeshmemberroll.yaml
+</code></pre></div>
+
+<p>Expected output:</p>
+<div class="codehilite"><pre><span></span><code>servicemeshmemberroll.maistra.io/default<span class="w"> </span>created
+</code></pre></div>
+
+<hr />
+<h2 id="additional-notes">Additional Notes<a class="headerlink" href="#additional-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ensure that the application namespace has the following label:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>label<span class="w"> </span>namespace<span class="w"> </span>&lt;app-namespace&gt;<span class="w"> </span>istio-injection<span class="o">=</span>enabled<span class="w"> </span>--overwrite
+</code></pre></div>
+
+<ul>
+<li>After SMMR creation, the CNF workload will be part of the mesh and traffic will be managed by Istio.</li>
+</ul>
+<hr />
+<p><strong>Document Owner</strong>: [Redhat Deployment Team]<br />
+<strong>Last Updated</strong>: [07/28/2025]</p>
 
 
 
