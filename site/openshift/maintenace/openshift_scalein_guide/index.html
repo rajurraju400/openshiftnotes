@@ -16,7 +16,7 @@
         <link rel="prev" href="../reboot-nodes/">
       
       
-        <link rel="next" href="../../networking/metalb-troubleshooting/">
+        <link rel="next" href="../openshift_scaleout_guide/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>OCP NMC/NWC Scale-in Nodes - OpenShift Notes</title>
+        <title>NMC/NWC Scale-In Nodes - OpenShift Notes</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#openshift-scale-in-procedure-for-compute-node" class="md-skip">
+        <a href="#nmcnwc-scale-in-procedure-for-appworkergateway-node" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              OCP NMC/NWC Scale-in Nodes
+              NMC/NWC Scale-In Nodes
             
           </span>
         </div>
@@ -1278,7 +1278,7 @@
   
   
   <span class="md-ellipsis">
-    OCP NMC/NWC Scale-in Nodes
+    NMC/NWC Scale-In Nodes
     
   </span>
   
@@ -1291,7 +1291,7 @@
   
   
   <span class="md-ellipsis">
-    OCP NMC/NWC Scale-in Nodes
+    NMC/NWC Scale-In Nodes
     
   </span>
   
@@ -1404,6 +1404,29 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../openshift_scaleout_guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    NMC/NWC Scale-Out Nodes
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -1944,7 +1967,7 @@
 
 
 
-<h1 id="openshift-scale-in-procedure-for-compute-node">OpenShift Scale-In Procedure for Compute Node<a class="headerlink" href="#openshift-scale-in-procedure-for-compute-node" title="Permanent link">&para;</a></h1>
+<h1 id="nmcnwc-scale-in-procedure-for-appworkergateway-node">NMC/NWC Scale-In Procedure for <code>Appworker/Gateway</code> Node<a class="headerlink" href="#nmcnwc-scale-in-procedure-for-appworkergateway-node" title="Permanent link">&para;</a></h1>
 <p>This document outlines the steps required to <strong>scale in</strong> a compute node (e.g., <code>appworker2.panclypcwl01.mnc020.mcc714</code>) from an OpenShift cluster managed via ZTP/Agent-based deployment. This procedure assumes you are working within the OpenShift GitOps (ArgoCD) deployment flow.</p>
 <hr />
 <h2 id="edit-and-push-siteconfig">Edit and Push SiteConfig<a class="headerlink" href="#edit-and-push-siteconfig" title="Permanent link">&para;</a></h2>

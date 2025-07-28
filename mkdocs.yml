@@ -59,6 +59,7 @@ nav:
           - Kubeconfig overlapping: openshift/CNF-onboarding-support/kubeconfig.md
           - NCP Standard user and role Management: openshift/CNF-onboarding-support/NCP-default-usersandrole.md
           - Cluster Wide TS: openshift/CNF-onboarding-support/ts-tools.md
+          - Istio for CNF: openshift/CNF-onboarding-support/istio-for-cnf.md
 
       - Maintenance:
           - Cluster Stop/Start: openshift/maintenace/cluster-stop-start.md

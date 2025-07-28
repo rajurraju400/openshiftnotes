@@ -1,11 +1,29 @@
-# Configure the Redhat ISTIO for CNF
+# Configuring Red Hat Istio for CNF Applications
 
+## Overview
 
-## Creating meshroll and allow cnf namespace access istio.
+- **Istio installation** is automated via site-specific policies on the NCP. No manual installation is required.
+- **Applications cannot use Istio** until a `ServiceMeshMemberRoll` (SMMR) is created for their namespace.
+- **Application teams** may require certain ConfigMaps from the `istio-system` namespace.
+- **Application namespaces** must be labeled with `istio-injection=enabled` to enable automatic sidecar injection.
 
-1) 
+---
 
-[root@longb92bst01 ~ cwlcluster]# cat servicemeshmemberroll.yaml
+## Enable Istio Access for CNF Namespaces
+
+### 1. Log in to the NWC Cluster
+
+Ensure you are logged into the OCP (NWC) cluster using a user with `cluster-admin` privileges (e.g., `ncpadmin`).
+
+---
+
+### 2. Create a ServiceMeshMemberRoll (SMMR)
+
+Create a `ServiceMeshMemberRoll` to register the CNF application namespace with the Istio service mesh.
+
+Here is an example manifest:
+
+```yaml
 apiVersion: maistra.io/v1
 kind: ServiceMeshMemberRoll
 metadata:
@@ -13,13 +31,34 @@ metadata:
   namespace: istio-system
 spec:
   members:
-    - longb92ncc01 # your application ns name.
-[root@longb92bst01 ~ cwlcluster]#
-[root@longb92bst01 ~ cwlcluster]#
-[root@longb92bst01 ~ cwlcluster]#
-[root@longb92bst01 ~ cwlcluster]# oc apply -f servicemeshmemberroll.yaml
-servicemeshmemberroll.maistra.io/default created
-[root@longb92bst01 ~ cwlcluster]#
-[root@longb92bst01 ~ cwlcluster]#
+    - longb92ncc01  # Replace with your application namespace
+```
 
-istio-injection=disabled -> adding this label.
+Apply the manifest:
+
+```bash
+oc apply -f servicemeshmemberroll.yaml
+```
+
+Expected output:
+
+```bash
+servicemeshmemberroll.maistra.io/default created
+```
+
+---
+
+## Additional Notes
+
+- Ensure that the application namespace has the following label:
+
+```bash
+oc label namespace <app-namespace> istio-injection=enabled --overwrite
+```
+
+- After SMMR creation, the CNF workload will be part of the mesh and traffic will be managed by Istio.
+
+---
+
+**Document Owner**: [Redhat Deployment Team]  
+**Last Updated**: [07/28/2025]
