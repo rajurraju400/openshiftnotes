@@ -1,4 +1,4 @@
-# Configuring Red Hat Istio for CNF Applications
+# Configuring Red Hat Istio for CNF Namespaces
 
 ## Overview
 
