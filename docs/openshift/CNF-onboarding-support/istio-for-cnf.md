@@ -4,7 +4,7 @@
 
 - **Istio installation** is automated via site-specific policies on the NCP. No manual installation is required.
 - **Applications cannot use Istio** until a `ServiceMeshMemberRoll` (SMMR) is created for their namespace.
-- **Application teams** may require certain ConfigMaps from the `istio-system` namespace.
+- **Application teams** may require certain ConfigMaps from the `istio-system` namespace. > this configmap contain istio-ca. 
 - **Application namespaces** must be labeled with `istio-injection=enabled` to enable automatic sidecar injection.
 
 ---

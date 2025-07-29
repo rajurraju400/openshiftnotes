@@ -75,7 +75,7 @@ oc policy add-role-to-user admin npcvzr1np1 -n npcvzr1np1
 
 ---
 
-### Network Attachment Role Implementation
+### Read,Write Attachment Role Implementation
 
 1) Create `ClusterRole` for network attachment:
 
