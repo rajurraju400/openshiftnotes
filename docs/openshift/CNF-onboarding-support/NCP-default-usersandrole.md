@@ -49,13 +49,9 @@ By default, all CNF application users are assigned the following four roles:
 
 * `Admin` role: Full access to the entire namespace (tenant-admin role for their specific namespace/project).
 
-* `ncd-cbur-role`: Access at the namespace level, allowing users to create, update, delete, and schedule backup jobs.
+* `ncp-default-rw-cnf-role`: Access at the namespace level, allowing users to create, update, delete, and schedule backup jobs, network attachments, redisentercluster, etc. 
 
-* `net-attach-def-cluster-role`: Access at the namespace level to create, update, delete network attachment definitions within their namespace.
-
-* `ncp-default-cnf-role`: Access at the cluster level to list, view, watch, and get information for nodes, SCC, NNCP, Metallb IP pool, static routes, backward routes, egress routes, CRDs, profiles etc.
-
-* `redisenterpriseclusters-role` :  Access at namespace level to create, update,delete,edit,patch,lig  rec based objects. 
+* `ncp-default-ro-cnf-role`: Access at the cluster level to list, view, watch, and get information for nodes, SCC, NNCP, Metallb IP pool, static routes, backward routes, egress routes, CRDs, profiles, pv etc.
 
 
 > Note 1: No need to add above four role to any of these users (ncpadmin, ncdadmin,ncomadmin and ncom-sa)
@@ -70,12 +66,12 @@ By default, all CNF application users are assigned the following four roles:
 No additional setup required. Role `admin` mapped to user and namespace:
 
 ```bash
-oc policy add-role-to-user admin npcvzr1np1 -n npcvzr1np1
+oc policy add-role-to-user admin paclypamrf01 -n paclypamrf01
 ```
 
 ---
 
-### Read,Write Attachment Role Implementation
+### Read,Write Custom  Role Implementation
 
 1) Create `ClusterRole` for network attachment:
 
@@ -83,18 +79,27 @@ oc policy add-role-to-user admin npcvzr1np1 -n npcvzr1np1
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: net-attach-def-cluster-role
+  name: ncp-default-rw-cnf-role
 rules:
   - apiGroups: ["k8s.cni.cncf.io"]
     resources: ["network-attachment-definitions"]
     verbs: ["create", "get", "list", "watch", "update", "patch", "delete"]
+  - apiGroups: ["cbur.bcmt.local"]
+    resources: ["brpolices"]
+    verbs: ["create", "get", "list", "watch", "update", "patch"]
+  - apiGroups: ["cbur.csf.nokia.com"]
+    resources: ["brhooks", "brpolices"]
+    verbs: ["create", "get", "list", "watch", "update", "patch"]
+  - apiGroups: ["app.redislabs.com"]
+    resources: ["redisenterpriseclusters"]
+    verbs: ["get", "list", "create", "delete", "update", "patch"]
 ```
 
 2) Bind role to user in their namespace:
 
 ```bash
-oc create rolebinding net-attach-def-rolebinding \
-  --clusterrole=net-attach-def-cluster-role \
+oc create rolebinding ncp-default-rw-cnf-role-paclypamrf01-rolebinding \
+  --clusterrole=ncp-default-rw-cnf-role \
   --user=paclypamrf01 \
   --namespace=paclypamrf01
 ```
@@ -103,78 +108,13 @@ oc create rolebinding net-attach-def-rolebinding \
 
 ```bash
 oc auth can-i create network-attachment-definitions.k8s.cni.cncf.io --as=paclypamrf01 -n paclypamrf01
+oc auth can-i create redisenterpriseclusters --as=paclypamrf01 -n paclypamrf01
+oc auth can-i create brpolices --as=paclypamrf01 -n paclypamrf01
 ```
 
 ---
 
-### CBUR Role Implementation
 
-1) Create `ClusterRole`:
-
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: ncd-cbur-role
-rules:
-  - apiGroups: ["cbur.bcmt.local"]
-    resources: ["brpolices"]
-    verbs: ["create", "get", "list", "watch", "update", "patch"]
-  - apiGroups: ["cbur.csf.nokia.com"]
-    resources: ["brhooks", "brpolices"]
-    verbs: ["create", "get", "list", "watch", "update", "patch"]
-```
-
-2) Apply role and bind:
-
-```bash
-oc apply -f cburrole.yaml
-oc create rolebinding ncd-cbur-role-binding \
-  --clusterrole=ncd-cbur-role \
-  --user=nokia \
-  --namespace=test01
-```
-
-3) Validate access:
-
-```bash
-oc auth can-i create brpolices --as=nokia -n test01
-```
-
----
-
-### RedisEnterpriseClusters Role Implementation
-
-1) Create `ClusterRole`:
-
-```yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: redisenterpriseclusters-role
-rules:
-  - apiGroups: ["app.redislabs.com"]
-    resources: ["redisenterpriseclusters"]
-    verbs: ["get", "list", "create", "delete", "update", "patch"]
-```
-
-2) Apply role and bind:
-
-```bash
-oc apply -f redisenterpriseclusters-role.yaml
-oc create redisenterpriseclusters-role-binding \
-  --clusterrole=redisenterpriseclusters-role \
-  --user=nokia \
-  --namespace=test01
-```
-
-3) Validate access:
-
-```bash
-oc auth can-i create redisenterpriseclusters --as=nokia -n test01
-```
-
----
 
 ### Read-Only Cluster Infra Role Implementation
 
@@ -184,7 +124,7 @@ oc auth can-i create redisenterpriseclusters --as=nokia -n test01
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: ncp-default-cnf-role
+  name: ncp-default-ro-cnf-role
 rules:
   - apiGroups: ["security.openshift.io"]
     resources: ["securitycontextconstraints"]
@@ -224,8 +164,8 @@ rules:
 2) Bind the role:
 
 ```bash
-oc create clusterrolebinding ncp-default-cnf-role-ppaaa01-binding \
-  --clusterrole=ncp-default-cnf-role \
+oc create clusterrolebinding ncp-default-ro-cnf-role-ppaaa01-binding \
+  --clusterrole=ncp-default-ro-cnf-role \
   --user=ppaaa01
 ```
 
