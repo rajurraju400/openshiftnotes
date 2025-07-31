@@ -1228,27 +1228,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#readwrite-attachment-role-implementation" class="md-nav__link">
+  <a href="#readwrite-custom-role-implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      Read,Write Attachment Role Implementation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cbur-role-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      CBUR Role Implementation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#redisenterpriseclusters-role-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      RedisEnterpriseClusters Role Implementation
+      Read,Write Custom Role Implementation
     </span>
   </a>
   
@@ -1946,27 +1928,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#readwrite-attachment-role-implementation" class="md-nav__link">
+  <a href="#readwrite-custom-role-implementation" class="md-nav__link">
     <span class="md-ellipsis">
-      Read,Write Attachment Role Implementation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#cbur-role-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      CBUR Role Implementation
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#redisenterpriseclusters-role-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      RedisEnterpriseClusters Role Implementation
+      Read,Write Custom Role Implementation
     </span>
   </a>
   
@@ -2058,16 +2022,10 @@
 <p><code>Admin</code> role: Full access to the entire namespace (tenant-admin role for their specific namespace/project).</p>
 </li>
 <li>
-<p><code>ncd-cbur-role</code>: Access at the namespace level, allowing users to create, update, delete, and schedule backup jobs.</p>
+<p><code>ncp-default-rw-cnf-role</code>: Access at the namespace level, allowing users to create, update, delete, and schedule backup jobs, network attachments, redisentercluster, etc. </p>
 </li>
 <li>
-<p><code>net-attach-def-cluster-role</code>: Access at the namespace level to create, update, delete network attachment definitions within their namespace.</p>
-</li>
-<li>
-<p><code>ncp-default-cnf-role</code>: Access at the cluster level to list, view, watch, and get information for nodes, SCC, NNCP, Metallb IP pool, static routes, backward routes, egress routes, CRDs, profiles etc.</p>
-</li>
-<li>
-<p><code>redisenterpriseclusters-role</code> :  Access at namespace level to create, update,delete,edit,patch,lig  rec based objects. </p>
+<p><code>ncp-default-ro-cnf-role</code>: Access at the cluster level to list, view, watch, and get information for nodes, SCC, NNCP, Metallb IP pool, static routes, backward routes, egress routes, CRDs, profiles, pv etc.</p>
 </li>
 </ul>
 <blockquote>
@@ -2078,84 +2036,42 @@
 
 <h3 id="admin-role-implementation">Admin Role Implementation<a class="headerlink" href="#admin-role-implementation" title="Permanent link">&para;</a></h3>
 <p>No additional setup required. Role <code>admin</code> mapped to user and namespace:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>policy<span class="w"> </span>add-role-to-user<span class="w"> </span>admin<span class="w"> </span>npcvzr1np1<span class="w"> </span>-n<span class="w"> </span>npcvzr1np1
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>policy<span class="w"> </span>add-role-to-user<span class="w"> </span>admin<span class="w"> </span>paclypamrf01<span class="w"> </span>-n<span class="w"> </span>paclypamrf01
 </code></pre></div>
 
 <hr />
-<h3 id="readwrite-attachment-role-implementation">Read,Write Attachment Role Implementation<a class="headerlink" href="#readwrite-attachment-role-implementation" title="Permanent link">&para;</a></h3>
+<h3 id="readwrite-custom-role-implementation">Read,Write Custom  Role Implementation<a class="headerlink" href="#readwrite-custom-role-implementation" title="Permanent link">&para;</a></h3>
 <p>1) Create <code>ClusterRole</code> for network attachment:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">net-attach-def-cluster-role</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ncp-default-rw-cnf-role</span>
 <span class="nt">rules</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;k8s.cni.cncf.io&quot;</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;network-attachment-definitions&quot;</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;patch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">]</span>
-</code></pre></div>
-
-<p>2) Bind role to user in their namespace:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="w"> </span>net-attach-def-rolebinding<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--clusterrole<span class="o">=</span>net-attach-def-cluster-role<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--user<span class="o">=</span>paclypamrf01<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--namespace<span class="o">=</span>paclypamrf01
-</code></pre></div>
-
-<p>3) Validate access:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>network-attachment-definitions.k8s.cni.cncf.io<span class="w"> </span>--as<span class="o">=</span>paclypamrf01<span class="w"> </span>-n<span class="w"> </span>paclypamrf01
-</code></pre></div>
-
-<hr />
-<h3 id="cbur-role-implementation">CBUR Role Implementation<a class="headerlink" href="#cbur-role-implementation" title="Permanent link">&para;</a></h3>
-<p>1) Create <code>ClusterRole</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ncd-cbur-role</span>
-<span class="nt">rules</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;cbur.bcmt.local&quot;</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;brpolices&quot;</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;patch&quot;</span><span class="p p-Indicator">]</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;cbur.csf.nokia.com&quot;</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;brhooks&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;brpolices&quot;</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;watch&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;patch&quot;</span><span class="p p-Indicator">]</span>
-</code></pre></div>
-
-<p>2) Apply role and bind:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>cburrole.yaml
-oc<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="w"> </span>ncd-cbur-role-binding<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--clusterrole<span class="o">=</span>ncd-cbur-role<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--user<span class="o">=</span>nokia<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--namespace<span class="o">=</span>test01
-</code></pre></div>
-
-<p>3) Validate access:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>brpolices<span class="w"> </span>--as<span class="o">=</span>nokia<span class="w"> </span>-n<span class="w"> </span>test01
-</code></pre></div>
-
-<hr />
-<h3 id="redisenterpriseclusters-role-implementation">RedisEnterpriseClusters Role Implementation<a class="headerlink" href="#redisenterpriseclusters-role-implementation" title="Permanent link">&para;</a></h3>
-<p>1) Create <code>ClusterRole</code>:</p>
-<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
-<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
-<span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">redisenterpriseclusters-role</span>
-<span class="nt">rules</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;app.redislabs.com&quot;</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;redisenterpriseclusters&quot;</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">verbs</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;get&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;list&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;create&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;delete&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;update&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;patch&quot;</span><span class="p p-Indicator">]</span>
 </code></pre></div>
 
-<p>2) Apply role and bind:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>redisenterpriseclusters-role.yaml
-oc<span class="w"> </span>create<span class="w"> </span>redisenterpriseclusters-role-binding<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--clusterrole<span class="o">=</span>redisenterpriseclusters-role<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--user<span class="o">=</span>nokia<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--namespace<span class="o">=</span>test01
+<p>2) Bind role to user in their namespace:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>rolebinding<span class="w"> </span>ncp-default-rw-cnf-role-paclypamrf01-rolebinding<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--clusterrole<span class="o">=</span>ncp-default-rw-cnf-role<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--user<span class="o">=</span>paclypamrf01<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--namespace<span class="o">=</span>paclypamrf01
 </code></pre></div>
 
 <p>3) Validate access:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>redisenterpriseclusters<span class="w"> </span>--as<span class="o">=</span>nokia<span class="w"> </span>-n<span class="w"> </span>test01
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>network-attachment-definitions.k8s.cni.cncf.io<span class="w"> </span>--as<span class="o">=</span>paclypamrf01<span class="w"> </span>-n<span class="w"> </span>paclypamrf01
+oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>redisenterpriseclusters<span class="w"> </span>--as<span class="o">=</span>paclypamrf01<span class="w"> </span>-n<span class="w"> </span>paclypamrf01
+oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>create<span class="w"> </span>brpolices<span class="w"> </span>--as<span class="o">=</span>paclypamrf01<span class="w"> </span>-n<span class="w"> </span>paclypamrf01
 </code></pre></div>
 
 <hr />
@@ -2164,7 +2080,7 @@ oc<span class="w"> </span>create<span class="w"> </span>redisenterpriseclusters-
 <div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">rbac.authorization.k8s.io/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ClusterRole</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ncp-default-cnf-role</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ncp-default-ro-cnf-role</span>
 <span class="nt">rules</span><span class="p">:</span>
 <span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">apiGroups</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;security.openshift.io&quot;</span><span class="p p-Indicator">]</span>
 <span class="w">    </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;securitycontextconstraints&quot;</span><span class="p p-Indicator">]</span>
@@ -2202,8 +2118,8 @@ oc<span class="w"> </span>create<span class="w"> </span>redisenterpriseclusters-
 </code></pre></div>
 
 <p>2) Bind the role:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>clusterrolebinding<span class="w"> </span>ncp-default-cnf-role-ppaaa01-binding<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--clusterrole<span class="o">=</span>ncp-default-cnf-role<span class="w"> </span><span class="se">\</span>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>create<span class="w"> </span>clusterrolebinding<span class="w"> </span>ncp-default-ro-cnf-role-ppaaa01-binding<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--clusterrole<span class="o">=</span>ncp-default-ro-cnf-role<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--user<span class="o">=</span>ppaaa01
 </code></pre></div>
 

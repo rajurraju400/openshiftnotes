@@ -93,6 +93,12 @@ rules:
   - apiGroups: ["app.redislabs.com"]
     resources: ["redisenterpriseclusters"]
     verbs: ["get", "list", "create", "delete", "update", "patch"]
+  - apiGroups: ["app.csf.nokia.com"]
+    resources: ["profiles"]
+    verbs: ["get", "list", "watch", "patch"]
+  - apiGroups: ["charging.nokia.com"]
+    resources: ["chargingfunctions"]
+    verbs: ["get", "list", "watch", "patch"]
 ```
 
 2) Bind role to user in their namespace:
