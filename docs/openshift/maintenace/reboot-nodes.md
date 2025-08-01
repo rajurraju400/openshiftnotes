@@ -72,9 +72,9 @@ Using project "default".
 [root@dom14npv101-infra-manager ~ management]# 
 ```
 
-2) get the list of worker/gateway nodes and also check the node status. 
+2) get the list of worker/gateway nodes and also check the node status. (example only)
 ```
-[root@dom14npv101-infra-manager ~ management]# oc get nodes |grep -i master
+[root@dom14npv101-infra-manager ~ management]# oc get nodes |grep -i worker
 ncpvnpvmgt-master-101.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
 ncpvnpvmgt-master-102.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
 ncpvnpvmgt-master-103.ncpvnpvmgt.pnwlab.nsn-rdnet.net    Ready    control-plane,master,monitor       32d   v1.29.10+67d3387
