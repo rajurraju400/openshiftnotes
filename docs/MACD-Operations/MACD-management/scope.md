@@ -1,4 +1,4 @@
-# MACD (NCP) Operations – Scope of Work
+# MACD Operations – Scope of Work
 
 ## Documentation Version History
 
