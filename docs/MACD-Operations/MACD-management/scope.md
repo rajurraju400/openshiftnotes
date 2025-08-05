@@ -1,148 +1,81 @@
-# OpenShift (NCP) Deployment – Scope of Work
+# MACD (NCP) Operations – Scope of Work
 
-## 📐 1. Design & Planning
+## Documentation Version History
 
-- **Prepare the High-Level Design (HLD)** for the NCP deployment. (only the NCP position or dedicated document for NCP alone. not solution HLD.)
-- The HLD must be reviewed and approved by **Nokia TDL** before proceeding to the LLD phase.
-- **Develop Low-Level Designs (LLD)** for the following clusters:
-  - HUB Cluster
-  - NMC Cluster
-  - NWC Cluster
-- Capture and document application-specific requirements in the LLD, including:
-  - Tenants
-  - Users
-  - Security Context Constraints (SCC)
-  - Required application roles, if needed (default `network-attach` and `cbur` roles should be documented).
-  - Collect all networking information (Metllb, ippool, backwards routes, nmstate networks etc.)
-  - NCOM is used for CNF onboarding; no additional roles/SCCs are needed (check with Raj about it.).
-- A **Red Hat architect** will perform an internal review of the HLD and LLD.
-- Both the HLD and LLD must be formally approved by **Nokia TDL** before any installation activities commence.
-- The **Red Hat DTM** must ensure no installation begins before Nokia TDL’s approval of the design documents.
-- Redhat Engineer should be gone through “Redhat entry level criteria” process before touching the infra. 
-- The **Red Hat DTM** must ensure no installation begins before Redhat Entry level criteria process to be fully completed without any gap. 
+| **Author Name** | **Published Date** | **Version** | **Comments** |
+|------------------|---------------------|-------------|-------------|
+| Tript / Raj | 08/05/2025          | 1.0         | Initial draft|
+
+## MACD Service Support Channel
 
 
----
+All MACD engineers, especially those working in NAM time zone to obtain additional SME support. Thus far, it has been observed that this channel is under-utilized. The  Services Support Teams channel is available to MACD engineers to reach out for next level support when needed. This should be done as soon as possible when stuck. `I encourage all MACD engineers to leverage this channel as the next level of support in case the MACD engineer is unable to address the issue on their own`. The channel is available at
 
-## 🛠️ 2. MOP for Deployment
+**In general, the following is the support process for MACD engineers**
 
-- A detailed **Method of Procedure (MOP)** must be prepared for the deployment.
-- The **Red Hat engineer** is responsible for preparing the site specific deployment MOP for Hub, NMC/NWC. 
-- A **Red Hat architect** will prepare the deployment templates using Red Hat’s automation tools.
-  - (Check with **Raj** regarding template creation.)
+- MACD engineer tries to resolve issue on their own
+- For India based engineers, reach out to your SME “Buddies”  in India time zone for additional support
+- If working in the NAM time zone, reach out to the Services Support Team by posting a support message to the channel (also reach out which direct message in Teams chat if you don’t get a response quick enough)
+- If buddies or SMEs cannot help resolve the issue, create an NPSS ticket to get next level technical support and a NCPFM ticket in parallel. also the highest sev is 2.   Also when you create the ticket, pls ensure that you also upload the necessary info such must gather and investigative results to expedite the investigation.
+
+
+Please share feedback if this support process is meeting your needs when next level support is required, especially for engineers working in the NAM time zone.
 
 ---
 
-## 🧱 3. Infrastructure & Base Setup
+## MACD - Process for tickets that require LLD updates - Important
 
-- Install the OS on the `infra-manager` node when it is **dedicated** to NCP.
-- Deploy the **infra-quay** application on the `infra-manager` node.
-- Deploy the **Hub Cluster**.
-- Deploy all **required OpenShift operators** on the Hub Cluster.
-- Set up **ACM backup** on the Hub Cluster **before** initiating the NMC/NWC cluster deployment.
-- Create and configure the necessary:
-  - Users
-  - Tenants
-  - Roles
-  - SCCs  
-  on the Hub Cluster for the NCD Git CNF.
+Here are the steps to follow for any incoming MACD requests that require an LLD update
+ 
+- For any WP requiring an LLD update, inform Resource Manager of that need.
+- MACD Request will be put on hold by Resource Manager
+- The LLD update will be assigned to the Cloud Architect who worked on the initial project design.
+- The Cloud Architect should complete the LLD updates immediately after the HLD, DNP, and CNF input sheets are finalized or aligned.
+- If there are any pending updates to Nokia-owned design documents, the Cloud Architect should escalate them to the WP requester for follow-up.
+- The LLD location is a common, project-specific SharePoint, and DA should upload the latest LLD to the project SharePoint.
+- Once the LLD is updated, the WP is assigned to MACD team engineer for implementation.
+- MACD engineer obtains the LLD from the project specific SharePoint and proceeds with resolution
+ 
+To summarize, from a process point of view, the ticket should be put on hold for the DA to complete the LLD and review it with the MACD engineer so he knows what to do.
 
----
-
-## ✅ 4. DVTS & Validation – Hub Cluster
-
-- Complete **Hub Cluster DVTS** before starting the NMC/NWC cluster deployments.
-  - DVTS artifacts must be obtained from **Tript via the Red Hat Drive**.
+When it is completed, the ticket will be in assigned state so it is a go for the engineer to proceed.
 
 ---
 
-## 🔁 5. GitOps & Backup
 
-- Deploy the **NCD Git server**.
-- The **Nokia NCD team** is responsible for setting up **external backup** of the Git server prior to the CWL cluster deployment.
+## Don’ts by MACD engineer
 
----
+### Do Not Perform Workarounds or Scripts Directly on NCP Nodes
 
-## 🚀 6. Cluster Deployment
+- No direct changes are allowed on NCP nodes without NCP R&D approval. Everything must go through a documented NCP R&D ticket. If you receive such a request, just stop and inform Tript.
+- Even if the request came from the application team or their R&D, it’s still not officially allowed unless approved and tracked properly from NCP R&D. If you receive such a request, just stop and inform Tript.
+- We are delivering this as part of Professional Services, so we’re fully responsible and liable for the work we do.
+- Making OS-level or node-level changes might fix things short term, but:
+    - After live traffic starts, issues can arise.
+    - Any scale-in/out won’t carry your manual fix.
+    - Workarounds will be lost after a node restart.
+    - This can lead to service outages.
+- If something goes wrong, Red Hat can be held accountable, and the customer might claim penalties.
 
-- Deploy the **NMC and NWC Clusters**.
-- Complete the **end-to-end deployment** of the NMC/NWC clusters, including:
-  - All scale-outs
-  - Common and site-specific site policies
-  - MetalLB configuration
-  - Backward routing
-  - Egress configuration
-  - Multus (NMState) networking
-  - Tenant creation
-  - User creation
-  - SCCs and custom roles (as per the approved LLD)
-  - Quay proxy cache setup
-  - Standard NCP users for **NCP**, **NCOM**, and **NCD**
+**Example:**
 
----
+- command on node OS level
+- platform validator python file on master node OS level directly
+- sysctl.conf, adding or changing parameters directly on the node level
 
-## ✅ 7. DVTS & Validation – NMC/NWC Clusters
+ 
+Please make sure not to do any workarounds or node-level changes or running scripts on the node directly.
+ 
 
-- Complete final **DVTS for NMC/NWC Clusters** before handing over for CNF onboarding.
-  - DVTS artifacts must be obtained from **Tript via the Red Hat Drive**.
-- Ensure the **NCP Criteria Documentation and Checklist** are fully completed and verified.
+### Access to the “anyuid” SCC for CNF user ID or service account - Not supported
 
----
-
-## 📤 8. CNF Onboarding
-
-- Red Hat will **not engage in CNF onboarding support** until the service is formally **procured by Nokia**.
-- CNF onboarding support (once procured) includes:
-  - Running **tcpdump** for CNF troubleshooting
-  - CNF application installation assistance
-  - Resolving CNF communication issues
+- As part of any application prerequisites, if an application requires access to the “anyuid” SCC for its user ID or service account, it is not supported. Even if Application 4LS requests temporary access during troubleshooting, it is still not allowed.
+ 
+- If you receive such a request, please advise the application team to contact their R&D team. After that, they should formally raise an NCPFM ticket and not through us.
 
 ---
 
-## ⚠️ 9. Scope Management
-
-- Red Hat **will not** cover any additional tasks outside of this scope without a formal **Change Order Request (COR)** process.
-- Example requests that require COR:
-  - Creating new users or tenants
-  - Adding subnets to IP pools
-  - Adding/changing/deleting networks/subnets for NMState, MetalLB, backward routes, etc.
-  - Handling new application prerequisites not documented in the approved LLD.
-  - Handing new changes to the cluster, scale-out, new hostgroup creation, even redeployment, NCP upgrade, Adding/modifying labels, even installing a PP on cluster. Which is not documented in the approved LLD.
-- All such requests must be:
-  - Documented in the respective **HLD/LLD**
-  - **Approved by the TDL**
-  - Backed by a **Change Order Request (COR)** before Red Hat engineers implement changes on the clusters
-
----
-
-## ⚖️ 10. Disclaimer
+## Disclaimer
 
 > ⚠️ **Disclaimer:**  
 > Failure to follow any of the defined steps, guidelines, or approvals outlined in this document may result in strict disciplinary action. All team members are expected to comply with the process to ensure project integrity and success.
-
-
-## 🚫 11. Don’ts by Deployment engineer
-
-- Installation activities must not begin until all design documents have been reviewed and approved, and the Red Hat Entry-Level Criteria process has been fully completed with no gaps.
-
-- If a Red Hat engineer identifies any deviation from the blueprint design—whether at the hardware or software level—it must be escalated to the respective DTM.
-
-- The Red Hat team does not support workarounds in solution implementation. Only fully supported blueprint configurations for Nokia NCP should be used. The only exception is for non-blueprint certification candidates. also Redhat not recommend any workaround. all issues need to be documented by `NCPFM` and recommandation should be coming from `NCPFM`.  
-
-- Red Hat engineers will not provide recommendations for solution components (e.g., selecting between NCP Quay or NCD Harbor registries for CNF). CNF teams must strictly adhere to the High-Level Design (HLD) documentation.
-
-- Red Hat teams are not involved in hardware readiness tasks, such as switch configuration, OS installation for the Infra-Manager server, or creating CNF users on Infra-Manager nodes.
-
-- Red Hat engineers do not grant cluster-admin roles to CNF users, even temporarily. Exceptions apply only to default user IDs associated with NCP, NCD, and NCOM.
-
-- Red Hat engineers are not involved in CNF onboarding unless it has been officially procured by Nokia.
-
-- The Red Hat team will not participate in Customer presentations until they have been formally approved by the DTM.
-
-- Red Hat engineers will not install any third-party software, antivirus, or RPM packages on Hub, NMC/NWC, or Infra-Manager nodes.
-
-- Red Hat teams do not install or configure DNS or NTP servers as part of the NCP installation.
-
-- RedHat teams will not provide any major updates to Nokia PM or Customers, all will go via DTM. `
-
-- RedHat team do not share the credentials or any Exit deliverable artifacts via email. It should be via SP from DTM.
