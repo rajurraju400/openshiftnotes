@@ -16,14 +16,14 @@ Your comprehensive troubleshooting guide to OpenShift installation, backup, stor
 - [Deployment Guides](openshift/deployment/automation/nokia-site-config-fixes.md)
 - [User Management](openshift/usermanagement/user-management.md)
 - [OpenShift Backup & Restore](openshift/backup-restore/ACM-GEO-RED.md)
-- [CNF Onboarding Support](openshift/CNF-onboarding-support/image-tls-issue.md)
 - [Intergrations](openshift/Intergration/syslog.md)
 - [Maintenance Procedures](openshift/maintenace/cluster-stop-start.md)
 - [Networking Configurations](openshift/networking/metalb-troubleshooting.md)
 - [Storage Management](openshift/storagemanagement/ceph-rebalanceissue.md)
 - [Troubleshooting and Workarounds](openshift/troubleshooting/ncomsa.md)
 - [Disaster Management](openshift/disaster-management/infra-manager-redeployment/index.md)
-- [HUB Master Replacement](openshift/disaster-management/hub-cluster-redeployment/master-replacment.md)
+- [MACD Operations](MACD-Operations/MACD-management/scope.md)
+
 
 
 

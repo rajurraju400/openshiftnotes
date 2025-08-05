@@ -28,6 +28,7 @@ nav:
           - New Git Server (v1): git-helper/Deployment/newgitserver.sh
           - GIT deployment: git-helper/Deployment/git-server-deployment.md
 
+   
   - OpenShift:
 
       - Project Management:
@@ -49,17 +50,6 @@ nav:
 
       - Intergrations:
           - Clusterlogging: openshift/Intergration/syslog.md
-
-      - CNF Onboarding Support:
-          - Image TLS Issue: openshift/CNF-onboarding-support/image-tls-issue.md
-          - OCLogin TLS Issue: openshift/CNF-onboarding-support/oclogin-tls-issue.md
-          - Proxy Cache Pod: openshift/CNF-onboarding-support/proxy-cache-pod.md
-          - Role Allocation for CNF user: openshift/CNF-onboarding-support/rolebinding.md
-          - Failed to configure or Degraded: openshift/CNF-onboarding-support/Failtoconfigure_nncp.md
-          - Kubeconfig overlapping: openshift/CNF-onboarding-support/kubeconfig.md
-          - NCP Standard user and role Management: openshift/CNF-onboarding-support/NCP-default-usersandrole.md
-          - Cluster Wide TS: openshift/CNF-onboarding-support/ts-tools.md
-          - Istio for CNF: openshift/CNF-onboarding-support/istio-for-cnf.md
 
       - Maintenance:
           - Cluster Stop/Start: openshift/maintenace/cluster-stop-start.md
@@ -83,8 +73,27 @@ nav:
           - Infra-Manager node reinstallation : openshift/disaster-management/infra-manager-redeployment/index.md
           - Hub Cluster Master-replacement: openshift/disaster-management/hub-cluster-redeployment/master-replacment.md
 
+  - MACD Operations:
 
+      - MACD Management:
+          - Scope of work: MACD-Operations/MACD-management/scope.md
 
+      - CNF Onboarding Support:
+          - Image TLS Issue: MACD-Operations/CNF-onboarding-support/image-tls-issue.md
+          - OCLogin TLS Issue: MACD-Operations/CNF-onboarding-support/oclogin-tls-issue.md
+          - Proxy Cache Pod: MACD-Operations/CNF-onboarding-support/proxy-cache-pod.md
+          - Role Allocation for CNF user: MACD-Operations/CNF-onboarding-support/rolebinding.md
+          - Failed to configure or Degraded: MACD-Operations/CNF-onboarding-support/Failtoconfigure_nncp.md
+          - Kubeconfig overlapping: MACD-Operations/CNF-onboarding-support/kubeconfig.md
+          - NCP Standard user and role Management: MACD-Operations/CNF-onboarding-support/NCP-default-usersandrole.md
+          - Cluster Wide TS: MACD-Operations/CNF-onboarding-support/ts-tools.md
+          - Istio for CNF: MACD-Operations/CNF-onboarding-support/istio-for-cnf.md
+
+      - CNF Onboarding Prerequisites:
+          - NCOM : MACD-Operations/CNF-onboarding-support/NCOM.md
+          - NCD : MACD-Operations/CNF-onboarding-support/NCD.md
+          - NCC : MACD-Operations/CNF-onboarding-support/CMG.md
+          - CMG : MACD-Operations/CNF-onboarding-support/CMG.md
 
           
 markdown_extensions:
