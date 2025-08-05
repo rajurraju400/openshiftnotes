@@ -4,7 +4,7 @@
 
 | **Author Name** | **Published Date** | **Version** | **Comments** |
 |------------------|---------------------|-------------|-------------|
-| Tript / Raj | 08/05/2025          | 1.0         | Initial draft|
+| Tript | 08/05/2025          | 1.0         | Initial draft|
 
 ## MACD Service Support Channel
 
