@@ -11,18 +11,20 @@
 
 All MACD engineers, especially those working in NAM time zone to obtain additional SME support. Thus far, it has been observed that this channel is under-utilized. The  Services Support Teams channel is available to MACD engineers to reach out for next level support when needed. This should be done as soon as possible when stuck. `I encourage all MACD engineers to leverage this channel as the next level of support in case the MACD engineer is unable to address the issue on their own`. The channel is available at
 
+[Services Support | MACD Operations | Microsoft Teams](https://teams.microsoft.com/l/channel/19%3A7o-tGsUP4VQsfHEy1DcVf4XcJW5rQkR1ocIrVnvJZzs1%40thread.tacv2/Services%20Support?groupId=7a0d773f-51d7-4b85-a359-f6766f94d8e9&tenantId=5d471751-9675-428d-917b-70f44f9630b0&ngc=true&allowXTenantAccess=true)
+
+
 **In general, the following is the support process for MACD engineers**
 
 - MACD engineer tries to resolve issue on their own
 - For India based engineers, reach out to your SME “Buddies”  in India time zone for additional support
 - If working in the NAM time zone, reach out to the Services Support Team by posting a support message to the channel (also reach out which direct message in Teams chat if you don’t get a response quick enough)
-- If buddies or SMEs cannot help resolve the issue, create an NPSS ticket to get next level technical support and a NCPFM ticket in parallel. also the highest sev is 2.   Also when you create the ticket, pls ensure that you also upload the necessary info such must gather and investigative results to expedite the investigation.
+- If buddies or SMEs cannot help resolve the issue, create an NPSS ticket to get next level technical support. Note that the highest Severity Level permitted for MACD NPSS support tickets is 2. When you create the NPSS ticket, pls ensure that you also upload the necessary info such must gather and investigative results to expedite the investigation, Also create a NCPFM ticket in parallel, if the issue is deemed to be part of the Nokia OCP wrapper code
 
 
 Please share feedback if this support process is meeting your needs when next level support is required, especially for engineers working in the NAM time zone.
 
 
-[Services Support | MACD Operations | Microsoft Teams](https://teams.microsoft.com/l/channel/19%3A7o-tGsUP4VQsfHEy1DcVf4XcJW5rQkR1ocIrVnvJZzs1%40thread.tacv2/Services%20Support?groupId=7a0d773f-51d7-4b85-a359-f6766f94d8e9&tenantId=5d471751-9675-428d-917b-70f44f9630b0&ngc=true&allowXTenantAccess=true)
 
 ---
 
@@ -62,11 +64,12 @@ When it is completed, the ticket will be in assigned state so it is a go for the
 
 **Example:**
 
-- command on node OS level
+- command on node OS level 
+![alt text](image.png)
 - platform validator python file on master node OS level directly
-- sysctl.conf, adding or changing parameters directly on the node level
 
- 
+- sysctl.conf, adding or changing parameters directly on the node level
+ ![alt text](image-1.png)
 Please make sure not to do any workarounds or node-level changes or running scripts on the node directly.
  
 
