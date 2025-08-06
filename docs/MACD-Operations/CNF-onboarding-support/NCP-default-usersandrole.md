@@ -184,6 +184,83 @@ oc auth can-i get crds --as=ppaaa01
 oc login -u ppaaa01 -p redhat123
 oc get nodes
 ```
+---
+
+## Customer owned user id with read only.  (Optional for certain customer only.)
+
+
+> [Note:1]
+> This user ID should be created only if explicitly requested by the customer.
+
+> [Note:2]
+> Create this user ID only during the customer acceptance phase, not before.
+
+
+
+
+### Procedure to `Add` an additional users
+
+1) Retrieve the htpasswd file from the htpass-secret Secret object and save the file to your file system:
+
+```
+[root@dom14npv101-infra-manager ~ hub]# oc get secret htpass-secret -ojsonpath={.data.htpasswd} -n openshift-config | base64 --decode > users.htpasswd
+[root@dom14npv101-infra-manager ~ hub]# cat users.htpasswd
+ncpadmin:$2y$05$DYlpXiwFzfyRioO4hRNq1.ZdFLO3yMz3Pl3gs7.yUpEUKeOGoHX9K
+[root@dom14npv101-infra-manager ~ hub]# 
+```
+2) Add or remove users from the users.htpasswd file.
+
+```
+[root@dom14npv101-infra-manager ~ hub]# htpasswd -bB users.htpasswd nokia nokia@123
+Adding password for user nokia
+[root@dom14npv101-infra-manager ~ hub]# 
+```
+
+3) Replace the htpass-secret Secret object with the updated users in the users.htpasswd file:
+
+```
+[root@dom14npv101-infra-manager ~ hub]# oc create secret generic htpass-secret --from-file=htpasswd=users.htpasswd --dry-run=client -o yaml -n openshift-config | oc replace -f -
+secret/htpass-secret replaced
+[root@dom14npv101-infra-manager ~ hub]# 
+```
+
+4) Wait for all these pods to be restarted 
+
+```
+[root@dom14npv101-infra-manager ~ hub]# oc get pods -n openshift-authentication -o wide |grep -i oauth
+oauth-openshift-f446bd5b-58cps   1/1     Running   0          82s   172.20.2.190   ncpvnpvhub-hubmaster-101.ncpvnpvhub.pnwlab.nsn-rdnet.net   <none>           <none>
+oauth-openshift-f446bd5b-k8dqx   0/1     Running   0          27s   172.21.0.241   ncpvnpvhub-hubmaster-103.ncpvnpvhub.pnwlab.nsn-rdnet.net   <none>           <none>
+oauth-openshift-f446bd5b-v4n6m   1/1     Running   0          55s   172.20.0.134   ncpvnpvhub-hubmaster-102.ncpvnpvhub.pnwlab.nsn-rdnet.net   <none>           <none>
+[root@dom14npv101-infra-manager ~ hub]# 
+```
+
+5) Validate the login now. 
+
+```
+[root@dom14npv101-infra-manager ~ hub]# oc login -u nokia -p nokia@123
+WARNING: Using insecure TLS client config. Setting this option is not supported!
+
+Login successful.
+
+You don't have any projects. You can try to create a new project, by running
+
+    oc new-project <projectname>
+
+[root@dom14npv101-infra-manager ~ hub]# oc whoami
+nokia
+[root@dom14npv101-infra-manager ~ hub]# 
+
+```
+---
+
+### Grant cluster level read only access
+
+
+No additional setup required. Cluster Role `cluster-reader` mapped to customer owned user id:
+
+```bash
+oc policy add-cluster-role-to-user cluster-reader customer-admin1
+```
 
 ---
 <!-- 
