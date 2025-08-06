@@ -18,24 +18,29 @@
 [root@ncputility ~ pancwl_rc]$ cat /root/panhubrc
 export KUBECONFIG=~/.kube/hubconfig
 
-oc login -u kubeadmin -p NdnkM-SWpwe-SE4Ba-rNSbR https://api.panclyphub01.mnc020.mcc714:6443
+oc login -u kubeadmin  https://api.panclyphub01.mnc020.mcc714:6443
 PS1="[\u@\h ~ panhub_rc]$ "
 [root@ncputility ~ pancwl_rc]$
 
 ```
 
-2) To login to this cluster try 
+2) To login to this cluster try, source and file, followed by enter the passwd.
 
 ```
-[root@ncputility ~ pancwl_rc]$ source /root/panhubrc
+[root@ncputility ~ panhub_rc]$ source /root/panhubrc
 WARNING: Using insecure TLS client config. Setting this option is not supported!
 
+Console URL: https://api.panclyphub01.mnc020.mcc714:6443/console
+Authentication required for https://api.panclyphub01.mnc020.mcc714:6443 (openshift)
+Username: kubeadmin
+Password:
 Login successful.
 
-You have access to 103 projects, the list has been suppressed. You can list all projects with 'oc projects'
+You have access to 106 projects, the list has been suppressed. You can list all projects with 'oc projects'
 
-Using project "panclypcwl01".
+Using project "default".
 [root@ncputility ~ panhub_rc]$
+
 ```
 
 ### Create an RC for CWL cluster. 
@@ -49,23 +54,28 @@ Using project "panclypcwl01".
 [root@ncputility ~ pancwl_rc]$ cat /root/pancwlrc
 export KUBECONFIG=~/.kube/cwlconfig
 
-oc login -u kubeadmin -p Y59eh-d8Poa-sSdyp-9zBvL https://api.panclypcwl01.mnc020.mcc714:6443
+oc login -u kubeadmin https://api.panclypcwl01.mnc020.mcc714:6443
 PS1="[\u@\h ~ pancwl_rc]$ "
 
 [root@ncputility ~ pancwl_rc]$
 
 ```
-2) to login to this cluster try 
+2) To login to this cluster try, source and file, followed by enter the passwd.
 
 ```
-[root@ncputility ~ pancwl_rc]$ source /root/pancwlrc
+[root@ncputility ~ panhub_rc]$ source /root/panhubrc
 WARNING: Using insecure TLS client config. Setting this option is not supported!
 
+Console URL: https://api.panclypcwl01.mnc020.mcc714:6443/console
+Authentication required for https://api.panclypcwl01.mnc020.mcc714:6443 (openshift)
+Username: kubeadmin
+Password:
 Login successful.
 
-You have access to 117 projects, the list has been suppressed. You can list all projects with 'oc projects'
+You have access to 106 projects, the list has been suppressed. You can list all projects with 'oc projects'
 
 Using project "default".
 [root@ncputility ~ pancwl_rc]$
+
 
 ```
