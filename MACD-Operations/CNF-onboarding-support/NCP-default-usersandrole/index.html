@@ -1893,6 +1893,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#customer-owned-user-id-with-read-only-optional-for-certain-customer-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customer owned user id with read only. (Optional for certain customer only.)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customer owned user id with read only. (Optional for certain customer only.)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#procedure-to-add-an-additional-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procedure to Add an additional users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grant-cluster-level-read-only-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grant cluster level read only access
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2202,6 +2235,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#customer-owned-user-id-with-read-only-optional-for-certain-customer-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Customer owned user id with read only. (Optional for certain customer only.)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Customer owned user id with read only. (Optional for certain customer only.)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#procedure-to-add-an-additional-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procedure to Add an additional users
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grant-cluster-level-read-only-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grant cluster level read only access
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2387,6 +2453,63 @@ oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </sp
 oc<span class="w"> </span>auth<span class="w"> </span>can-i<span class="w"> </span>get<span class="w"> </span>crds<span class="w"> </span>--as<span class="o">=</span>ppaaa01
 oc<span class="w"> </span>login<span class="w"> </span>-u<span class="w"> </span>ppaaa01<span class="w"> </span>-p<span class="w"> </span>redhat123
 oc<span class="w"> </span>get<span class="w"> </span>nodes
+</code></pre></div>
+
+<hr />
+<h2 id="customer-owned-user-id-with-read-only-optional-for-certain-customer-only">Customer owned user id with read only.  (Optional for certain customer only.)<a class="headerlink" href="#customer-owned-user-id-with-read-only-optional-for-certain-customer-only" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>[Note:1]
+This user ID should be created only if explicitly requested by the customer.</p>
+<p>[Note:2]
+Create this user ID only during the customer acceptance phase, not before.</p>
+</blockquote>
+<h3 id="procedure-to-add-an-additional-users">Procedure to <code>Add</code> an additional users<a class="headerlink" href="#procedure-to-add-an-additional-users" title="Permanent link">&para;</a></h3>
+<p>1) Retrieve the htpasswd file from the htpass-secret Secret object and save the file to your file system:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="n">htpass</span><span class="o">-</span><span class="n">secret</span><span class="w"> </span><span class="o">-</span><span class="n">ojsonpath</span><span class="o">=</span><span class="err">{</span><span class="p">.</span><span class="k">data</span><span class="p">.</span><span class="n">htpasswd</span><span class="err">}</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="c1">--decode &gt; users.htpasswd</span>
+<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">htpasswd</span>
+<span class="nl">ncpadmin</span><span class="p">:</span><span class="err">$</span><span class="mi">2</span><span class="n">y</span><span class="err">$</span><span class="mi">05</span><span class="err">$</span><span class="n">DYlpXiwFzfyRioO4hRNq1</span><span class="p">.</span><span class="n">ZdFLO3yMz3Pl3gs7</span><span class="p">.</span><span class="n">yUpEUKeOGoHX9K</span>
+<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<p>2) Add or remove users from the users.htpasswd file.</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">hub</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="n">htpasswd</span><span class="w"> </span><span class="o">-</span><span class="n">bB</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">htpasswd</span><span class="w"> </span><span class="n">nokia</span><span class="w"> </span><span class="n">nokia</span><span class="mi">@123</span>
+<span class="n">Adding</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="n">nokia</span>
+<span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">hub</span><span class="p">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<p>3) Replace the htpass-secret Secret object with the updated users in the users.htpasswd file:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="n">generic</span><span class="w"> </span><span class="n">htpass</span><span class="o">-</span><span class="n">secret</span><span class="w"> </span><span class="c1">--from-file=htpasswd=users.htpasswd --dry-run=client -o yaml -n openshift-config | oc replace -f -</span>
+<span class="n">secret</span><span class="o">/</span><span class="n">htpass</span><span class="o">-</span><span class="n">secret</span><span class="w"> </span><span class="n">replaced</span>
+<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<p>4) Wait for all these pods to be restarted </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">pods</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">authentication</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">wide</span><span class="w"> </span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">oauth</span>
+<span class="n">oauth</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="n">f446bd5b</span><span class="o">-</span><span class="mi">58</span><span class="n">cps</span><span class="w">   </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="w">     </span><span class="n">Running</span><span class="w">   </span><span class="mi">0</span><span class="w">          </span><span class="mi">82</span><span class="n">s</span><span class="w">   </span><span class="mf">172.20.2.190</span><span class="w">   </span><span class="n">ncpvnpvhub</span><span class="o">-</span><span class="n">hubmaster</span><span class="o">-</span><span class="mf">101.</span><span class="n">ncpvnpvhub</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">           </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span>
+<span class="n">oauth</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="n">f446bd5b</span><span class="o">-</span><span class="n">k8dqx</span><span class="w">   </span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span><span class="w">     </span><span class="n">Running</span><span class="w">   </span><span class="mi">0</span><span class="w">          </span><span class="mi">27</span><span class="n">s</span><span class="w">   </span><span class="mf">172.21.0.241</span><span class="w">   </span><span class="n">ncpvnpvhub</span><span class="o">-</span><span class="n">hubmaster</span><span class="o">-</span><span class="mf">103.</span><span class="n">ncpvnpvhub</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">           </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span>
+<span class="n">oauth</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="n">f446bd5b</span><span class="o">-</span><span class="n">v4n6m</span><span class="w">   </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="w">     </span><span class="n">Running</span><span class="w">   </span><span class="mi">0</span><span class="w">          </span><span class="mi">55</span><span class="n">s</span><span class="w">   </span><span class="mf">172.20.0.134</span><span class="w">   </span><span class="n">ncpvnpvhub</span><span class="o">-</span><span class="n">hubmaster</span><span class="o">-</span><span class="mf">102.</span><span class="n">ncpvnpvhub</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">           </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span>
+<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<p>5) Validate the login now. </p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">hub</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">nokia</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">nokia</span><span class="mi">@123</span>
+<span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="n">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">supported</span><span class="o">!</span>
+
+<span class="n">Login</span><span class="w"> </span><span class="n">successful</span><span class="p">.</span>
+
+<span class="n">You</span><span class="w"> </span><span class="n">don</span><span class="err">&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">projects</span><span class="p">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">try</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">project</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">running</span>
+
+<span class="w">    </span><span class="n">oc</span><span class="w"> </span><span class="n">new</span><span class="o">-</span><span class="n">project</span><span class="w"> </span><span class="o">&lt;</span><span class="n">projectname</span><span class="o">&gt;</span>
+
+<span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">hub</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">whoami</span>
+<span class="n">nokia</span>
+<span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">hub</span><span class="p">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<hr />
+<h3 id="grant-cluster-level-read-only-access">Grant cluster level read only access<a class="headerlink" href="#grant-cluster-level-read-only-access" title="Permanent link">&para;</a></h3>
+<p>No additional setup required. Cluster Role <code>cluster-reader</code> mapped to customer owned user id:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-user<span class="w"> </span>cluster-reader<span class="w"> </span>customer-admin1
 </code></pre></div>
 
 <hr />
