@@ -75,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#ncc-onboarding-prerequisites" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1929,6 +1934,21 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    NCC
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         
@@ -1941,6 +1961,52 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-version-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Version History
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-the-tasks-involved" class="md-nav__link">
+    <span class="md-ellipsis">
+      List the tasks involved
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role-creation-for-their-service-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Creation for their Service Account
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2002,6 +2068,43 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-version-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation Version History
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#list-the-tasks-involved" class="md-nav__link">
+    <span class="md-ellipsis">
+      List the tasks involved
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role-creation-for-their-service-account" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Creation for their Service Account
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -2017,9 +2120,80 @@
 
 
 
-  <h1>NCC</h1>
+<h1 id="ncc-onboarding-prerequisites">NCC Onboarding Prerequisites<a class="headerlink" href="#ncc-onboarding-prerequisites" title="Permanent link">&para;</a></h1>
+<h2 id="documentation-version-history">Documentation Version History<a class="headerlink" href="#documentation-version-history" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th><strong>Author Name</strong></th>
+<th><strong>Published Date</strong></th>
+<th><strong>Version</strong></th>
+<th><strong>Comments</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LaKshmi</td>
+<td>08/06/2025</td>
+<td>1.0</td>
+<td>Initial draft</td>
+</tr>
+</tbody>
+</table>
+<h2 id="list-the-tasks-involved">List the tasks involved<a class="headerlink" href="#list-the-tasks-involved" title="Permanent link">&para;</a></h2>
+<ul>
+<li>[X] Role Creation for their Service Account. </li>
+</ul>
+<h2 id="role-creation-for-their-service-account">Role Creation for their Service Account<a class="headerlink" href="#role-creation-for-their-service-account" title="Permanent link">&para;</a></h2>
+<p>1) Login to the NCP with cluster admin account </p>
+<div class="codehilite"><pre><span></span><code>oc login 
+</code></pre></div>
 
+<p>2) Create a role using following file and apply using <code>oc apply -f</code></p>
+<div class="codehilite"><pre><span></span><code><span class="nv">oc</span><span class="w"> </span><span class="nv">apply</span><span class="w"> </span><span class="o">-</span><span class="nv">f</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="nv">EOF</span>
+<span class="nv">apiVersion</span>:<span class="w"> </span><span class="nv">rbac</span>.<span class="nv">authorization</span>.<span class="nv">k8s</span>.<span class="nv">io</span><span class="o">/</span><span class="nv">v1</span>
+<span class="nv">kind</span>:<span class="w"> </span><span class="nv">ClusterRole</span>
+<span class="nv">metadata</span>:
+<span class="w">  </span><span class="nv">name</span>:<span class="w"> </span><span class="nv">ncc</span><span class="o">-</span><span class="nv">ig</span><span class="o">-</span><span class="nv">cpro</span><span class="o">-</span><span class="nv">qasus92ncc01</span><span class="o">-</span><span class="nv">servercr</span>
+<span class="nv">rules</span>:
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">apiGroups</span>:<span class="w"> </span>[<span class="s2">&quot;&quot;</span>]
+<span class="w">    </span><span class="nv">resources</span>:
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">endpoints</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">nodes</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">nodes</span><span class="o">/</span><span class="nv">metrics</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">nodes</span><span class="o">/</span><span class="nv">proxy</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">pods</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">pods</span><span class="o">/</span><span class="k">exec</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">services</span>
+<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;list&quot;</span>,<span class="w"> </span><span class="s2">&quot;watch&quot;</span>,<span class="w"> </span><span class="s2">&quot;create&quot;</span>]
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">apiGroups</span>:<span class="w"> </span>[<span class="s2">&quot;apps&quot;</span>]
+<span class="w">    </span><span class="nv">resources</span>:<span class="w"> </span>[<span class="s2">&quot;deployments&quot;</span>]
+<span class="w">    </span><span class="nv">resourceNames</span>:<span class="w"> </span>[<span class="s2">&quot;ncc-ig-cpro-server&quot;</span>]
+<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;create&quot;</span>,<span class="w"> </span><span class="s2">&quot;delete&quot;</span>,<span class="w"> </span><span class="s2">&quot;patch&quot;</span>,<span class="w"> </span><span class="s2">&quot;update&quot;</span>,<span class="w"> </span><span class="s2">&quot;list&quot;</span>,<span class="w"> </span><span class="s2">&quot;deletecollection&quot;</span>]
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">apiGroups</span>:<span class="w"> </span>[<span class="s2">&quot;apps&quot;</span>]
+<span class="w">    </span><span class="nv">resources</span>:<span class="w"> </span>[<span class="s2">&quot;statefulsets&quot;</span>]
+<span class="w">    </span><span class="nv">resourceNames</span>:<span class="w"> </span>[<span class="s2">&quot;ncc-ig-cpro-server&quot;</span>]
+<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;create&quot;</span>,<span class="w"> </span><span class="s2">&quot;delete&quot;</span>,<span class="w"> </span><span class="s2">&quot;patch&quot;</span>,<span class="w"> </span><span class="s2">&quot;update&quot;</span>,<span class="w"> </span><span class="s2">&quot;list&quot;</span>,<span class="w"> </span><span class="s2">&quot;deletecollection&quot;</span>]
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">apiGroups</span>:<span class="w"> </span>[<span class="s2">&quot;networking.k8s.io&quot;</span>]
+<span class="w">    </span><span class="nv">resources</span>:
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">ingresses</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">ingresses</span><span class="o">/</span><span class="nv">status</span>
+<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;list&quot;</span>,<span class="w"> </span><span class="s2">&quot;watch&quot;</span>]
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">nonResourceURLs</span>:<span class="w"> </span>[<span class="s2">&quot;/metrics&quot;</span>]
+<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>]
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">apiGroups</span>:<span class="w"> </span>[<span class="s2">&quot;rbac.authorization.k8s.io&quot;</span>]
+<span class="w">    </span><span class="nv">resources</span>:<span class="w"> </span>[<span class="s2">&quot;clusterroles&quot;</span>]
+<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;patch&quot;</span>]
+<span class="nv">EOF</span>
+</code></pre></div>
 
+<p>3)  later bind this ClusterRole to a service account</p>
+<div class="codehilite"><pre><span></span><code>oc adm policy add-cluster-role-to-user ncc-ig-cpro-qasus92ncc01-servercr -z &lt;sa-name&gt; -n &lt;namespace&gt;
+</code></pre></div>
+
+<blockquote>
+<p>This service account and namespace details will be provided by the application teams. </p>
+</blockquote>
 
 
 
