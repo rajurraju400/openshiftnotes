@@ -88,6 +88,7 @@ nav:
           - NCP Standard user and role Management: MACD-Operations/CNF-onboarding-support/NCP-default-usersandrole.md
           - Cluster Wide TS: MACD-Operations/CNF-onboarding-support/ts-tools.md
           - Istio for CNF: MACD-Operations/CNF-onboarding-support/istio-for-cnf.md
+          - Create a Linux user: MACD-Operations/create-persistent-linux-user-ocp-claro.md
 
       - CNF Onboarding Prerequisites:
           - NCOM : MACD-Operations/CNF-onboarding-prerequisites/NCOM.md
