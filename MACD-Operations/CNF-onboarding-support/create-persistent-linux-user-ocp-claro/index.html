@@ -13,10 +13,6 @@
       
       
       
-        <link rel="prev" href="../reboot-nodes/">
-      
-      
-        <link rel="next" href="../openshift_scaleout_guide/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +20,7 @@
     
     
       
-        <title>NMC/NWC Scale-In Nodes - OpenShift Notes</title>
+        <title>Create a Persistent Linux User on OpenShift (RHCOS) Nodes — claro - OpenShift Notes</title>
       
     
     
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#nmcnwc-scale-in-procedure-for-appworkergateway-node" class="md-skip">
+        <a href="#create-a-persistent-linux-user-on-openshift-rhcos-nodes-claro" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              NMC/NWC Scale-In Nodes
+              Create a Persistent Linux User on OpenShift (RHCOS) Nodes — claro
             
           </span>
         </div>
@@ -445,20 +441,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -474,7 +468,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             OpenShift
@@ -526,7 +520,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../projectmanagement/scope/" class="md-nav__link">
+      <a href="../../../openshift/projectmanagement/scope/" class="md-nav__link">
         
   
   
@@ -595,7 +589,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../deployment/automation/nokia-site-config-fixes/" class="md-nav__link">
+      <a href="../../../openshift/deployment/automation/nokia-site-config-fixes/" class="md-nav__link">
         
   
   
@@ -664,7 +658,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usermanagement/remove-kubeadmin/" class="md-nav__link">
+      <a href="../../../openshift/usermanagement/remove-kubeadmin/" class="md-nav__link">
         
   
   
@@ -687,7 +681,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usermanagement/user-management/" class="md-nav__link">
+      <a href="../../../openshift/usermanagement/user-management/" class="md-nav__link">
         
   
   
@@ -756,7 +750,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backup-restore/ACM-GEO-RED/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/ACM-GEO-RED/" class="md-nav__link">
         
   
   
@@ -779,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backup-restore/ACM-localbackup/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/ACM-localbackup/" class="md-nav__link">
         
   
   
@@ -802,7 +796,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backup-restore/AWS-S3/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/AWS-S3/" class="md-nav__link">
         
   
   
@@ -825,7 +819,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backup-restore/etcd-backup/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/etcd-backup/" class="md-nav__link">
         
   
   
@@ -848,7 +842,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../backup-restore/etcd-restore/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/etcd-restore/" class="md-nav__link">
         
   
   
@@ -917,7 +911,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Intergration/syslog/" class="md-nav__link">
+      <a href="../../../openshift/Intergration/syslog/" class="md-nav__link">
         
   
   
@@ -945,20 +939,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_6" >
         
           
           <label class="md-nav__link" for="__nav_3_6" id="__nav_3_6_label" tabindex="0">
@@ -974,7 +966,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_6">
             <span class="md-nav__icon md-icon"></span>
             Maintenance
@@ -988,7 +980,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cluster-stop-start/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/cluster-stop-start/" class="md-nav__link">
         
   
   
@@ -1011,7 +1003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../reboot-nodes/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/reboot-nodes/" class="md-nav__link">
         
   
   
@@ -1031,32 +1023,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    NMC/NWC Scale-In Nodes
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../openshift/maintenace/openshift_scalein_guide/" class="md-nav__link">
         
   
   
@@ -1067,113 +1037,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#edit-and-push-siteconfig" class="md-nav__link">
-    <span class="md-ellipsis">
-      Edit and Push SiteConfig
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#delete-agent-resource-from-hub-cluster" class="md-nav__link">
-    <span class="md-ellipsis">
-      Delete Agent Resource from Hub Cluster
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#login-to-cwlspoke-cluster-and-verify-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      Login to CWL/Spoke Cluster and Verify Resources
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Login to CWL/Spoke Cluster and Verify Resources">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#list-machine-and-bmh-resources" class="md-nav__link">
-    <span class="md-ellipsis">
-      List Machine and BMH Resources
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#delete-bare-metal-host-bmh" class="md-nav__link">
-    <span class="md-ellipsis">
-      Delete Bare Metal Host (BMH)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#if-bmh-is-not-deleted-automatically" class="md-nav__link">
-    <span class="md-ellipsis">
-      If BMH is Not Deleted Automatically:
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#delete-machine-resource" class="md-nav__link">
-    <span class="md-ellipsis">
-      Delete Machine Resource
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#scale-in-nodes-from-initial-deployment-optional" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scale-In Nodes from Initial Deployment (Optional)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Notes
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1186,7 +1049,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../openshift_scaleout_guide/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/openshift_scaleout_guide/" class="md-nav__link">
         
   
   
@@ -1255,7 +1118,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/metalb-troubleshooting/" class="md-nav__link">
+      <a href="../../../openshift/networking/metalb-troubleshooting/" class="md-nav__link">
         
   
   
@@ -1278,7 +1141,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/metallb-configuration/" class="md-nav__link">
+      <a href="../../../openshift/networking/metallb-configuration/" class="md-nav__link">
         
   
   
@@ -1347,7 +1210,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storagemanagement/ceph-rebalanceissue/" class="md-nav__link">
+      <a href="../../../openshift/storagemanagement/ceph-rebalanceissue/" class="md-nav__link">
         
   
   
@@ -1370,7 +1233,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storagemanagement/storage-node-replacement/" class="md-nav__link">
+      <a href="../../../openshift/storagemanagement/storage-node-replacement/" class="md-nav__link">
         
   
   
@@ -1393,7 +1256,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storagemanagement/one-OSD-not-created/" class="md-nav__link">
+      <a href="../../../openshift/storagemanagement/one-OSD-not-created/" class="md-nav__link">
         
   
   
@@ -1462,7 +1325,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/nsenter/" class="md-nav__link">
+      <a href="../../../openshift/troubleshooting/nsenter/" class="md-nav__link">
         
   
   
@@ -1485,7 +1348,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/ncomsa/" class="md-nav__link">
+      <a href="../../../openshift/troubleshooting/ncomsa/" class="md-nav__link">
         
   
   
@@ -1554,7 +1417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../disaster-management/infra-manager-redeployment/" class="md-nav__link">
+      <a href="../../../openshift/disaster-management/infra-manager-redeployment/" class="md-nav__link">
         
   
   
@@ -1577,7 +1440,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../disaster-management/hub-cluster-redeployment/master-replacment/" class="md-nav__link">
+      <a href="../../../openshift/disaster-management/hub-cluster-redeployment/master-replacment/" class="md-nav__link">
         
   
   
@@ -1691,7 +1554,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/MACD-management/scope/" class="md-nav__link">
+      <a href="../../MACD-management/scope/" class="md-nav__link">
         
   
   
@@ -1760,7 +1623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/image-tls-issue/" class="md-nav__link">
+      <a href="../image-tls-issue/" class="md-nav__link">
         
   
   
@@ -1783,7 +1646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/oclogin-tls-issue/" class="md-nav__link">
+      <a href="../oclogin-tls-issue/" class="md-nav__link">
         
   
   
@@ -1806,7 +1669,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/proxy-cache-pod/" class="md-nav__link">
+      <a href="../proxy-cache-pod/" class="md-nav__link">
         
   
   
@@ -1829,7 +1692,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/rolebinding/" class="md-nav__link">
+      <a href="../rolebinding/" class="md-nav__link">
         
   
   
@@ -1852,7 +1715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/Failtoconfigure_nncp/" class="md-nav__link">
+      <a href="../Failtoconfigure_nncp/" class="md-nav__link">
         
   
   
@@ -1875,7 +1738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/kubeconfig/" class="md-nav__link">
+      <a href="../kubeconfig/" class="md-nav__link">
         
   
   
@@ -1898,7 +1761,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/NCP-default-usersandrole/" class="md-nav__link">
+      <a href="../NCP-default-usersandrole/" class="md-nav__link">
         
   
   
@@ -1921,7 +1784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/ts-tools/" class="md-nav__link">
+      <a href="../ts-tools/" class="md-nav__link">
         
   
   
@@ -1944,7 +1807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/istio-for-cnf/" class="md-nav__link">
+      <a href="../istio-for-cnf/" class="md-nav__link">
         
   
   
@@ -1967,7 +1830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/create-persistent-linux-user-ocp-claro.md" class="md-nav__link">
+      <a href="../../create-persistent-linux-user-ocp-claro.md" class="md-nav__link">
         
   
   
@@ -2036,7 +1899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCOM.md" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/NCOM.md" class="md-nav__link">
         
   
   
@@ -2059,7 +1922,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCD.md" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/NCD.md" class="md-nav__link">
         
   
   
@@ -2082,7 +1945,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCC/" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/NCC/" class="md-nav__link">
         
   
   
@@ -2105,7 +1968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/CMG.md" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/CMG.md" class="md-nav__link">
         
   
   
@@ -2163,64 +2026,73 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#edit-and-push-siteconfig" class="md-nav__link">
+  <a href="#why-machineconfig" class="md-nav__link">
     <span class="md-ellipsis">
-      Edit and Push SiteConfig
+      Why MachineConfig?
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#delete-agent-resource-from-hub-cluster" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Delete Agent Resource from Hub Cluster
+      Prerequisites
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#login-to-cwlspoke-cluster-and-verify-resources" class="md-nav__link">
+  <a href="#create-the-machineconfigs" class="md-nav__link">
     <span class="md-ellipsis">
-      Login to CWL/Spoke Cluster and Verify Resources
+      Create the MachineConfig(s)
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Login to CWL/Spoke Cluster and Verify Resources">
+    <nav class="md-nav" aria-label="Create the MachineConfig(s)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#list-machine-and-bmh-resources" class="md-nav__link">
+  <a href="#workers-only" class="md-nav__link">
     <span class="md-ellipsis">
-      List Machine and BMH Resources
+      Workers only
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#delete-bare-metal-host-bmh" class="md-nav__link">
+  <a href="#control-plane-only" class="md-nav__link">
     <span class="md-ellipsis">
-      Delete Bare Metal Host (BMH)
+      Control-plane only
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#if-bmh-is-not-deleted-automatically" class="md-nav__link">
+  <a href="#gateway-plane-only" class="md-nav__link">
     <span class="md-ellipsis">
-      If BMH is Not Deleted Automatically:
+      gateway-plane only
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#delete-machine-resource" class="md-nav__link">
+  <a href="#storage-plane-only" class="md-nav__link">
     <span class="md-ellipsis">
-      Delete Machine Resource
+      storage-plane only
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#all-including-workers-and-control-plane" class="md-nav__link">
+    <span class="md-ellipsis">
+      ALL including workers and control-plane
     </span>
   </a>
   
@@ -2232,18 +2104,69 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#scale-in-nodes-from-initial-deployment-optional" class="md-nav__link">
+  <a href="#apply-the-machineconfigs" class="md-nav__link">
     <span class="md-ellipsis">
-      Scale-In Nodes from Initial Deployment (Optional)
+      Apply the MachineConfig(s)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
+  <a href="#verify-on-a-node" class="md-nav__link">
     <span class="md-ellipsis">
-      Notes
+      Verify on a node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verify on a node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-oc-debug-no-ssh-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using oc debug (no SSH needed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional: SSH
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback-removal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rollback / Removal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
     </span>
   </a>
   
@@ -2265,71 +2188,250 @@
 
 
 
-<h1 id="nmcnwc-scale-in-procedure-for-appworkergateway-node">NMC/NWC Scale-In Procedure for <code>Appworker/Gateway</code> Node<a class="headerlink" href="#nmcnwc-scale-in-procedure-for-appworkergateway-node" title="Permanent link">&para;</a></h1>
-<p>This document outlines the steps required to <strong>scale in</strong> a compute node (e.g., <code>appworker2.panclypcwl01.mnc020.mcc714</code>) from an OpenShift cluster managed via ZTP/Agent-based deployment. This procedure assumes you are working within the OpenShift GitOps (ArgoCD) deployment flow.</p>
+<h1 id="create-a-persistent-linux-user-on-openshift-rhcos-nodes-claro">Create a Persistent Linux User on OpenShift (RHCOS) Nodes — <code>claro</code><a class="headerlink" href="#create-a-persistent-linux-user-on-openshift-rhcos-nodes-claro" title="Permanent link">&para;</a></h1>
+<p>This guide shows how to create a <strong>persistent</strong> Linux user named <strong><code>claro</code></strong> on OpenShift Container Platform (OCP) nodes by using a <strong>MachineConfig</strong>. It covers all hostgroups. It also includes verification and roll back. </p>
+<blockquote>
+<p>Target audience: cluster admins comfortable with <code>oc</code>, MachineConfigPools (MCPs), and RHCOS.<br />
+Works for: OCP 4.x clusters using RHEL CoreOS (RHCOS).</p>
+</blockquote>
 <hr />
-<h2 id="edit-and-push-siteconfig">Edit and Push SiteConfig<a class="headerlink" href="#edit-and-push-siteconfig" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Open the Git repository used for ZTP automation.</li>
-<li>Navigate to the appropriate `` YAML file.</li>
-<li>Remove the node definition (e.g., <code>appworker2</code>) from the SiteConfig.</li>
-<li>Commit and push the changes to the Git repository.</li>
-</ol>
-<p>ArgoCD will automatically sync (if infra does not have auto sync enabeld, manually sync it) and delete the corresponding resources from the hub cluster. However, this will <strong>not</strong> remove the <code>agents.agent-install.openshift.io</code> resource, which must be deleted manually.</p>
+<h2 id="why-machineconfig">Why MachineConfig?<a class="headerlink" href="#why-machineconfig" title="Permanent link">&para;</a></h2>
+<p>OCP nodes (RHCOS) are <strong>immutable</strong>. Any manual user creation done via <code>oc debug</code> or SSH will <strong>not</strong> survive a reboot. A <code>MachineConfig</code> ensures the user is configured on boot and persists across reboots and upgrades.</p>
 <hr />
-<h2 id="delete-agent-resource-from-hub-cluster">Delete Agent Resource from Hub Cluster<a class="headerlink" href="#delete-agent-resource-from-hub-cluster" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>agents.agent-install.openshift.io<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>appworker2
-
-<span class="c1"># Example:</span>
-oc<span class="w"> </span>get<span class="w"> </span>agents.agent-install.openshift.io<span class="w"> </span>-n<span class="w"> </span>ncpvnpvlab1<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>appworker2
-
-<span class="c1"># Then delete the matching agents</span>
-oc<span class="w"> </span>delete<span class="w"> </span>agents.agent-install.openshift.io<span class="w"> </span>-n<span class="w"> </span>ncpvnpvlab1<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>0d4c5f4b-4751-96e1-4a02-a0dd5f8deb8e<span class="w"> </span>
-</code></pre></div>
-
-<hr />
-<h2 id="login-to-cwlspoke-cluster-and-verify-resources">Login to CWL/Spoke Cluster and Verify Resources<a class="headerlink" href="#login-to-cwlspoke-cluster-and-verify-resources" title="Permanent link">&para;</a></h2>
-<h3 id="list-machine-and-bmh-resources">List Machine and BMH Resources<a class="headerlink" href="#list-machine-and-bmh-resources" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api<span class="w"> </span>get<span class="w"> </span>machine<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>appworker2
-oc<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api<span class="w"> </span>get<span class="w"> </span>bmh<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span>appworker2
-</code></pre></div>
-
-<h3 id="delete-bare-metal-host-bmh">Delete Bare Metal Host (BMH)<a class="headerlink" href="#delete-bare-metal-host-bmh" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api<span class="w"> </span>delete<span class="w"> </span>bmh<span class="w"> </span>appworker2.panclypcwl01.scdsgplab.com
-</code></pre></div>
-
-<h3 id="if-bmh-is-not-deleted-automatically">If BMH is Not Deleted Automatically:<a class="headerlink" href="#if-bmh-is-not-deleted-automatically" title="Permanent link">&para;</a></h3>
-<p>Patch the BMH resource to remove finalizers:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api<span class="w"> </span>patch<span class="w"> </span>bmh<span class="w"> </span>appworker2.panclypcwl01.scdsgplab.com<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--type<span class="o">=</span>merge<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;{&quot;metadata&quot;: {&quot;finalizers&quot;:null}}&#39;</span>
-</code></pre></div>
-
-<hr />
-<h3 id="delete-machine-resource">Delete Machine Resource<a class="headerlink" href="#delete-machine-resource" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api<span class="w"> </span>delete<span class="w"> </span>machine<span class="w"> </span>appworker2.panclypcwl01.scdsgplab.com<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--kubeconfig<span class="w"> </span>/root/hubfeb19/auth/pan-cwl.yaml
-</code></pre></div>
-
-<hr />
-<h2 id="scale-in-nodes-from-initial-deployment-optional">Scale-In Nodes from Initial Deployment (Optional)<a class="headerlink" href="#scale-in-nodes-from-initial-deployment-optional" title="Permanent link">&para;</a></h2>
-<p>If the node you wish to scale in was part of the <strong>initial deployment</strong>, you must also update the <strong>MachineSet count</strong>:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>machinesets.machine.openshift.io<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api
-</code></pre></div>
-
-<p>Identify the relevant MachineSet and decrease the <code>replicas</code> count accordingly.</p>
-<p>Update with:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>scale<span class="w"> </span>machineset<span class="w"> </span>&lt;machineset-name&gt;<span class="w"> </span>--replicas<span class="o">=</span>&lt;desired-count&gt;<span class="w"> </span>-n<span class="w"> </span>openshift-machine-api
-</code></pre></div>
-
-<hr />
-<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Be careful when deleting or modifying cluster resources; take necessary etcd backups and must-gather output from hub and cwl.</li>
-<li>Always you informed the DTM before doing any changes to the cluster.</li>
-<li>Ensure that Git and ArgoCD are synced post any changes.</li>
+<li><code>oc</code> CLI logged in with cluster-admin privileges.</li>
+<li>Know which pools you want to target (<code>worker</code>, <code>master</code>/<code>control-plane</code>, or <code>all</code>).</li>
+<li>A <strong>password hash</strong> or <strong>SSH public key</strong> for the new user.</li>
+<li>SSH is recommended; password authentication is often disabled by default on RHCOS.</li>
 </ul>
 <hr />
+<h2 id="create-the-machineconfigs">Create the MachineConfig(s)<a class="headerlink" href="#create-the-machineconfigs" title="Permanent link">&para;</a></h2>
+<p>Pick the scenario that matches your needs and save the YAML accordingly.</p>
+<h3 id="workers-only">Workers only<a class="headerlink" href="#workers-only" title="Permanent link">&para;</a></h3>
+<p>Save as <code>99-add-user-claro-worker.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MachineConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99-add-user-claro-worker</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">machineconfiguration.openshift.io/role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ignition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.2.0</span>
+<span class="w">    </span><span class="nt">passwd</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">users</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claro</span>
+<span class="w">          </span><span class="nt">sshAuthorizedKeys</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;ssh-rsa</span><span class="nv"> </span><span class="s">AAAAB3NzaC1yc2EAAAADAQABAAABAQ...</span><span class="nv"> </span><span class="s">user@host&quot;</span>
+<span class="w">          </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claro</span>
+</code></pre></div>
+
+<h3 id="control-plane-only">Control-plane only<a class="headerlink" href="#control-plane-only" title="Permanent link">&para;</a></h3>
+<p>Save as <code>99-add-user-claro-master.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MachineConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99-add-user-claro-master</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">machineconfiguration.openshift.io/role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ignition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.2.0</span>
+<span class="w">    </span><span class="nt">passwd</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">users</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claro</span>
+<span class="w">          </span><span class="nt">sshAuthorizedKeys</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;ssh-rsa</span><span class="nv"> </span><span class="s">AAAAB3NzaC1yc2EAAAADAQABAAABAQ...</span><span class="nv"> </span><span class="s">user@host&quot;</span>
+<span class="w">          </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claro</span>
+</code></pre></div>
+
+<h3 id="gateway-plane-only">gateway-plane only<a class="headerlink" href="#gateway-plane-only" title="Permanent link">&para;</a></h3>
+<p>Save as <code>99-add-user-claro-gateway.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MachineConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99-add-user-claro-gateway</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">machineconfiguration.openshift.io/role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">gateway</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ignition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.2.0</span>
+<span class="w">    </span><span class="nt">passwd</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">users</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claro</span>
+<span class="w">          </span><span class="nt">sshAuthorizedKeys</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;ssh-rsa</span><span class="nv"> </span><span class="s">AAAAB3NzaC1yc2EAAAADAQABAAABAQ...</span><span class="nv"> </span><span class="s">user@host&quot;</span>
+<span class="w">          </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claro</span>
+</code></pre></div>
+
+<h3 id="storage-plane-only">storage-plane only<a class="headerlink" href="#storage-plane-only" title="Permanent link">&para;</a></h3>
+<p>Save as <code>99-add-user-claro-storage.yaml</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MachineConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99-add-user-claro-storage</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">machineconfiguration.openshift.io/role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">storage</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ignition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.2.0</span>
+<span class="w">    </span><span class="nt">passwd</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">users</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claro</span>
+<span class="w">          </span><span class="nt">sshAuthorizedKeys</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;ssh-rsa</span><span class="nv"> </span><span class="s">AAAAB3NzaC1yc2EAAAADAQABAAABAQ...</span><span class="nv"> </span><span class="s">user@host&quot;</span>
+<span class="w">          </span><span class="nt">groups</span><span class="p">:</span>
+<span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claro</span>
+</code></pre></div>
+
+<h3 id="all-including-workers-and-control-plane">ALL including workers and control-plane<a class="headerlink" href="#all-including-workers-and-control-plane" title="Permanent link">&para;</a></h3>
+<p>Create <strong>ALL</strong> files then apply both.</p>
+<blockquote>
+<p><strong>Note:</strong> On many RHCOS images, <code>wheel</code> is the admin group used by sudo. <code>sudo</code> group is harmless to include for portability.</p>
+</blockquote>
+<hr />
+<h2 id="apply-the-machineconfigs">Apply the MachineConfig(s)<a class="headerlink" href="#apply-the-machineconfigs" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Apply whichever YAMLs you created</span>
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="m">99</span>-add-user-claro-worker.yaml
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="m">99</span>-add-user-claro-master.yaml
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="m">99</span>-add-user-claro-gateway.yaml
+oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span><span class="m">99</span>-add-user-claro-storage.yaml
+</code></pre></div>
+
+<p>Then watch the pools roll out (nodes will reboot once):</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>machineconfigpool
+<span class="c1"># Optional: watch a specific pool (below is ex)</span>
+watch<span class="w"> </span>-n5<span class="w"> </span><span class="s1">&#39;oc get mcp worker &amp;&amp; oc get mcp master&#39;</span>
+</code></pre></div>
+
+<p>You can also inspect details:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>describe<span class="w"> </span>mcp/worker
+oc<span class="w"> </span>describe<span class="w"> </span>mcp/master
+</code></pre></div>
+
+<p>The pool(s) will go from <code>UPDATED=True</code> -&gt; <code>UPDATING=True</code> while applying, and back to <code>UPDATED=True</code> when finished.</p>
+<hr />
+<h2 id="verify-on-a-node">Verify on a node<a class="headerlink" href="#verify-on-a-node" title="Permanent link">&para;</a></h2>
+<h3 id="using-oc-debug-no-ssh-needed">Using <code>oc debug</code> (no SSH needed)<a class="headerlink" href="#using-oc-debug-no-ssh-needed" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Pick a node in the updated pool</span>
+oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>-l<span class="w"> </span>node-role.kubernetes.io/worker<span class="o">=</span>
+<span class="c1"># Example:</span>
+<span class="nv">NODE</span><span class="o">=</span>&lt;a-worker-node-name&gt;
+
+<span class="c1"># Start a debug shell on the node</span>
+oc<span class="w"> </span>debug<span class="w"> </span>node/<span class="nv">$NODE</span>
+
+<span class="c1"># In the debug pod:</span>
+chroot<span class="w"> </span>/host
+
+<span class="c1"># Confirm the user exists</span>
+id<span class="w"> </span>claro
+getent<span class="w"> </span>passwd<span class="w"> </span>claro
+groups<span class="w"> </span>claro
+
+<span class="c1"># If you added SSH keys and want to double-check:</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/home/claro/.ssh/
+cat<span class="w"> </span>/home/claro/.ssh/authorized_keys
+
+<span class="nb">exit</span><span class="w">  </span><span class="c1"># leave chroot</span>
+<span class="nb">exit</span><span class="w">  </span><span class="c1"># leave debug pod</span>
+</code></pre></div>
+
+<h3 id="optional-ssh">Optional: SSH<a class="headerlink" href="#optional-ssh" title="Permanent link">&para;</a></h3>
+<p>If you provided <code>sshAuthorizedKeys</code> and network/firewall allows it:</p>
+<div class="codehilite"><pre><span></span><code>ssh<span class="w"> </span>-i<span class="w"> </span>private.key<span class="w"> </span>claro@&lt;node-ip-or-dnsname&gt;
+</code></pre></div>
+
+<blockquote>
+<p>On RHCOS, password auth is often disabled by default. Use SSH keys unless you have explicitly enabled password authentication in <code>/etc/ssh/sshd_config</code> (which itself would be a MachineConfig change).</p>
+</blockquote>
+<hr />
+<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Pool stuck <code>UPDATING</code>:</strong></li>
+<li>Check MCD logs on an affected node:
+    <code>bash
+    oc -n openshift-machine-config-operator logs -l k8s-app=machine-config-daemon --tail=200</code></li>
+<li>
+<p>Inspect last applied MachineConfig on the node:
+    <code>bash
+    oc describe node &lt;node-name&gt; | grep -A3 "machineconfiguration.openshift.io/currentConfig"</code></p>
+</li>
+<li>
+<p><strong>SSH still not working:</strong></p>
+</li>
+<li>Confirm your public key is present in <code>/home/claro/.ssh/authorized_keys</code> on the node.</li>
+<li>Confirm network/firewall access to port 22.</li>
+<li>
+<p>Confirm <code>sshd</code> is running and <code>PasswordAuthentication</code>/<code>PubkeyAuthentication</code> settings if using passwords (manage via MachineConfig).</p>
+</li>
+<li>
+<p><strong>Sudo not working:</strong></p>
+</li>
+<li>Check that <code>claro</code> is in <code>wheel</code>: <code>groups claro</code></li>
+<li>If you enabled passwordless sudo, verify <code>/etc/sudoers.d/00-wheel-nopasswd</code> exists and is correct.</li>
+<li>Validate sudoers syntax:
+    <code>bash
+    visudo -c</code></li>
+</ul>
+<hr />
+<h2 id="rollback-removal">Rollback / Removal<a class="headerlink" href="#rollback-removal" title="Permanent link">&para;</a></h2>
+<ul>
+<li>To <strong>remove</strong> the user, create a new MachineConfig that uses a <strong>one-shot systemd unit</strong> to <code>userdel claro</code> and clean up <code>/home/claro</code>, then delete the original user-creation MachineConfig. (The <code>passwd.users</code> stanza itself does not remove users.) Example pattern:</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MachineConfig</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99-remove-user-claro-worker</span>
+<span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">machineconfiguration.openshift.io/role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ignition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.2.0</span>
+<span class="w">    </span><span class="nt">systemd</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">units</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">userdel-claro.service</span>
+<span class="w">          </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">            </span><span class="no">[Unit]</span>
+<span class="w">            </span><span class="no">Description=Remove user claro once</span>
+<span class="w">            </span><span class="no">ConditionPathExists=/usr/local/sbin/userdel-claro.sh</span>
+
+<span class="w">            </span><span class="no">[Service]</span>
+<span class="w">            </span><span class="no">Type=oneshot</span>
+<span class="w">            </span><span class="no">ExecStart=/usr/local/sbin/userdel-claro.sh</span>
+
+<span class="w">            </span><span class="no">[Install]</span>
+<span class="w">            </span><span class="no">WantedBy=multi-user.target</span>
+<span class="w">    </span><span class="nt">storage</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">files</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/usr/local/sbin/userdel-claro.sh</span>
+<span class="w">          </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0755</span>
+<span class="w">          </span><span class="nt">overwrite</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+<span class="w">          </span><span class="nt">contents</span><span class="p">:</span>
+<span class="w">            </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data:text/plain;charset=utf-8;base64,IyEvYmluL2Jhc2gKdXNlcmRlbCBjbGFybyAmJiBybSAtcmYgL2hvbWUvY2xhcm8KIyBvcHRpb25hbGx5IHJlbW92ZSBub3cgdGhhdCB3ZSdyZSBk</span>
+</code></pre></div>
+
+<blockquote>
+<p>After rollout, delete the original add-user MachineConfig so it doesn’t recreate the user on the next update.</p>
+</blockquote>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Use <strong>MachineConfig</strong> to create <strong><code>claro</code></strong> persistently.</li>
+<li>Target the <strong>correct MCP</strong> via labels (<code>worker</code>, <code>master</code>).</li>
+<li>Prefer <strong>SSH keys</strong>; include <code>sshAuthorizedKeys</code> in the MC.</li>
+<li>Verify with <code>oc debug</code> + <code>chroot /host</code>.</li>
+</ul>
 
 
 
