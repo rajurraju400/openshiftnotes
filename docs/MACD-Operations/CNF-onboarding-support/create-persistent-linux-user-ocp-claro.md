@@ -1,6 +1,6 @@
 # Create a Persistent Linux User on OpenShift (RHCOS) Nodes — `claro`
 
-This guide shows how to create a **persistent** Linux user named **`claro`** on OpenShift Container Platform (OCP) nodes by using a **MachineConfig**. It covers all hostgroups. It also includes verification and roll back. 
+This guide shows how to create a ***persistent*** Linux user named **`claro`** on OpenShift Container Platform (OCP) nodes by using a **MachineConfig**. It covers all hostgroups. It also includes verification and roll back. 
 
 > Target audience: cluster admins comfortable with `oc`, MachineConfigPools (MCPs), and RHCOS.  
 > Works for: OCP 4.x clusters using RHEL CoreOS (RHCOS).
@@ -118,7 +118,7 @@ spec:
 ```
 
 
-### ALL including workers and control-plane
+### Implement it on all hostgroups
 Create **ALL** files then apply both.
 
 > **Note:** On many RHCOS images, `wheel` is the admin group used by sudo. `sudo` group is harmless to include for portability.
