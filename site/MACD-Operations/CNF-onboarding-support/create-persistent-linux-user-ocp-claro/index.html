@@ -13,6 +13,10 @@
       
       
       
+        <link rel="prev" href="../istio-for-cnf/">
+      
+      
+        <link rel="next" href="../../CNF-onboarding-prerequisites/NCC/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -20,7 +24,7 @@
     
     
       
-        <title>Create a Persistent Linux User on OpenShift (RHCOS) Nodes — claro - OpenShift Notes</title>
+        <title>Create a Linux user - OpenShift Notes</title>
       
     
     
@@ -109,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Create a Persistent Linux User on OpenShift (RHCOS) Nodes — claro
+              Create a Linux user
             
           </span>
         </div>
@@ -1475,18 +1479,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1502,7 +1508,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             MACD Operations
@@ -1582,18 +1588,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
         
           
           <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
@@ -1609,7 +1617,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             CNF Onboarding Support
@@ -1827,10 +1835,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../create-persistent-linux-user-ocp-claro.md" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Create a Linux user
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1841,6 +1871,173 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-machineconfig" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why MachineConfig?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-the-machineconfigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create the MachineConfig(s)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Create the MachineConfig(s)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#workers-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Workers only
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#control-plane-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control-plane only
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gateway-plane-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      gateway-plane only
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#storage-plane-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      storage-plane only
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implement-it-on-all-hostgroups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implement it on all hostgroups
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apply-the-machineconfigs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apply the MachineConfig(s)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#verify-on-a-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Verify on a node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Verify on a node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-oc-debug-no-ssh-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using oc debug (no SSH needed)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optional-ssh" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optional: SSH
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback-removal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rollback / Removal
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2090,9 +2287,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#all-including-workers-and-control-plane" class="md-nav__link">
+  <a href="#implement-it-on-all-hostgroups" class="md-nav__link">
     <span class="md-ellipsis">
-      ALL including workers and control-plane
+      Implement it on all hostgroups
     </span>
   </a>
   
@@ -2189,7 +2386,7 @@
 
 
 <h1 id="create-a-persistent-linux-user-on-openshift-rhcos-nodes-claro">Create a Persistent Linux User on OpenShift (RHCOS) Nodes — <code>claro</code><a class="headerlink" href="#create-a-persistent-linux-user-on-openshift-rhcos-nodes-claro" title="Permanent link">&para;</a></h1>
-<p>This guide shows how to create a <strong>persistent</strong> Linux user named <strong><code>claro</code></strong> on OpenShift Container Platform (OCP) nodes by using a <strong>MachineConfig</strong>. It covers all hostgroups. It also includes verification and roll back. </p>
+<p>This guide shows how to create a <strong><em>persistent</em></strong> Linux user named <strong><code>claro</code></strong> on OpenShift Container Platform (OCP) nodes by using a <strong>MachineConfig</strong>. It covers all hostgroups. It also includes verification and roll back. </p>
 <blockquote>
 <p>Target audience: cluster admins comfortable with <code>oc</code>, MachineConfigPools (MCPs), and RHCOS.<br />
 Works for: OCP 4.x clusters using RHEL CoreOS (RHCOS).</p>
@@ -2292,7 +2489,7 @@ Works for: OCP 4.x clusters using RHEL CoreOS (RHCOS).</p>
 <span class="w">            </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">claro</span>
 </code></pre></div>
 
-<h3 id="all-including-workers-and-control-plane">ALL including workers and control-plane<a class="headerlink" href="#all-including-workers-and-control-plane" title="Permanent link">&para;</a></h3>
+<h3 id="implement-it-on-all-hostgroups">Implement it on all hostgroups<a class="headerlink" href="#implement-it-on-all-hostgroups" title="Permanent link">&para;</a></h3>
 <p>Create <strong>ALL</strong> files then apply both.</p>
 <blockquote>
 <p><strong>Note:</strong> On many RHCOS images, <code>wheel</code> is the admin group used by sudo. <code>sudo</code> group is harmless to include for portability.</p>
