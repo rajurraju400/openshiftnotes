@@ -405,3 +405,141 @@ listening on tenant-vlan.11, link-type EN10MB (Ethernet), snapshot length 262144
 [root@storage1 /]#
 
 ``` -->
+
+
+
+## List of possible command for CNF users on NMC/NWC
+
+
+### Namespace-Scoped (Tenant Admin → Full RW)
+
+```
+# Pods
+oc get pods -n <ns>
+oc describe pod <pod> -n <ns>
+oc delete pod <pod> -n <ns>
+oc exec -it <pod> -n <ns> -- /bin/sh
+
+# Deployments
+oc get deployments -n <ns>
+oc scale deployment <dep> --replicas=3 -n <ns>
+oc rollout restart deployment <dep> -n <ns>
+oc delete deployment <dep> -n <ns>
+
+# StatefulSets
+oc get statefulsets -n <ns>
+oc delete statefulset <sts> -n <ns>
+
+# DaemonSets
+oc get daemonsets -n <ns>
+oc delete daemonset <ds> -n <ns>
+
+# ReplicaSets
+oc get replicasets -n <ns>
+oc delete replicaset <rs> -n <ns>
+
+# Jobs / CronJobs
+oc get jobs -n <ns>
+oc delete job <job> -n <ns>
+oc get cronjobs -n <ns>
+oc delete cronjob <cron> -n <ns>
+
+# PDBs (PodDisruptionBudgets)
+oc get pdb -n <ns>
+oc delete pdb <pdb> -n <ns>
+
+# Services / Routes / Ingress
+oc get svc -n <ns>
+oc delete svc <svc> -n <ns>
+oc get route -n <ns>
+oc delete route <route> -n <ns>
+
+# ConfigMaps / Secrets
+oc get configmaps -n <ns>
+oc create configmap mycfg --from-file=app.conf -n <ns>
+oc get secrets -n <ns>
+oc delete secret <sec> -n <ns>
+
+# PVCs
+oc get pvc -n <ns>
+oc delete pvc <pvc> -n <ns>
+
+# Other basics
+oc logs <pod> -n <ns>
+oc describe <resource> <name> -n <ns>
+
+```
+
+### CNF-Specific RW (from ncp-default-rw-cnf-role)
+
+```
+# Network Attachment Definitions
+oc get network-attachment-definitions -n <ns>
+oc create -f nad.yaml -n <ns>
+oc delete network-attachment-definition <nad> -n <ns>
+
+# Nokia CNF CRDs
+oc get brpolices -n <ns>
+oc create -f brpolicy.yaml -n <ns>
+oc patch brpolicy <name> -p ...
+
+oc get brhooks -n <ns>
+oc create -f brhook.yaml -n <ns>
+
+# Redis Enterprise
+oc get redisenterpriseclusters -n <ns>
+oc create -f redis.yaml -n <ns>
+oc delete redisenterprisecluster <name> -n <ns>
+
+# Nokia Profiles
+oc get profiles -n <ns>
+oc patch profile <name> --type=merge -p ...
+
+# Charging Functions
+oc get chargingfunctions -n <ns>
+oc patch chargingfunction <name> ...
+
+```
+
+### Cluster-Scoped RO only (from ncp-default-ro-cnf-role)
+
+> You can get/list/watch but not create/delete/patch
+
+```
+# Nodes
+oc get nodes
+oc describe node <node>
+
+# SCC (SecurityContextConstraints)
+oc get scc
+oc describe scc <scc>
+
+# CRDs
+oc get crd
+oc describe crd <crd>
+
+# Compliance Profiles
+oc get profiles.compliance.openshift.io
+oc describe profile <name>
+
+# NodeNetworkConfigurationPolicies (nmstate)
+oc get nncp
+oc describe nncp <name>
+
+# MetalLB Pools
+oc get ipaddresspools.metallb.io -A
+
+# OVN Egress IPs
+oc get egressips.k8s.ovn.org -A
+
+# SR-IOV
+oc get sriovnetworknodepolicies.sriovnetwork.openshift.io -A
+
+# Node Resource Topologies
+oc get noderesourcetopologies.topology.node.k8s.io -A
+
+# PVs
+oc get pv
+oc describe pv <pv>
+
+```
