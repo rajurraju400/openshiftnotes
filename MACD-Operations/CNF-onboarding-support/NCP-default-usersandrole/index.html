@@ -1921,6 +1921,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#grant-cluster-monitoring-level-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grant Cluster monitoring level access
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grant-cluster-clusterlogging-level-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grant Cluster ClusterLogging level access
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2305,6 +2323,24 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#grant-cluster-monitoring-level-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grant Cluster monitoring level access
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#grant-cluster-clusterlogging-level-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      Grant Cluster ClusterLogging level access
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2592,8 +2628,18 @@ Create this user ID only during the customer acceptance phase, not before.</p>
 
 <hr />
 <h3 id="grant-cluster-level-read-only-access">Grant cluster level read only access<a class="headerlink" href="#grant-cluster-level-read-only-access" title="Permanent link">&para;</a></h3>
-<p>No additional setup required. Cluster Role <code>cluster-reader</code> mapped to customer owned user id:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-user<span class="w"> </span>cluster-reader<span class="w"> </span>customer-admin1
+<p>By default, no additional setup is required.  Map the <code>cluster-reader</code> ClusterRole to the customer-owned user ID:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-user<span class="w"> </span>cluster-reader<span class="w"> </span>customer-user
+</code></pre></div>
+
+<h3 id="grant-cluster-monitoring-level-access">Grant Cluster monitoring level access<a class="headerlink" href="#grant-cluster-monitoring-level-access" title="Permanent link">&para;</a></h3>
+<p>If the customer explicitly requests access to metrics and alerts, assign the cluster-monitoring-view ClusterRole:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-user<span class="w"> </span>cluster-monitoring-view<span class="w"> </span>customer-user
+</code></pre></div>
+
+<h3 id="grant-cluster-clusterlogging-level-access">Grant Cluster ClusterLogging level access<a class="headerlink" href="#grant-cluster-clusterlogging-level-access" title="Permanent link">&para;</a></h3>
+<p>If the customer explicitly requests access to cluster logs (via Kibana/Console), grant read-only access to the openshift-logging namespace:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-user<span class="w"> </span>view<span class="w"> </span>customer-user<span class="w"> </span>-n<span class="w"> </span>openshift-logging
 </code></pre></div>
 
 <h2 id="list-of-possible-command-for-cnf-users-on-nmcnwc">List of possible command for CNF users on NMC/NWC<a class="headerlink" href="#list-of-possible-command-for-cnf-users-on-nmcnwc" title="Permanent link">&para;</a></h2>
