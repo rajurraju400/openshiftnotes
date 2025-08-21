@@ -256,14 +256,28 @@ nokia
 ### Grant cluster level read only access
 
 
-No additional setup required. Cluster Role `cluster-reader` mapped to customer owned user id:
+By default, no additional setup is required.  Map the `cluster-reader` ClusterRole to the customer-owned user ID:
+
 
 ```bash
-oc policy add-cluster-role-to-user cluster-reader customer-admin1
+oc policy add-cluster-role-to-user cluster-reader customer-user
 ```
 
+### Grant Cluster monitoring level access
 
+If the customer explicitly requests access to metrics and alerts, assign the cluster-monitoring-view ClusterRole:
 
+```bash
+oc adm policy add-cluster-role-to-user cluster-monitoring-view customer-user
+```
+
+### Grant Cluster ClusterLogging level access
+
+If the customer explicitly requests access to cluster logs (via Kibana/Console), grant read-only access to the openshift-logging namespace:
+
+```bash
+oc adm policy add-role-to-user view customer-user -n openshift-logging
+```
 
 ## List of possible command for CNF users on NMC/NWC
 
