@@ -2639,7 +2639,7 @@ Create this user ID only during the customer acceptance phase, not before.</p>
 
 <h3 id="grant-cluster-clusterlogging-level-access">Grant Cluster ClusterLogging level access<a class="headerlink" href="#grant-cluster-clusterlogging-level-access" title="Permanent link">&para;</a></h3>
 <p>If the customer explicitly requests access to cluster logs (via Kibana/Console), grant read-only access to the openshift-logging namespace:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-user<span class="w"> </span>view<span class="w"> </span>customer-user<span class="w"> </span>-n<span class="w"> </span>openshift-logging
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-user<span class="w"> </span>cluster-logging-application-view<span class="w"> </span>testro
 </code></pre></div>
 
 <h2 id="list-of-possible-command-for-cnf-users-on-nmcnwc">List of possible command for CNF users on NMC/NWC<a class="headerlink" href="#list-of-possible-command-for-cnf-users-on-nmcnwc" title="Permanent link">&para;</a></h2>
