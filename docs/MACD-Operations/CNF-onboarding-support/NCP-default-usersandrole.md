@@ -276,7 +276,7 @@ oc adm policy add-cluster-role-to-user cluster-monitoring-view customer-user
 If the customer explicitly requests access to cluster logs (via Kibana/Console), grant read-only access to the openshift-logging namespace:
 
 ```bash
-oc adm policy add-role-to-user view customer-user -n openshift-logging
+oc adm policy add-cluster-role-to-user cluster-logging-application-view testro
 ```
 
 ## List of possible command for CNF users on NMC/NWC
