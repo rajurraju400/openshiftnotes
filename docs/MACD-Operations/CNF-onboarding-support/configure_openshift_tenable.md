@@ -9,7 +9,7 @@ Complete the following steps to create the service account, update `<service-acc
 
 ## Create a SA for security scan. 
 
-1. Create a YAML file
+1) Create a YAML file
 
 Create a `.yml` file containing:
 
@@ -32,7 +32,7 @@ metadata:
 
 ---
 
-2. Apply the configuration
+2) Apply the configuration
 
 Run the following command to apply the file:
 
@@ -46,7 +46,7 @@ secret/nessus-token created
 
 ---
 
-3. Describe the service account to list tokens
+3) Describe the service account to list tokens
 
 ```bash
 $ oc describe sa <service-account-name>
@@ -61,7 +61,7 @@ Tokens: <service-account-name>-token
 
 ---
 
-4. Retrieve the token for API authentication
+4) Retrieve the token for API authentication
 
 This token is used as the **Token** in the OpenShift Container Platform Nessus credential.
 
@@ -79,7 +79,7 @@ eyJhbGciOiJSUzI1NiIsImtpZCI6IjBpd2lFcjdSU3ktY25uRDl3YTVhU0M2V0wtZ0pUWXBXM0RzMmpU
 
 ---
 
-5. Grant the service account appropriate permissions
+5) Grant the service account appropriate permissions
 
 Log in to your OpenShift cluster console:
 
@@ -89,7 +89,7 @@ https://console-openshift-console.apps.openshift.<your-domain>
 
 Then:
 
-1. Create the following `ClusterRole`:
+7) Create the following `ClusterRole`:
 
 ```
 [root@ncputility ~ pancwl_rc]$ cat nessrole.yaml
@@ -112,7 +112,7 @@ clusterrole.rbac.authorization.k8s.io/audit-viewonly created
 [root@ncputility ~ pancwl_rc]$ 
 ```
 
-2. Bind the `ClusterRole` to the previously created service account to grant the required permissions.
+8) Bind the `ClusterRole` to the previously created service account to grant the required permissions.
 
 ```
 [root@ncputility ~ pancwl_rc]$ oc adm policy add-cluster-role-to-user audit-viewonly -z nessus -n default
