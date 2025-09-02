@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../../MACD-management/scope/">
+        <link rel="prev" href="../restrict-project-creation/">
       
       
-        <link rel="next" href="../oclogin-tls-issue/">
+        <link rel="next" href="../../CNF-onboarding-prerequisites/NCC/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Image TLS Issue - OpenShift Notes</title>
+        <title>Nessus Security Access - OpenShift Notes</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#container-image-download-issue-due-to-tls-problem" class="md-skip">
+        <a href="#security-scan-nessus-configure-the-openshift-container-platform" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Image TLS Issue
+              Nessus Security Access
             
           </span>
         </div>
@@ -1628,32 +1628,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Image TLS Issue
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../image-tls-issue/" class="md-nav__link">
         
   
   
@@ -1664,68 +1642,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-newly" class="md-nav__link">
-    <span class="md-ellipsis">
-      Creating tls certificate on the OCP cluster as additional tls newly
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Creating tls certificate on the OCP cluster as additional tls newly">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#this-step-will-resolve-issue-on-linux-os-levelbastion-host-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      This step will resolve issue on Linux OS level(bastion host level)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#on-the-ocp-cluster-level-changes-tls-creation" class="md-nav__link">
-    <span class="md-ellipsis">
-      On the OCP cluster level changes, TLS Creation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-add" class="md-nav__link">
-    <span class="md-ellipsis">
-      Creating tls certificate on the OCP cluster as additional tls ADD
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1942,10 +1858,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../configure_openshift_tenable/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Nessus Security Access
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1956,6 +1894,44 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-sa-for-security-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a SA for security scan.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-linux-user-for-scan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a linux user for scan
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2141,42 +2117,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-newly" class="md-nav__link">
+  <a href="#create-a-sa-for-security-scan" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating tls certificate on the OCP cluster as additional tls newly
+      Create a SA for security scan.
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Creating tls certificate on the OCP cluster as additional tls newly">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#this-step-will-resolve-issue-on-linux-os-levelbastion-host-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      This step will resolve issue on Linux OS level(bastion host level)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#on-the-ocp-cluster-level-changes-tls-creation" class="md-nav__link">
-    <span class="md-ellipsis">
-      On the OCP cluster level changes, TLS Creation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-add" class="md-nav__link">
+  <a href="#create-a-linux-user-for-scan" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating tls certificate on the OCP cluster as additional tls ADD
+      Create a linux user for scan
     </span>
   </a>
   
@@ -2198,89 +2150,113 @@
 
 
 
-<h1 id="container-image-download-issue-due-to-tls-problem">Container Image download issue due to TLS problem.<a class="headerlink" href="#container-image-download-issue-due-to-tls-problem" title="Permanent link">&para;</a></h1>
-<h3 id="creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-newly">Creating tls certificate on the OCP cluster as additional tls <code>newly</code><a class="headerlink" href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-newly" title="Permanent link">&para;</a></h3>
-<h4 id="this-step-will-resolve-issue-on-linux-os-levelbastion-host-level">This step will resolve issue on Linux OS level(bastion host level)<a class="headerlink" href="#this-step-will-resolve-issue-on-linux-os-levelbastion-host-level" title="Permanent link">&para;</a></h4>
+<h1 id="security-scan-nessus-configure-the-openshift-container-platform">Security Scan - Nessus : Configure the OpenShift Container Platform<a class="headerlink" href="#security-scan-nessus-configure-the-openshift-container-platform" title="Permanent link">&para;</a></h1>
+<p>The Tenable integration for the Red Hat OpenShift Container Platform requires a service account configured with appropriate permissions.</p>
+<p>Complete the following steps to create the service account, update <code>&lt;service-account-name&gt;</code>, and configure access:</p>
+<hr />
+<h2 id="create-a-sa-for-security-scan">Create a SA for security scan.<a class="headerlink" href="#create-a-sa-for-security-scan" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Create a YAML file</li>
+</ol>
+<p>Create a <code>.yml</code> file containing:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nessus</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nn">---</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">kubernetes.io/service-account-token</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nessus-token</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">kubernetes.io/service-account.name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nessus</span>
+</code></pre></div>
+
+<hr />
+<ol>
+<li>Apply the configuration</li>
+</ol>
+<p>Run the following command to apply the file:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span>root@ncputility<span class="w"> </span>~<span class="w"> </span>pancwl_rc<span class="o">]</span>$<span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>ness.yaml
+serviceaccount/nessus<span class="w"> </span>created
+secret/nessus-token<span class="w"> </span>created
+<span class="o">[</span>root@ncputility<span class="w"> </span>~<span class="w"> </span>pancwl_rc<span class="o">]</span>$
+</code></pre></div>
+
+<hr />
+<ol>
+<li>Describe the service account to list tokens</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>oc<span class="w"> </span>describe<span class="w"> </span>sa<span class="w"> </span>&lt;service-account-name&gt;
+</code></pre></div>
+
+<p><em>Output (example):</em></p>
+<div class="codehilite"><pre><span></span><code>Name: &lt;service-account-name&gt;
+Tokens: &lt;service-account-name&gt;-token
+</code></pre></div>
+
+<hr />
+<ol>
+<li>Retrieve the token for API authentication</li>
+</ol>
+<p>This token is used as the <strong>Token</strong> in the OpenShift Container Platform Nessus credential.</p>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>oc<span class="w"> </span>describe<span class="w"> </span>secret<span class="w"> </span>&lt;service-account-name&gt;-token
+</code></pre></div>
+
+<p><em>Output (example):</em></p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="n">nessus</span><span class="o">-</span><span class="n">token</span><span class="w">  </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">jsonpath</span><span class="o">=</span><span class="ss">&quot;{.data.token}&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span>
+<span class="n">eyJhbGciOiJSUzI1NiIsImtpZCI6IjBpd2lFcjdSU3ktY25uRDl3YTVhU0M2V0wtZ0pUWXBXM0RzMmpUTFp1N28ifQ</span><span class="p">.</span><span class="n">eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJkZWZhdWx0Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZWNyZXQubmFtZSI6Im5lc3N1cy10b2tlbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJuZXNzdXMiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiJjOGI0MmRiNC00M2VkLTQ5MzYtYjFkMC02MWRmZmNlNjY2YzMiLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6ZGVmYXVsdDpuZXNzdXMifQ</span><span class="p">.</span><span class="n">EpDclPiIgtHkvExN3sXIrpJkmEkdxCNByrXVxctMCvVMHNzwG50Ybyv8MNOaOoOL7KEenwvXktxPk5SvBlzt</span><span class="o">-</span><span class="n">_KErvv4oWc4RI70YOxqWMbL9ZVb13jYpb_n_GK3POACrhXrl</span><span class="o">-</span><span class="mi">8</span><span class="n">CcIELsZjZJcJzEWaexYVaZmQj1YZNpbhgvYkkvErGIREbG8iRriHH4erE</span><span class="o">-</span><span class="n">AaFQQurzscVG9TK1I5cEzK2EnTNEtVJbSM5aO_6aEat1kf18z_i5OqnmgfUI90wwcKHOBfyzY5ws622GtvrEi0CRiNVfwUkoOdTV7zsdJDDHLOHFCTsPC</span><span class="o">-</span><span class="n">ZXCGrgfRUwz44JLZVKYvCJqKUfWLAvHRk</span><span class="o">-</span><span class="mi">4</span><span class="n">VkPgMOKWSAiu</span><span class="o">-</span><span class="n">sK2bhbrahUbYJe_7KcmI0aUFHNGkEFVLn4T3Cfqya8o4iOHQEVZdAEFqBKM9Dl9qHmtkuklJ3bn0V__6YnpFo49t6Vrca3_JGkcaypGGNIPzbN7dpcswS08OgvWMYFYVM9w_DqDx6DDG0SFnHK2B7EsDBvFwhloZiLFEX46WQH1z6nCPcYqmorPJRNMCPNb2Ywzw4badRGOqeUfzMJ4c3c9H0n2QCMw5PssnHWcrsbvVY</span><span class="o">-</span><span class="n">ypEJpNAimnTtd8IPL9OzpiVoX0wSQHS7hwX8FT16uNXUd1Pa1esEt</span><span class="o">-</span><span class="n">lnhdfaqeyfztei9IZs4s6aGroYA6uB_o</span><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
+</code></pre></div>
+
+<hr />
+<ol>
+<li>Grant the service account appropriate permissions</li>
+</ol>
+<p>Log in to your OpenShift cluster console:</p>
+<div class="codehilite"><pre><span></span><code>https://console-openshift-console.apps.openshift.&lt;your-domain&gt;
+</code></pre></div>
+
+<p>Then:</p>
+<ol>
+<li>Create the following <code>ClusterRole</code>:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">nessrole</span><span class="p">.</span><span class="n">yaml</span>
+<span class="nl">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1</span>
+<span class="nl">kind</span><span class="p">:</span><span class="w"> </span><span class="n">ClusterRole</span>
+<span class="nl">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">audit</span><span class="o">-</span><span class="n">viewonly</span>
+<span class="nl">rules</span><span class="p">:</span>
+<span class="o">-</span><span class="w"> </span><span class="nl">apiGroups</span><span class="p">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="s1">&#39;*&#39;</span>
+<span class="w">  </span><span class="nl">resources</span><span class="p">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="s1">&#39;*&#39;</span>
+<span class="w">  </span><span class="nl">verbs</span><span class="p">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="k">get</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">watch</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">list</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="k">view</span>
+<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">nessrole</span><span class="p">.</span><span class="n">yaml</span>
+<span class="n">clusterrole</span><span class="p">.</span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">audit</span><span class="o">-</span><span class="n">viewonly</span><span class="w"> </span><span class="n">created</span>
+<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
+</code></pre></div>
+
+<ol>
+<li>Bind the <code>ClusterRole</code> to the previously created service account to grant the required permissions.</li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">policy</span><span class="w"> </span><span class="k">add</span><span class="o">-</span><span class="n">cluster</span><span class="o">-</span><span class="k">role</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="k">user</span><span class="w"> </span><span class="n">audit</span><span class="o">-</span><span class="n">viewonly</span><span class="w"> </span><span class="o">-</span><span class="n">z</span><span class="w"> </span><span class="n">nessus</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="k">default</span>
+<span class="n">clusterrole</span><span class="p">.</span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">audit</span><span class="o">-</span><span class="n">viewonly</span><span class="w"> </span><span class="nl">added</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;nessus&quot;</span>
+<span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>
+</code></pre></div>
+
+<hr />
+<h2 id="create-a-linux-user-for-scan">Create a linux user for scan<a class="headerlink" href="#create-a-linux-user-for-scan" title="Permanent link">&para;</a></h2>
 <blockquote>
-<p>In order to be able to push images (for example) from the infra node to this Quay, the rootCA certificate shall be put to the trusted list of the client. The Quay is exposed using the OCP’s default ingress controller, route, so its rootCA shall be fetched (if it was not swapped already).</p>
+<p>Adding Linux user on the ocp nodes is not supported.</p>
+<p>https://access.redhat.com/solutions/6984064 </p>
 </blockquote>
-<p>1) from bastion host, login to respective cluster and find the respective CWL cluster quay url. </p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">route</span><span class="w"> </span><span class="o">-</span><span class="n">A</span><span class="w"> </span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">quay</span>
-<span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="w">              </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="w">                          </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">                                                             </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">app</span><span class="w">                             </span><span class="n">http</span><span class="w">         </span><span class="n">edge</span><span class="o">/</span><span class="n">Redirect</span><span class="w">          </span><span class="k">None</span>
-<span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="w">              </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">builder</span><span class="w">                  </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">builder</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">                                  </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">app</span><span class="w">                             </span><span class="n">grpc</span><span class="w">         </span><span class="n">edge</span><span class="o">/</span><span class="n">Redirect</span><span class="w">          </span><span class="k">None</span>
-<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
-</code></pre></div>
-
-<p>2) first locally resolve it, so make dir and download the cert (this is resolve on that particular linux server.)</p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">containers</span><span class="o">/</span><span class="n">certs</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span>
-<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span>
-</code></pre></div>
-
-<p>3) create the ingress certificate to local host </p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secrets</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">ingress</span><span class="o">-</span><span class="n">operator</span><span class="w"> </span><span class="n">router</span><span class="o">-</span><span class="n">ca</span><span class="w"> </span><span class="err">\</span>
-<span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">jsonpath</span><span class="o">=</span><span class="ss">&quot;{.data[&#39;tls\.crt&#39;]}&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">\</span>
-<span class="n">sudo</span><span class="w"> </span><span class="n">tee</span><span class="w"> </span><span class="o">-</span><span class="n">a</span><span class="w"> </span><span class="err">\</span>
-<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">containers</span><span class="o">/</span><span class="n">certs</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="o">/</span><span class="n">ca</span><span class="p">.</span><span class="n">crt</span>
-<span class="c1">-----BEGIN CERTIFICATE-----</span>
-<span class="n">MIIDDDCCAfSgAwIBAgIBATANBgkqhkiG9w0BAQsFADAmMSQwIgYDVQQDDBtpbmdy</span>
-<span class="n">ZXNzLW9wZXJhdG9yQDE3NDE2MjI1OTkwHhcNMjUwMzEwMTYwMzE4WhcNMjcwMzEw</span>
-<span class="n">MTYwMzE5WjAmMSQwIgYDVQQDDBtpbmdyZXNzLW9wZXJhdG9yQDE3NDE2MjI1OTkw</span>
-<span class="n">ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCtDCDqA6Cx</span><span class="o">+</span><span class="n">MvulZtYNleK</span>
-<span class="n">T3e4OVlQrR8zytgIQIvlLpeGoqsoNWEe</span><span class="o">/</span><span class="n">ZukJ35fco6LA42RcIiI</span><span class="o">+</span><span class="n">F5aI6zZ4</span><span class="o">+</span><span class="n">F8</span>
-<span class="mi">81</span><span class="n">ZEpsSRBx8VUMsZCdkb5mA8tl5vJjV</span><span class="o">+</span><span class="n">GC1tRlohk6KWqYoR5VJVLbggFer95efv</span>
-<span class="n">xyny</span><span class="o">/</span><span class="n">BCYXmU2CSHSmRQRnwAI6cX0K7QgEB0kMHaFjEta16UnwzKdhNbaj5rn0aTm</span>
-<span class="n">hLSGYLvPMx9RVZswjqOqrju0Aovfv9ZzzE</span><span class="o">++</span><span class="n">e6</span><span class="o">+</span><span class="n">KH9</span><span class="o">/</span><span class="n">jZr2HepK62ZZdGznbmnzu</span>
-<span class="n">Al0D</span><span class="o">+</span><span class="n">ILaVj8DiFpcwUIaSaRxUVlphAUmm530GLbKrBdQGSsWcJTo4ixf8R2wYo69</span>
-<span class="n">AgMBAAGjRTBDMA4GA1UdDwEB</span><span class="o">/</span><span class="n">wQEAwICpDASBgNVHRMBAf8ECDAGAQH</span><span class="o">/</span><span class="n">AgEAMB0G</span>
-<span class="n">A1UdDgQWBBQMuq1odXMd4OlIU4vG8Kfu</span><span class="o">/</span><span class="n">aLltjANBgkqhkiG9w0BAQsFAAOCAQEA</span>
-<span class="n">BVerN</span><span class="o">+</span><span class="n">fxay</span><span class="o">+</span><span class="n">kk9uei</span><span class="o">+</span><span class="n">bQIpryakFstJ5ApuB1wDKgLY3LucwbzXhaE48i9TEOoNlB</span>
-<span class="mi">32</span><span class="n">ugNpShYQoOyVMMAvQNQG69HNu0KDJHYGDMAs4seGIsMwqityS6Zgv8T3xo176g</span>
-<span class="n">mR0y74yiK1ImtnUAaAPt7NNFflhpZafzhY24k4L3AVNEjMKI9B2SgUJAscmXkNIZ</span>
-<span class="n">Dri</span><span class="o">+</span><span class="n">EILpba6MzmeLdE3sVTaOIRberr6yTKbZQskaci</span><span class="o">+</span><span class="n">twaO7r83hD3E3xwGJB823</span>
-<span class="n">Zu</span><span class="o">+</span><span class="n">B2i</span><span class="o">/</span><span class="n">txKbBrFeKUpppfrg7zCsyqM1UwFtenuj1yj3qECJVwe1Lr8SctrzpJc</span><span class="o">+</span><span class="n">J</span>
-<span class="n">ryyB1JeEPQWwewI1j7QXqg</span><span class="o">==</span>
-<span class="c1">-----END CERTIFICATE-----</span>
-<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span>
-</code></pre></div>
-
-<h4 id="on-the-ocp-cluster-level-changes-tls-creation">On the OCP cluster level changes, TLS Creation<a class="headerlink" href="#on-the-ocp-cluster-level-changes-tls-creation" title="Permanent link">&para;</a></h4>
-<p>1) Similarly if images would be pulled on the HUB cluster, its ingress’ rootCA shall be put into the image.config.openshift.io/cluster CR, as the registry is using self-signed certificate by default and treated as an insecure registry, more precisely the OCP’s ingress (if it is not swapped yet). In order to overcome issues the following commands:</p>
-<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secrets</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">ingress</span><span class="o">-</span><span class="n">operator</span><span class="w"> </span><span class="n">router</span><span class="o">-</span><span class="n">ca</span><span class="w"> </span><span class="err">\</span>
-<span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">jsonpath</span><span class="o">=</span><span class="ss">&quot;{.data[&#39;tls\.crt&#39;]}&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ingress_ca</span><span class="p">.</span><span class="n">crt</span>
-<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
-</code></pre></div>
-
-<p>2) create an cm to enforce the certificate here.</p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">configmap</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="err">\</span>
-<span class="c1">--from-file=quay-registry.apps.ncpvnpvlab1.pnwlab.nsn-rdnet.net=ingress_ca.crt</span>
-<span class="n">configmap</span><span class="o">/</span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="n">created</span>
-<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
-</code></pre></div>
-
-<p>3) now create an image patch to cluster iamge config. </p>
-<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">dom14npv101</span><span class="o">-</span><span class="nx">infra</span><span class="o">-</span><span class="nx">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">vlabrc</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="nx">oc</span><span class="w"> </span><span class="nx">patch</span><span class="w"> </span><span class="nx">image</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">cluster</span><span class="w"> </span><span class="o">--</span><span class="nx">patch</span><span class="w"> </span><span class="err">&#39;</span><span class="p">{</span><span class="s">&quot;spec&quot;</span><span class="p">:</span>
-<span class="p">{</span><span class="s">&quot;additionalTrustedCA&quot;</span><span class="p">:{</span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="s">&quot;registry-cas&quot;</span><span class="p">}}}</span><span class="err">&#39;</span><span class="w"> </span>\
-<span class="o">--</span><span class="k">type</span><span class="p">=</span><span class="nx">merge</span>
-<span class="nx">image</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">cluster</span><span class="w"> </span><span class="nx">patched</span>
-<span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">dom14npv101</span><span class="o">-</span><span class="nx">infra</span><span class="o">-</span><span class="nx">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">vlabrc</span><span class="p">]</span><span class="err">#</span>
-</code></pre></div>
-
-<h3 id="creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-add">Creating tls certificate on the OCP cluster as additional tls <code>ADD</code><a class="headerlink" href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-add" title="Permanent link">&para;</a></h3>
-<p>1) oc apply is the preferred way to update an existing resource, including ConfigMaps. This command will update the ConfigMap with the new data while keeping existing data intact. If you don’t have a YAML file, you can first export the current ConfigMap to a file, edit it, and then apply the changes:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">oc</span><span class="w"> </span><span class="n">get</span><span class="w"> </span><span class="n">configmap</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">yaml</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="p">.</span><span class="n">yaml</span>
-</code></pre></div>
-
-<p>2) now try to prepare file for new certificate with correct file intension using <code>--dry-run</code></p>
-<div class="codehilite"><pre><span></span><code><span class="n">oc</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="n">configmap</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="se">\</span>
-<span class="o">--</span><span class="n">from</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="n">harbor</span><span class="p">.</span><span class="n">ncdvnpv</span><span class="p">.</span><span class="n">ncpvnpvmgt</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="o">=</span><span class="n">ingress_ca</span><span class="p">.</span><span class="n">crt</span><span class="w"> </span><span class="se">\</span>
-<span class="o">--</span><span class="n">dry</span><span class="o">-</span><span class="n">run</span><span class="o">=</span><span class="n">client</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">yaml</span><span class="w"> </span>
-</code></pre></div>
-
-<p>3) Now try to copy the harbor and it's certificate line's and then add it as second list of the certificate on the first yaml file and later apply it. </p>
-<div class="codehilite"><pre><span></span><code><span class="n">vi</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="p">.</span><span class="n">yaml</span>
-
-<span class="n">oc</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="p">.</span><span class="n">yaml</span>
-</code></pre></div>
 
 
 
