@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../AWS-S3/">
+        <link rel="prev" href="../istio-for-cnf/">
       
       
-        <link rel="next" href="../etcd-restore/">
+        <link rel="next" href="../../CNF-onboarding-prerequisites/NCC/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>ETCD Backup - OpenShift Notes</title>
+        <title>Removing Self-Provisioner Access - OpenShift Notes</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#control-plane-backup" class="md-skip">
+        <a href="#openshift-removing-self-provisioner-access" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ETCD Backup
+              Removing Self-Provisioner Access
             
           </span>
         </div>
@@ -445,20 +445,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -474,7 +472,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             OpenShift
@@ -526,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../projectmanagement/scope/" class="md-nav__link">
+      <a href="../../../openshift/projectmanagement/scope/" class="md-nav__link">
         
   
   
@@ -595,7 +593,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../deployment/automation/nokia-site-config-fixes/" class="md-nav__link">
+      <a href="../../../openshift/deployment/automation/nokia-site-config-fixes/" class="md-nav__link">
         
   
   
@@ -664,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usermanagement/remove-kubeadmin/" class="md-nav__link">
+      <a href="../../../openshift/usermanagement/remove-kubeadmin/" class="md-nav__link">
         
   
   
@@ -687,7 +685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usermanagement/user-management/" class="md-nav__link">
+      <a href="../../../openshift/usermanagement/user-management/" class="md-nav__link">
         
   
   
@@ -715,20 +713,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
           <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
@@ -744,7 +740,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             Backup & Restore
@@ -758,7 +754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ACM-GEO-RED/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/ACM-GEO-RED/" class="md-nav__link">
         
   
   
@@ -781,7 +777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ACM-localbackup/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/ACM-localbackup/" class="md-nav__link">
         
   
   
@@ -804,7 +800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AWS-S3/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/AWS-S3/" class="md-nav__link">
         
   
   
@@ -824,32 +820,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    ETCD Backup
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../openshift/backup-restore/etcd-backup/" class="md-nav__link">
         
   
   
@@ -860,92 +834,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#backing-up-etcd" class="md-nav__link">
-    <span class="md-ellipsis">
-      Backing up etcd
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Backing up etcd">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#backing-up-etcd-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      Backing up etcd data
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Backing up etcd data">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#procedure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Procedure
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#automated-steps-to-run-and-copy-the-file-locally" class="md-nav__link">
-    <span class="md-ellipsis">
-      automated steps to run and copy the file locally
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      Reference
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -958,7 +846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-restore/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/etcd-restore/" class="md-nav__link">
         
   
   
@@ -1027,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Intergration/syslog/" class="md-nav__link">
+      <a href="../../../openshift/Intergration/syslog/" class="md-nav__link">
         
   
   
@@ -1096,7 +984,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenace/cluster-stop-start/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/cluster-stop-start/" class="md-nav__link">
         
   
   
@@ -1119,7 +1007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenace/reboot-nodes/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/reboot-nodes/" class="md-nav__link">
         
   
   
@@ -1142,7 +1030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenace/openshift_scalein_guide/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/openshift_scalein_guide/" class="md-nav__link">
         
   
   
@@ -1165,7 +1053,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenace/openshift_scaleout_guide/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/openshift_scaleout_guide/" class="md-nav__link">
         
   
   
@@ -1234,7 +1122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/metalb-troubleshooting/" class="md-nav__link">
+      <a href="../../../openshift/networking/metalb-troubleshooting/" class="md-nav__link">
         
   
   
@@ -1257,7 +1145,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/metallb-configuration/" class="md-nav__link">
+      <a href="../../../openshift/networking/metallb-configuration/" class="md-nav__link">
         
   
   
@@ -1326,7 +1214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storagemanagement/ceph-rebalanceissue/" class="md-nav__link">
+      <a href="../../../openshift/storagemanagement/ceph-rebalanceissue/" class="md-nav__link">
         
   
   
@@ -1349,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storagemanagement/storage-node-replacement/" class="md-nav__link">
+      <a href="../../../openshift/storagemanagement/storage-node-replacement/" class="md-nav__link">
         
   
   
@@ -1372,7 +1260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storagemanagement/one-OSD-not-created/" class="md-nav__link">
+      <a href="../../../openshift/storagemanagement/one-OSD-not-created/" class="md-nav__link">
         
   
   
@@ -1441,7 +1329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/nsenter/" class="md-nav__link">
+      <a href="../../../openshift/troubleshooting/nsenter/" class="md-nav__link">
         
   
   
@@ -1464,7 +1352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/ncomsa/" class="md-nav__link">
+      <a href="../../../openshift/troubleshooting/ncomsa/" class="md-nav__link">
         
   
   
@@ -1533,7 +1421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../disaster-management/infra-manager-redeployment/" class="md-nav__link">
+      <a href="../../../openshift/disaster-management/infra-manager-redeployment/" class="md-nav__link">
         
   
   
@@ -1556,7 +1444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../disaster-management/hub-cluster-redeployment/master-replacment/" class="md-nav__link">
+      <a href="../../../openshift/disaster-management/hub-cluster-redeployment/master-replacment/" class="md-nav__link">
         
   
   
@@ -1591,18 +1479,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1618,7 +1508,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             MACD Operations
@@ -1670,7 +1560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/MACD-management/scope/" class="md-nav__link">
+      <a href="../../MACD-management/scope/" class="md-nav__link">
         
   
   
@@ -1698,18 +1588,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
         
           
           <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
@@ -1725,7 +1617,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             CNF Onboarding Support
@@ -1739,7 +1631,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/image-tls-issue/" class="md-nav__link">
+      <a href="../image-tls-issue/" class="md-nav__link">
         
   
   
@@ -1762,7 +1654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/oclogin-tls-issue/" class="md-nav__link">
+      <a href="../oclogin-tls-issue/" class="md-nav__link">
         
   
   
@@ -1785,7 +1677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/proxy-cache-pod/" class="md-nav__link">
+      <a href="../proxy-cache-pod/" class="md-nav__link">
         
   
   
@@ -1808,7 +1700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/rolebinding/" class="md-nav__link">
+      <a href="../rolebinding/" class="md-nav__link">
         
   
   
@@ -1831,7 +1723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/Failtoconfigure_nncp/" class="md-nav__link">
+      <a href="../Failtoconfigure_nncp/" class="md-nav__link">
         
   
   
@@ -1854,7 +1746,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/kubeconfig/" class="md-nav__link">
+      <a href="../kubeconfig/" class="md-nav__link">
         
   
   
@@ -1877,7 +1769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/NCP-default-usersandrole/" class="md-nav__link">
+      <a href="../NCP-default-usersandrole/" class="md-nav__link">
         
   
   
@@ -1900,7 +1792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/ts-tools/" class="md-nav__link">
+      <a href="../ts-tools/" class="md-nav__link">
         
   
   
@@ -1923,7 +1815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/istio-for-cnf/" class="md-nav__link">
+      <a href="../istio-for-cnf/" class="md-nav__link">
         
   
   
@@ -1943,10 +1835,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/restrict-project-creation/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Removing Self-Provisioner Access
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1957,6 +1871,62 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problem-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      Problem Description
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impact" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impact-of-the-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact of the Change
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2015,7 +1985,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCOM.md" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/NCOM.md" class="md-nav__link">
         
   
   
@@ -2038,7 +2008,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCD.md" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/NCD.md" class="md-nav__link">
         
   
   
@@ -2061,7 +2031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCC/" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/NCC/" class="md-nav__link">
         
   
   
@@ -2084,7 +2054,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/CMG.md" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/CMG.md" class="md-nav__link">
         
   
   
@@ -2142,66 +2112,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#backing-up-etcd" class="md-nav__link">
+  <a href="#problem-description" class="md-nav__link">
     <span class="md-ellipsis">
-      Backing up etcd
+      Problem Description
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Backing up etcd">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#backing-up-etcd-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      Backing up etcd data
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Backing up etcd data">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#prerequisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Prerequisites
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#procedure" class="md-nav__link">
-    <span class="md-ellipsis">
-      Procedure
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#automated-steps-to-run-and-copy-the-file-locally" class="md-nav__link">
-    <span class="md-ellipsis">
-      automated steps to run and copy the file locally
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#reference" class="md-nav__link">
+  <a href="#impact" class="md-nav__link">
     <span class="md-ellipsis">
-      Reference
+      Impact
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      Solution
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#impact-of-the-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      Impact of the Change
     </span>
   </a>
   
@@ -2223,80 +2163,38 @@
 
 
 
-<h1 id="control-plane-backup">Control plane backup<a class="headerlink" href="#control-plane-backup" title="Permanent link">&para;</a></h1>
-<h2 id="backing-up-etcd">Backing up etcd<a class="headerlink" href="#backing-up-etcd" title="Permanent link">&para;</a></h2>
-<p>etcd is the key-value store for OpenShift Container Platform, which persists the state of all resource objects.</p>
-<p>Back up your cluster’s etcd data regularly and store in a secure location ideally outside the OpenShift Container Platform environment. Do not take an etcd backup before the first certificate rotation completes, which occurs 24 hours after installation, otherwise the backup will contain expired certificates. It is also recommended to take etcd backups during non-peak usage hours because the etcd snapshot has a high I/O cost.</p>
-<p>Be sure to take an etcd backup after you upgrade your cluster. This is important because when you restore your cluster, you must use an etcd backup that was taken from the same z-stream release. For example, an OpenShift Container Platform 4.y.z cluster must use an etcd backup that was taken from 4.y.z.</p>
-<h3 id="backing-up-etcd-data">Backing up etcd data<a class="headerlink" href="#backing-up-etcd-data" title="Permanent link">&para;</a></h3>
-<h4 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h4>
+<h1 id="openshift-removing-self-provisioner-access">OpenShift: Removing Self-Provisioner Access<a class="headerlink" href="#openshift-removing-self-provisioner-access" title="Permanent link">&para;</a></h1>
+<h3 id="problem-description">Problem Description<a class="headerlink" href="#problem-description" title="Permanent link">&para;</a></h3>
+<p>As part of recent learning, we identified that by default OpenShift
+allows any authenticated user to create projects.</p>
+<p>This behavior exists because the cluster ships with a ClusterRoleBinding
+named <strong>self-provisioners</strong>, which grants the <strong>self-provisioner</strong> role
+to the <strong>system:authenticated:oauth</strong> group. As a result, any logged-in
+user inherits permission to create <code>projectrequests</code>.</p>
+<h3 id="impact">Impact<a class="headerlink" href="#impact" title="Permanent link">&para;</a></h3>
+<p>When we create a read-only user for a customer, they are still able to
+create a project --- and we don't want that to happen.</p>
+<h3 id="solution">Solution<a class="headerlink" href="#solution" title="Permanent link">&para;</a></h3>
+<p>Remove the self-provisioner role from the default group:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>remove-cluster-role-from-group<span class="w"> </span>self-provisioner<span class="w"> </span>system:authenticated:oauth
+</code></pre></div>
+
+<h3 id="impact-of-the-change">Impact of the Change<a class="headerlink" href="#impact-of-the-change" title="Permanent link">&para;</a></h3>
 <ul>
-<li>You have access to the cluster as a user with the cluster-admin role.</li>
-<li>You have checked whether the cluster-wide proxy is enabled.</li>
+<li>Non-cluster-admin users (new or existing) will no longer be able to
+    create projects.</li>
+<li>Cluster-admin users are not affected and will continue to be able to
+    create projects.</li>
+<li>Existing projects created earlier remain intact; users will still
+    retain their admin role in those projects unless explicitly
+    removed.</li>
+<li>Non-cluster-admin users attempting <code>oc new-project &lt;name&gt;</code> will now
+    see a <strong>Forbidden</strong> error.</li>
 </ul>
-<h4 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h4>
-<ol>
-<li>Start a debug session for a control plane node:</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>oc debug node/&lt;node_name&gt;
-</code></pre></div>
-
-<ol>
-<li>Change your root directory to /host:</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>chroot /host
-</code></pre></div>
-
-<ol>
-<li>
-<p>If the cluster-wide proxy is enabled, be sure that you have exported the NO_PROXY, HTTP_PROXY, and HTTPS_PROXY environment variables. (optional)</p>
-</li>
-<li>
-<p>Run the cluster-backup.sh script and pass in the location to save the backup to.</p>
-</li>
-</ol>
-<div class="codehilite"><pre><span></span><code>sh-4.4# /usr/local/bin/cluster-backup.sh /home/core/assets/backup
-</code></pre></div>
-
-<p><code>Example script output</code></p>
-<div class="codehilite"><pre><span></span><code><span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">apiserver</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">kube</span><span class="o">-</span><span class="n">apiserver</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">6</span>
-<span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">controller</span><span class="o">-</span><span class="n">manager</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">kube</span><span class="o">-</span><span class="n">controller</span><span class="o">-</span><span class="n">manager</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">7</span>
-<span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">kube</span><span class="o">-</span><span class="n">scheduler</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">kube</span><span class="o">-</span><span class="n">scheduler</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">6</span>
-<span class="n">found</span><span class="w"> </span><span class="n">latest</span><span class="w"> </span><span class="n">etcd</span><span class="p">:</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">/</span><span class="k">static</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="n">resources</span><span class="o">/</span><span class="n">etcd</span><span class="o">-</span><span class="n">pod</span><span class="o">-</span><span class="mi">3</span>
-<span class="n">ede95fe6b88b87ba86a03c15e669fb4aa5bf0991c180d3c6895ce72eaade54a1</span>
-<span class="n">etcdctl</span><span class="w"> </span><span class="n">version</span><span class="p">:</span><span class="w"> </span><span class="mf">3.4</span><span class="o">.</span><span class="mi">14</span>
-<span class="n">API</span><span class="w"> </span><span class="n">version</span><span class="p">:</span><span class="w"> </span><span class="mf">3.4</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647639.0188997</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:119&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;created temporary db file&quot;</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/home/core/assets/backup/snapshot_2021-06-25_190035.db.part&quot;</span><span class="p">}</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="s2">&quot;2021-06-25T19:00:39.030Z&quot;</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;clientv3/maintenance.go:200&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;opened snapshot stream; downloading&quot;</span><span class="p">}</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647639.0301006</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:127&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;fetching snapshot&quot;</span><span class="p">,</span><span class="s2">&quot;endpoint&quot;</span><span class="p">:</span><span class="s2">&quot;https://10.0.0.5:2379&quot;</span><span class="p">}</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="s2">&quot;2021-06-25T19:00:40.215Z&quot;</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;clientv3/maintenance.go:208&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;completed snapshot read; closing&quot;</span><span class="p">}</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647640.6032252</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:142&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;fetched snapshot&quot;</span><span class="p">,</span><span class="s2">&quot;endpoint&quot;</span><span class="p">:</span><span class="s2">&quot;https://10.0.0.5:2379&quot;</span><span class="p">,</span><span class="s2">&quot;size&quot;</span><span class="p">:</span><span class="s2">&quot;114 MB&quot;</span><span class="p">,</span><span class="s2">&quot;took&quot;</span><span class="p">:</span><span class="mf">1.584090459</span><span class="p">}</span>
-<span class="p">{</span><span class="s2">&quot;level&quot;</span><span class="p">:</span><span class="s2">&quot;info&quot;</span><span class="p">,</span><span class="s2">&quot;ts&quot;</span><span class="p">:</span><span class="mf">1624647640.6047094</span><span class="p">,</span><span class="s2">&quot;caller&quot;</span><span class="p">:</span><span class="s2">&quot;snapshot/v3_snapshot.go:152&quot;</span><span class="p">,</span><span class="s2">&quot;msg&quot;</span><span class="p">:</span><span class="s2">&quot;saved&quot;</span><span class="p">,</span><span class="s2">&quot;path&quot;</span><span class="p">:</span><span class="s2">&quot;/home/core/assets/backup/snapshot_2021-06-25_190035.db&quot;</span><span class="p">}</span>
-<span class="n">Snapshot</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span><span class="n">backup</span><span class="o">/</span><span class="n">snapshot_2021</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">25</span><span class="n">_190035</span><span class="o">.</span><span class="n">db</span>
-<span class="p">{</span><span class="s2">&quot;hash&quot;</span><span class="p">:</span><span class="mi">3866667823</span><span class="p">,</span><span class="s2">&quot;revision&quot;</span><span class="p">:</span><span class="mi">31407</span><span class="p">,</span><span class="s2">&quot;totalKey&quot;</span><span class="p">:</span><span class="mi">12828</span><span class="p">,</span><span class="s2">&quot;totalSize&quot;</span><span class="p">:</span><span class="mi">114446336</span><span class="p">}</span>
-<span class="n">snapshot</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">kube</span><span class="w"> </span><span class="n">resources</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">successfully</span><span class="w"> </span><span class="n">saved</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">assets</span><span class="o">/</span><span class="n">backup</span>
-</code></pre></div>
-
-<h4 id="automated-steps-to-run-and-copy-the-file-locally">automated steps to run and copy the file locally<a class="headerlink" href="#automated-steps-to-run-and-copy-the-file-locally" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>backupdir=/tmp/backup-etcd/
-
-servername=$(oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>|grep<span class="w"> </span>-i<span class="w"> </span>master|awk<span class="w"> </span>&#39;{print<span class="w"> </span>$1}&#39;|head<span class="w"> </span>-1)
-
-[<span class="w"> </span>-d<span class="w"> </span><span class="nv">$backupdir</span>/<span class="cp">${</span><span class="n">servername</span><span class="cp">}</span><span class="w"> </span>]<span class="w"> </span>||<span class="w"> </span>mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$backupdir</span>/<span class="cp">${</span><span class="n">servername</span><span class="cp">}</span>
-
-execout=$(oc<span class="w"> </span>debug<span class="w"> </span>-t<span class="w"> </span>node/<span class="nv">$servername</span><span class="w"> </span>--<span class="w"> </span>chroot<span class="w"> </span>/host<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span>&#39;/usr/local/bin/cluster-backup.sh<span class="w"> </span>/home/core/assets/backup&#39;)<span class="w"> </span>
-#<span class="w"> </span>filename=$(echo<span class="w"> </span><span class="nv">$execout</span><span class="w"> </span>|<span class="w"> </span>awk<span class="w"> </span>-F&#39;path&quot;:&quot;&#39;<span class="w"> </span>&#39;{print<span class="w"> </span>$2}&#39;<span class="w"> </span>|<span class="w"> </span>awk<span class="w"> </span>-F&#39;&quot;&#39;<span class="w"> </span>&#39;{print<span class="w"> </span>$1}&#39;)<span class="w">   </span>#<span class="nt">&lt;---</span><span class="w"> </span><span class="err">not</span><span class="w"> </span><span class="err">working</span>
-<span class="err">sleep</span><span class="w"> </span><span class="err">20</span>
-
-<span class="err">oc</span><span class="w"> </span><span class="err">debug</span><span class="w"> </span><span class="err">-t</span><span class="w"> </span><span class="err">node/</span><span class="nv">$servername</span><span class="w"> </span><span class="err">--</span><span class="w"> </span><span class="err">chroot</span><span class="w"> </span><span class="err">/host</span><span class="w"> </span><span class="err">bash</span><span class="w"> </span><span class="err">-c</span><span class="w"> </span><span class="err">&#39;chown</span><span class="w"> </span><span class="err">core:core</span><span class="w"> </span><span class="err">/home/core/assets/backup/*.db&#39;</span>
-
-<span class="err">scp</span><span class="w"> </span><span class="err">-rp</span><span class="w"> </span><span class="err">core@</span><span class="nv">$servername</span><span class="err">:</span><span class="cp">${</span><span class="n">filename</span><span class="cp">}</span><span class="w"> </span><span class="nv">$backupdir</span><span class="err">/</span><span class="cp">${</span><span class="n">servername</span><span class="cp">}</span><span class="err">/</span>
-</code></pre></div>
-
-<h2 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h2>
-<ul>
-<li><a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.8/html/backup_and_restore/control-plane-backup-and-restore#backup-etcd">ETCD backup and restore</a></li>
-</ul>
+<hr />
+<p>Please implement this change across all existing and upcoming
+installations. Ensure it is considered in the MOP template as well.</p>
+<p>This Red Hat LL is covered in the documentation portal.</p>
 
 
 

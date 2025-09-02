@@ -38,6 +38,6 @@ oc adm policy remove-cluster-role-from-group self-provisioner system:authenticat
 ------------------------------------------------------------------------
 
 Please implement this change across all existing and upcoming
-installations. Ensure it is considered in the MOP template as well.
+installations. Ensure it is considered in the deployment MOP  as well. I will followup to add it on MOP template. 
 
-This Red Hat LL is covered in the documentation portal.
+

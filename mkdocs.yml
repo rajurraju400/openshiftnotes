@@ -89,6 +89,7 @@ nav:
           - Cluster Wide TS: MACD-Operations/CNF-onboarding-support/ts-tools.md
           - Istio for CNF: MACD-Operations/CNF-onboarding-support/istio-for-cnf.md
           - Removing Self-Provisioner Access: MACD-Operations/CNF-onboarding-support/restrict-project-creation.md
+          - Nessus Security Access: MACD-Operations/CNF-onboarding-support/configure_openshift_tenable.md
 
       - CNF Onboarding Prerequisites:
           - NCOM : MACD-Operations/CNF-onboarding-prerequisites/NCOM.md
