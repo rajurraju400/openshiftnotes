@@ -2155,9 +2155,7 @@
 <p>Complete the following steps to create the service account, update <code>&lt;service-account-name&gt;</code>, and configure access:</p>
 <hr />
 <h2 id="create-a-sa-for-security-scan">Create a SA for security scan.<a class="headerlink" href="#create-a-sa-for-security-scan" title="Permanent link">&para;</a></h2>
-<ol>
-<li>Create a YAML file</li>
-</ol>
+<p>1) Create a YAML file</p>
 <p>Create a <code>.yml</code> file containing:</p>
 <div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ServiceAccount</span>
@@ -2176,9 +2174,7 @@
 </code></pre></div>
 
 <hr />
-<ol>
-<li>Apply the configuration</li>
-</ol>
+<p>2) Apply the configuration</p>
 <p>Run the following command to apply the file:</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span>root@ncputility<span class="w"> </span>~<span class="w"> </span>pancwl_rc<span class="o">]</span>$<span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>ness.yaml
 serviceaccount/nessus<span class="w"> </span>created
@@ -2187,9 +2183,7 @@ secret/nessus-token<span class="w"> </span>created
 </code></pre></div>
 
 <hr />
-<ol>
-<li>Describe the service account to list tokens</li>
-</ol>
+<p>3) Describe the service account to list tokens</p>
 <div class="codehilite"><pre><span></span><code>$<span class="w"> </span>oc<span class="w"> </span>describe<span class="w"> </span>sa<span class="w"> </span>&lt;service-account-name&gt;
 </code></pre></div>
 
@@ -2199,9 +2193,7 @@ Tokens: &lt;service-account-name&gt;-token
 </code></pre></div>
 
 <hr />
-<ol>
-<li>Retrieve the token for API authentication</li>
-</ol>
+<p>4) Retrieve the token for API authentication</p>
 <p>This token is used as the <strong>Token</strong> in the OpenShift Container Platform Nessus credential.</p>
 <div class="codehilite"><pre><span></span><code>$<span class="w"> </span>oc<span class="w"> </span>describe<span class="w"> </span>secret<span class="w"> </span>&lt;service-account-name&gt;-token
 </code></pre></div>
@@ -2212,17 +2204,13 @@ Tokens: &lt;service-account-name&gt;-token
 </code></pre></div>
 
 <hr />
-<ol>
-<li>Grant the service account appropriate permissions</li>
-</ol>
+<p>5) Grant the service account appropriate permissions</p>
 <p>Log in to your OpenShift cluster console:</p>
 <div class="codehilite"><pre><span></span><code>https://console-openshift-console.apps.openshift.&lt;your-domain&gt;
 </code></pre></div>
 
 <p>Then:</p>
-<ol>
-<li>Create the following <code>ClusterRole</code>:</li>
-</ol>
+<p>7) Create the following <code>ClusterRole</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">nessrole</span><span class="p">.</span><span class="n">yaml</span>
 <span class="nl">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">v1</span>
 <span class="nl">kind</span><span class="p">:</span><span class="w"> </span><span class="n">ClusterRole</span>
@@ -2243,9 +2231,7 @@ Tokens: &lt;service-account-name&gt;-token
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span>
 </code></pre></div>
 
-<ol>
-<li>Bind the <code>ClusterRole</code> to the previously created service account to grant the required permissions.</li>
-</ol>
+<p>8) Bind the <code>ClusterRole</code> to the previously created service account to grant the required permissions.</p>
 <div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">policy</span><span class="w"> </span><span class="k">add</span><span class="o">-</span><span class="n">cluster</span><span class="o">-</span><span class="k">role</span><span class="o">-</span><span class="k">to</span><span class="o">-</span><span class="k">user</span><span class="w"> </span><span class="n">audit</span><span class="o">-</span><span class="n">viewonly</span><span class="w"> </span><span class="o">-</span><span class="n">z</span><span class="w"> </span><span class="n">nessus</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="k">default</span>
 <span class="n">clusterrole</span><span class="p">.</span><span class="n">rbac</span><span class="p">.</span><span class="k">authorization</span><span class="p">.</span><span class="n">k8s</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">audit</span><span class="o">-</span><span class="n">viewonly</span><span class="w"> </span><span class="nl">added</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;nessus&quot;</span>
 <span class="o">[</span><span class="n">root@ncputility ~ pancwl_rc</span><span class="o">]</span><span class="err">$</span>

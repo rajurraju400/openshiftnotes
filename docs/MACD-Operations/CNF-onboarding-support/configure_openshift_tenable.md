@@ -1,6 +1,6 @@
 # Security Scan - Nessus : Configure the OpenShift Container Platform
 
-The Tenable integration for the Red Hat OpenShift Container Platform requires a service account configured with appropriate permissions.
+The Tenable(Nessus) integration for the Red Hat OpenShift Container Platform requires a service account configured with appropriate permissions.
 
 Complete the following steps to create the service account, update `<service-account-name>`, and configure access:
 
