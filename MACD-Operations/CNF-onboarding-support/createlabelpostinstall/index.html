@@ -13,6 +13,10 @@
       
       
       
+        <link rel="prev" href="../configure_openshift_tenable/">
+      
+      
+        <link rel="next" href="../../CNF-onboarding-prerequisites/NCC/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -20,7 +24,7 @@
     
     
       
-        <title>Creating a labels on the ocp nodes post installation - OpenShift Notes</title>
+        <title>Creating labels post installation - OpenShift Notes</title>
       
     
     
@@ -109,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Creating a labels on the ocp nodes post installation
+              Creating labels post installation
             
           </span>
         </div>
@@ -1475,18 +1479,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1502,7 +1508,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             MACD Operations
@@ -1582,18 +1588,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
         
           
           <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
@@ -1609,7 +1617,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             CNF Onboarding Support
@@ -1873,20 +1881,89 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../configure_openshift_tenable/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Creating labels post installation
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
   <span class="md-ellipsis">
-    Nessus Security Access
+    Creating labels post installation
     
   </span>
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#update-the-git-structure-for-creating-a-labels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update the git structure for creating a labels
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#push-policy-to-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Push Policy to Git
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apply-the-policies-now-using-cgu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apply the policies now using cgu
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2116,11 +2193,12 @@
 
 <h1 id="creating-a-labels-on-the-ocp-nodes-post-installation">Creating a labels on the ocp nodes post installation<a class="headerlink" href="#creating-a-labels-on-the-ocp-nodes-post-installation" title="Permanent link">&para;</a></h1>
 <h2 id="update-the-git-structure-for-creating-a-labels">Update the git structure for creating a labels<a class="headerlink" href="#update-the-git-structure-for-creating-a-labels" title="Permanent link">&para;</a></h2>
-<p>1) we can leverage the ability to create custom manifests. The following will be created and placed in the <code>source-crs</code> directory:</p>
+<p>1)  we can leverage the ability to create custom manifests. The
+    following will be created and placed in the <code>source-crs</code> directory:</p>
 <div class="codehilite"><pre><span></span><code>file<span class="w"> </span>~/ncpcwltri04nac/site-policies/sites/hub/sources-crs/node/config
 </code></pre></div>
 
-<p>2) Create a node manifest as shown below</p>
+<p>2)  Create a node manifest as shown below</p>
 <div class="codehilite"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; ~/ncpcwltri04nac/site-policies/sites/hub/sources-crs/node/config/application-cmm_fds-labels.yaml</span>
 <span class="s">---</span>
 <span class="s">apiVersion: v1</span>
@@ -2134,12 +2212,16 @@
 </code></pre></div>
 
 <blockquote>
-<p><strong>Note</strong>: The manifests use two variables, which need to be specified when using these CRs in the PGT manifests.</p>
+<p><strong>Note</strong>: The manifests use two variables, which need to be specified
+when using these CRs in the PGT manifests.</p>
 </blockquote>
 <hr />
-<p>3) Creating the PolicyGenTemplate (PGT)</p>
+<p>3)  Creating the PolicyGenTemplate (PGT)</p>
 <blockquote>
-<p>this can be added to existing PGT file itself but some projects make have more labels to updates and for engineer easily understanding, i created dedicated file. let us all follow the same standard accross other projects too.</p>
+<p>this can be added to existing PGT file itself but some projects make
+have more labels to updates and for engineer easily understanding, i
+created dedicated file. let us all follow the same standard accross
+other projects too.</p>
 </blockquote>
 <div class="codehilite"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt; EOF &gt; ~/ncpcwltri04nac/site-policies/sites/hub/ncpcwltri04nac-config-labels.yaml</span>
 <span class="s">---</span>
@@ -2165,22 +2247,17 @@
 <span class="s">       metadata:</span>
 <span class="s">         name: appworker36.ncpcwltri04nac.claro.com.co </span>
 <span class="s">       policyName: config-policies</span>
-<span class="s">    # Application node label update : cmm_ipds</span>
-<span class="s">     - fileName: nodeconfig/application-is_cmm_ipds-labels.yaml</span>
-<span class="s">       metadata:</span>
-<span class="s">         name: appworker32.ncpcwltri04nac.claro.com.co</span>
-<span class="s">       policyName: config-policies</span>
 <span class="s">EOF</span>
 </code></pre></div>
 
 <hr />
-<p>4) Add Policy to Kustomization</p>
+<p>4)  Add Policy to Kustomization</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;- ncpcwltri04nac-config-labels.yaml&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/ncpcwltri04nac/site-policies/sites/hub/kustomization.yaml
 </code></pre></div>
 
 <hr />
 <h2 id="push-policy-to-git">Push Policy to Git<a class="headerlink" href="#push-policy-to-git" title="Permanent link">&para;</a></h2>
-<p>1) use the git commands to commitn and push it.</p>
+<p>1)  use the git commands to commitn and push it.</p>
 <div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/ncpcwltri04nac/
 git<span class="w"> </span>add<span class="w"> </span>.
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Adding a labels&quot;</span>
@@ -2189,23 +2266,25 @@ git<span class="w"> </span>push
 
 <hr />
 <h2 id="apply-the-policies-now-using-cgu">Apply the policies now using cgu<a class="headerlink" href="#apply-the-policies-now-using-cgu" title="Permanent link">&para;</a></h2>
-<p>1) Verify Policies Rendered</p>
+<p>1)  Verify Policies Rendered</p>
 <div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>policy<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>label
 </code></pre></div>
 
 <p>Example output:</p>
 <div class="codehilite"><pre><span></span><code>ztp-policies           ztp-policies.ncpcwltri04nac-labels              inform      NonCompliant   21s
-ztp-policies   sno2-label-nodes                           inform      NonCompliant   21s
+ztp-policies   ncpcwltri04nac-label-nodes                           inform      NonCompliant   21s
 </code></pre></div>
 
 <blockquote>
-<p><strong>Note</strong>: It might take some time for GitOps to sync with the latest changes in Git.<br />
-You can expedite this by using the <strong>Refresh</strong> option in the ArgoCD GUI for the policies app.</p>
+<p><strong>Note</strong>: It might take some time for GitOps to sync with the latest
+changes in Git.\
+You can expedite this by using the <strong>Refresh</strong> option in the ArgoCD
+GUI for the policies app.</p>
 </blockquote>
 <hr />
-<p>2) Create ClusterGroupUpgrade (CGU)</p>
-<p>Before applying the policy, check the current labels of node <code>sno2</code>:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--show-labels<span class="w"> </span>--kubeconfig<span class="w"> </span>~/sno2-kubeconfig
+<p>2)  Create ClusterGroupUpgrade (CGU)</p>
+<p>Before applying the policy, check the current labels of node <code>ncpcwltri04nac</code>:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--show-labels<span class="w"> </span>--kubeconfig<span class="w"> </span>~/ncpcwltri04nac-kubeconfig
 </code></pre></div>
 
 <p>Also check existing CGUs:</p>
@@ -2217,15 +2296,17 @@ You can expedite this by using the <strong>Refresh</strong> option in the ArgoCD
 <span class="s">apiVersion: ran.openshift.io/v1alpha1</span>
 <span class="s">kind: ClusterGroupUpgrade</span>
 <span class="s">metadata:</span>
-<span class="s">  name: sno2-day2</span>
+<span class="s">  name: ncpcwltri04nac-labels-config-policies</span>
 <span class="s">  namespace: ztp-policies</span>
 <span class="s">spec:</span>
-<span class="s">  clusters:</span>
-<span class="s">  - sno2</span>
-<span class="s">  enable: true</span>
 <span class="s">  managedPolicies:</span>
-<span class="s">  - sno2-label-nodes</span>
+<span class="s">  - ncpcwltri04nac-labels-config-policies</span>
+<span class="s">  backup: false</span>
+<span class="s">  clusters:</span>
+<span class="s">  - ncpcwltri04nac</span>
+<span class="s">  enable: true</span>
 <span class="s">  preCaching: false</span>
+<span class="s">  preCachingConfigRef: {}</span>
 <span class="s">  remediationStrategy:</span>
 <span class="s">    maxConcurrency: 1</span>
 <span class="s">    timeout: 240</span>
@@ -2233,49 +2314,47 @@ You can expedite this by using the <strong>Refresh</strong> option in the ArgoCD
 </code></pre></div>
 
 <p>Verify the CGU:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>cgu<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>sno2
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>cgu<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ncpcwltri04nac
 </code></pre></div>
 
 <hr />
-<p>3) Check Policy Status</p>
+<p>3)  Check Policy Status</p>
 <div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>policy<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>label
 </code></pre></div>
 
 <p>Example output during enforcement:</p>
-<div class="codehilite"><pre><span></span><code>sno2           ztp-policies.sno2-day2-sno2-label-nodes-68ffc   enforce     Compliant     13s
-sno2           ztp-policies.sno2-label-nodes                  inform      NonCompliant  11m
-ztp-policies   sno2-day2-sno2-label-nodes-68ffc               enforce     Compliant     13s
-ztp-policies   sno2-label-nodes                               inform      NonCompliant  11m
+<div class="codehilite"><pre><span></span><code>ncpcwltri04nac           ztp-policies.ncpcwltri04nac-day2-ncpcwltri04nac-label-nodes-68ffc   enforce     Compliant     13s
+ncpcwltri04nac           ztp-policies.ncpcwltri04nac-label-nodes                  inform      NonCompliant  11m
+ztp-policies   ncpcwltri04nac-labels-config-policies               enforce     nonCompliant     13s
+ztp-policies   ncpcwltri04nac-label-nodes                               inform      NonCompliant  11m
 </code></pre></div>
 
 <p>After a few minutes, policies should reach <strong>Compliant</strong> status:</p>
-<div class="codehilite"><pre><span></span><code>sno2           ztp-policies.sno2-day2-sno2-label-nodes-68ffc   enforce     Compliant     33s
-sno2           ztp-policies.sno2-label-nodes                  inform      Compliant     11m
-ztp-policies   sno2-day2-sno2-label-nodes-68ffc               enforce     Compliant     33s
-ztp-policies   sno2-label-nodes                               inform      Compliant     11m
+<div class="codehilite"><pre><span></span><code>ncpcwltri04nac           ztp-policies.ncpcwltri04nac-day2-ncpcwltri04nac-label-nodes-68ffc   enforce     Compliant     33s
+ncpcwltri04nac           ztp-policies.ncpcwltri04nac-label-nodes                  inform      Compliant     11m
+ztp-policies   ncpcwltri04nac-labels-config-policies               inform     Compliant     33s
+ztp-policies   ncpcwltri04nac-label-nodes                               inform      Compliant     11m
 </code></pre></div>
 
 <hr />
-<p>4) Verify Node Labels</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--show-labels<span class="w"> </span>--kubeconfig<span class="w"> </span>~/sno2-kubeconfig
+<p>4)  Verify Node Labels</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--show-labels<span class="w"> </span>--kubeconfig<span class="w"> </span>
 </code></pre></div>
 
 <p>You should now see the new label applied:</p>
-<div class="codehilite"><pre><span></span><code>cluster.ocs.openshift.io/openshift-storage=true
+<div class="codehilite"><pre><span></span><code>is_cmm_fds=true
 </code></pre></div>
 
 <hr />
-<p>5) CGU Cleanup</p>
-<p>After a few minutes, enforced policies will also be deleted.<br />
+<p>5)  CGU Cleanup</p>
+<p>After a few minutes, enforced policies will also be deleted.\
 Check CGU status after successful compliance:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>cgu<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>day2
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>cgu<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>label
 </code></pre></div>
 
 <p>Example:</p>
-<div class="codehilite"><pre><span></span><code>ztp-policies   sno2-day2    40m   Completed   All clusters are compliant with all the managed policies
+<div class="codehilite"><pre><span></span><code>ztp-policies   ncpcwltri04nac-labels    40m   Completed   All clusters are compliant with all the managed policies
 </code></pre></div>
-
-<hr />
 
 
 
