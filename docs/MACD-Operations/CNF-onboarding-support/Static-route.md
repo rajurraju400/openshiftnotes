@@ -214,3 +214,139 @@ spec:
 ------------------------------------------------------------------------
 
 > With these configurations, ingress (backward routes) and egress routes are consistently managed across OCP deployments.
+
+
+
+## Implementation
+
+> below example is showed with label. but you validate your changes accordingly. meaning, if route check route on desired nodes. 
+
+## Prepare the configuration 
+
+- Prepare the config file as described above. 
+
+## Push Policy to Git
+
+1)  use the git commands to commitn and push it.
+
+``` bash
+cd ~/ncpcwltri04nac/
+git add .
+git commit -m "Adding a labels"
+git push
+```
+
+------------------------------------------------------------------------
+
+## Apply the policies now using cgu
+
+1)  Verify Policies Rendered
+
+``` bash
+oc get policy -A | grep label
+```
+
+Example output:
+
+    ztp-policies           ztp-policies.ncpcwltri04nac-labels              inform      NonCompliant   21s
+    ztp-policies   ncpcwltri04nac-label-nodes                           inform      NonCompliant   21s
+
+> **Note**: It might take some time for GitOps to sync with the latest
+> changes in Git.\
+> You can expedite this by using the **Refresh** option in the ArgoCD
+> GUI for the policies app.
+
+------------------------------------------------------------------------
+
+2)  Create ClusterGroupUpgrade (CGU)
+
+Before applying the policy, check the current labels of node `ncpcwltri04nac`:
+
+``` bash
+oc get nodes --show-labels --kubeconfig ~/ncpcwltri04nac-kubeconfig
+```
+
+Also check existing CGUs:
+
+``` bash
+oc get cgu -A
+```
+
+Now, apply the new CGU:
+
+``` bash
+cat << EOF | oc apply -f -
+apiVersion: ran.openshift.io/v1alpha1
+kind: ClusterGroupUpgrade
+metadata:
+  name: ncpcwltri04nac-labels-config-policies
+  namespace: ztp-policies
+spec:
+  managedPolicies:
+  - ncpcwltri04nac-labels-config-policies
+  backup: false
+  clusters:
+  - ncpcwltri04nac
+  enable: true
+  preCaching: false
+  preCachingConfigRef: {}
+  remediationStrategy:
+    maxConcurrency: 1
+    timeout: 240
+EOF
+```
+
+Verify the CGU:
+
+``` bash
+oc get cgu -A | grep ncpcwltri04nac
+```
+
+------------------------------------------------------------------------
+
+3)  Check Policy Status
+
+``` bash
+oc get policy -A | grep label
+```
+
+Example output during enforcement:
+
+    ncpcwltri04nac           ztp-policies.ncpcwltri04nac-day2-ncpcwltri04nac-label-nodes-68ffc   enforce     Compliant     13s
+    ncpcwltri04nac           ztp-policies.ncpcwltri04nac-label-nodes                  inform      NonCompliant  11m
+    ztp-policies   ncpcwltri04nac-labels-config-policies               enforce     nonCompliant     13s
+    ztp-policies   ncpcwltri04nac-label-nodes                               inform      NonCompliant  11m
+
+After a few minutes, policies should reach **Compliant** status:
+
+    ncpcwltri04nac           ztp-policies.ncpcwltri04nac-day2-ncpcwltri04nac-label-nodes-68ffc   enforce     Compliant     33s
+    ncpcwltri04nac           ztp-policies.ncpcwltri04nac-label-nodes                  inform      Compliant     11m
+    ztp-policies   ncpcwltri04nac-labels-config-policies               inform     Compliant     33s
+    ztp-policies   ncpcwltri04nac-label-nodes                               inform      Compliant     11m
+
+------------------------------------------------------------------------
+
+4)  Verify Node Labels
+
+``` bash
+oc get nodes --show-labels --kubeconfig 
+```
+
+You should now see the new label applied:
+
+    is_cmm_fds=true
+
+------------------------------------------------------------------------
+
+5)  CGU Cleanup
+
+After a few minutes, enforced policies will also be deleted.\
+Check CGU status after successful compliance:
+
+``` bash
+oc get cgu -A | grep label
+```
+
+Example:
+
+    ztp-policies   ncpcwltri04nac-labels    40m   Completed   All clusters are compliant with all the managed policies
