@@ -13,25 +13,25 @@
       
       
       
-        <link rel="prev" href="../newgitserver.sh">
+        <link rel="prev" href="../ncd-git-backup/">
       
       
-        <link rel="next" href="../../../openshift/projectmanagement/scope/">
+        <link rel="next" href="../Deployment/backupconfig.sh">
       
       
-      <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
-        <title>GIT deployment - OpenShift Notes</title>
+        <title>Git Restore - OpenShift Notes</title>
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2afb09e1.min.css">
       
         
-        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,9 +50,9 @@
       
     
     
-      <link rel="stylesheet" href="../../../stylesheets/redhat-style.css">
+      <link rel="stylesheet" href="../../stylesheets/redhat-style.css">
     
-    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#git-server-deployment-guide" class="md-skip">
+        <a href="#backing-up-nokia-git-server" class="md-skip">
           Skip to content
         </a>
       
@@ -94,9 +94,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../../.." title="OpenShift Notes" class="md-header__button md-logo" aria-label="OpenShift Notes" data-md-component="logo">
+    <a href="../.." title="OpenShift Notes" class="md-header__button md-logo" aria-label="OpenShift Notes" data-md-component="logo">
       
-  <img src="../../../images/logo.png" alt="logo">
+  <img src="../../images/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              GIT deployment
+              Git Restore
             
           </span>
         </div>
@@ -203,9 +203,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../../.." title="OpenShift Notes" class="md-nav__button md-logo" aria-label="OpenShift Notes" data-md-component="logo">
+    <a href="../.." title="OpenShift Notes" class="md-nav__button md-logo" aria-label="OpenShift Notes" data-md-component="logo">
       
-  <img src="../../../images/logo.png" alt="logo">
+  <img src="../../images/logo.png" alt="logo">
 
     </a>
     OpenShift Notes
@@ -220,7 +220,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../.." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   
@@ -282,121 +282,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../../ncd-git-backup/" class="md-nav__link">
+      <a href="../ncd-git-backup/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Git Backup
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../ncd-git-restore/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Git Restore
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    Deployment Scripts
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_2_3">
-            <span class="md-nav__icon md-icon"></span>
-            Deployment Scripts
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../backupconfig.sh" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Backup Config
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../newgitserver.sh" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    New Git Server (v1)
     
   </span>
   
@@ -428,7 +319,7 @@
   
   
   <span class="md-ellipsis">
-    GIT deployment
+    Git Restore
     
   </span>
   
@@ -441,7 +332,7 @@
   
   
   <span class="md-ellipsis">
-    GIT deployment
+    Git Restore
     
   </span>
   
@@ -464,132 +355,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-create-required-namespaces" class="md-nav__link">
+  <a href="#instructions-on-backing-up-nokia-git-server" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Create Required Namespaces
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-set-security-context-constraints-scc" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Set Security Context Constraints (SCC)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-apply-pod-security-labels" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Apply Pod Security Labels
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-create-image-pull-secrets" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Create Image Pull Secrets
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-generate-tls-certificate-for-gitlab" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Generate TLS Certificate for GitLab
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-deploy-helm-charts" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Deploy Helm Charts
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Deploy Helm Charts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#61-cbur-crds" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.1 CBUR CRDs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#62-cbur-product" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.2 CBUR Product
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#63-postgresql-ha" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.3 PostgreSQL HA
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#64-redis" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.4 Redis
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-validate-pod-scc-annotations" class="md-nav__link">
-    <span class="md-ellipsis">
-      7. Validate Pod SCC Annotations
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-deploy-git-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      8. Deploy Git Server
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download-the-sample-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Download the sample files
+      Instructions on backing up Nokia Git Server
     </span>
   </a>
   
@@ -599,6 +367,113 @@
   
 </nav>
       
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Deployment Scripts
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_3">
+            <span class="md-nav__icon md-icon"></span>
+            Deployment Scripts
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Deployment/backupconfig.sh" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backup Config
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Deployment/newgitserver.sh" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    New Git Server (v1)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Deployment/git-server-deployment/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    GIT deployment
+    
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -702,7 +577,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/projectmanagement/scope/" class="md-nav__link">
+      <a href="../../openshift/projectmanagement/scope/" class="md-nav__link">
         
   
   
@@ -771,7 +646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/deployment/automation/nokia-site-config-fixes/" class="md-nav__link">
+      <a href="../../openshift/deployment/automation/nokia-site-config-fixes/" class="md-nav__link">
         
   
   
@@ -840,7 +715,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/usermanagement/remove-kubeadmin/" class="md-nav__link">
+      <a href="../../openshift/usermanagement/remove-kubeadmin/" class="md-nav__link">
         
   
   
@@ -863,7 +738,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/usermanagement/user-management/" class="md-nav__link">
+      <a href="../../openshift/usermanagement/user-management/" class="md-nav__link">
         
   
   
@@ -932,7 +807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/backup-restore/ACM-GEO-RED/" class="md-nav__link">
+      <a href="../../openshift/backup-restore/ACM-GEO-RED/" class="md-nav__link">
         
   
   
@@ -955,7 +830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/backup-restore/ACM-localbackup/" class="md-nav__link">
+      <a href="../../openshift/backup-restore/ACM-localbackup/" class="md-nav__link">
         
   
   
@@ -978,7 +853,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/backup-restore/AWS-S3/" class="md-nav__link">
+      <a href="../../openshift/backup-restore/AWS-S3/" class="md-nav__link">
         
   
   
@@ -1001,7 +876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/backup-restore/etcd-backup/" class="md-nav__link">
+      <a href="../../openshift/backup-restore/etcd-backup/" class="md-nav__link">
         
   
   
@@ -1024,7 +899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/backup-restore/etcd-restore/" class="md-nav__link">
+      <a href="../../openshift/backup-restore/etcd-restore/" class="md-nav__link">
         
   
   
@@ -1093,7 +968,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/Intergration/syslog/" class="md-nav__link">
+      <a href="../../openshift/Intergration/syslog/" class="md-nav__link">
         
   
   
@@ -1162,7 +1037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/maintenace/cluster-stop-start/" class="md-nav__link">
+      <a href="../../openshift/maintenace/cluster-stop-start/" class="md-nav__link">
         
   
   
@@ -1185,7 +1060,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/maintenace/reboot-nodes/" class="md-nav__link">
+      <a href="../../openshift/maintenace/reboot-nodes/" class="md-nav__link">
         
   
   
@@ -1208,7 +1083,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/maintenace/openshift_scalein_guide/" class="md-nav__link">
+      <a href="../../openshift/maintenace/openshift_scalein_guide/" class="md-nav__link">
         
   
   
@@ -1231,7 +1106,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/maintenace/openshift_scaleout_guide/" class="md-nav__link">
+      <a href="../../openshift/maintenace/openshift_scaleout_guide/" class="md-nav__link">
         
   
   
@@ -1300,7 +1175,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/networking/metalb-troubleshooting/" class="md-nav__link">
+      <a href="../../openshift/networking/metalb-troubleshooting/" class="md-nav__link">
         
   
   
@@ -1323,7 +1198,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/networking/metallb-configuration/" class="md-nav__link">
+      <a href="../../openshift/networking/metallb-configuration/" class="md-nav__link">
         
   
   
@@ -1392,7 +1267,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/storagemanagement/ceph-rebalanceissue/" class="md-nav__link">
+      <a href="../../openshift/storagemanagement/ceph-rebalanceissue/" class="md-nav__link">
         
   
   
@@ -1415,7 +1290,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/storagemanagement/storage-node-replacement/" class="md-nav__link">
+      <a href="../../openshift/storagemanagement/storage-node-replacement/" class="md-nav__link">
         
   
   
@@ -1438,7 +1313,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/storagemanagement/one-OSD-not-created/" class="md-nav__link">
+      <a href="../../openshift/storagemanagement/one-OSD-not-created/" class="md-nav__link">
         
   
   
@@ -1507,7 +1382,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/troubleshooting/nsenter/" class="md-nav__link">
+      <a href="../../openshift/troubleshooting/nsenter/" class="md-nav__link">
         
   
   
@@ -1530,7 +1405,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/troubleshooting/ncomsa/" class="md-nav__link">
+      <a href="../../openshift/troubleshooting/ncomsa/" class="md-nav__link">
         
   
   
@@ -1599,7 +1474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/disaster-management/infra-manager-redeployment/" class="md-nav__link">
+      <a href="../../openshift/disaster-management/infra-manager-redeployment/" class="md-nav__link">
         
   
   
@@ -1622,7 +1497,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../openshift/disaster-management/hub-cluster-redeployment/master-replacment/" class="md-nav__link">
+      <a href="../../openshift/disaster-management/hub-cluster-redeployment/master-replacment/" class="md-nav__link">
         
   
   
@@ -1736,7 +1611,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/MACD-management/scope/" class="md-nav__link">
+      <a href="../../MACD-Operations/MACD-management/scope/" class="md-nav__link">
         
   
   
@@ -1805,7 +1680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/image-tls-issue/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/image-tls-issue/" class="md-nav__link">
         
   
   
@@ -1828,7 +1703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/oclogin-tls-issue/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/oclogin-tls-issue/" class="md-nav__link">
         
   
   
@@ -1851,7 +1726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/proxy-cache-pod/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/proxy-cache-pod/" class="md-nav__link">
         
   
   
@@ -1874,7 +1749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/rolebinding/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/rolebinding/" class="md-nav__link">
         
   
   
@@ -1897,7 +1772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/Failtoconfigure_nncp/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/Failtoconfigure_nncp/" class="md-nav__link">
         
   
   
@@ -1920,7 +1795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/kubeconfig/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/kubeconfig/" class="md-nav__link">
         
   
   
@@ -1943,7 +1818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/NCP-default-usersandrole/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/NCP-default-usersandrole/" class="md-nav__link">
         
   
   
@@ -1966,7 +1841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/ts-tools/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/ts-tools/" class="md-nav__link">
         
   
   
@@ -1989,7 +1864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/istio-for-cnf/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/istio-for-cnf/" class="md-nav__link">
         
   
   
@@ -2012,7 +1887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/restrict-project-creation/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/restrict-project-creation/" class="md-nav__link">
         
   
   
@@ -2035,7 +1910,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/configure_openshift_tenable/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/configure_openshift_tenable/" class="md-nav__link">
         
   
   
@@ -2058,12 +1933,35 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/createlabelpostinstall/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-support/createlabelpostinstall/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Creating labels post installation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MACD-Operations/CNF-onboarding-support/Static-route/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OCP route ingress and egress
     
   </span>
   
@@ -2127,7 +2025,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCOM.md" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-prerequisites/NCOM.md" class="md-nav__link">
         
   
   
@@ -2150,7 +2048,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCD.md" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-prerequisites/NCD.md" class="md-nav__link">
         
   
   
@@ -2173,7 +2071,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCC/" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-prerequisites/NCC/" class="md-nav__link">
         
   
   
@@ -2196,7 +2094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/CMG.md" class="md-nav__link">
+      <a href="../../MACD-Operations/CNF-onboarding-prerequisites/CMG.md" class="md-nav__link">
         
   
   
@@ -2254,132 +2152,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-create-required-namespaces" class="md-nav__link">
+  <a href="#instructions-on-backing-up-nokia-git-server" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Create Required Namespaces
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-set-security-context-constraints-scc" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Set Security Context Constraints (SCC)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-apply-pod-security-labels" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Apply Pod Security Labels
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-create-image-pull-secrets" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Create Image Pull Secrets
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-generate-tls-certificate-for-gitlab" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Generate TLS Certificate for GitLab
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-deploy-helm-charts" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Deploy Helm Charts
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="6. Deploy Helm Charts">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#61-cbur-crds" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.1 CBUR CRDs
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#62-cbur-product" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.2 CBUR Product
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#63-postgresql-ha" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.3 PostgreSQL HA
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#64-redis" class="md-nav__link">
-    <span class="md-ellipsis">
-      6.4 Redis
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-validate-pod-scc-annotations" class="md-nav__link">
-    <span class="md-ellipsis">
-      7. Validate Pod SCC Annotations
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-deploy-git-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      8. Deploy Git Server
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Notes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#download-the-sample-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Download the sample files
+      Instructions on backing up Nokia Git Server
     </span>
   </a>
   
@@ -2401,87 +2176,11 @@
 
 
 
-<h1 id="git-server-deployment-guide">Git Server Deployment Guide<a class="headerlink" href="#git-server-deployment-guide" title="Permanent link">&para;</a></h1>
-<p>This document outlines the steps required to deploy the Git Server and its associated services on an OpenShift-based infrastructure.</p>
-<hr />
-<h2 id="1-create-required-namespaces">1. Create Required Namespaces<a class="headerlink" href="#1-create-required-namespaces" title="Permanent link">&para;</a></h2>
+<h1 id="backing-up-nokia-git-server">Backing up Nokia Git Server<a class="headerlink" href="#backing-up-nokia-git-server" title="Permanent link">&para;</a></h1>
 <blockquote>
-<p>Git required to create following three namespace/project</p>
+<p>this procedure, works for NCD 24.9 mp1 pp1. </p>
 </blockquote>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>new-project<span class="w"> </span>paclypancdgit01
-oc<span class="w"> </span>new-project<span class="w"> </span>paclypancddb01
-oc<span class="w"> </span>new-project<span class="w"> </span>paclypancdcbur01
-</code></pre></div>
-
-<h2 id="2-set-security-context-constraints-scc">2. Set Security Context Constraints (SCC)<a class="headerlink" href="#2-set-security-context-constraints-scc" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>this step is added only for the git project.</p>
-</blockquote>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-scc-to-group<span class="w"> </span>anyuid<span class="w"> </span>system:serviceaccounts:paclypancdgit01
-</code></pre></div>
-
-<h2 id="3-apply-pod-security-labels">3. Apply Pod Security Labels<a class="headerlink" href="#3-apply-pod-security-labels" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>label<span class="w"> </span>--overwrite<span class="w"> </span>ns<span class="w"> </span>paclypancdgit01<span class="w"> </span>pod-security.kubernetes.io/enforce<span class="o">=</span>baseline
-oc<span class="w"> </span>label<span class="w"> </span>--overwrite<span class="w"> </span>ns<span class="w"> </span>paclypancddb01<span class="w"> </span>pod-security.kubernetes.io/enforce<span class="o">=</span>restricted
-oc<span class="w"> </span>label<span class="w"> </span>--overwrite<span class="w"> </span>ns<span class="w"> </span>paclypancdcbur01<span class="w"> </span>pod-security.kubernetes.io/enforce<span class="o">=</span>restricted
-</code></pre></div>
-
-<h2 id="4-create-image-pull-secrets">4. Create Image Pull Secrets<a class="headerlink" href="#4-create-image-pull-secrets" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>here the username and password should be used on the git hub registry.</p>
-</blockquote>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Git Namespace</span>
-oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span>paclypancdgit01<span class="w"> </span>docker-registry<span class="w"> </span>my-pull-secret<span class="w">   </span>--docker-server<span class="o">=</span>quay-registry.apps.panclyphub01.mnc020.mcc714<span class="w">   </span>--docker-username<span class="o">=</span>ncd01pan<span class="w"> </span>--docker-password<span class="o">=</span>ncd01pan
-
-<span class="c1"># DB Namespace</span>
-oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span>paclypancddb01<span class="w"> </span>docker-registry<span class="w"> </span>my-pull-secret<span class="w">   </span>--docker-server<span class="o">=</span>quay-registry.apps.panclyphub01.mnc020.mcc714<span class="w">   </span>--docker-username<span class="o">=</span>ncd01pan<span class="w"> </span>--docker-password<span class="o">=</span>ncd01pan
-
-<span class="c1"># CBUR Namespace</span>
-oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span>paclypancdcbur01<span class="w"> </span>docker-registry<span class="w"> </span>my-pull-secret<span class="w">   </span>--docker-server<span class="o">=</span>quay-registry.apps.panclyphub01.mnc020.mcc714<span class="w">   </span>--docker-username<span class="o">=</span>ncd01pan<span class="w"> </span>--docker-password<span class="o">=</span>ncd01pan
-</code></pre></div>
-
-<h2 id="5-generate-tls-certificate-for-gitlab">5. Generate TLS Certificate for GitLab<a class="headerlink" href="#5-generate-tls-certificate-for-gitlab" title="Permanent link">&para;</a></h2>
-<blockquote>
-<p>you can define the actual git url as /CN field.  example <code>gitlab.apps.panclyphub01.mnc020.mcc714</code></p>
-</blockquote>
-<div class="codehilite"><pre><span></span><code>openssl<span class="w"> </span>genrsa<span class="w"> </span>-out<span class="w"> </span>ca.key<span class="w"> </span><span class="m">2048</span>
-
-openssl<span class="w"> </span>req<span class="w"> </span>-x509<span class="w"> </span>-new<span class="w"> </span>-nodes<span class="w"> </span>-key<span class="w"> </span>ca.key<span class="w"> </span>-days<span class="w"> </span><span class="m">3650</span><span class="w">   </span>-reqexts<span class="w"> </span>v3_req<span class="w"> </span>-subj<span class="w"> </span><span class="s2">&quot;/CN=gitlab.apps.panclyphub01.mnc020.mcc714&quot;</span><span class="w">   </span>-extensions<span class="w"> </span>v3_ca<span class="w"> </span>-out<span class="w"> </span>ca.crt
-</code></pre></div>
-
-<h2 id="6-deploy-helm-charts">6. Deploy Helm Charts<a class="headerlink" href="#6-deploy-helm-charts" title="Permanent link">&para;</a></h2>
-<h3 id="61-cbur-crds">6.1 CBUR CRDs<a class="headerlink" href="#61-cbur-crds" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>cbur-crds<span class="w"> </span>-n<span class="w"> </span>paclypancdcbur01<span class="w">   </span>/root/ncd/NCD_24.9_Git_Server_ORB-RC/ncd-git-server-product/helmcharts/cbur-crds-2.6.0.tgz<span class="w">   </span>-f<span class="w"> </span>cbur-crd.yaml
-</code></pre></div>
-
-<h3 id="62-cbur-product">6.2 CBUR Product<a class="headerlink" href="#62-cbur-product" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>ncd-cbur<span class="w"> </span>-n<span class="w"> </span>paclypancdcbur01<span class="w">   </span>/root/ncd/NCD_24.9_Git_Server_ORB-RC/ncd-git-server-product/helmcharts/cbur-1.18.1.tgz<span class="w">   </span>-f<span class="w"> </span>cbur.yaml<span class="w"> </span>--debug
-</code></pre></div>
-
-<h3 id="63-postgresql-ha">6.3 PostgreSQL HA<a class="headerlink" href="#63-postgresql-ha" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>ncd-postgresql<span class="w"> </span>-n<span class="w"> </span>paclypancddb01<span class="w">   </span>/root/ncd/NCD_24.9_Git_Server_ORB-RC/ncd-git-server-product/helmcharts/postgresql-ha-24.9.1-1009.g19e2a92.tgz<span class="w">   </span>-f<span class="w"> </span>post.yaml<span class="w"> </span>--debug<span class="w"> </span>--timeout<span class="w"> </span>20m
-</code></pre></div>
-
-<h3 id="64-redis">6.4 Redis<a class="headerlink" href="#64-redis" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>ncd-redis<span class="w"> </span>-n<span class="w"> </span>paclypancddb01<span class="w">   </span>/root/ncd/NCD_24.9_Git_Server_ORB-RC/ncd-git-server-product/helmcharts/ncd-redis-24.9.1-1009.g19e2a92.tgz<span class="w">   </span>-f<span class="w"> </span>redis.yaml<span class="w"> </span>--debug<span class="w"> </span>--timeout<span class="w"> </span>20m
-</code></pre></div>
-
-<h2 id="7-validate-pod-scc-annotations">7. Validate Pod SCC Annotations<a class="headerlink" href="#7-validate-pod-scc-annotations" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pods<span class="w"> </span>-n<span class="w"> </span>paclypancddb01<span class="w">   </span>-o<span class="w"> </span><span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{range .items[*]}{.metadata.name}{&quot;\t&quot;}{.metadata.annotations.openshift\.io/scc}{&quot;\n&quot;}{end}&#39;</span>
-</code></pre></div>
-
-<h2 id="8-deploy-git-server">8. Deploy Git Server<a class="headerlink" href="#8-deploy-git-server" title="Permanent link">&para;</a></h2>
-<div class="codehilite"><pre><span></span><code>helm<span class="w"> </span>install<span class="w"> </span>ncd-git<span class="w"> </span>-n<span class="w"> </span>paclypancdgit01<span class="w">   </span>/root/ncd/NCD_24.9_Git_Server_ORB-RC/ncd-git-server-product/helmcharts/ncd-git-server-24.9.1-7.g30f1acf.tgz<span class="w">   </span>-f<span class="w"> </span>git.yaml<span class="w"> </span>--debug<span class="w"> </span>--timeout<span class="w"> </span>20m
-</code></pre></div>
-
-<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
-<ul>
-<li>No changes are required in the values files: <code>cbur-crd.yaml</code>.</li>
-<li>update are improtant on  <code>cbur.yaml</code>, <code>post.yaml</code>, <code>redis.yaml</code>, and <code>git.yaml</code>.</li>
-<li>Ensure the registry, certificates, hosts, redis and postgress service hostnames are properly configured before deployment.</li>
-</ul>
-<h2 id="download-the-sample-files">Download the sample files<a class="headerlink" href="#download-the-sample-files" title="Permanent link">&para;</a></h2>
-<p>📄 <a href="../denmarkfiles.tar">Click here to download sample</a></p>
+<h2 id="instructions-on-backing-up-nokia-git-server">Instructions on backing up Nokia Git Server<a class="headerlink" href="#instructions-on-backing-up-nokia-git-server" title="Permanent link">&para;</a></h2>
 
 
 
@@ -2530,12 +2229,12 @@ openssl<span class="w"> </span>req<span class="w"> </span>-x509<span class="w"> 
     
     
       
-      <script id="__config" type="application/json">{"base": "../../..", "features": [], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
-        <script src="../../../js/auth.js"></script>
+        <script src="../../js/auth.js"></script>
       
     
   </body>

@@ -13,22 +13,18 @@
       
       
       
-        <link rel="prev" href="../ncd-git-backup/">
-      
-      
-        <link rel="next" href="../Deployment/backupconfig.sh">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.18">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
     
     
       
-        <title>Git Restore - OpenShift Notes</title>
+        <title>This document to help pushing you git code without any issues - OpenShift Notes</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.7e37652d.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2afb09e1.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -78,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#backing-up-nokia-git-server" class="md-skip">
+        <a href="#this-document-to-help-pushing-you-git-code-without-any-issues" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Git Restore
+              This document to help pushing you git code without any issues
             
           </span>
         </div>
@@ -239,20 +235,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -268,7 +262,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             Git Helper
@@ -302,32 +296,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Git Restore
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../ncd-git-restore/" class="md-nav__link">
         
   
   
@@ -338,35 +310,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#instructions-on-backing-up-nokia-git-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      Instructions on backing up Nokia Git Server
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1949,6 +1892,29 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../MACD-Operations/CNF-onboarding-support/Static-route/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    OCP route ingress and egress
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2122,23 +2088,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#instructions-on-backing-up-nokia-git-server" class="md-nav__link">
-    <span class="md-ellipsis">
-      Instructions on backing up Nokia Git Server
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -2153,11 +2102,55 @@
 
 
 
-<h1 id="backing-up-nokia-git-server">Backing up Nokia Git Server<a class="headerlink" href="#backing-up-nokia-git-server" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>this procedure, works for NCD 24.9 mp1 pp1. </p>
-</blockquote>
-<h2 id="instructions-on-backing-up-nokia-git-server">Instructions on backing up Nokia Git Server<a class="headerlink" href="#instructions-on-backing-up-nokia-git-server" title="Permanent link">&para;</a></h2>
+<h1 id="this-document-to-help-pushing-you-git-code-without-any-issues">This document to help pushing you git code without any issues<a class="headerlink" href="#this-document-to-help-pushing-you-git-code-without-any-issues" title="Permanent link">&para;</a></h1>
+<ol>
+<li>Set Your Name and Email Globally (One-Time Setup)
+    <code>If the issue is related to your identity (name and email), configure it using:</code></li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="c1">--global user.name &quot;venkatapathiraj Ravichandran&quot;</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="c1">--global user.email &quot;rajurraju400@gmail.com&quot;</span>
+</code></pre></div>
+
+<p>This will apply to all repositories on your system.</p>
+<ol>
+<li>
+<p>Enable Git Credential Caching</p>
+<p>a. If the issue is related to authentication (username/password), you can cache your credentials using Git's credential helper. Here's how:
+    For a Temporary Cache (Default 15 Minutes)</p>
+</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>#git config --global credential.helper cache
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nv">b</span>.<span class="w"> </span><span class="nv">Git</span><span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">store</span><span class="w"> </span><span class="nv">your</span><span class="w"> </span><span class="nv">credentials</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">memory</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="nv">minutes</span>.
+
+<span class="nv">c</span>.<span class="w"> </span><span class="nv">You</span><span class="w"> </span><span class="nv">can</span><span class="w"> </span><span class="nv">adjust</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">cache</span><span class="w"> </span><span class="nb">timeout</span><span class="w"> </span><span class="ss">(</span><span class="nv">in</span><span class="w"> </span><span class="nv">seconds</span><span class="ss">)</span><span class="w"> </span><span class="nv">like</span><span class="w"> </span><span class="nv">this</span>:
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code>git config --global credential.helper &#39;cache --timeout=3600&#39;
+</code></pre></div>
+
+<ol>
+<li>
+<p>For a Persistent Cache</p>
+<p>a. To store your credentials securely and never be prompted again:</p>
+</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>git config --global credential.helper store
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="nv">b</span>.<span class="w"> </span><span class="nv">Your</span><span class="w"> </span><span class="nv">credentials</span><span class="w"> </span><span class="nv">will</span><span class="w"> </span><span class="nv">be</span><span class="w"> </span><span class="nv">stored</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">plain</span><span class="o">-</span><span class="nv">text</span><span class="w"> </span><span class="nv">file</span><span class="w"> </span><span class="ss">(</span><span class="o">~/</span>.<span class="nv">git</span><span class="o">-</span><span class="nv">credentials</span><span class="ss">)</span>.
+
+<span class="nv">c</span>.<span class="w"> </span><span class="nv">Be</span><span class="w"> </span><span class="nv">cautious</span><span class="w"> </span><span class="nv">with</span><span class="w"> </span><span class="nv">this</span><span class="w"> </span><span class="nv">method</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="nv">you</span><span class="err">&#39;re using a shared machine.</span>
+</code></pre></div>
+
+<ol>
+<li>Configure Git to Skip SSL Verification (Not Recommended for Production)</li>
+</ol>
+<p>If you're in a controlled environment where you trust the source, and you want to bypass SSL verification temporarily, you can configure Git to skip SSL verification:</p>
+<div class="codehilite"><pre><span></span><code>git config --global http.sslVerify false
+</code></pre></div>
 
 
 
@@ -2206,10 +2199,10 @@
     
     
       
-      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.92b07e13.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../js/auth.js"></script>
       
