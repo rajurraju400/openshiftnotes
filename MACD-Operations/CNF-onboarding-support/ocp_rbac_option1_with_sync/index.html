@@ -2094,8 +2094,26 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Challenges">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-group-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP Group Sync
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LDAP Group Sync">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sample-ldap-syncyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample ldap-sync.yaml
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#sync-command" class="md-nav__link">
@@ -2432,8 +2450,26 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Challenges">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-group-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP Group Sync
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LDAP Group Sync">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sample-ldap-syncyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample ldap-sync.yaml
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#sync-command" class="md-nav__link">
@@ -2626,52 +2662,27 @@ oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </sp
 oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-ro-cnf-role<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group
 </code></pre></div>
 
-<p>&lt;!-- 
-3) Multi-country shared cluster scenario (hybrid) - Not preferred. <strong>worst case</strong> need architect approval.</p>
-<ul>
-<li>
-<p>When the same CNF is deployed in a shared cloud across multiple countries, customers do not want users from cmm1 (Country A) to have visibility into cmm2 (Country B) namespaces or pods.</p>
-</li>
-<li>
-<p>but dont want to create additional groups on LDAP</p>
-</li>
-<li>
-<p>Create OCP-local subgroups (cmm-1, cmm-2).</p>
-</li>
-<li>
-<p>Bind them to namespaces accordingly.</p>
-</li>
-</ul>
-<div class="codehilite"><pre><span></span><code><span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">groups</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">cmm1</span><span class="w"> </span><span class="n">user1</span><span class="w"> </span><span class="n">user2</span>
-<span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">groups</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">cmm2</span><span class="w"> </span><span class="n">user3</span><span class="w"> </span><span class="n">user4</span>
-<span class="err">```</span><span class="w"> </span><span class="o">--&gt;</span>
+<hr />
+<h2 id="ldap-group-sync">LDAP Group Sync<a class="headerlink" href="#ldap-group-sync" title="Permanent link">&para;</a></h2>
+<p>To keep LDAP groups synchronized with OpenShift, use <code>oc adm groups sync</code> with a sync configuration file.</p>
+<h3 id="sample-ldap-syncyaml">Sample <code>ldap-sync.yaml</code><a class="headerlink" href="#sample-ldap-syncyaml" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LDAPSyncConfig</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ldap://ldap.example.com/ou=Groups,dc=example,dc=com&quot;</span>
+<span class="nt">bindDN</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cn=admin,dc=example,dc=com&quot;</span>
+<span class="nt">bindPassword</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/ldap-bind-password&quot;</span>
 
+<span class="nt">groupUIDNameMapping</span><span class="p">:</span>
+<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-administrator,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-administrator&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-readonly-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-readonly-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-readonly-with-monitoring-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-readonly-with-monitoring-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=application-1-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;application-1-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=application-2-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;application-2-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=application-X-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;application-X-group&quot;</span>
 
-<span class="o">---</span>
-
-<span class="cp">## LDAP Group Sync</span>
-
-<span class="n">To</span><span class="w"> </span><span class="kr">keep</span><span class="w"> </span><span class="n">LDAP</span><span class="w"> </span><span class="n">groups</span><span class="w"> </span><span class="n">synchronized</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">OpenShift</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="err">`</span><span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">groups</span><span class="w"> </span><span class="n">sync</span><span class="err">`</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">sync</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">file</span><span class="p">.</span>
-
-<span class="cp">### Sample `ldap-sync.yaml`</span>
-<span class="err">```</span><span class="n">yaml</span>
-<span class="n">kind</span><span class="o">:</span><span class="w"> </span><span class="n">LDAPSyncConfig</span>
-<span class="n">apiVersion</span><span class="o">:</span><span class="w"> </span><span class="n">v1</span>
-<span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;ldap://ldap.example.com/ou=Groups,dc=example,dc=com&quot;</span>
-<span class="n">bindDN</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;cn=admin,dc=example,dc=com&quot;</span>
-<span class="n">bindPassword</span><span class="o">:</span>
-<span class="w">  </span><span class="n">file</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;/etc/ldap-bind-password&quot;</span>
-
-<span class="n">groupUIDNameMapping</span><span class="o">:</span>
-<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-administrator,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-administrator&quot;</span>
-<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-readonly-group,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-readonly-group&quot;</span>
-<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-readonly-with-monitoring-group,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-readonly-with-monitoring-group&quot;</span>
-<span class="w">  </span><span class="s">&quot;cn=application-1-group,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;application-1-group&quot;</span>
-<span class="w">  </span><span class="s">&quot;cn=application-2-group,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;application-2-group&quot;</span>
-<span class="w">  </span><span class="s">&quot;cn=application-X-group,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;application-X-group&quot;</span>
-
-<span class="n">groupMembershipAttributes</span><span class="o">:</span>
-<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">member</span>
+<span class="nt">groupMembershipAttributes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">member</span>
 </code></pre></div>
 
 <h3 id="sync-command">Sync Command<a class="headerlink" href="#sync-command" title="Permanent link">&para;</a></h3>
