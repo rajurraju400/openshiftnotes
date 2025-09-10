@@ -1980,6 +1980,48 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#roles-and-clusterroles-on-the-ncp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roles and clusterroles on the NCP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Roles and clusterroles on the NCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role-management-for-cluster-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Management for cluster admin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role-management-for-cluster-viewers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Management for Cluster viewers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role-management-for-cnf-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Management for CNF users
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ldap-groups-to-request-from-customer" class="md-nav__link">
     <span class="md-ellipsis">
       LDAP Groups to Request from Customer
@@ -2046,23 +2088,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ldap-group-sync" class="md-nav__link">
+  <a href="#challenges" class="md-nav__link">
     <span class="md-ellipsis">
-      LDAP Group Sync
+      Challenges
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="LDAP Group Sync">
+    <nav class="md-nav" aria-label="Challenges">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sample-ldap-syncyaml" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sample ldap-sync.yaml
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#sync-command" class="md-nav__link">
@@ -2075,6 +2108,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-users-on-ncp-for-hubnmcnwc-clusters-users-expected-to-be-avaiable-on-ldap-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default users on NCP for HUB/NMC/NWC cluster's (user's expected to be avaiable on LDAP side)
+    </span>
+  </a>
   
 </li>
       
@@ -2276,6 +2318,48 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#roles-and-clusterroles-on-the-ncp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roles and clusterroles on the NCP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Roles and clusterroles on the NCP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#role-management-for-cluster-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Management for cluster admin
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role-management-for-cluster-viewers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Management for Cluster viewers
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#role-management-for-cnf-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Management for CNF users
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ldap-groups-to-request-from-customer" class="md-nav__link">
     <span class="md-ellipsis">
       LDAP Groups to Request from Customer
@@ -2342,23 +2426,14 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#ldap-group-sync" class="md-nav__link">
+  <a href="#challenges" class="md-nav__link">
     <span class="md-ellipsis">
-      LDAP Group Sync
+      Challenges
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="LDAP Group Sync">
+    <nav class="md-nav" aria-label="Challenges">
       <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#sample-ldap-syncyaml" class="md-nav__link">
-    <span class="md-ellipsis">
-      Sample ldap-sync.yaml
-    </span>
-  </a>
-  
-</li>
         
           <li class="md-nav__item">
   <a href="#sync-command" class="md-nav__link">
@@ -2371,6 +2446,15 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#default-users-on-ncp-for-hubnmcnwc-clusters-users-expected-to-be-avaiable-on-ldap-side" class="md-nav__link">
+    <span class="md-ellipsis">
+      Default users on NCP for HUB/NMC/NWC cluster's (user's expected to be avaiable on LDAP side)
+    </span>
+  </a>
   
 </li>
       
@@ -2403,30 +2487,63 @@
 <p>In this model, all access to the OpenShift cluster is controlled directly by <strong>LDAP groups</strong>.<br />
 Each group is created and managed in LDAP, and OpenShift role bindings are mapped to these groups.</p>
 <hr />
+<h2 id="roles-and-clusterroles-on-the-ncp">Roles and clusterroles on the NCP<a class="headerlink" href="#roles-and-clusterroles-on-the-ncp" title="Permanent link">&para;</a></h2>
+<h3 id="role-management-for-cluster-admin">Role Management for cluster admin<a class="headerlink" href="#role-management-for-cluster-admin" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>for Administrator users</p>
+</blockquote>
+<ul>
+<li><code>cluster-admin</code> role – for the NCP team (our team). default available on NCP  </li>
+</ul>
+<h3 id="role-management-for-cluster-viewers">Role Management for Cluster viewers<a class="headerlink" href="#role-management-for-cluster-viewers" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>for Readonly users</p>
+</blockquote>
+<ul>
+<li>
+<p><code>cluster-reader</code>  role - for the customer teams. default available on NCP</p>
+</li>
+<li>
+<p><code>cluster-monitoring-view</code>  role - for the customer teams. default available on NCP</p>
+</li>
+<li>
+<p><code>cluster-logging-application-view</code> role for the customer teams. default available on NCP </p>
+</li>
+</ul>
+<h3 id="role-management-for-cnf-users">Role Management for CNF users<a class="headerlink" href="#role-management-for-cnf-users" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>For Non-Administrator users.</p>
+</blockquote>
+<ul>
+<li>
+<p><code>Admin</code> role: Full access to the entire namespace (tenant-admin role for their specific namespace/project). default available on NCP </p>
+</li>
+<li>
+<p><code>ncp-default-rw-cnf-role</code>: Access at the namespace level, allowing users to create, update, delete, and schedule backup jobs, network attachments, redisentercluster, etc. Deployment teams created on NCP </p>
+</li>
+<li>
+<p><code>ncp-default-ro-cnf-role</code>: Access at the cluster level to list, view, watch, and get information for nodes, SCC, NNCP, Metallb IP pool, static routes, backward routes, egress routes, CRDs, profiles, pv etc. Deployment teams created on NCP </p>
+</li>
+</ul>
 <h2 id="ldap-groups-to-request-from-customer">LDAP Groups to Request from Customer<a class="headerlink" href="#ldap-groups-to-request-from-customer" title="Permanent link">&para;</a></h2>
 <h3 id="cluster-level-groups">Cluster-Level Groups<a class="headerlink" href="#cluster-level-groups" title="Permanent link">&para;</a></h3>
-<ol>
-<li><strong>ncp-Cluster-administrator</strong>  </li>
-<li>
-<p>Full administrative control of the cluster (mapped to <code>cluster-admin</code>).</p>
-</li>
-<li>
-<p><strong>ncp-Cluster-readonly-group</strong>  </p>
-</li>
-<li>
-<p>Read-only visibility into cluster resources (mapped to <code>ncp-default-ro-cnf-role</code>).</p>
-</li>
-<li>
-<p><strong>ncp-Cluster-readonly-with-monitoring-group</strong>  </p>
-</li>
-<li>Read-only access + monitoring visibility (mapped to <code>ncp-default-ro-cnf-role</code> + <code>cluster-monitoring-view</code>).</li>
-</ol>
+<p>1) <strong>ncp-Cluster-administrator</strong><br />
+   - Full administrative control of the cluster (mapped to <code>cluster-admin</code> role).</p>
+<p>2) <strong>ncp-Cluster-readonly-group</strong><br />
+   - Read-only visibility into cluster resources (mapped to <code>cluster-reader</code> role).</p>
+<p>3) <strong>ncp-Cluster-readonly-with-monitoring-group</strong><br />
+   - Read-only access + monitoring visibility (mapped to <code>cluster-monitoring-view</code> role).</p>
+<p>4) <strong>ncp-clusterreadonly-with-logging-group</strong>
+   - Read-only access + logs visibility (mapped to <code>cluster-logging-application-view</code> role)</p>
 <h3 id="application-level-groups">Application-Level Groups<a class="headerlink" href="#application-level-groups" title="Permanent link">&para;</a></h3>
-<ul>
-<li><strong>application-1-group</strong></li>
-<li><strong>application-2-group</strong></li>
-<li><strong>application-X-group</strong></li>
-</ul>
+<p>1) <strong>application(cmm)-1-group</strong>
+  - Access to cmm app namespaces alone. </p>
+<p>2) <strong>application(npc)-2-group</strong>
+  - Access to npc application namespace alone.</p>
+<p>3) <strong>application(udm)-3-group</strong>
+  - Access to udm application namespace alone. </p>
+<p>4) <strong>application-X-group</strong>
+  - Access to xyz application namepsace alone.</p>
 <p>One group per application namespace, managed in LDAP.</p>
 <hr />
 <h2 id="role-bindings-in-openshift">Role Bindings in OpenShift<a class="headerlink" href="#role-bindings-in-openshift" title="Permanent link">&para;</a></h2>
@@ -2444,35 +2561,117 @@ oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </sp
 
 <h3 id="namespace-level-bindings">Namespace-Level Bindings<a class="headerlink" href="#namespace-level-bindings" title="Permanent link">&para;</a></h3>
 <p>For each application namespace (example: <code>app1-ns</code>):</p>
-<div class="codehilite"><pre><span></span><code><span class="c1"># Admin access in the namespace</span>
-oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>admin<span class="w"> </span>application-1-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+<div class="codehilite"><pre><span></span><code><span class="c1"># Admin access in the namespace for group</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>admin<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
 
-<span class="c1"># RW custom role access in the namespace</span>
-oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-rw-cnf-role<span class="w"> </span>application-1-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+<span class="c1"># RW custom role access in the namespace for group</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-rw-cnf-role<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+
+<span class="c1"># RO custom role access for group </span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-ro-cnf-role<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group
 </code></pre></div>
 
 <p>Repeat for each application group (<code>application-2-group</code>, <code>application-X-group</code>, etc.).</p>
 <hr />
-<h2 id="ldap-group-sync">LDAP Group Sync<a class="headerlink" href="#ldap-group-sync" title="Permanent link">&para;</a></h2>
-<p>To keep LDAP groups synchronized with OpenShift, use <code>oc adm groups sync</code> with a sync configuration file.</p>
-<h3 id="sample-ldap-syncyaml">Sample <code>ldap-sync.yaml</code><a class="headerlink" href="#sample-ldap-syncyaml" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LDAPSyncConfig</span>
-<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
-<span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ldap://ldap.example.com/ou=Groups,dc=example,dc=com&quot;</span>
-<span class="nt">bindDN</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cn=admin,dc=example,dc=com&quot;</span>
-<span class="nt">bindPassword</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/ldap-bind-password&quot;</span>
+<h2 id="challenges">Challenges<a class="headerlink" href="#challenges" title="Permanent link">&para;</a></h2>
+<p>1) Clusters with the same CNF deployed multiple times</p>
+<ul>
+<li>Example: two CMM instances (cmm1, cmm2) but LDAP only has a single group for CMM.</li>
+</ul>
+<blockquote>
+<p>Note:  app1-ns for cmm1 and app2-ns is for cmm2.</p>
+</blockquote>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Admin access in the namespace for group</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>admin<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>admin<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group<span class="w"> </span>-n<span class="w"> </span>app2-ns
 
-<span class="nt">groupUIDNameMapping</span><span class="p">:</span>
-<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-administrator,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-administrator&quot;</span>
-<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-readonly-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-readonly-group&quot;</span>
-<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-readonly-with-monitoring-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-readonly-with-monitoring-group&quot;</span>
-<span class="w">  </span><span class="s">&quot;cn=application-1-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;application-1-group&quot;</span>
-<span class="w">  </span><span class="s">&quot;cn=application-2-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;application-2-group&quot;</span>
-<span class="w">  </span><span class="s">&quot;cn=application-X-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;application-X-group&quot;</span>
+<span class="c1"># RW custom role access in the namespace for group</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-rw-cnf-role<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-rw-cnf-role<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group<span class="w"> </span>-n<span class="w"> </span>app2-ns
 
-<span class="nt">groupMembershipAttributes</span><span class="p">:</span>
-<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">member</span>
+<span class="c1"># RO custom role access for group </span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-ro-cnf-role<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group
+</code></pre></div>
+
+<blockquote>
+<p>in this model, cmm1 admin user and cmm2 admin user being part of same group, so he can access pods on both ns. </p>
+</blockquote>
+<p>2) Multi-country shared cluster scenario</p>
+<ul>
+<li>
+<p>When the same CNF is deployed in a shared cloud across multiple countries, customers do not want users from cmm1 (Country A) to have visibility into cmm2 (Country B) namespaces or pods.</p>
+</li>
+<li>
+<p>If isolation between CNF instances is critical → push customer for extra LDAP group.</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Admin access in the namespace for group</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>admin<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+
+
+<span class="c1"># RW custom role access in the namespace for group</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-rw-cnf-role<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+
+<span class="c1"># RO custom role access for group </span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-ro-cnf-role<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="c1"># Admin access in the namespace for group</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>admin<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-2-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+
+<span class="c1"># RW custom role access in the namespace for group</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-rw-cnf-role<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-2-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+
+<span class="c1"># RO custom role access for group </span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-ro-cnf-role<span class="w"> </span>application<span class="o">(</span>cmm<span class="o">)</span>-1-group
+</code></pre></div>
+
+<p>&lt;!-- 
+3) Multi-country shared cluster scenario (hybrid) - Not preferred. <strong>worst case</strong> need architect approval.</p>
+<ul>
+<li>
+<p>When the same CNF is deployed in a shared cloud across multiple countries, customers do not want users from cmm1 (Country A) to have visibility into cmm2 (Country B) namespaces or pods.</p>
+</li>
+<li>
+<p>but dont want to create additional groups on LDAP</p>
+</li>
+<li>
+<p>Create OCP-local subgroups (cmm-1, cmm-2).</p>
+</li>
+<li>
+<p>Bind them to namespaces accordingly.</p>
+</li>
+</ul>
+<div class="codehilite"><pre><span></span><code><span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">groups</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">cmm1</span><span class="w"> </span><span class="n">user1</span><span class="w"> </span><span class="n">user2</span>
+<span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">groups</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">cmm2</span><span class="w"> </span><span class="n">user3</span><span class="w"> </span><span class="n">user4</span>
+<span class="err">```</span><span class="w"> </span><span class="o">--&gt;</span>
+
+
+<span class="o">---</span>
+
+<span class="cp">## LDAP Group Sync</span>
+
+<span class="n">To</span><span class="w"> </span><span class="kr">keep</span><span class="w"> </span><span class="n">LDAP</span><span class="w"> </span><span class="n">groups</span><span class="w"> </span><span class="n">synchronized</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">OpenShift</span><span class="p">,</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="err">`</span><span class="n">oc</span><span class="w"> </span><span class="n">adm</span><span class="w"> </span><span class="n">groups</span><span class="w"> </span><span class="n">sync</span><span class="err">`</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">sync</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">file</span><span class="p">.</span>
+
+<span class="cp">### Sample `ldap-sync.yaml`</span>
+<span class="err">```</span><span class="n">yaml</span>
+<span class="n">kind</span><span class="o">:</span><span class="w"> </span><span class="n">LDAPSyncConfig</span>
+<span class="n">apiVersion</span><span class="o">:</span><span class="w"> </span><span class="n">v1</span>
+<span class="n">url</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;ldap://ldap.example.com/ou=Groups,dc=example,dc=com&quot;</span>
+<span class="n">bindDN</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;cn=admin,dc=example,dc=com&quot;</span>
+<span class="n">bindPassword</span><span class="o">:</span>
+<span class="w">  </span><span class="n">file</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;/etc/ldap-bind-password&quot;</span>
+
+<span class="n">groupUIDNameMapping</span><span class="o">:</span>
+<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-administrator,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-administrator&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-readonly-group,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-readonly-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-readonly-with-monitoring-group,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-readonly-with-monitoring-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=application-1-group,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;application-1-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=application-2-group,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;application-2-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=application-X-group,ou=Groups,dc=example,dc=com&quot;</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;application-X-group&quot;</span>
+
+<span class="n">groupMembershipAttributes</span><span class="o">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">member</span>
 </code></pre></div>
 
 <h3 id="sync-command">Sync Command<a class="headerlink" href="#sync-command" title="Permanent link">&para;</a></h3>
@@ -2481,11 +2680,28 @@ oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </sp
 
 <p>This ensures that LDAP group membership is continuously reflected inside OpenShift.</p>
 <hr />
+<h2 id="default-users-on-ncp-for-hubnmcnwc-clusters-users-expected-to-be-avaiable-on-ldap-side">Default users on NCP for HUB/NMC/NWC cluster's (user's expected to be avaiable on LDAP side)<a class="headerlink" href="#default-users-on-ncp-for-hubnmcnwc-clusters-users-expected-to-be-avaiable-on-ldap-side" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>For <code>Administrator</code> level privileges</p>
+</blockquote>
+<ul>
+<li>
+<p><code>ncpadmin–</code> <code>ncp-Cluster-administrator</code> group – for the NCP team (our team).</p>
+</li>
+<li>
+<p><code>ncdadmin</code> – <code>ncp-Cluster-administrator</code> group – for the NCD team. This user will be used for NCD git installation (our team)and shared with the NCD team for ongoing lifecycle management.</p>
+</li>
+<li>
+<p><code>ncomadmin</code> – <code>ncp-Cluster-administrator</code> group – for the NCOM team. To be used exclusively for NCOM installation.</p>
+</li>
+</ul>
 <h2 id="end-result">End Result<a class="headerlink" href="#end-result" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong>Cluster administrators</strong> → full control across the cluster.  </li>
-<li><strong>Cluster read-only groups</strong> → visibility across cluster resources, with or without monitoring.  </li>
-<li><strong>Application groups</strong> → access restricted to their own namespace(s), with admin + RW roles.  </li>
+<li><strong>ncp-Cluster-administrator</strong> → full control across the cluster.  </li>
+<li><strong>ncp-Cluster-readonly-group</strong> → visibility across cluster resources with monitoring.  </li>
+<li><strong>ncp-Cluster-readonly-with-monitoring-group</strong> → visibility across cluster resources, with monitoring. </li>
+<li><strong>ncp-clusterreadonly-with-logging-group</strong> → visibility across cluster resources with Logging access. </li>
+<li><strong>application-X-group</strong> → access restricted to their own namespace(s) with admin + RW roles etc.  </li>
 </ul>
 <p>This ensures a <strong>clean, LDAP-driven RBAC model</strong> with no dependency on htpasswd or OCP-local groups.</p>
 
