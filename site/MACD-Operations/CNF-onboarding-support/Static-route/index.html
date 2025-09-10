@@ -2106,6 +2106,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prepare the configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#push-policy-to-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Push Policy to Git
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apply-the-policies-now-using-cgu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apply the policies now using cgu
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2444,6 +2480,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prepare-the-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prepare the configuration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#push-policy-to-git" class="md-nav__link">
+    <span class="md-ellipsis">
+      Push Policy to Git
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#apply-the-policies-now-using-cgu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Apply the policies now using cgu
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2641,6 +2713,113 @@ defined under:</p>
 <blockquote>
 <p>With these configurations, ingress (backward routes) and egress routes are consistently managed across OCP deployments.</p>
 </blockquote>
+<h2 id="implementation">Implementation<a class="headerlink" href="#implementation" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>below example is showed with label. but you validate your changes accordingly. meaning, if route check route on desired nodes. </p>
+</blockquote>
+<h2 id="prepare-the-configuration">Prepare the configuration<a class="headerlink" href="#prepare-the-configuration" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Prepare the config file as described above. </li>
+</ul>
+<h2 id="push-policy-to-git">Push Policy to Git<a class="headerlink" href="#push-policy-to-git" title="Permanent link">&para;</a></h2>
+<p>1)  use the git commands to commitn and push it.</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>~/ncpcwltri04nac/
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Adding a labels&quot;</span>
+git<span class="w"> </span>push
+</code></pre></div>
+
+<hr />
+<h2 id="apply-the-policies-now-using-cgu">Apply the policies now using cgu<a class="headerlink" href="#apply-the-policies-now-using-cgu" title="Permanent link">&para;</a></h2>
+<p>1)  Verify Policies Rendered</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>policy<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>label
+</code></pre></div>
+
+<p>Example output:</p>
+<div class="codehilite"><pre><span></span><code>ztp-policies           ztp-policies.ncpcwltri04nac-labels              inform      NonCompliant   21s
+ztp-policies   ncpcwltri04nac-label-nodes                           inform      NonCompliant   21s
+</code></pre></div>
+
+<blockquote>
+<p><strong>Note</strong>: It might take some time for GitOps to sync with the latest
+changes in Git.\
+You can expedite this by using the <strong>Refresh</strong> option in the ArgoCD
+GUI for the policies app.</p>
+</blockquote>
+<hr />
+<p>2)  Create ClusterGroupUpgrade (CGU)</p>
+<p>Before applying the policy, check the current labels of node <code>ncpcwltri04nac</code>:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--show-labels<span class="w"> </span>--kubeconfig<span class="w"> </span>~/ncpcwltri04nac-kubeconfig
+</code></pre></div>
+
+<p>Also check existing CGUs:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>cgu<span class="w"> </span>-A
+</code></pre></div>
+
+<p>Now, apply the new CGU:</p>
+<div class="codehilite"><pre><span></span><code>cat<span class="w"> </span><span class="s">&lt;&lt; EOF | oc apply -f -</span>
+<span class="s">apiVersion: ran.openshift.io/v1alpha1</span>
+<span class="s">kind: ClusterGroupUpgrade</span>
+<span class="s">metadata:</span>
+<span class="s">  name: ncpcwltri04nac-labels-config-policies</span>
+<span class="s">  namespace: ztp-policies</span>
+<span class="s">spec:</span>
+<span class="s">  managedPolicies:</span>
+<span class="s">  - ncpcwltri04nac-labels-config-policies</span>
+<span class="s">  backup: false</span>
+<span class="s">  clusters:</span>
+<span class="s">  - ncpcwltri04nac</span>
+<span class="s">  enable: true</span>
+<span class="s">  preCaching: false</span>
+<span class="s">  preCachingConfigRef: {}</span>
+<span class="s">  remediationStrategy:</span>
+<span class="s">    maxConcurrency: 1</span>
+<span class="s">    timeout: 240</span>
+<span class="s">EOF</span>
+</code></pre></div>
+
+<p>Verify the CGU:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>cgu<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ncpcwltri04nac
+</code></pre></div>
+
+<hr />
+<p>3)  Check Policy Status</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>policy<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>label
+</code></pre></div>
+
+<p>Example output during enforcement:</p>
+<div class="codehilite"><pre><span></span><code>ncpcwltri04nac           ztp-policies.ncpcwltri04nac-day2-ncpcwltri04nac-label-nodes-68ffc   enforce     Compliant     13s
+ncpcwltri04nac           ztp-policies.ncpcwltri04nac-label-nodes                  inform      NonCompliant  11m
+ztp-policies   ncpcwltri04nac-labels-config-policies               enforce     nonCompliant     13s
+ztp-policies   ncpcwltri04nac-label-nodes                               inform      NonCompliant  11m
+</code></pre></div>
+
+<p>After a few minutes, policies should reach <strong>Compliant</strong> status:</p>
+<div class="codehilite"><pre><span></span><code>ncpcwltri04nac           ztp-policies.ncpcwltri04nac-day2-ncpcwltri04nac-label-nodes-68ffc   enforce     Compliant     33s
+ncpcwltri04nac           ztp-policies.ncpcwltri04nac-label-nodes                  inform      Compliant     11m
+ztp-policies   ncpcwltri04nac-labels-config-policies               inform     Compliant     33s
+ztp-policies   ncpcwltri04nac-label-nodes                               inform      Compliant     11m
+</code></pre></div>
+
+<hr />
+<p>4)  Verify Node Labels</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>nodes<span class="w"> </span>--show-labels<span class="w"> </span>--kubeconfig<span class="w"> </span>
+</code></pre></div>
+
+<p>You should now see the new label applied:</p>
+<div class="codehilite"><pre><span></span><code>is_cmm_fds=true
+</code></pre></div>
+
+<hr />
+<p>5)  CGU Cleanup</p>
+<p>After a few minutes, enforced policies will also be deleted.\
+Check CGU status after successful compliance:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>cgu<span class="w"> </span>-A<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>label
+</code></pre></div>
+
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code>ztp-policies   ncpcwltri04nac-labels    40m   Completed   All clusters are compliant with all the managed policies
+</code></pre></div>
 
 
 

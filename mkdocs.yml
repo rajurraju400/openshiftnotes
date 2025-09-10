@@ -92,6 +92,7 @@ nav:
           - Nessus Security Access: MACD-Operations/CNF-onboarding-support/configure_openshift_tenable.md
           - Creating labels post installation: MACD-Operations/CNF-onboarding-support/createlabelpostinstall.md
           - OCP route ingress and egress: MACD-Operations/CNF-onboarding-support/Static-route.md
+          - LDAP Intergration: MACD-Operations/CNF-onboarding-support/ocp_rbac_option1_with_sync.md
       - CNF Onboarding Prerequisites:
           - NCOM : MACD-Operations/CNF-onboarding-prerequisites/NCOM.md
           - NCD : MACD-Operations/CNF-onboarding-prerequisites/NCD.md
