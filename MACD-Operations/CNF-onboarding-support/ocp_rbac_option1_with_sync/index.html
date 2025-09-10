@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../../usermanagement/user-management/">
+        <link rel="prev" href="../Static-route/">
       
       
-        <link rel="next" href="../ACM-localbackup/">
+        <link rel="next" href="../../CNF-onboarding-prerequisites/NCC/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>ACM GEO Red - OpenShift Notes</title>
+        <title>LDAP Intergration - OpenShift Notes</title>
       
     
     
@@ -77,6 +77,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#openshift-rbac-model-ldap-driven-groups" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -108,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              ACM GEO Red
+              LDAP Intergration
             
           </span>
         </div>
@@ -440,20 +445,18 @@
       
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
@@ -469,7 +472,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             OpenShift
@@ -521,7 +524,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../projectmanagement/scope/" class="md-nav__link">
+      <a href="../../../openshift/projectmanagement/scope/" class="md-nav__link">
         
   
   
@@ -590,7 +593,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../deployment/automation/nokia-site-config-fixes/" class="md-nav__link">
+      <a href="../../../openshift/deployment/automation/nokia-site-config-fixes/" class="md-nav__link">
         
   
   
@@ -659,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usermanagement/remove-kubeadmin/" class="md-nav__link">
+      <a href="../../../openshift/usermanagement/remove-kubeadmin/" class="md-nav__link">
         
   
   
@@ -682,7 +685,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../usermanagement/user-management/" class="md-nav__link">
+      <a href="../../../openshift/usermanagement/user-management/" class="md-nav__link">
         
   
   
@@ -710,20 +713,18 @@
                 
   
   
-    
   
   
-  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
         
           
           <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
@@ -739,7 +740,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             Backup & Restore
@@ -750,17 +751,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../../openshift/backup-restore/ACM-GEO-RED/" class="md-nav__link">
         
   
   
@@ -771,7 +765,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -784,7 +777,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../ACM-localbackup/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/ACM-localbackup/" class="md-nav__link">
         
   
   
@@ -807,7 +800,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../AWS-S3/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/AWS-S3/" class="md-nav__link">
         
   
   
@@ -830,7 +823,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-backup/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/etcd-backup/" class="md-nav__link">
         
   
   
@@ -853,7 +846,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../etcd-restore/" class="md-nav__link">
+      <a href="../../../openshift/backup-restore/etcd-restore/" class="md-nav__link">
         
   
   
@@ -922,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Intergration/syslog/" class="md-nav__link">
+      <a href="../../../openshift/Intergration/syslog/" class="md-nav__link">
         
   
   
@@ -991,7 +984,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenace/cluster-stop-start/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/cluster-stop-start/" class="md-nav__link">
         
   
   
@@ -1014,7 +1007,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenace/reboot-nodes/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/reboot-nodes/" class="md-nav__link">
         
   
   
@@ -1037,7 +1030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenace/openshift_scalein_guide/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/openshift_scalein_guide/" class="md-nav__link">
         
   
   
@@ -1060,7 +1053,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../maintenace/openshift_scaleout_guide/" class="md-nav__link">
+      <a href="../../../openshift/maintenace/openshift_scaleout_guide/" class="md-nav__link">
         
   
   
@@ -1129,7 +1122,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/metalb-troubleshooting/" class="md-nav__link">
+      <a href="../../../openshift/networking/metalb-troubleshooting/" class="md-nav__link">
         
   
   
@@ -1152,7 +1145,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../networking/metallb-configuration/" class="md-nav__link">
+      <a href="../../../openshift/networking/metallb-configuration/" class="md-nav__link">
         
   
   
@@ -1221,7 +1214,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storagemanagement/ceph-rebalanceissue/" class="md-nav__link">
+      <a href="../../../openshift/storagemanagement/ceph-rebalanceissue/" class="md-nav__link">
         
   
   
@@ -1244,7 +1237,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storagemanagement/storage-node-replacement/" class="md-nav__link">
+      <a href="../../../openshift/storagemanagement/storage-node-replacement/" class="md-nav__link">
         
   
   
@@ -1267,7 +1260,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../storagemanagement/one-OSD-not-created/" class="md-nav__link">
+      <a href="../../../openshift/storagemanagement/one-OSD-not-created/" class="md-nav__link">
         
   
   
@@ -1336,7 +1329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/nsenter/" class="md-nav__link">
+      <a href="../../../openshift/troubleshooting/nsenter/" class="md-nav__link">
         
   
   
@@ -1359,7 +1352,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../troubleshooting/ncomsa/" class="md-nav__link">
+      <a href="../../../openshift/troubleshooting/ncomsa/" class="md-nav__link">
         
   
   
@@ -1428,7 +1421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../disaster-management/infra-manager-redeployment/" class="md-nav__link">
+      <a href="../../../openshift/disaster-management/infra-manager-redeployment/" class="md-nav__link">
         
   
   
@@ -1451,7 +1444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../disaster-management/hub-cluster-redeployment/master-replacment/" class="md-nav__link">
+      <a href="../../../openshift/disaster-management/hub-cluster-redeployment/master-replacment/" class="md-nav__link">
         
   
   
@@ -1486,18 +1479,20 @@
       
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
           <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1513,7 +1508,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             MACD Operations
@@ -1565,7 +1560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/MACD-management/scope/" class="md-nav__link">
+      <a href="../../MACD-management/scope/" class="md-nav__link">
         
   
   
@@ -1593,18 +1588,20 @@
                 
   
   
+    
   
   
+  
     
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
         
           
           <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
@@ -1620,7 +1617,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             CNF Onboarding Support
@@ -1634,7 +1631,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/image-tls-issue/" class="md-nav__link">
+      <a href="../image-tls-issue/" class="md-nav__link">
         
   
   
@@ -1657,7 +1654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/oclogin-tls-issue/" class="md-nav__link">
+      <a href="../oclogin-tls-issue/" class="md-nav__link">
         
   
   
@@ -1680,7 +1677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/proxy-cache-pod/" class="md-nav__link">
+      <a href="../proxy-cache-pod/" class="md-nav__link">
         
   
   
@@ -1703,7 +1700,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/rolebinding/" class="md-nav__link">
+      <a href="../rolebinding/" class="md-nav__link">
         
   
   
@@ -1726,7 +1723,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/Failtoconfigure_nncp/" class="md-nav__link">
+      <a href="../Failtoconfigure_nncp/" class="md-nav__link">
         
   
   
@@ -1749,7 +1746,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/kubeconfig/" class="md-nav__link">
+      <a href="../kubeconfig/" class="md-nav__link">
         
   
   
@@ -1772,7 +1769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/NCP-default-usersandrole/" class="md-nav__link">
+      <a href="../NCP-default-usersandrole/" class="md-nav__link">
         
   
   
@@ -1795,7 +1792,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/ts-tools/" class="md-nav__link">
+      <a href="../ts-tools/" class="md-nav__link">
         
   
   
@@ -1818,7 +1815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/istio-for-cnf/" class="md-nav__link">
+      <a href="../istio-for-cnf/" class="md-nav__link">
         
   
   
@@ -1841,7 +1838,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/restrict-project-creation/" class="md-nav__link">
+      <a href="../restrict-project-creation/" class="md-nav__link">
         
   
   
@@ -1864,7 +1861,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/configure_openshift_tenable/" class="md-nav__link">
+      <a href="../configure_openshift_tenable/" class="md-nav__link">
         
   
   
@@ -1887,7 +1884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/createlabelpostinstall/" class="md-nav__link">
+      <a href="../createlabelpostinstall/" class="md-nav__link">
         
   
   
@@ -1910,7 +1907,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/Static-route/" class="md-nav__link">
+      <a href="../Static-route/" class="md-nav__link">
         
   
   
@@ -1930,10 +1927,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-support/ocp_rbac_option1_with_sync/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    LDAP Intergration
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -1944,6 +1963,134 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-groups-to-request-from-customer" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP Groups to Request from Customer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LDAP Groups to Request from Customer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-level-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster-Level Groups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-level-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application-Level Groups
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role-bindings-in-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Bindings in OpenShift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Role Bindings in OpenShift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-level-bindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster-Level Bindings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace-level-bindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespace-Level Bindings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-group-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP Group Sync
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LDAP Group Sync">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sample-ldap-syncyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample ldap-sync.yaml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sync-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sync Command
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      End Result
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2002,7 +2149,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCOM.md" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/NCOM.md" class="md-nav__link">
         
   
   
@@ -2025,7 +2172,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCD.md" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/NCD.md" class="md-nav__link">
         
   
   
@@ -2048,7 +2195,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/NCC/" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/NCC/" class="md-nav__link">
         
   
   
@@ -2071,7 +2218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../MACD-Operations/CNF-onboarding-prerequisites/CMG.md" class="md-nav__link">
+      <a href="../../CNF-onboarding-prerequisites/CMG.md" class="md-nav__link">
         
   
   
@@ -2119,6 +2266,124 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-groups-to-request-from-customer" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP Groups to Request from Customer
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LDAP Groups to Request from Customer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-level-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster-Level Groups
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#application-level-groups" class="md-nav__link">
+    <span class="md-ellipsis">
+      Application-Level Groups
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#role-bindings-in-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Role Bindings in OpenShift
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Role Bindings in OpenShift">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cluster-level-bindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster-Level Bindings
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#namespace-level-bindings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Namespace-Level Bindings
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ldap-group-sync" class="md-nav__link">
+    <span class="md-ellipsis">
+      LDAP Group Sync
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="LDAP Group Sync">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sample-ldap-syncyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sample ldap-sync.yaml
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sync-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sync Command
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#end-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      End Result
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -2134,9 +2399,95 @@
 
 
 
-  <h1>ACM GEO Red</h1>
+<h1 id="openshift-rbac-model-ldap-driven-groups">OpenShift RBAC Model  (LDAP-Driven Groups)<a class="headerlink" href="#openshift-rbac-model-ldap-driven-groups" title="Permanent link">&para;</a></h1>
+<p>In this model, all access to the OpenShift cluster is controlled directly by <strong>LDAP groups</strong>.<br />
+Each group is created and managed in LDAP, and OpenShift role bindings are mapped to these groups.</p>
+<hr />
+<h2 id="ldap-groups-to-request-from-customer">LDAP Groups to Request from Customer<a class="headerlink" href="#ldap-groups-to-request-from-customer" title="Permanent link">&para;</a></h2>
+<h3 id="cluster-level-groups">Cluster-Level Groups<a class="headerlink" href="#cluster-level-groups" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>ncp-Cluster-administrator</strong>  </li>
+<li>
+<p>Full administrative control of the cluster (mapped to <code>cluster-admin</code>).</p>
+</li>
+<li>
+<p><strong>ncp-Cluster-readonly-group</strong>  </p>
+</li>
+<li>
+<p>Read-only visibility into cluster resources (mapped to <code>ncp-default-ro-cnf-role</code>).</p>
+</li>
+<li>
+<p><strong>ncp-Cluster-readonly-with-monitoring-group</strong>  </p>
+</li>
+<li>Read-only access + monitoring visibility (mapped to <code>ncp-default-ro-cnf-role</code> + <code>cluster-monitoring-view</code>).</li>
+</ol>
+<h3 id="application-level-groups">Application-Level Groups<a class="headerlink" href="#application-level-groups" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>application-1-group</strong></li>
+<li><strong>application-2-group</strong></li>
+<li><strong>application-X-group</strong></li>
+</ul>
+<p>One group per application namespace, managed in LDAP.</p>
+<hr />
+<h2 id="role-bindings-in-openshift">Role Bindings in OpenShift<a class="headerlink" href="#role-bindings-in-openshift" title="Permanent link">&para;</a></h2>
+<h3 id="cluster-level-bindings">Cluster-Level Bindings<a class="headerlink" href="#cluster-level-bindings" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Cluster administrators</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-group<span class="w"> </span>cluster-admin<span class="w"> </span>ncp-Cluster-administrator
 
+<span class="c1"># Cluster-wide read-only</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-group<span class="w"> </span>ncp-default-ro-cnf-role<span class="w"> </span>ncp-Cluster-readonly-group
 
+<span class="c1"># Cluster-wide read-only + monitoring</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-group<span class="w"> </span>ncp-default-ro-cnf-role<span class="w"> </span>ncp-Cluster-readonly-with-monitoring-group
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-cluster-role-to-group<span class="w"> </span>cluster-monitoring-view<span class="w"> </span>ncp-Cluster-readonly-with-monitoring-group
+</code></pre></div>
+
+<h3 id="namespace-level-bindings">Namespace-Level Bindings<a class="headerlink" href="#namespace-level-bindings" title="Permanent link">&para;</a></h3>
+<p>For each application namespace (example: <code>app1-ns</code>):</p>
+<div class="codehilite"><pre><span></span><code><span class="c1"># Admin access in the namespace</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>admin<span class="w"> </span>application-1-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+
+<span class="c1"># RW custom role access in the namespace</span>
+oc<span class="w"> </span>adm<span class="w"> </span>policy<span class="w"> </span>add-role-to-group<span class="w"> </span>ncp-default-rw-cnf-role<span class="w"> </span>application-1-group<span class="w"> </span>-n<span class="w"> </span>app1-ns
+</code></pre></div>
+
+<p>Repeat for each application group (<code>application-2-group</code>, <code>application-X-group</code>, etc.).</p>
+<hr />
+<h2 id="ldap-group-sync">LDAP Group Sync<a class="headerlink" href="#ldap-group-sync" title="Permanent link">&para;</a></h2>
+<p>To keep LDAP groups synchronized with OpenShift, use <code>oc adm groups sync</code> with a sync configuration file.</p>
+<h3 id="sample-ldap-syncyaml">Sample <code>ldap-sync.yaml</code><a class="headerlink" href="#sample-ldap-syncyaml" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">LDAPSyncConfig</span>
+<span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ldap://ldap.example.com/ou=Groups,dc=example,dc=com&quot;</span>
+<span class="nt">bindDN</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;cn=admin,dc=example,dc=com&quot;</span>
+<span class="nt">bindPassword</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;/etc/ldap-bind-password&quot;</span>
+
+<span class="nt">groupUIDNameMapping</span><span class="p">:</span>
+<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-administrator,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-administrator&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-readonly-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-readonly-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=ncp-Cluster-readonly-with-monitoring-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;ncp-Cluster-readonly-with-monitoring-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=application-1-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;application-1-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=application-2-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;application-2-group&quot;</span>
+<span class="w">  </span><span class="s">&quot;cn=application-X-group,ou=Groups,dc=example,dc=com&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;application-X-group&quot;</span>
+
+<span class="nt">groupMembershipAttributes</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">member</span>
+</code></pre></div>
+
+<h3 id="sync-command">Sync Command<a class="headerlink" href="#sync-command" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>adm<span class="w"> </span>groups<span class="w"> </span>sync<span class="w"> </span>--sync-config<span class="o">=</span>ldap-sync.yaml<span class="w"> </span>--confirm
+</code></pre></div>
+
+<p>This ensures that LDAP group membership is continuously reflected inside OpenShift.</p>
+<hr />
+<h2 id="end-result">End Result<a class="headerlink" href="#end-result" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Cluster administrators</strong> → full control across the cluster.  </li>
+<li><strong>Cluster read-only groups</strong> → visibility across cluster resources, with or without monitoring.  </li>
+<li><strong>Application groups</strong> → access restricted to their own namespace(s), with admin + RW roles.  </li>
+</ul>
+<p>This ensures a <strong>clean, LDAP-driven RBAC model</strong> with no dependency on htpasswd or OCP-local groups.</p>
 
 
 
