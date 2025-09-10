@@ -159,23 +159,6 @@ oc adm policy add-role-to-group ncp-default-rw-cnf-role application(cmm)-2-group
 # RO custom role access for group 
 oc adm policy add-role-to-group ncp-default-ro-cnf-role application(cmm)-1-group
 ```
-<!-- 
-3) Multi-country shared cluster scenario (hybrid) - Not preferred. **worst case** need architect approval.
-
-  - When the same CNF is deployed in a shared cloud across multiple countries, customers do not want users from cmm1 (Country A) to have visibility into cmm2 (Country B) namespaces or pods.
-
-  - but dont want to create additional groups on LDAP
-
-  - Create OCP-local subgroups (cmm-1, cmm-2).
-
-  - Bind them to namespaces accordingly.
-
-```
-oc adm groups new cmm1 user1 user2
-oc adm groups new cmm2 user3 user4
-``` -->
-
-
 ---
 
 ## LDAP Group Sync
@@ -183,6 +166,7 @@ oc adm groups new cmm2 user3 user4
 To keep LDAP groups synchronized with OpenShift, use `oc adm groups sync` with a sync configuration file.
 
 ### Sample `ldap-sync.yaml`
+
 ```yaml
 kind: LDAPSyncConfig
 apiVersion: v1
@@ -204,6 +188,7 @@ groupMembershipAttributes:
 ```
 
 ### Sync Command
+
 ```bash
 oc adm groups sync --sync-config=ldap-sync.yaml --confirm
 ```
