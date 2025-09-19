@@ -2117,6 +2117,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2422,6 +2437,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Summary">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -2490,7 +2520,50 @@ selecting upstream resolvers. Other policies such as <strong>RoundRobin</strong>
 </code></pre></div>
 
 <h4 id="example-2-multi-domain">Example-2: (multi domain)<a class="headerlink" href="#example-2-multi-domain" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>
+<div class="codehilite"><pre><span></span><code><span class="n">apiVersion</span><span class="o">:</span><span class="w"> </span><span class="n">operator</span><span class="o">.</span><span class="na">openshift</span><span class="o">.</span><span class="na">io</span><span class="o">/</span><span class="n">v1</span>
+<span class="n">kind</span><span class="o">:</span><span class="w"> </span><span class="n">DNS</span>
+<span class="n">metadata</span><span class="o">:</span>
+<span class="w">  </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="k">default</span>
+<span class="n">spec</span><span class="o">:</span>
+<span class="w">  </span><span class="n">servers</span><span class="o">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">forwardPlugin</span><span class="o">:</span>
+<span class="w">      </span><span class="n">policy</span><span class="o">:</span><span class="w"> </span><span class="n">Random</span>
+<span class="w">      </span><span class="n">upstreams</span><span class="o">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="mf">10.207</span><span class="o">.</span><span class="mf">100.189</span>
+<span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">halifaxSBCcogeco</span>
+<span class="w">    </span><span class="n">zones</span><span class="o">:</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">on</span><span class="o">.</span><span class="na">nni</span><span class="o">.</span><span class="na">mobile</span><span class="o">.</span><span class="na">cogeco</span><span class="o">.</span><span class="na">ca</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">forwardPlugin</span><span class="o">:</span>
+<span class="w">      </span><span class="n">policy</span><span class="o">:</span><span class="w"> </span><span class="n">Random</span>
+<span class="w">      </span><span class="n">upstreams</span><span class="o">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="mf">172.16</span><span class="o">.</span><span class="mf">103.106</span>
+<span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">barriesbccogeco</span>
+<span class="w">    </span><span class="n">zones</span><span class="o">:</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">qc</span><span class="o">.</span><span class="na">nni</span><span class="o">.</span><span class="na">mobile</span><span class="o">.</span><span class="na">cogeco</span><span class="o">.</span><span class="na">ca</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">lab</span><span class="o">.</span><span class="na">nni</span><span class="o">.</span><span class="na">mobile</span><span class="o">.</span><span class="na">cogeco</span><span class="o">.</span><span class="na">ca</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">forwardPlugin</span><span class="o">:</span>
+<span class="w">      </span><span class="n">policy</span><span class="o">:</span><span class="w"> </span><span class="n">Random</span>
+<span class="w">      </span><span class="n">upstreams</span><span class="o">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="mf">10.208</span><span class="o">.</span><span class="mf">51.116</span>
+<span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">hlfxsstn00</span>
+<span class="w">    </span><span class="n">zones</span><span class="o">:</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">eng</span><span class="o">.</span><span class="na">eastlink</span><span class="o">.</span><span class="na">ca</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">forwardPlugin</span><span class="o">:</span>
+<span class="w">      </span><span class="n">policy</span><span class="o">:</span><span class="w"> </span><span class="n">Random</span>
+<span class="w">      </span><span class="n">upstreams</span><span class="o">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="mf">10.207</span><span class="o">.</span><span class="mf">100.190</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="mf">172.16</span><span class="o">.</span><span class="mf">103.88</span>
+<span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">halifaxSBCbell</span>
+<span class="w">    </span><span class="n">zones</span><span class="o">:</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">ng</span><span class="o">.</span><span class="mi">911</span><span class="n">bell</span><span class="o">.</span><span class="na">ca</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">forwardPlugin</span><span class="o">:</span>
+<span class="w">      </span><span class="n">policy</span><span class="o">:</span><span class="w"> </span><span class="n">Random</span>
+<span class="w">      </span><span class="n">upstreams</span><span class="o">:</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="mf">172.16</span><span class="o">.</span><span class="mf">103.82</span>
+<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="mf">10.207</span><span class="o">.</span><span class="mf">100.188</span>
+<span class="w">    </span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="n">barrieSBCtelus</span>
+<span class="w">    </span><span class="n">zones</span><span class="o">:</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">ng911</span><span class="o">.</span><span class="na">telus</span><span class="o">.</span><span class="na">ca</span>
 </code></pre></div>
 
 <p>After the new DNS operator object (configuration) is created, it can be
@@ -2574,6 +2647,8 @@ dns-operator<span class="w">   </span><span class="m">1</span>/1<span class="w">
 <hr />
 <h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
 <p>This guide covered how to configure zone-specific DNS forwarders with the OpenShift DNS Operator using <code>forwardPlugin</code> settings. It also included validation steps to confirm the operator and configuration are functioning correctly.</p>
+<h3 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h3>
+<p>This guide prepared under the refer of NCP 24.7mp1 installation guide + Eastlink project experience. </p>
 
 
 
