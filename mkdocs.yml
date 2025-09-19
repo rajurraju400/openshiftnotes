@@ -82,7 +82,7 @@ nav:
           - Image TLS Issue: MACD-Operations/CNF-onboarding-support/image-tls-issue.md
           - OCLogin TLS Issue: MACD-Operations/CNF-onboarding-support/oclogin-tls-issue.md
           - Proxy Cache Pod: MACD-Operations/CNF-onboarding-support/proxy-cache-pod.md
-          - Role Allocation for CNF user: MACD-Operations/CNF-onboarding-support/rolebinding.md
+          # - Role Allocation for CNF user: MACD-Operations/CNF-onboarding-support/rolebinding.md
           - Failed to configure or Degraded: MACD-Operations/CNF-onboarding-support/Failtoconfigure_nncp.md
           - Kubeconfig overlapping: MACD-Operations/CNF-onboarding-support/kubeconfig.md
           - NCP Standard user and role Management: MACD-Operations/CNF-onboarding-support/NCP-default-usersandrole.md

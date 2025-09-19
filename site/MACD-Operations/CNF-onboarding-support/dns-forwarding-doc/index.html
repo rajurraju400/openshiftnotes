@@ -2009,6 +2009,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#egressip-for-coredns" class="md-nav__link">
+    <span class="md-ellipsis">
+      EgressIP for coredns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staticroute-for-coredns-via-signaling-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staticroute for coredns via signaling IP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2329,6 +2353,30 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Prerequisites">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#egressip-for-coredns" class="md-nav__link">
+    <span class="md-ellipsis">
+      EgressIP for coredns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#staticroute-for-coredns-via-signaling-ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      Staticroute for coredns via signaling IP
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2479,6 +2527,34 @@ zone-specific <code>forwardPlugin</code> settings with the target DNS forwarders
 <p><strong>Note:</strong> Zone-specific external DNS forwarders cannot be defined for
 the cluster domain <code>cluster.local</code>.</p>
 </blockquote>
+<h3 id="egressip-for-coredns">EgressIP for coredns<a class="headerlink" href="#egressip-for-coredns" title="Permanent link">&para;</a></h3>
+<p>Egress configuration is also really important prerequisites because out going traffic on the <code>openshift-dns-operator</code> routed via gw node where it has signal traffic. </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ hn_cwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">egressip</span>
+<span class="n">NAME</span><span class="w">                                         </span><span class="n">EGRESSIPS</span><span class="w">       </span><span class="n">ASSIGNED</span><span class="w"> </span><span class="n">NODE</span><span class="w">                        </span><span class="n">ASSIGNED</span><span class="w"> </span><span class="n">EGRESSIPS</span>
+<span class="n">egress</span><span class="o">-</span><span class="n">cnf</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="n">dns</span><span class="o">-</span><span class="n">operator</span><span class="w">            </span><span class="mf">100.77.77.59</span><span class="w">   </span><span class="n">gateway2</span><span class="p">.</span><span class="n">hnevopcwl01</span><span class="p">.</span><span class="n">mnc002</span><span class="p">.</span><span class="n">mcc708</span><span class="w">    </span><span class="mf">100.77.77.59</span>
+<span class="n">egress</span><span class="o">-</span><span class="n">hnevocattn01</span><span class="o">-</span><span class="n">oam</span><span class="o">-</span><span class="n">snat</span><span class="w">                 </span><span class="mf">10.89.138.200</span><span class="w">   </span><span class="n">gateway2</span><span class="p">.</span><span class="n">hnevopcwl01</span><span class="p">.</span><span class="n">mnc002</span><span class="p">.</span><span class="n">mcc708</span><span class="w">   </span><span class="mf">10.89.138.200</span>
+</code></pre></div>
+
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@ncputility ~ hn_cwl_rc</span><span class="o">]</span><span class="err">$</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">egressip</span><span class="w"> </span><span class="n">egress</span><span class="o">-</span><span class="n">cnf</span><span class="o">-</span><span class="n">oam</span><span class="o">-</span><span class="n">snat</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">yaml</span>
+<span class="nl">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="n">k8s</span><span class="p">.</span><span class="n">ovn</span><span class="p">.</span><span class="n">org</span><span class="o">/</span><span class="n">v1</span>
+<span class="nl">kind</span><span class="p">:</span><span class="w"> </span><span class="n">EgressIP</span>
+<span class="nl">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">creationTimestamp</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;2025-04-22T15:47:47Z&quot;</span>
+<span class="w">  </span><span class="nl">generation</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">egress</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="n">dns</span><span class="o">-</span><span class="n">operator</span>
+<span class="w">  </span><span class="nl">resourceVersion</span><span class="p">:</span><span class="w"> </span><span class="ss">&quot;798389&quot;</span>
+<span class="w">  </span><span class="nl">uid</span><span class="p">:</span><span class="w"> </span><span class="n">b4c9e899</span><span class="o">-</span><span class="mf">014e-43</span><span class="n">e5</span><span class="o">-</span><span class="mf">8e9</span><span class="n">e</span><span class="o">-</span><span class="mi">8</span><span class="n">db7c9556339</span>
+<span class="nl">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nl">egressIPs</span><span class="p">:</span>
+<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="mf">100.77.77.59</span>
+<span class="w">  </span><span class="nl">namespaceSelector</span><span class="p">:</span>
+<span class="w">    </span><span class="nl">matchLabels</span><span class="p">:</span>
+<span class="w">      </span><span class="n">kubernetes</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">metadata</span><span class="p">.</span><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">dns</span><span class="o">-</span><span class="n">operator</span><span class="w"> </span>
+<span class="o">[</span><span class="n">root@ncputility ~ hn_cwl_rc</span><span class="o">]</span><span class="err">$</span>
+</code></pre></div>
+
+<h3 id="staticroute-for-coredns-via-signaling-ip">Staticroute for coredns via signaling IP<a class="headerlink" href="#staticroute-for-coredns-via-signaling-ip" title="Permanent link">&para;</a></h3>
+<p>staticroute configuration is also really important prerequisites because out going traffic on the <code>openshift-dns-operator</code> routed via gw node where it has signal traffic. it should be have enough static route defination on route table here. </p>
 <hr />
 <h2 id="important-notes">Important Notes<a class="headerlink" href="#important-notes" title="Permanent link">&para;</a></h2>
 <ul>
@@ -2566,8 +2642,7 @@ selecting upstream resolvers. Other policies such as <strong>RoundRobin</strong>
 <span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">ng911</span><span class="o">.</span><span class="na">telus</span><span class="o">.</span><span class="na">ca</span>
 </code></pre></div>
 
-<p>After the new DNS operator object (configuration) is created, it can be
-added to the cluster via <code>PolicyGenTemplate</code>:</p>
+<p>After the new DNS operator object (configuration) is created, it can be added to the cluster via <code>PolicyGenTemplate</code>:</p>
 <div class="codehilite"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">…</span>
 <span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># NCPFM-501 CoreDNS with zone-specific forwardPlugin settings</span>
 <span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">- fileName</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coredns/dns-forwarding.yaml</span>
