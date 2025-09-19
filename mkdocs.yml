@@ -93,6 +93,7 @@ nav:
           - Creating labels post installation: MACD-Operations/CNF-onboarding-support/createlabelpostinstall.md
           - OCP route ingress and egress: MACD-Operations/CNF-onboarding-support/Static-route.md
           - LDAP Intergration: MACD-Operations/CNF-onboarding-support/ocp_rbac_option1_with_sync.md
+          - DNS Forward Intergration: MACD-Operations/CNF-onboarding-support/dns-forwarding-doc.md
       - CNF Onboarding Prerequisites:
           - NCOM : MACD-Operations/CNF-onboarding-prerequisites/NCOM.md
           - NCD : MACD-Operations/CNF-onboarding-prerequisites/NCD.md
