@@ -13,10 +13,10 @@
       
       
       
-        <link rel="prev" href="../../MACD-management/scope/">
+        <link rel="prev" href="../ocp_rbac_option1_with_sync/">
       
       
-        <link rel="next" href="../oclogin-tls-issue/">
+        <link rel="next" href="../../CNF-onboarding-prerequisites/NCC/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Image TLS Issue - OpenShift Notes</title>
+        <title>DNS Forward Intergration - OpenShift Notes</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#container-image-download-issue-due-to-tls-problem" class="md-skip">
+        <a href="#dns-with-optional-zone-specific-forwarder-configuration" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Image TLS Issue
+              DNS Forward Intergration
             
           </span>
         </div>
@@ -1628,32 +1628,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Image TLS Issue
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../image-tls-issue/" class="md-nav__link">
         
   
   
@@ -1664,68 +1642,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-newly" class="md-nav__link">
-    <span class="md-ellipsis">
-      Creating tls certificate on the OCP cluster as additional tls newly
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Creating tls certificate on the OCP cluster as additional tls newly">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#this-step-will-resolve-issue-on-linux-os-levelbastion-host-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      This step will resolve issue on Linux OS level(bastion host level)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#on-the-ocp-cluster-level-changes-tls-creation" class="md-nav__link">
-    <span class="md-ellipsis">
-      On the OCP cluster level changes, TLS Creation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-add" class="md-nav__link">
-    <span class="md-ellipsis">
-      Creating tls certificate on the OCP cluster as additional tls ADD
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2034,10 +1950,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../dns-forwarding-doc/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    DNS Forward Intergration
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2048,6 +1986,143 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-dns-forwardingyaml" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: dns-forwarding.yaml
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example: dns-forwarding.yaml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-2-multi-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example-2: (multi domain)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-dns-operator-and-forwardplugin-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check DNS Operator and forwardPlugin Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validate-current-dns-default-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validate Current dns-default Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-configmap-dns-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspect ConfigMap dns-default
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-dns-operator-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      View DNS Operator Logs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2233,28 +2308,103 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-newly" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating tls certificate on the OCP cluster as additional tls newly
+      Prerequisites
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Creating tls certificate on the OCP cluster as additional tls newly">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#important-notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Important Notes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuration">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#this-step-will-resolve-issue-on-linux-os-levelbastion-host-level" class="md-nav__link">
+  <a href="#example-dns-forwardingyaml" class="md-nav__link">
     <span class="md-ellipsis">
-      This step will resolve issue on Linux OS level(bastion host level)
+      Example: dns-forwarding.yaml
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Example: dns-forwarding.yaml">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-2-multi-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example-2: (multi domain)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Validation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Validation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check-dns-operator-and-forwardplugin-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      Check DNS Operator and forwardPlugin Status
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#on-the-ocp-cluster-level-changes-tls-creation" class="md-nav__link">
+  <a href="#validate-current-dns-default-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      On the OCP cluster level changes, TLS Creation
+      Validate Current dns-default Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inspect-configmap-dns-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspect ConfigMap dns-default
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#view-dns-operator-logs" class="md-nav__link">
+    <span class="md-ellipsis">
+      View DNS Operator Logs
     </span>
   </a>
   
@@ -2266,9 +2416,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-add" class="md-nav__link">
+  <a href="#summary" class="md-nav__link">
     <span class="md-ellipsis">
-      Creating tls certificate on the OCP cluster as additional tls ADD
+      Summary
     </span>
   </a>
   
@@ -2290,89 +2440,140 @@
 
 
 
-<h1 id="container-image-download-issue-due-to-tls-problem">Container Image download issue due to TLS problem.<a class="headerlink" href="#container-image-download-issue-due-to-tls-problem" title="Permanent link">&para;</a></h1>
-<h3 id="creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-newly">Creating tls certificate on the OCP cluster as additional tls <code>newly</code><a class="headerlink" href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-newly" title="Permanent link">&para;</a></h3>
-<h4 id="this-step-will-resolve-issue-on-linux-os-levelbastion-host-level">This step will resolve issue on Linux OS level(bastion host level)<a class="headerlink" href="#this-step-will-resolve-issue-on-linux-os-levelbastion-host-level" title="Permanent link">&para;</a></h4>
+<h1 id="dns-with-optional-zone-specific-forwarder-configuration">DNS with Optional Zone-Specific Forwarder Configuration<a class="headerlink" href="#dns-with-optional-zone-specific-forwarder-configuration" title="Permanent link">&para;</a></h1>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
+<p>The configuration can be started after installing the DNS Operator via subscription from a common <code>PolicyGenTemplate</code>.</p>
+<p>To add zone-specific external DNS forwarders that override the default forwarding configuration in <code>/etc/resolv.conf</code>, you must create
+zone-specific <code>forwardPlugin</code> settings with the target DNS forwarders in <code>spec.servers</code> for every zone.</p>
 <blockquote>
-<p>In order to be able to push images (for example) from the infra node to this Quay, the rootCA certificate shall be put to the trusted list of the client. The Quay is exposed using the OCP’s default ingress controller, route, so its rootCA shall be fetched (if it was not swapped already).</p>
+<p><strong>Note:</strong> Zone-specific external DNS forwarders cannot be defined for
+the cluster domain <code>cluster.local</code>.</p>
 </blockquote>
-<p>1) from bastion host, login to respective cluster and find the respective CWL cluster quay url. </p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">route</span><span class="w"> </span><span class="o">-</span><span class="n">A</span><span class="w"> </span><span class="o">|</span><span class="n">grep</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="n">quay</span>
-<span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="w">              </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="w">                          </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">                                                             </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">app</span><span class="w">                             </span><span class="n">http</span><span class="w">         </span><span class="n">edge</span><span class="o">/</span><span class="n">Redirect</span><span class="w">          </span><span class="k">None</span>
-<span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="w">              </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">builder</span><span class="w">                  </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">builder</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">                                  </span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="o">-</span><span class="n">quay</span><span class="o">-</span><span class="n">app</span><span class="w">                             </span><span class="n">grpc</span><span class="w">         </span><span class="n">edge</span><span class="o">/</span><span class="n">Redirect</span><span class="w">          </span><span class="k">None</span>
-<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
+<hr />
+<h2 id="important-notes">Important Notes<a class="headerlink" href="#important-notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li>The instructions for defining the upstream DNS servers in <code>spec.upstreamResolvers</code> are <strong>not covered here</strong>. The upstream DNS servers are used for DNS zones where no zone-specific forwarders match the DNS query.</li>
+<li>This does not cover any details about modifying the general DNS Operator settings for the ConfigMap named <code>dns-default</code>.</li>
+<li>For more information, see <strong>Understanding the DNS Operator</strong> in the <em>Networking</em> documentation of OpenShift Container Platform.</li>
+</ul>
+<blockquote>
+<p><strong>Note:</strong> Similar <code>dns-default</code> ConfigMap settings may also be
+required for multiple zone-specific DNS forwarders in customer setups.
+For example: - ENUM with the <code>e164.arpa</code> zone for IMS Core related
+CNFs. - <code>3gppnetwork.org</code> zone for 3GPP 5GC NFs.</p>
+</blockquote>
+<hr />
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<p>Create a <code>ConfigMap</code> for the DNS <code>forwardPlugin</code> with additional server configuration blocks in <code>spec.servers</code> for zone-specific forwarders.
+This is used for updating the ConfigMap named <code>dns-default</code>.</p>
+<blockquote>
+<p><strong>Note:</strong> In this example, the default policy <strong>Random</strong> is used for
+selecting upstream resolvers. Other policies such as <strong>RoundRobin</strong> or
+<strong>Sequential</strong> can also be selected.</p>
+</blockquote>
+<h3 id="example-dns-forwardingyaml">Example: <code>dns-forwarding.yaml</code><a class="headerlink" href="#example-dns-forwardingyaml" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">site-policies/sites/hub/source-crs/coredns/dns-forwarding.yaml</span>
+<span class="l l-Scalar l-Scalar-Plain">apiVersion</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">operator.openshift.io/v1</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">DNS</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">default</span>
+<span class="nt">spec</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">servers</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">forwardPlugin</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">policy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Random</span>
+<span class="w">      </span><span class="nt">upstreams</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.99.42.53</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10.99.42.54</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3gppnetwork</span>
+<span class="w">    </span><span class="nt">zones</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3gppnetwork.org</span>
 </code></pre></div>
 
-<p>2) first locally resolve it, so make dir and download the cert (this is resolve on that particular linux server.)</p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">sudo</span><span class="w"> </span><span class="n">mkdir</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">containers</span><span class="o">/</span><span class="n">certs</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span>
-<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span>
+<h4 id="example-2-multi-domain">Example-2: (multi domain)<a class="headerlink" href="#example-2-multi-domain" title="Permanent link">&para;</a></h4>
+<div class="codehilite"><pre><span></span><code>
 </code></pre></div>
 
-<p>3) create the ingress certificate to local host </p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secrets</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">ingress</span><span class="o">-</span><span class="n">operator</span><span class="w"> </span><span class="n">router</span><span class="o">-</span><span class="n">ca</span><span class="w"> </span><span class="err">\</span>
-<span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">jsonpath</span><span class="o">=</span><span class="ss">&quot;{.data[&#39;tls\.crt&#39;]}&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">\</span>
-<span class="n">sudo</span><span class="w"> </span><span class="n">tee</span><span class="w"> </span><span class="o">-</span><span class="n">a</span><span class="w"> </span><span class="err">\</span>
-<span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">containers</span><span class="o">/</span><span class="n">certs</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">quay</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">apps</span><span class="p">.</span><span class="n">ncpvnpvlab1</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="o">/</span><span class="n">ca</span><span class="p">.</span><span class="n">crt</span>
-<span class="c1">-----BEGIN CERTIFICATE-----</span>
-<span class="n">MIIDDDCCAfSgAwIBAgIBATANBgkqhkiG9w0BAQsFADAmMSQwIgYDVQQDDBtpbmdy</span>
-<span class="n">ZXNzLW9wZXJhdG9yQDE3NDE2MjI1OTkwHhcNMjUwMzEwMTYwMzE4WhcNMjcwMzEw</span>
-<span class="n">MTYwMzE5WjAmMSQwIgYDVQQDDBtpbmdyZXNzLW9wZXJhdG9yQDE3NDE2MjI1OTkw</span>
-<span class="n">ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCtDCDqA6Cx</span><span class="o">+</span><span class="n">MvulZtYNleK</span>
-<span class="n">T3e4OVlQrR8zytgIQIvlLpeGoqsoNWEe</span><span class="o">/</span><span class="n">ZukJ35fco6LA42RcIiI</span><span class="o">+</span><span class="n">F5aI6zZ4</span><span class="o">+</span><span class="n">F8</span>
-<span class="mi">81</span><span class="n">ZEpsSRBx8VUMsZCdkb5mA8tl5vJjV</span><span class="o">+</span><span class="n">GC1tRlohk6KWqYoR5VJVLbggFer95efv</span>
-<span class="n">xyny</span><span class="o">/</span><span class="n">BCYXmU2CSHSmRQRnwAI6cX0K7QgEB0kMHaFjEta16UnwzKdhNbaj5rn0aTm</span>
-<span class="n">hLSGYLvPMx9RVZswjqOqrju0Aovfv9ZzzE</span><span class="o">++</span><span class="n">e6</span><span class="o">+</span><span class="n">KH9</span><span class="o">/</span><span class="n">jZr2HepK62ZZdGznbmnzu</span>
-<span class="n">Al0D</span><span class="o">+</span><span class="n">ILaVj8DiFpcwUIaSaRxUVlphAUmm530GLbKrBdQGSsWcJTo4ixf8R2wYo69</span>
-<span class="n">AgMBAAGjRTBDMA4GA1UdDwEB</span><span class="o">/</span><span class="n">wQEAwICpDASBgNVHRMBAf8ECDAGAQH</span><span class="o">/</span><span class="n">AgEAMB0G</span>
-<span class="n">A1UdDgQWBBQMuq1odXMd4OlIU4vG8Kfu</span><span class="o">/</span><span class="n">aLltjANBgkqhkiG9w0BAQsFAAOCAQEA</span>
-<span class="n">BVerN</span><span class="o">+</span><span class="n">fxay</span><span class="o">+</span><span class="n">kk9uei</span><span class="o">+</span><span class="n">bQIpryakFstJ5ApuB1wDKgLY3LucwbzXhaE48i9TEOoNlB</span>
-<span class="mi">32</span><span class="n">ugNpShYQoOyVMMAvQNQG69HNu0KDJHYGDMAs4seGIsMwqityS6Zgv8T3xo176g</span>
-<span class="n">mR0y74yiK1ImtnUAaAPt7NNFflhpZafzhY24k4L3AVNEjMKI9B2SgUJAscmXkNIZ</span>
-<span class="n">Dri</span><span class="o">+</span><span class="n">EILpba6MzmeLdE3sVTaOIRberr6yTKbZQskaci</span><span class="o">+</span><span class="n">twaO7r83hD3E3xwGJB823</span>
-<span class="n">Zu</span><span class="o">+</span><span class="n">B2i</span><span class="o">/</span><span class="n">txKbBrFeKUpppfrg7zCsyqM1UwFtenuj1yj3qECJVwe1Lr8SctrzpJc</span><span class="o">+</span><span class="n">J</span>
-<span class="n">ryyB1JeEPQWwewI1j7QXqg</span><span class="o">==</span>
-<span class="c1">-----END CERTIFICATE-----</span>
-<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span>
+<p>After the new DNS operator object (configuration) is created, it can be
+added to the cluster via <code>PolicyGenTemplate</code>:</p>
+<div class="codehilite"><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">…</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain"># NCPFM-501 CoreDNS with zone-specific forwardPlugin settings</span>
+<span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">- fileName</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">coredns/dns-forwarding.yaml</span>
+<span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">policyName</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">config-policies</span>
+<span class="l l-Scalar l-Scalar-Plain">…</span>
 </code></pre></div>
 
-<h4 id="on-the-ocp-cluster-level-changes-tls-creation">On the OCP cluster level changes, TLS Creation<a class="headerlink" href="#on-the-ocp-cluster-level-changes-tls-creation" title="Permanent link">&para;</a></h4>
-<p>1) Similarly if images would be pulled on the HUB cluster, its ingress’ rootCA shall be put into the image.config.openshift.io/cluster CR, as the registry is using self-signed certificate by default and treated as an insecure registry, more precisely the OCP’s ingress (if it is not swapped yet). In order to overcome issues the following commands:</p>
-<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secrets</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">ingress</span><span class="o">-</span><span class="n">operator</span><span class="w"> </span><span class="n">router</span><span class="o">-</span><span class="n">ca</span><span class="w"> </span><span class="err">\</span>
-<span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">jsonpath</span><span class="o">=</span><span class="ss">&quot;{.data[&#39;tls\.crt&#39;]}&quot;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="o">-</span><span class="n">d</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">ingress_ca</span><span class="p">.</span><span class="n">crt</span>
-<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
+<hr />
+<h2 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h2>
+<h3 id="check-dns-operator-and-forwardplugin-status">Check DNS Operator and <code>forwardPlugin</code> Status<a class="headerlink" href="#check-dns-operator-and-forwardplugin-status" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>oc<span class="w"> </span>get<span class="w"> </span>clusteroperator/dns
+NAME<span class="w">   </span>VERSION<span class="w">   </span>AVAILABLE<span class="w">   </span>PROGRESSING<span class="w">   </span>DEGRADED<span class="w">   </span>SINCE<span class="w">   </span>MESSAGE
+dns<span class="w">    </span><span class="m">4</span>.14.29<span class="w">   </span>True<span class="w">        </span>False<span class="w">         </span>False<span class="w">      </span>19d
+
+$<span class="w"> </span>oc<span class="w"> </span>get<span class="w"> </span>-n<span class="w"> </span>openshift-dns-operator<span class="w"> </span>deployment/dns-operator
+NAME<span class="w">           </span>READY<span class="w">   </span>UP-TO-DATE<span class="w">   </span>AVAILABLE<span class="w">   </span>AGE
+dns-operator<span class="w">   </span><span class="m">1</span>/1<span class="w">     </span><span class="m">1</span><span class="w">            </span><span class="m">1</span><span class="w">           </span>19d
 </code></pre></div>
 
-<p>2) create an cm to enforce the certificate here.</p>
-<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">configmap</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="err">\</span>
-<span class="c1">--from-file=quay-registry.apps.ncpvnpvlab1.pnwlab.nsn-rdnet.net=ingress_ca.crt</span>
-<span class="n">configmap</span><span class="o">/</span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="n">created</span>
-<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ vlabrc</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
+<h3 id="validate-current-dns-default-configuration">Validate Current <code>dns-default</code> Configuration<a class="headerlink" href="#validate-current-dns-default-configuration" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>oc<span class="w"> </span>describe<span class="w"> </span>dns.operator/default
 </code></pre></div>
 
-<p>3) now create an image patch to cluster iamge config. </p>
-<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">dom14npv101</span><span class="o">-</span><span class="nx">infra</span><span class="o">-</span><span class="nx">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">vlabrc</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="nx">oc</span><span class="w"> </span><span class="nx">patch</span><span class="w"> </span><span class="nx">image</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">cluster</span><span class="w"> </span><span class="o">--</span><span class="nx">patch</span><span class="w"> </span><span class="err">&#39;</span><span class="p">{</span><span class="s">&quot;spec&quot;</span><span class="p">:</span>
-<span class="p">{</span><span class="s">&quot;additionalTrustedCA&quot;</span><span class="p">:{</span><span class="s">&quot;name&quot;</span><span class="p">:</span><span class="s">&quot;registry-cas&quot;</span><span class="p">}}}</span><span class="err">&#39;</span><span class="w"> </span>\
-<span class="o">--</span><span class="k">type</span><span class="p">=</span><span class="nx">merge</span>
-<span class="nx">image</span><span class="p">.</span><span class="nx">config</span><span class="p">.</span><span class="nx">openshift</span><span class="p">.</span><span class="nx">io</span><span class="o">/</span><span class="nx">cluster</span><span class="w"> </span><span class="nx">patched</span>
-<span class="p">[</span><span class="nx">root</span><span class="err">@</span><span class="nx">dom14npv101</span><span class="o">-</span><span class="nx">infra</span><span class="o">-</span><span class="nx">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="nx">vlabrc</span><span class="p">]</span><span class="err">#</span>
+<p>Example output:</p>
+<div class="codehilite"><pre><span></span><code><span class="n">Spec</span><span class="o">:</span>
+<span class="w">  </span><span class="n">Servers</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Forward</span><span class="w"> </span><span class="n">Plugin</span><span class="o">:</span>
+<span class="w">      </span><span class="n">Policy</span><span class="o">:</span><span class="w">  </span><span class="n">Random</span>
+<span class="w">      </span><span class="n">Upstreams</span><span class="o">:</span>
+<span class="w">        </span><span class="mf">10.99</span><span class="o">.</span><span class="mf">42.53</span>
+<span class="w">        </span><span class="mf">10.99</span><span class="o">.</span><span class="mf">42.54</span>
+<span class="w">    </span><span class="n">Name</span><span class="o">:</span><span class="w">  </span><span class="mi">3</span><span class="n">gppnetwork</span>
+<span class="w">    </span><span class="n">Zones</span><span class="o">:</span>
+<span class="w">      </span><span class="mi">3</span><span class="n">gppnetwork</span><span class="o">.</span><span class="na">org</span>
+<span class="w">  </span><span class="n">Upstream</span><span class="w"> </span><span class="n">Resolvers</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Policy</span><span class="o">:</span><span class="w">             </span><span class="n">Sequential</span>
+<span class="w">    </span><span class="n">Protocol</span><span class="w"> </span><span class="n">Strategy</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Transport</span><span class="w"> </span><span class="n">Config</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Upstreams</span><span class="o">:</span>
+<span class="w">      </span><span class="n">Port</span><span class="o">:</span><span class="w">  </span><span class="mi">53</span>
+<span class="w">      </span><span class="n">Type</span><span class="o">:</span><span class="w">  </span><span class="n">SystemResolvConf</span>
 </code></pre></div>
 
-<h3 id="creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-add">Creating tls certificate on the OCP cluster as additional tls <code>ADD</code><a class="headerlink" href="#creating-tls-certificate-on-the-ocp-cluster-as-additional-tls-add" title="Permanent link">&para;</a></h3>
-<p>1) oc apply is the preferred way to update an existing resource, including ConfigMaps. This command will update the ConfigMap with the new data while keeping existing data intact. If you don’t have a YAML file, you can first export the current ConfigMap to a file, edit it, and then apply the changes:</p>
-<div class="codehilite"><pre><span></span><code><span class="n">oc</span><span class="w"> </span><span class="n">get</span><span class="w"> </span><span class="n">configmap</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">yaml</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="p">.</span><span class="n">yaml</span>
+<h3 id="inspect-configmap-dns-default">Inspect ConfigMap <code>dns-default</code><a class="headerlink" href="#inspect-configmap-dns-default" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>oc<span class="w"> </span>get<span class="w"> </span>configmap/dns-default<span class="w"> </span>-n<span class="w"> </span>openshift-dns<span class="w"> </span>-o<span class="w"> </span>yaml
 </code></pre></div>
 
-<p>2) now try to prepare file for new certificate with correct file intension using <code>--dry-run</code></p>
-<div class="codehilite"><pre><span></span><code><span class="n">oc</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="n">configmap</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="se">\</span>
-<span class="o">--</span><span class="n">from</span><span class="o">-</span><span class="n">file</span><span class="o">=</span><span class="n">harbor</span><span class="p">.</span><span class="n">ncdvnpv</span><span class="p">.</span><span class="n">ncpvnpvmgt</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="o">=</span><span class="n">ingress_ca</span><span class="p">.</span><span class="n">crt</span><span class="w"> </span><span class="se">\</span>
-<span class="o">--</span><span class="n">dry</span><span class="o">-</span><span class="n">run</span><span class="o">=</span><span class="n">client</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">yaml</span><span class="w"> </span>
+<p>Example:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">Corefile</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
+<span class="w">    </span><span class="no"># 3gppnetwork</span>
+<span class="w">    </span><span class="no">3gppnetwork.org:5353 {</span>
+<span class="w">        </span><span class="no">prometheus 127.0.0.1:9153</span>
+<span class="w">        </span><span class="no">forward . 10.99.42.53 10.99.42.54 {</span>
+<span class="w">            </span><span class="no">policy random</span>
+<span class="w">        </span><span class="no">}</span>
+<span class="w">        </span><span class="no">errors</span>
+<span class="w">        </span><span class="no">log . {</span>
+<span class="w">            </span><span class="no">class error</span>
+<span class="w">        </span><span class="no">}</span>
+<span class="w">        </span><span class="no">bufsize 1232</span>
+<span class="w">        </span><span class="no">cache 900 {</span>
+<span class="w">            </span><span class="no">denial 9984 30</span>
+<span class="w">        </span><span class="no">}</span>
+<span class="w">    </span><span class="no">}</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ConfigMap</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dns-default</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshift-dns</span>
 </code></pre></div>
 
-<p>3) Now try to copy the harbor and it's certificate line's and then add it as second list of the certificate on the first yaml file and later apply it. </p>
-<div class="codehilite"><pre><span></span><code><span class="n">vi</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="p">.</span><span class="n">yaml</span>
-
-<span class="n">oc</span><span class="w"> </span><span class="n">apply</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="n">registry</span><span class="o">-</span><span class="n">cas</span><span class="p">.</span><span class="n">yaml</span>
+<h3 id="view-dns-operator-logs">View DNS Operator Logs<a class="headerlink" href="#view-dns-operator-logs" title="Permanent link">&para;</a></h3>
+<div class="codehilite"><pre><span></span><code>$<span class="w"> </span>oc<span class="w"> </span>logs<span class="w"> </span>-n<span class="w"> </span>openshift-dns-operator<span class="w"> </span>deployment/dns-operator<span class="w"> </span>-c<span class="w"> </span>dns-operator
 </code></pre></div>
+
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<p>This guide covered how to configure zone-specific DNS forwarders with the OpenShift DNS Operator using <code>forwardPlugin</code> settings. It also included validation steps to confirm the operator and configuration are functioning correctly.</p>
 
 
 

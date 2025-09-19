@@ -56,6 +56,50 @@ spec:
 #### Example-2: (multi domain)
 
 ```
+apiVersion: operator.openshift.io/v1
+kind: DNS
+metadata:
+  name: default
+spec:
+  servers:
+  - forwardPlugin:
+      policy: Random
+      upstreams:
+      - 10.207.100.189
+    name: halifaxSBCcogeco
+    zones:
+    - on.nni.mobile.cogeco.ca
+  - forwardPlugin:
+      policy: Random
+      upstreams:
+      - 172.16.103.106
+    name: barriesbccogeco
+    zones:
+    - qc.nni.mobile.cogeco.ca
+    - lab.nni.mobile.cogeco.ca
+  - forwardPlugin:
+      policy: Random
+      upstreams:
+      - 10.208.51.116
+    name: hlfxsstn00
+    zones:
+    - eng.eastlink.ca
+  - forwardPlugin:
+      policy: Random
+      upstreams:
+      - 10.207.100.190
+      - 172.16.103.88
+    name: halifaxSBCbell
+    zones:
+    - ng.911bell.ca
+  - forwardPlugin:
+      policy: Random
+      upstreams:
+      - 172.16.103.82
+      - 10.207.100.188
+    name: barrieSBCtelus
+    zones:
+    - ng911.telus.ca
 ```
 
 After the new DNS operator object (configuration) is created, it can be
@@ -155,3 +199,8 @@ $ oc logs -n openshift-dns-operator deployment/dns-operator -c dns-operator
 ## Summary
 
 This guide covered how to configure zone-specific DNS forwarders with the OpenShift DNS Operator using `forwardPlugin` settings. It also included validation steps to confirm the operator and configuration are functioning correctly.
+
+
+### Reference
+
+This guide prepared under the refer of NCP 24.7mp1 installation guide + Eastlink project experience. 
