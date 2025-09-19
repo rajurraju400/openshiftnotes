@@ -10,6 +10,44 @@ zone-specific `forwardPlugin` settings with the target DNS forwarders in `spec.s
 > **Note:** Zone-specific external DNS forwarders cannot be defined for
 > the cluster domain `cluster.local`.
 
+
+### EgressIP for coredns
+
+Egress configuration is also really important prerequisites because out going traffic on the `openshift-dns-operator` routed via gw node where it has signal traffic. 
+
+```
+[root@ncputility ~ hn_cwl_rc]$ oc get egressip
+NAME                                         EGRESSIPS       ASSIGNED NODE                        ASSIGNED EGRESSIPS
+egress-cnf-openshift-dns-operator            100.77.77.59   gateway2.hnevopcwl01.mnc002.mcc708    100.77.77.59
+egress-hnevocattn01-oam-snat                 10.89.138.200   gateway2.hnevopcwl01.mnc002.mcc708   10.89.138.200
+```
+
+```
+[root@ncputility ~ hn_cwl_rc]$ oc get egressip egress-cnf-oam-snat -o yaml
+apiVersion: k8s.ovn.org/v1
+kind: EgressIP
+metadata:
+  creationTimestamp: "2025-04-22T15:47:47Z"
+  generation: 1
+  name: egress-openshift-dns-operator
+  resourceVersion: "798389"
+  uid: b4c9e899-014e-43e5-8e9e-8db7c9556339
+spec:
+  egressIPs:
+  - 100.77.77.59
+  namespaceSelector:
+    matchLabels:
+      kubernetes.io/metadata.name: openshift-dns-operator 
+[root@ncputility ~ hn_cwl_rc]$
+```
+
+### Staticroute for coredns via signaling IP
+
+staticroute configuration is also really important prerequisites because out going traffic on the `openshift-dns-operator` routed via gw node where it has signal traffic. it should be have enough static route defination on route table here. 
+
+
+
+
 ------------------------------------------------------------------------
 
 ## Important Notes
@@ -102,8 +140,7 @@ spec:
     - ng911.telus.ca
 ```
 
-After the new DNS operator object (configuration) is created, it can be
-added to the cluster via `PolicyGenTemplate`:
+After the new DNS operator object (configuration) is created, it can be added to the cluster via `PolicyGenTemplate`:
 
 ``` yaml
 …
@@ -204,3 +241,5 @@ This guide covered how to configure zone-specific DNS forwarders with the OpenSh
 ### Reference
 
 This guide prepared under the refer of NCP 24.7mp1 installation guide + Eastlink project experience. 
+
+
