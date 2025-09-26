@@ -146,7 +146,7 @@ python3 ocp_health_check.py --spoke --infra-quay
 Running the script **without arguments** prints a help/usage block with examples and exits.
 
 ```
-Usage: python script.py [OPTIONS]
+Usage: python ocp_health_check.py [OPTIONS]
 
 Options:
   --hub         Run healthcheck for hub cluster            (mutually exclusive with --spoke)
@@ -154,14 +154,13 @@ Options:
   --infra-quay  Run healthcheck for Quay infrastructure    (can be combined with --hub or --spoke)
 
 Examples:
-  python script.py --hub
-  python script.py --spoke
-  python script.py --infra-quay
-  python script.py --hub --infra-quay
-  python script.py --spoke --infra-quay
+  python ocp_health_check.py --hub
+  python ocp_health_check.py --spoke
+  python ocp_health_check.py --infra-quay
+  python ocp_health_check.py --hub --infra-quay
+  python ocp_health_check.py --spoke --infra-quay
 ```
 
-> Replace `script.py` with your actual filename, e.g., `ocp_health_check.py`.
 
 ---
 
