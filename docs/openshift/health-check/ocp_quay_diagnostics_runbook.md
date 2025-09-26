@@ -10,7 +10,7 @@ The script prints each command before executing it and streams outputs/errs to t
 
 ---
 
-## 1) Prerequisites
+## Prerequisites
 
 - **Python 3.6+** (check with `python3 --version`)
 - **`oc` CLI** installed and logged in to the target OpenShift cluster for `--hub` or `--spoke` modes
@@ -19,20 +19,26 @@ The script prints each command before executing it and streams outputs/errs to t
 - The Python script file saved locally (example name: `ocp_health_check.py`) containing the latest version shared in this project:
   - Supports flags: `--hub`, `--spoke`, `--infra-quay`
   - **`--hub` and `--spoke` are mutually exclusive** (cannot be used together)
-  - `--infra-quay` can be combined with either `--hub` **or** `--spoke`
 
-> If your Quay registry is **not** bound to `https://localhost:8443`, update the Quay endpoints inside the script to match your host/port.
+
+> If your Quay registry is **not** bound to `https://localhost:8443`, update the Quay endpoints inside the script to match your host/port. (NCP 24.7.MPX and 25.4 MPX platform can be ignored this step.)
 
 ---
 
 
 ## Download the script
 
-### Version-01
 
 
+#### Version-02 [Latest]
 
-## 2) Quick Start
+[Click to download version-2](./ocp_health_check-v2.py)
+
+#### Version-01
+
+[Click to download version-1](./healthcheck.py)
+
+## Quick Start
 
 From the directory where `ocp_health_check.py` is saved:
 
@@ -49,18 +55,15 @@ python3 ocp_health_check.py --spoke
 # Run Quay infra checks
 python3 ocp_health_check.py --infra-quay
 
-# Combine Quay checks with a cluster mode
-python3 ocp_health_check.py --hub --infra-quay
-python3 ocp_health_check.py --spoke --infra-quay
 ```
 
 If no flags are provided, the script prints usage and exits with a non‑zero code.
 
 ---
 
-## 3) What each mode does
+## What each mode does
 
-### 3.1 `--hub` (Hub Cluster healthcheck)
+### `--hub` (Hub Cluster healthcheck)
 
 Runs cluster‑wide healthcheck useful on a hub/management cluster. Examples include:
 
@@ -71,6 +74,9 @@ Runs cluster‑wide healthcheck useful on a hub/management cluster. Examples inc
 - Network operator configuration (serviceNetwork/clusterNetwork)
 - OperatorHub/catalog sources & marketplace components
 - Image registry & Multus presence
+- Node labels and hugepages capacity
+- NMState operators and policies
+- Ceph (Rook) health (`ceph -s`, OSD tree)
 
 **Example invocation:**
 
@@ -81,10 +87,17 @@ python3 ocp_health_check.py --hub
 > Note: `--hub` automatically includes a small base set of commands (`oc whoami --show-server`, `oc get clusterversion`, `oc get nodes -o wide`).
 
 
-### 3.2 `--spoke` (Spoke/Workload Cluster healthcheck)
+### `--spoke` (Spoke/Workload Cluster healthcheck)
 
 Focuses on data‑plane/workload validations. Examples include:
 
+- Cluster version & node inventory
+- Bare Metal Hosts, Machines, MCP, ClusterOperators, Components
+- Workload inventory (pods/deployments/statefulsets/daemonsets)
+- Readiness endpoints and etcd status
+- Network operator configuration (serviceNetwork/clusterNetwork)
+- OperatorHub/catalog sources & marketplace components
+- Image registry & Multus presence
 - Node labels and hugepages capacity
 - NMState / SR‑IOV operators and policies
 - MetalLB status (controller/speaker, FRR configuration, BFD peers)
@@ -103,7 +116,7 @@ python3 ocp_health_check.py --spoke
 > ```
 
 
-### 3.3 `--infra-quay` (Quay Infrastructure Health)
+### `--infra-quay` (Quay Infrastructure Health)
 
 Validates a local Red Hat Quay deployment listening on `https://localhost:8443`:
 
@@ -128,7 +141,7 @@ python3 ocp_health_check.py --spoke --infra-quay
 
 ---
 
-## 4) Usage & Help
+## Usage & Help
 
 Running the script **without arguments** prints a help/usage block with examples and exits.
 
@@ -152,12 +165,12 @@ Examples:
 
 ---
 
-## 5) Capturing Output
+## Capturing Output
 
 For long runs or later analysis, redirect output to a timestamped file:
 
 ```bash
-python3 ocp_health_check.py --hub --infra-quay | tee hub_quay_$(date +%F_%H%M).log
+python3 ocp_health_check.py --hub --infra-quay | tee hub_$(date +%F_%H%M).log
 ```
 
 To save **only errors**:
@@ -165,9 +178,18 @@ To save **only errors**:
 python3 ocp_health_check.py --spoke 1> /tmp/spoke.out 2> /tmp/spoke.err
 ```
 
+> This script output should be shared as part of exit criteria  package. also, infra-quay, hub, spoke cluster should be having separate files. 
+
 ---
 
-## 6) Common Troubleshooting
+## Common Troubleshooting
+
+
+### Script get hung for couple of tasks
+
+Following task required to be executed inside the nodes OS level. so it will take some extra time. 
+
+![alt text](image.png)
 
 ### Quay health endpoints fail (non‑200 or timeouts)
 - Ensure Quay is running and listening:
@@ -209,21 +231,6 @@ python3 ocp_health_check.py --spoke 1> /tmp/spoke.out 2> /tmp/spoke.err
 
 ---
 
-## 7) Safety & Access
-
-- Some commands use `oc exec -it` which requires a TTY; run from an interactive shell.
-- Commands may require cluster‑admin privileges.
-- Outputs may include sensitive cluster information; handle and share logs according to your security policy.
-
----
-
-## 8) Maintenance Notes
-
-- Update the script if Quay endpoints/ports change.
-- Keep `oc`, `podman`, and Python up to date.
-- Document any site‑specific variations (e.g., alternate namespaces, custom operators).
-
----
 
 **End of Runbook**
 
