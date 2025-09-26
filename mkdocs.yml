@@ -73,6 +73,10 @@ nav:
           - Infra-Manager node reinstallation : openshift/disaster-management/infra-manager-redeployment/index.md
           - Hub Cluster Master-replacement: openshift/disaster-management/hub-cluster-redeployment/master-replacment.md
 
+      - OCP Healthcheck:
+          - health-check Runbook : openshift/health-check/ocp_quay_diagnostics_runbook.md
+
+
   - MACD Operations:
 
       - MACD Management:
