@@ -2707,7 +2707,7 @@ python3<span class="w"> </span>ocp_health_check.py<span class="w"> </span>--spok
 <hr />
 <h2 id="usage-help">Usage &amp; Help<a class="headerlink" href="#usage-help" title="Permanent link">&para;</a></h2>
 <p>Running the script <strong>without arguments</strong> prints a help/usage block with examples and exits.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">Usage</span><span class="err">:</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="o">[</span><span class="n">OPTIONS</span><span class="o">]</span>
+<div class="codehilite"><pre><span></span><code><span class="k">Usage</span><span class="err">:</span><span class="w"> </span><span class="n">python</span><span class="w"> </span><span class="n">ocp_health_check</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="o">[</span><span class="n">OPTIONS</span><span class="o">]</span>
 
 <span class="nl">Options</span><span class="p">:</span>
 <span class="w">  </span><span class="c1">--hub         Run healthcheck for hub cluster            (mutually exclusive with --spoke)</span>
@@ -2715,16 +2715,13 @@ python3<span class="w"> </span>ocp_health_check.py<span class="w"> </span>--spok
 <span class="w">  </span><span class="c1">--infra-quay  Run healthcheck for Quay infrastructure    (can be combined with --hub or --spoke)</span>
 
 <span class="nl">Examples</span><span class="p">:</span>
-<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--hub</span>
-<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--spoke</span>
-<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--infra-quay</span>
-<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--hub --infra-quay</span>
-<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">script</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--spoke --infra-quay</span>
+<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">ocp_health_check</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--hub</span>
+<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">ocp_health_check</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--spoke</span>
+<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">ocp_health_check</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--infra-quay</span>
+<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">ocp_health_check</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--hub --infra-quay</span>
+<span class="w">  </span><span class="n">python</span><span class="w"> </span><span class="n">ocp_health_check</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="c1">--spoke --infra-quay</span>
 </code></pre></div>
 
-<blockquote>
-<p>Replace <code>script.py</code> with your actual filename, e.g., <code>ocp_health_check.py</code>.</p>
-</blockquote>
 <hr />
 <h2 id="capturing-output">Capturing Output<a class="headerlink" href="#capturing-output" title="Permanent link">&para;</a></h2>
 <p>For long runs or later analysis, redirect output to a timestamped file:</p>
