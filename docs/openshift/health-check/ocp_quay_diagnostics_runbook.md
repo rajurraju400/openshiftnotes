@@ -29,8 +29,11 @@ The script prints each command before executing it and streams outputs/errs to t
 ## Download the script
 
 
+#### Version-03 [Latest]
 
-#### Version-02 [Latest]
+[Click to download version-2](./ocp_health_check-v3.py)
+
+#### Version-02 
 
 [Click to download version-2](./ocp_health_check-v2.py)
 
