@@ -2054,6 +2054,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    OCP Password Management
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -2065,6 +2078,439 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-ocp-cluster-ocp-ui-based-passwd-common-for-hub-and-cwl" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. OCP Cluster (OCP UI based passwd - common for hub and cwl)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. OCP Cluster (OCP UI based passwd - common for hub and cwl)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oauth-users-with-htpasswd" class="md-nav__link">
+    <span class="md-ellipsis">
+      OAuth Users with htpasswd
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OAuth Users with htpasswd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-htpasswd-user-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating HTPasswd User Passwords
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removing-the-kubeadmin-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removing the kubeadmin user
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Removing the kubeadmin user">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procedure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-argo-cd-change-argocd-admin-password-via-kubernetes-secret-openshift-gitops" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Argo CD | Change ArgoCD Admin Password via Kubernetes Secret (OpenShift GitOps)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Argo CD | Change ArgoCD Admin Password via Kubernetes Secret (OpenShift GitOps)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-existing-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Existing Secret
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-update-the-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to Update the Password
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps to Update the Password">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-new-bcrypt-hash-for-your-new-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate a new bcrypt hash for your new password
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base64-encode-the-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base64 encode the hash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-the-secret-in-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit the Secret in OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restart-argocd-server-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restart ArgoCD Server Pods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-in-with-the-new-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log in with the new password
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-bare-metal-node-core-user-passwords-common-for-hub-and-cwl" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Bare Metal Node 'core user' Passwords (Common for hub and cwl)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Bare Metal Node &#39;core user&#39; Passwords (Common for hub and cwl)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procedure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-update-the-core-user-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Update the core user password
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Example]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-track-the-process-using-oc-get-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 track the process using oc get mcp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Verification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-quay-registries" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Quay Registries
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Quay Registries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-hub-quay-passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating hub quay passwd
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Updating hub quay passwd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-hub-quay-passwd-part-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating hub quay passwd (part-1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-the-hub-quay-passwd-on-hub-pull-secret-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating the hub quay passwd on hub pull secret (part-2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-this-hub-quay-password-on-cwl-pull-secret-on-git-side-part-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update this hub quay password on CWL pull secret on git side (part-3)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-this-hub-quay-passwd-on-the-cwl-quay-gobal-pull-secret-as-well-part-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update this hub quay passwd on the cwl quay gobal pull secret as well. (part-4)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-cwl-quay-passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating CWL quay passwd
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Updating CWL quay passwd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-cwl-quay-passwd-part-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating CWL quay passwd (part-1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-this-passwd-on-the-cwl-pull-secret-as-well-used-for-itms-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update this passwd on the cwl pull secret as well used for ITMS. (Part-2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-hardware-management-console-passwd-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Hardware management console passwd change
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Hardware management console passwd change">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hpe-based-ilo-passwd-reset-part-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      HPE based ILO passwd reset - Part-1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HPE based ILO passwd reset - Part-1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-this-hp-new-password-on-cwl-pull-secret-on-git-side-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update this hp new password on CWL pull secret on git side (part-2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cluster-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Cluster Monitoring
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-git-server-password-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Git server password management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧾 References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -2244,6 +2690,428 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-ocp-cluster-ocp-ui-based-passwd-common-for-hub-and-cwl" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. OCP Cluster (OCP UI based passwd - common for hub and cwl)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. OCP Cluster (OCP UI based passwd - common for hub and cwl)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#oauth-users-with-htpasswd" class="md-nav__link">
+    <span class="md-ellipsis">
+      OAuth Users with htpasswd
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OAuth Users with htpasswd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-htpasswd-user-passwords" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating HTPasswd User Passwords
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#removing-the-kubeadmin-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Removing the kubeadmin user
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Removing the kubeadmin user">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#warning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Warning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Prerequisites
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procedure
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-argo-cd-change-argocd-admin-password-via-kubernetes-secret-openshift-gitops" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Argo CD | Change ArgoCD Admin Password via Kubernetes Secret (OpenShift GitOps)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Argo CD | Change ArgoCD Admin Password via Kubernetes Secret (OpenShift GitOps)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-existing-secret" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example Existing Secret
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-update-the-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to Update the Password
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Steps to Update the Password">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate-a-new-bcrypt-hash-for-your-new-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate a new bcrypt hash for your new password
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base64-encode-the-hash" class="md-nav__link">
+    <span class="md-ellipsis">
+      Base64 encode the hash
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#edit-the-secret-in-openshift" class="md-nav__link">
+    <span class="md-ellipsis">
+      Edit the Secret in OpenShift
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#restart-argocd-server-pods" class="md-nav__link">
+    <span class="md-ellipsis">
+      Restart ArgoCD Server Pods
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#log-in-with-the-new-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      Log in with the new password
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-bare-metal-node-core-user-passwords-common-for-hub-and-cwl" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Bare Metal Node 'core user' Passwords (Common for hub and cwl)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Bare Metal Node &#39;core user&#39; Passwords (Common for hub and cwl)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#procedure_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Procedure
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Procedure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-update-the-core-user-password" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Update the core user password
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      [Example]
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-track-the-process-using-oc-get-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      1.1 track the process using oc get mcp
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Verification
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-quay-registries" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Quay Registries
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Quay Registries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-hub-quay-passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating hub quay passwd
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Updating hub quay passwd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-hub-quay-passwd-part-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating hub quay passwd (part-1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-the-hub-quay-passwd-on-hub-pull-secret-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating the hub quay passwd on hub pull secret (part-2)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-this-hub-quay-password-on-cwl-pull-secret-on-git-side-part-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update this hub quay password on CWL pull secret on git side (part-3)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-this-hub-quay-passwd-on-the-cwl-quay-gobal-pull-secret-as-well-part-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update this hub quay passwd on the cwl quay gobal pull secret as well. (part-4)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-cwl-quay-passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating CWL quay passwd
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Updating CWL quay passwd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-cwl-quay-passwd-part-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating CWL quay passwd (part-1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update-this-passwd-on-the-cwl-pull-secret-as-well-used-for-itms-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update this passwd on the cwl pull secret as well used for ITMS. (Part-2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-hardware-management-console-passwd-change" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Hardware management console passwd change
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Hardware management console passwd change">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hpe-based-ilo-passwd-reset-part-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      HPE based ILO passwd reset - Part-1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HPE based ILO passwd reset - Part-1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#update-this-hp-new-password-on-cwl-pull-secret-on-git-side-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update this hp new password on CWL pull secret on git side (part-2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-cluster-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Cluster Monitoring
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-git-server-password-management" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Git server password management
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧾 References
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2258,97 +3126,259 @@
 
 
 
-<h1 id="openshift-ocp-password-rotation-guide">🔐 OpenShift (OCP) Password Rotation Guide<a class="headerlink" href="#openshift-ocp-password-rotation-guide" title="Permanent link">&para;</a></h1>
+<h1 id="openshift-ocp-password-rotation-guide">OpenShift (OCP) Password Rotation Guide<a class="headerlink" href="#openshift-ocp-password-rotation-guide" title="Permanent link">&para;</a></h1>
 <p><strong>Environment:</strong> Hub and Spoke Clusters (Bare Metal HP and DELL )<br />
-<strong>Includes:</strong> Argo CD, GIT, Quay passwd, OCP UI (only OAuth), Bare Metal Nodes  </p>
-<h1 id="this-page-is-not-released-yet-work-inprog">this page is not released yet - work inprog<a class="headerlink" href="#this-page-is-not-released-yet-work-inprog" title="Permanent link">&para;</a></h1>
+<strong>Includes:</strong> infra quay,  OCP UI using OAuth for hub and cwl, Quay for hub and cwl,  Argo CD, GIT, Cluster monitoring and baremetal console management services too. </p>
 <hr />
-<h2 id="overview">📋 Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
 <p>This guide outlines all the key places where passwords or credentials need to be updated in a multi-cluster OpenShift environment that uses <strong>Argo CD, GIT, Quay passwd, OCP UI (only OAuth), Bare Metal Nodes</strong></p>
 <hr />
-<h2 id="1-ocp-cluster-accounts">🔹 1. OCP Cluster Accounts<a class="headerlink" href="#1-ocp-cluster-accounts" title="Permanent link">&para;</a></h2>
-<h3 id="a-kubeadmin-or-oauth-users">a. <code>kubeadmin</code> or OAuth Users<a class="headerlink" href="#a-kubeadmin-or-oauth-users" title="Permanent link">&para;</a></h3>
-<p>If still using the default <strong>kubeadmin</strong> user, it’s recommended to migrate to OAuth or HTPasswd users.<br />
-To reset or remove the kubeadmin secret:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>secret<span class="w"> </span>kubeadmin<span class="w"> </span>-n<span class="w"> </span>kube-system
-</code></pre></div>
-
+<h2 id="1-ocp-cluster-ocp-ui-based-passwd-common-for-hub-and-cwl">1. OCP Cluster (OCP UI based passwd - common for hub and cwl)<a class="headerlink" href="#1-ocp-cluster-ocp-ui-based-passwd-common-for-hub-and-cwl" title="Permanent link">&para;</a></h2>
+<h3 id="oauth-users-with-htpasswd">OAuth Users with htpasswd<a class="headerlink" href="#oauth-users-with-htpasswd" title="Permanent link">&para;</a></h3>
 <h4 id="updating-htpasswd-user-passwords">Updating HTPasswd User Passwords<a class="headerlink" href="#updating-htpasswd-user-passwords" title="Permanent link">&para;</a></h4>
-<div class="codehilite"><pre><span></span><code>htpasswd<span class="w"> </span>-b<span class="w"> </span>/path/to/htpasswd<span class="w"> </span>&lt;username&gt;<span class="w"> </span>&lt;newpassword&gt;
-oc<span class="w"> </span>create<span class="w"> </span>secret<span class="w"> </span>generic<span class="w"> </span>htpasswd-secret<span class="w">   </span>--from-file<span class="o">=</span><span class="nv">htpasswd</span><span class="o">=</span>/path/to/htpasswd<span class="w">   </span>-n<span class="w"> </span>openshift-config<span class="w"> </span>--dry-run<span class="o">=</span>client<span class="w"> </span>-o<span class="w"> </span>yaml<span class="w"> </span><span class="p">|</span><span class="w"> </span>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>-
-
-oc<span class="w"> </span>patch<span class="w"> </span>oauth<span class="w"> </span>cluster<span class="w"> </span>--type<span class="o">=</span>merge<span class="w"> </span>-p<span class="w"> </span><span class="s1">&#39;{</span>
-<span class="s1">  &quot;spec&quot;: {</span>
-<span class="s1">    &quot;identityProviders&quot;: [</span>
-<span class="s1">      {</span>
-<span class="s1">        &quot;name&quot;: &quot;localusers&quot;,</span>
-<span class="s1">        &quot;mappingMethod&quot;: &quot;claim&quot;,</span>
-<span class="s1">        &quot;type&quot;: &quot;HTPasswd&quot;,</span>
-<span class="s1">        &quot;htpasswd&quot;: { &quot;fileData&quot;: { &quot;name&quot;: &quot;htpasswd-secret&quot; } }</span>
-<span class="s1">      }</span>
-<span class="s1">    ]</span>
-<span class="s1">  }</span>
-<span class="s1">}&#39;</span>
+<p>Procedure to <code>update</code> the password of an existing users common for hub and cwl. </p>
+<p>1) Retrieve the htpasswd file from the htpass-secret Secret object and save the file to your file system:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="n">htpass</span><span class="o">-</span><span class="n">secret</span><span class="w"> </span><span class="o">-</span><span class="n">ojsonpath</span><span class="o">=</span><span class="err">{</span><span class="p">.</span><span class="k">data</span><span class="p">.</span><span class="n">htpasswd</span><span class="err">}</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">config</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">base64</span><span class="w"> </span><span class="c1">--decode &gt; users.htpasswd</span>
+<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">cat</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">htpasswd</span>
+<span class="nl">ncpadmin</span><span class="p">:</span><span class="err">$</span><span class="mi">2</span><span class="n">y</span><span class="err">$</span><span class="mi">05</span><span class="err">$</span><span class="n">DYlpXiwFzfyRioO4hRNq1</span><span class="p">.</span><span class="n">ZdFLO3yMz3Pl3gs7</span><span class="p">.</span><span class="n">yUpEUKeOGoHX9K</span>
+<span class="nl">nokia</span><span class="p">:</span><span class="err">$</span><span class="mi">2</span><span class="n">y</span><span class="err">$</span><span class="mi">05</span><span class="err">$</span><span class="n">SLpgZb3AE</span><span class="p">.</span><span class="n">fE7WQEGIMOXesoZdY9pV9OHVpXb5CuITdZO5RVId8Ye</span>
+<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<h3 id="b-cluster-admin-service-account-tokens">b. Cluster-admin / Service Account Tokens<a class="headerlink" href="#b-cluster-admin-service-account-tokens" title="Permanent link">&para;</a></h3>
-<p>OCP service accounts use <strong>tokens</strong>, not passwords.<br />
-To rotate tokens:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>secret<span class="w"> </span>&lt;sa-name&gt;-token-xxxxx<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;
+<p>2) update the users password from the users.htpasswd file.</p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">hub</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="n">htpasswd</span><span class="w"> </span><span class="o">-</span><span class="n">bB</span><span class="w"> </span><span class="n">users</span><span class="p">.</span><span class="n">htpasswd</span><span class="w"> </span><span class="n">nokia</span><span class="w"> </span><span class="n">nokia</span><span class="mi">@1234</span>
+<span class="n">Updating</span><span class="w"> </span><span class="n">password</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="n">nokia</span>
+<span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">hub</span><span class="p">]</span><span class="err">#</span><span class="w"> </span>
 </code></pre></div>
 
-<p>OCP automatically regenerates a new one.</p>
+<p>3) Replace the htpass-secret Secret object with the updated users in the users.htpasswd file:</p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="n">generic</span><span class="w"> </span><span class="n">htpass</span><span class="o">-</span><span class="n">secret</span><span class="w"> </span><span class="c1">--from-file=htpasswd=users.htpasswd --dry-run=client -o yaml -n openshift-config | oc replace -f -</span>
+<span class="n">secret</span><span class="o">/</span><span class="n">htpass</span><span class="o">-</span><span class="n">secret</span><span class="w"> </span><span class="n">replaced</span>
+<span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<p>4) Wait for all these pods to be restarted </p>
+<div class="codehilite"><pre><span></span><code><span class="o">[</span><span class="n">root@dom14npv101-infra-manager ~ hub</span><span class="o">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">pods</span><span class="w"> </span><span class="o">-</span><span class="n">n</span><span class="w"> </span><span class="n">openshift</span><span class="o">-</span><span class="n">authentication</span><span class="w"> </span><span class="o">-</span><span class="n">o</span><span class="w"> </span><span class="n">wide</span><span class="w"> </span><span class="o">-</span><span class="n">w</span>
+<span class="n">NAME</span><span class="w">                             </span><span class="n">READY</span><span class="w">   </span><span class="n">STATUS</span><span class="w">    </span><span class="n">RESTARTS</span><span class="w">   </span><span class="n">AGE</span><span class="w">     </span><span class="n">IP</span><span class="w">             </span><span class="n">NODE</span><span class="w">                                                       </span><span class="n">NOMINATED</span><span class="w"> </span><span class="n">NODE</span><span class="w">   </span><span class="n">READINESS</span><span class="w"> </span><span class="n">GATES</span>
+<span class="n">oauth</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="n">f446bd5b</span><span class="o">-</span><span class="mi">58</span><span class="n">cps</span><span class="w">   </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="w">     </span><span class="n">Running</span><span class="w">   </span><span class="mi">0</span><span class="w">          </span><span class="mi">6</span><span class="n">m48s</span><span class="w">   </span><span class="mf">172.20.2.190</span><span class="w">   </span><span class="n">ncpvnpvhub</span><span class="o">-</span><span class="n">hubmaster</span><span class="o">-</span><span class="mf">101.</span><span class="n">ncpvnpvhub</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">           </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span>
+<span class="n">oauth</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="n">f446bd5b</span><span class="o">-</span><span class="n">k8dqx</span><span class="w">   </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="w">     </span><span class="n">Running</span><span class="w">   </span><span class="mi">0</span><span class="w">          </span><span class="mi">5</span><span class="n">m53s</span><span class="w">   </span><span class="mf">172.21.0.241</span><span class="w">   </span><span class="n">ncpvnpvhub</span><span class="o">-</span><span class="n">hubmaster</span><span class="o">-</span><span class="mf">103.</span><span class="n">ncpvnpvhub</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">           </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span>
+<span class="n">oauth</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="n">f446bd5b</span><span class="o">-</span><span class="n">v4n6m</span><span class="w">   </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="w">     </span><span class="n">Running</span><span class="w">   </span><span class="mi">0</span><span class="w">          </span><span class="mi">6</span><span class="n">m21s</span><span class="w">   </span><span class="mf">172.20.0.134</span><span class="w">   </span><span class="n">ncpvnpvhub</span><span class="o">-</span><span class="n">hubmaster</span><span class="o">-</span><span class="mf">102.</span><span class="n">ncpvnpvhub</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">           </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span>
+<span class="n">oauth</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="n">f446bd5b</span><span class="o">-</span><span class="n">v4n6m</span><span class="w">   </span><span class="mi">1</span><span class="o">/</span><span class="mi">1</span><span class="w">     </span><span class="n">Terminating</span><span class="w">   </span><span class="mi">0</span><span class="w">          </span><span class="mi">6</span><span class="n">m24s</span><span class="w">   </span><span class="mf">172.20.0.134</span><span class="w">   </span><span class="n">ncpvnpvhub</span><span class="o">-</span><span class="n">hubmaster</span><span class="o">-</span><span class="mf">102.</span><span class="n">ncpvnpvhub</span><span class="p">.</span><span class="n">pnwlab</span><span class="p">.</span><span class="n">nsn</span><span class="o">-</span><span class="n">rdnet</span><span class="p">.</span><span class="n">net</span><span class="w">   </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">           </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span>
+<span class="n">oauth</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="mi">6497</span><span class="n">ccb4f5</span><span class="o">-</span><span class="n">d5wxd</span><span class="w">   </span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span><span class="w">     </span><span class="n">Pending</span><span class="w">       </span><span class="mi">0</span><span class="w">          </span><span class="mi">0</span><span class="n">s</span><span class="w">      </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">         </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">                                                     </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">           </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span>
+<span class="n">oauth</span><span class="o">-</span><span class="n">openshift</span><span class="o">-</span><span class="mi">6497</span><span class="n">ccb4f5</span><span class="o">-</span><span class="n">d5wxd</span><span class="w">   </span><span class="mi">0</span><span class="o">/</span><span class="mi">1</span><span class="w">     </span><span class="n">Pending</span><span class="w">       </span><span class="mi">0</span><span class="w">          </span><span class="mi">0</span><span class="n">s</span><span class="w">      </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">         </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">                                                     </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span><span class="w">           </span><span class="o">&lt;</span><span class="k">none</span><span class="o">&gt;</span>
+</code></pre></div>
+
+<p>5) Validate the login now. </p>
+<div class="codehilite"><pre><span></span><code><span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">hub</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">nokia</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">nokia</span><span class="mi">@123</span>
+<span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="n">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">supported</span><span class="o">!</span>
+
+<span class="n">Login</span><span class="w"> </span><span class="n">failed</span><span class="w"> </span><span class="p">(</span><span class="mi">401</span><span class="w"> </span><span class="n">Unauthorized</span><span class="p">)</span>
+<span class="n">Verify</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">provided</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">correct</span><span class="w"> </span><span class="n">credentials</span><span class="p">.</span>
+<span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">hub</span><span class="p">]</span><span class="err">#</span><span class="w"> </span><span class="n">oc</span><span class="w"> </span><span class="n">login</span><span class="w"> </span><span class="o">-</span><span class="n">u</span><span class="w"> </span><span class="n">nokia</span><span class="w"> </span><span class="o">-</span><span class="n">p</span><span class="w"> </span><span class="n">nokia</span><span class="mi">@1234</span>
+<span class="nl">WARNING</span><span class="p">:</span><span class="w"> </span><span class="n">Using</span><span class="w"> </span><span class="n">insecure</span><span class="w"> </span><span class="n">TLS</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="n">config</span><span class="p">.</span><span class="w"> </span><span class="n">Setting</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">supported</span><span class="o">!</span>
+
+<span class="n">Login</span><span class="w"> </span><span class="n">successful</span><span class="p">.</span>
+
+<span class="n">You</span><span class="w"> </span><span class="n">don</span><span class="err">&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">any</span><span class="w"> </span><span class="n">projects</span><span class="p">.</span><span class="w"> </span><span class="n">You</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">try</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">project</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">running</span>
+
+<span class="w">    </span><span class="n">oc</span><span class="w"> </span><span class="n">new</span><span class="o">-</span><span class="n">project</span><span class="w"> </span><span class="o">&lt;</span><span class="n">projectname</span><span class="o">&gt;</span>
+
+<span class="p">[</span><span class="n">root</span><span class="p">@</span><span class="n">dom14npv101</span><span class="o">-</span><span class="n">infra</span><span class="o">-</span><span class="n">manager</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">hub</span><span class="p">]</span><span class="err">#</span><span class="w"> </span>
+</code></pre></div>
+
+<h4 id="removing-the-kubeadmin-user">Removing the kubeadmin user<a class="headerlink" href="#removing-the-kubeadmin-user" title="Permanent link">&para;</a></h4>
+<ol>
+<li>After you define an identity provider and create a new cluster-admin user, you can remove the kubeadmin to improve cluster security.</li>
+</ol>
+<h5 id="warning">Warning<a class="headerlink" href="#warning" title="Permanent link">&para;</a></h5>
+<p><code>If you follow this procedure before another user is a cluster-admin, then OpenShift Container Platform must be reinstalled. It is not possible to undo this command.</code></p>
+<h5 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h5>
+<ul>
+<li>You must have configured at least one identity provider.</li>
+<li>You must have added the cluster-admin role to a user.</li>
+<li>You must be logged in as an administrator.</li>
+</ul>
+<h5 id="procedure">Procedure<a class="headerlink" href="#procedure" title="Permanent link">&para;</a></h5>
+<ol>
+<li>Remove the kubeadmin secrets:</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>oc delete secrets kubeadmin -n kube-system
+</code></pre></div>
+
 <hr />
-<h2 id="2-argo-cd-credentials">🔹 2. Argo CD Credentials<a class="headerlink" href="#2-argo-cd-credentials" title="Permanent link">&para;</a></h2>
-<p>Argo CD uses credentials for:
-- OCP API access
-- Git repositories
-- Helm repositories or private registries</p>
-<h3 id="a-update-argo-cd-admin-password">a. Update Argo CD Admin Password<a class="headerlink" href="#a-update-argo-cd-admin-password" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>argocd<span class="w"> </span>login<span class="w"> </span>&lt;argo-server&gt;
-argocd<span class="w"> </span>account<span class="w"> </span>update-password
-</code></pre></div>
-
-<h3 id="b-update-git-repository-credentials">b. Update Git Repository Credentials<a class="headerlink" href="#b-update-git-repository-credentials" title="Permanent link">&para;</a></h3>
-<div class="codehilite"><pre><span></span><code>argocd<span class="w"> </span>repo<span class="w"> </span>update<span class="w"> </span>&lt;repo-name&gt;<span class="w">   </span>--username<span class="w"> </span>&lt;newuser&gt;<span class="w">   </span>--password<span class="w"> </span>&lt;newpass&gt;
-</code></pre></div>
-
-<p>If using SSO (Dex, Keycloak, or OCP OAuth), update credentials in that respective identity provider.</p>
+<h2 id="2-argo-cd-change-argocd-admin-password-via-kubernetes-secret-openshift-gitops">2. Argo CD | Change ArgoCD Admin Password via Kubernetes Secret (OpenShift GitOps)<a class="headerlink" href="#2-argo-cd-change-argocd-admin-password-via-kubernetes-secret-openshift-gitops" title="Permanent link">&para;</a></h2>
+<p>Update ArgoCD Admin Password via Kubernetes Secret (OpenShift GitOps)</p>
+<p>This guide explains how to securely update the <strong>ArgoCD admin password</strong>
+by modifying the Kubernetes Secret used by OpenShift GitOps.</p>
 <hr />
-<h2 id="3-bare-metal-node-passwords">🔹 3. Bare Metal Node Passwords<a class="headerlink" href="#3-bare-metal-node-passwords" title="Permanent link">&para;</a></h2>
+<h4 id="example-existing-secret">Example Existing Secret<a class="headerlink" href="#example-existing-secret" title="Permanent link">&para;</a></h4>
+<p>Your current secret looks like this:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">v1</span>
+<span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">admin.password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dEtvalliZFAySXhTOEpIQ3VwRTN5NE1WRnNPWjFya2g=</span>
+<span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Secret</span>
+<span class="nt">metadata</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshift-gitops-cluster</span>
+<span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">openshift-gitops</span>
+<span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Opaque</span>
+</code></pre></div>
+
+<hr />
+<h4 id="steps-to-update-the-password">Steps to Update the Password<a class="headerlink" href="#steps-to-update-the-password" title="Permanent link">&para;</a></h4>
+<h5 id="generate-a-new-bcrypt-hash-for-your-new-password">Generate a new bcrypt hash for your new password<a class="headerlink" href="#generate-a-new-bcrypt-hash-for-your-new-password" title="Permanent link">&para;</a></h5>
+<p>Run the following command to create a bcrypt hash of your new password:</p>
+<div class="codehilite"><pre><span></span><code>htpasswd<span class="w"> </span>-bnBC<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="w"> </span>&lt;new_password&gt;<span class="w"> </span><span class="p">|</span><span class="w"> </span>tr<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;:\n&#39;</span>
+</code></pre></div>
+
+<p><strong>Example output:</strong></p>
+<div class="codehilite"><pre><span></span><code>$2a$10$8f0uPpTx6M0DKB.0HLDiuOfwVQ7MSnZCfvRWtKn6dmCkzW9Qe2Sa2
+</code></pre></div>
+
+<hr />
+<h5 id="base64-encode-the-hash">Base64 encode the hash<a class="headerlink" href="#base64-encode-the-hash" title="Permanent link">&para;</a></h5>
+<p>Because your Secret uses the <code>data:</code> field (not <code>stringData:</code>), you must
+Base64 encode the hash before applying it.</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span>-n<span class="w"> </span><span class="s1">&#39;$2a$10$8f0uPpTx6M0DKB.0HLDiuOfwVQ7MSnZCfvRWtKn6dmCkzW9Qe2Sa2&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>base64
+</code></pre></div>
+
+<p><strong>Example encoded output:</strong></p>
+<div class="codehilite"><pre><span></span><code>JDIhJDEwJDhmMHVQcFR4Nk0wREtCLjBITERpdU9md1ZRN01TblozQ2Z2Uld0S242ZG1DazpXOVFlMlNhMg==
+</code></pre></div>
+
+<hr />
+<h5 id="edit-the-secret-in-openshift">Edit the Secret in OpenShift<a class="headerlink" href="#edit-the-secret-in-openshift" title="Permanent link">&para;</a></h5>
+<p>Run the following command to edit the secret:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>edit<span class="w"> </span>secret<span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>openshift-gitops-cluster
+</code></pre></div>
+
+<p>Replace the existing value under <code>data.admin.password:</code> with your <strong>new
+Base64-encoded hash</strong>:</p>
+<div class="codehilite"><pre><span></span><code><span class="nt">data</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">admin.password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">JDIhJDEwJDhmMHVQcFR4Nk0wREtCLjBITERpdU9md1ZRN01TblozQ2Z2Uld0S242ZG1DazpXOVFlMlNhMg==</span>
+</code></pre></div>
+
+<p>Save and exit the editor (<code>:wq</code> in vi).</p>
+<h5 id="restart-argocd-server-pods">Restart ArgoCD Server Pods<a class="headerlink" href="#restart-argocd-server-pods" title="Permanent link">&para;</a></h5>
+<p>Restart the ArgoCD server pods to apply the new password:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>delete<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>openshift-gitops<span class="w"> </span>-l<span class="w"> </span>app.kubernetes.io/name<span class="o">=</span>argocd-server
+</code></pre></div>
+
+<p>This ensures the new password takes effect immediately.</p>
+<h5 id="log-in-with-the-new-password">Log in with the new password<a class="headerlink" href="#log-in-with-the-new-password" title="Permanent link">&para;</a></h5>
+<p>Once the pods are back online, log in again using your new password:</p>
+<p>Access via ArgoUI. </p>
+<h2 id="3-bare-metal-node-core-user-passwords-common-for-hub-and-cwl">3. Bare Metal Node 'core user' Passwords (Common for hub and cwl)<a class="headerlink" href="#3-bare-metal-node-core-user-passwords-common-for-hub-and-cwl" title="Permanent link">&para;</a></h2>
 <p>Each node (hub and spokes) may have:
-- <code>root</code> or administrative users<br />
 - <code>core</code> user (for RHCOS)</p>
-<p>To change manually:</p>
-<div class="codehilite"><pre><span></span><code>sudo<span class="w"> </span>passwd<span class="w"> </span>root
+<h3 id="purpose">Purpose<a class="headerlink" href="#purpose" title="Permanent link">&para;</a></h3>
+<p>This file ensures that all <strong>master and worker nodes</strong> in the cluster have a consistent, predefined password for the <code>core</code> user, derived from
+a <strong>hashed password value</strong> rather than a plain-text string.
+This approach aligns with best security practices by preventing password exposure in configuration files.</p>
+<h3 id="procedure_1">Procedure<a class="headerlink" href="#procedure_1" title="Permanent link">&para;</a></h3>
+<h4 id="1-update-the-core-user-password">1. Update the core user password<a class="headerlink" href="#1-update-the-core-user-password" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>Update the existing MachineConfig files named:</p>
+<ul>
+<li><code>98-worker-core-pass</code></li>
+<li><code>98-master-core-pass</code></li>
+</ul>
+</li>
+<li>
+<p>Generate a new password hash using the command:</p>
+<p><code>bash
+mkpasswd -m SHA-512 &lt;your_password&gt;</code></p>
+</li>
+<li>
+<p>Copy the generated hash and update the corresponding <code>core-pass</code>
+    files with the new hash.</p>
+</li>
+<li>
+<p><strong>Note:</strong> First update the <strong>master</strong>, then the <strong>worker</strong>.</p>
+</li>
+</ol>
+<p>To edit the MachineConfig file:</p>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>edit<span class="w"> </span>machineconfig<span class="w"> </span><span class="m">98</span>-master-core-pass
 </code></pre></div>
 
-<p>To propagate across all nodes, use <strong>MachineConfig</strong>:</p>
+<hr />
+<h4 id="example">[Example]<a class="headerlink" href="#example" title="Permanent link">&para;</a></h4>
 <div class="codehilite"><pre><span></span><code><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">machineconfiguration.openshift.io/v1</span>
 <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MachineConfig</span>
 <span class="nt">metadata</span><span class="p">:</span>
-<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">set-root-password</span>
+<span class="w">  </span><span class="nt">annotations</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ran.openshift.io/ztp-gitops-generated</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;{}&#39;</span>
 <span class="w">  </span><span class="nt">labels</span><span class="p">:</span>
-<span class="w">    </span><span class="nt">machineconfiguration.openshift.io/role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">master</span>
+<span class="w">    </span><span class="nt">machineconfiguration.openshift.io/role</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">worker</span>
+<span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">98-master-core-pass</span>
 <span class="nt">spec</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">ignition</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3.4.0</span>
 <span class="w">    </span><span class="nt">passwd</span><span class="p">:</span>
 <span class="w">      </span><span class="nt">users</span><span class="p">:</span>
-<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">root</span>
-<span class="w">          </span><span class="nt">passwordHash</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;new-hash&gt;&quot;</span>
-</code></pre></div>
-
-<p>Generate password hash:</p>
-<div class="codehilite"><pre><span></span><code>openssl<span class="w"> </span>passwd<span class="w"> </span>-6<span class="w"> </span><span class="s1">&#39;newpassword&#39;</span>
-</code></pre></div>
-
-<p>Apply it:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>set-root-password.yaml
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">core</span>
+<span class="w">        </span><span class="nt">passwordHash</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">&lt;your_hash&gt;</span>
 </code></pre></div>
 
 <hr />
-<h2 id="4-container-registries-pull-secrets">🔹 4. Container Registries (Pull Secrets)<a class="headerlink" href="#4-container-registries-pull-secrets" title="Permanent link">&para;</a></h2>
-<p>If your OCP cluster uses private registries, update the <code>pull-secret</code> in <code>openshift-config</code>:</p>
+<p><strong>NOTE:</strong>
+The nodes do not reboot and should become available within a few moments. </p>
+<hr />
+<h4 id="11-track-the-process-using-oc-get-mcp">1.1 track the process using <code>oc get mcp</code><a class="headerlink" href="#11-track-the-process-using-oc-get-mcp" title="Permanent link">&para;</a></h4>
+<ol>
+<li>run the following command
+    <code>oc get mcp</code></li>
+</ol>
+<h4 id="2-verification">2. Verification<a class="headerlink" href="#2-verification" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>Start a debug session on a node:</p>
+<p><code>bash
+oc debug node/&lt;node_name&gt;</code></p>
+</li>
+<li>
+<p>Enter the chroot environment:</p>
+<p><code>bash
+chroot /host</code></p>
+</li>
+<li>
+<p>Verify the password hash:</p>
+<p><code>bash
+cat /etc/shadow</code>
+You should see an entry similar to:</p>
+</li>
+</ol>
+<div class="codehilite"><pre><span></span><code>        systemd-journal-remote:!!::::::
+        core:&lt;your_hash&gt;:20263:0:99999:7:::
+</code></pre></div>
+
+<hr />
+<h2 id="4-quay-registries">4. Quay Registries<a class="headerlink" href="#4-quay-registries" title="Permanent link">&para;</a></h2>
+<h3 id="updating-hub-quay-passwd">Updating hub quay passwd<a class="headerlink" href="#updating-hub-quay-passwd" title="Permanent link">&para;</a></h3>
+<h4 id="updating-hub-quay-passwd-part-1">Updating hub quay passwd  (part-1)<a class="headerlink" href="#updating-hub-quay-passwd-part-1" title="Permanent link">&para;</a></h4>
+<p>1) login to hub quay on the web browser </p>
+<blockquote>
+<p>https://quay-registry.apps.panclyphub01.mnc020.mcc714/ 
+deployer/deployer -&gt; this user was used for cwl cluster installation.  </p>
+</blockquote>
+<p><img alt="alt text" src="../image-9.png" /></p>
+<p>2) once logined in navigate to account setting </p>
+<p><img alt="alt text" src="../image-10.png" /></p>
+<p>3) then click on change password under the user setting </p>
+<p><img alt="alt text" src="../image-11.png" /></p>
+<p>4) A windo popup and put your username and passwd to change </p>
+<p><img alt="alt text" src="../image-12.png" /></p>
+<h4 id="updating-the-hub-quay-passwd-on-hub-pull-secret-part-2">Updating the hub quay passwd on hub pull secret (part-2)<a class="headerlink" href="#updating-the-hub-quay-passwd-on-hub-pull-secret-part-2" title="Permanent link">&para;</a></h4>
+<p>1) login to hub using oc login </p>
+<p>2) oc edit scret on the cwl cluster namespace. ("ncpcwltri04nac-ns name" then name "ncpcwltri04nac-disconnected-registry-pull-secret")</p>
+<h4 id="update-this-hub-quay-password-on-cwl-pull-secret-on-git-side-part-3">Update this hub quay password on CWL pull secret on git side (part-3)<a class="headerlink" href="#update-this-hub-quay-password-on-cwl-pull-secret-on-git-side-part-3" title="Permanent link">&para;</a></h4>
+<p>1) navigate to site-config dir on the infra-node even you can using ui to update it on the git structure. </p>
+<p>2) edit file (site-config-&gt;pre-reqs-&gt;pull-secret-clustername.yaml)  update and save it. </p>
+<p>3) push to git (git add. '  git commit -m "update", git push)</p>
+<h4 id="update-this-hub-quay-passwd-on-the-cwl-quay-gobal-pull-secret-as-well-part-4">Update this hub quay passwd on the cwl quay gobal pull secret as well. (part-4)<a class="headerlink" href="#update-this-hub-quay-passwd-on-the-cwl-quay-gobal-pull-secret-as-well-part-4" title="Permanent link">&para;</a></h4>
+<p>1) login to cwl using oc login </p>
+<p>2) oc edit scret on the openshif-config namespace. ("gobal-pull-secret) update and save it. </p>
 <div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>extract<span class="w"> </span>secret/pull-secret<span class="w"> </span>-n<span class="w"> </span>openshift-config<span class="w"> </span>--to<span class="o">=</span>-
 oc<span class="w"> </span><span class="nb">set</span><span class="w"> </span>data<span class="w"> </span>secret/pull-secret<span class="w"> </span>-n<span class="w"> </span>openshift-config<span class="w">   </span>--from-file<span class="o">=</span>.dockerconfigjson<span class="o">=</span>/path/to/updated.json
 </code></pre></div>
@@ -2357,50 +3387,62 @@ oc<span class="w"> </span><span class="nb">set</span><span class="w"> </span>dat
 <div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>secret<span class="w"> </span>pull-secret<span class="w"> </span>-n<span class="w"> </span>openshift-config<span class="w"> </span>-o<span class="w"> </span>yaml
 </code></pre></div>
 
-<hr />
-<h2 id="5-other-integrations">🔹 5. Other Integrations<a class="headerlink" href="#5-other-integrations" title="Permanent link">&para;</a></h2>
-<h3 id="a-monitoring-prometheus-alertmanager">a. Monitoring (Prometheus, Alertmanager)<a class="headerlink" href="#a-monitoring-prometheus-alertmanager" title="Permanent link">&para;</a></h3>
-<p>Update passwords or tokens in their secrets:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>edit<span class="w"> </span>secret<span class="w"> </span>alertmanager-main<span class="w"> </span>-n<span class="w"> </span>openshift-monitoring
-</code></pre></div>
-
-<h3 id="b-gitops-webhooks">b. GitOps / Webhooks<a class="headerlink" href="#b-gitops-webhooks" title="Permanent link">&para;</a></h3>
-<p>If Git webhooks use basic auth or tokens, update them in your Git provider (GitHub, GitLab, Bitbucket).</p>
-<h3 id="c-storage-systems">c. Storage Systems<a class="headerlink" href="#c-storage-systems" title="Permanent link">&para;</a></h3>
-<p>If you use NFS, Ceph, or external storage:
-- Update credentials in StorageClass or Secret definitions used by CSI drivers.</p>
-<hr />
-<h2 id="6-secrets-and-automation-tools">🔹 6. Secrets and Automation Tools<a class="headerlink" href="#6-secrets-and-automation-tools" title="Permanent link">&para;</a></h2>
-<p>If using <strong>Sealed Secrets</strong>, <strong>Vault</strong>, or <strong>Argo CD Vault Plugin</strong>:
-- Re-encrypt manifests with new passwords.
-- Update tokens in Vault policies or Argo plugin configurations.</p>
-<hr />
-<h2 id="recommended-order-of-operations">✅ Recommended Order of Operations<a class="headerlink" href="#recommended-order-of-operations" title="Permanent link">&para;</a></h2>
-<ol>
-<li><strong>Rotate OS-level passwords</strong> (root/core) on all nodes.  </li>
-<li><strong>Update OCP OAuth (htpasswd/LDAP)</strong> user credentials.  </li>
-<li><strong>Rotate Argo CD admin and repo passwords.</strong>  </li>
-<li><strong>Update registry pull secrets.</strong>  </li>
-<li><strong>Verify and update external integrations (monitoring, storage, webhooks).</strong>  </li>
-<li><strong>Reboot or restart impacted operators if necessary.</strong></li>
-</ol>
-<hr />
-<h2 id="verification">🧩 Verification<a class="headerlink" href="#verification" title="Permanent link">&para;</a></h2>
-<p>After rotation:</p>
-<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>whoami
-argocd<span class="w"> </span>login<span class="w"> </span>&lt;argo-server&gt;
-oc<span class="w"> </span>get<span class="w"> </span>nodes
-</code></pre></div>
-
-<p>Ensure:
-- Cluster access is functional.
-- Argo CD syncs successfully.
-- Registry images can be pulled without authentication errors.</p>
+<h3 id="updating-cwl-quay-passwd">Updating CWL quay passwd<a class="headerlink" href="#updating-cwl-quay-passwd" title="Permanent link">&para;</a></h3>
+<h4 id="updating-cwl-quay-passwd-part-1">Updating CWL quay passwd  (part-1)<a class="headerlink" href="#updating-cwl-quay-passwd-part-1" title="Permanent link">&para;</a></h4>
+<p>1) login to CWL quay on the web browser </p>
+<blockquote>
+<p>https://quay-registry.apps.panclypCWL01.mnc020.mcc714/ 
+deployer/deployer -&gt; this user was used for CWL proxy-cache ITMS.  </p>
+</blockquote>
+<p><img alt="alt text" src="../image-9.png" /></p>
+<p>2) once logined in navigate to account setting </p>
+<p><img alt="alt text" src="../image-10.png" /></p>
+<p>3) then click on change password under the user setting </p>
+<p><img alt="alt text" src="../image-11.png" /></p>
+<p>4) A windo popup and put your username and passwd to change </p>
+<p><img alt="alt text" src="../image-12.png" /></p>
+<h4 id="update-this-passwd-on-the-cwl-pull-secret-as-well-used-for-itms-part-2">Update this passwd on the cwl pull secret as well used for ITMS. (Part-2)<a class="headerlink" href="#update-this-passwd-on-the-cwl-pull-secret-as-well-used-for-itms-part-2" title="Permanent link">&para;</a></h4>
+<h2 id="5-hardware-management-console-passwd-change">5. Hardware management console passwd change<a class="headerlink" href="#5-hardware-management-console-passwd-change" title="Permanent link">&para;</a></h2>
+<h3 id="hpe-based-ilo-passwd-reset-part-1">HPE based ILO passwd reset - Part-1<a class="headerlink" href="#hpe-based-ilo-passwd-reset-part-1" title="Permanent link">&para;</a></h3>
+<p>1) login to ILO ip on that server (if your cluster has built using 30 servers) you need to do this steps for all 30 servers. </p>
+<p>Note:  on NCP deployment hardware management service is fully handled by Nokia hardware team.  so you have to simply ask them to change password. </p>
+<p><img alt="alt text" src="../image-13.png" /></p>
+<p>2) use the current passwd to login to dashboard</p>
+<p><img alt="alt text" src="../image-14.png" /></p>
+<p>3) Click on administration menu from the left side </p>
+<p><img alt="alt text" src="../image-15.png" /></p>
+<p>4) Click on user-administration followed by select an user.  </p>
+<p><img alt="alt text" src="../image-16.png" /></p>
+<p>5) Then this will enable edit option for this user id. </p>
+<p><img alt="alt text" src="../image-17.png" /></p>
+<p>6) next you will find an option to change passwd as combo box. </p>
+<p><img alt="alt text" src="../image-18.png" /></p>
+<p>7) followed by enter your new passwd and then click on save. </p>
+<h4 id="update-this-hp-new-password-on-cwl-pull-secret-on-git-side-part-2">Update this hp new password on CWL pull secret on git side (part-2)<a class="headerlink" href="#update-this-hp-new-password-on-cwl-pull-secret-on-git-side-part-2" title="Permanent link">&para;</a></h4>
+<p>1) navigate to site-config dir on the infra-node even you can using ui to update it on the git structure. </p>
+<p>2) edit file (site-config-&gt;pre-reqs-&gt;bmc-credentials-clustername.yaml)  update and save it. </p>
+<blockquote>
+<p>passwd and username should be base64 encrypted. </p>
+</blockquote>
+<p>3) push to git (git add. '  git commit -m "update", git push)</p>
+<h2 id="6-cluster-monitoring">6. Cluster Monitoring<a class="headerlink" href="#6-cluster-monitoring" title="Permanent link">&para;</a></h2>
+<h2 id="7-git-server-password-management">7. Git server password management<a class="headerlink" href="#7-git-server-password-management" title="Permanent link">&para;</a></h2>
+<p>1) Login to git server UI. </p>
+<p><img alt="alt text" src="../image-19.png" /></p>
+<p>2) Once logined in, click on admin under the left side page. </p>
+<p><img alt="alt text" src="../image-20.png" /></p>
+<p>3) Select users on the left side </p>
+<p><img alt="alt text" src="../image-21.png" /></p>
+<p>4) Now select your user id here and left as edit </p>
+<p><img alt="alt text" src="../image-22.png" /></p>
+<p>5) Then select save button here. </p>
+<blockquote>
+<p>Dont change the root id passwd for second backup login. </p>
+</blockquote>
 <hr />
 <h2 id="references">🧾 References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://docs.openshift.com/container-platform/latest/authentication/understanding-authentication.html">Red Hat OpenShift Docs – User Management</a>  </li>
-<li><a href="https://argo-cd.readthedocs.io/en/stable/user-guide/commands/argocd_account_update-password/">Argo CD CLI Reference</a>  </li>
 <li><a href="https://docs.openshift.com/container-platform/latest/post_installation_configuration/machine-configuration-tasks.html">Machine Config Operator</a></li>
 </ul>
 <hr />
