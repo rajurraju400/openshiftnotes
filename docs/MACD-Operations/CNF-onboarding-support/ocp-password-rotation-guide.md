@@ -1,3 +1,5 @@
+## Testing in-prog - not released of MACD and deployment teams yet. 
+
 # OpenShift (OCP) Password Rotation Guide  
 **Environment:** Hub and Spoke Clusters (Bare Metal HP and DELL )  
 **Includes:** infra quay,  OCP UI using OAuth for hub and cwl, Quay for hub and cwl,  Argo CD, GIT, Cluster monitoring and baremetal console management services too. 
@@ -6,7 +8,7 @@
 ---
 
 ## Overview
-This guide outlines all the key places where passwords or credentials need to be updated in a multi-cluster OpenShift environment that uses **Argo CD, GIT, Quay passwd, OCP UI (only OAuth), Bare Metal Nodes**
+This guide outlines all the key places where passwords or credentials need to be updated in a multi-cluster OpenShift environment that uses **infra quay,  OCP UI using OAuth for hub and cwl, Quay for hub and cwl,  Argo CD, GIT, Cluster monitoring and baremetal console management services too.**
 
 ---
 
@@ -312,6 +314,37 @@ You should see an entry similar to:
 
 ## 4. Quay Registries 
 
+### Updating infra quay passwd 
+
+#### Updating infra quay passwd  (part-1)
+
+1) login to infra quay on the web browser 
+> https://utilitiy.panclyphub01.mnc020.mcc714/ 
+> deployer/deployer -> this user was used for cwl cluster installation.  
+
+![alt text](image-9.png)
+
+
+2) once logined in navigate to account setting 
+
+![alt text](image-10.png)
+
+
+3) then click on change password under the user setting 
+
+![alt text](image-11.png)
+
+
+4) A windo popup and put your username and passwd to change 
+
+![alt text](image-12.png)
+
+#### Updating the infra quay passwd on hub pull secret (part-2)
+
+1) login to hub using oc login 
+
+2) update inprog.
+
 ### Updating hub quay passwd 
 
 #### Updating hub quay passwd  (part-1)
@@ -439,9 +472,6 @@ Note:  on NCP deployment hardware management service is fully handled by Nokia h
 3) push to git (git add. '  git commit -m "update", git push)
 
 
-## 6. Cluster Monitoring 
-
-
 ## 7. Git server password management 
 
 1) Login to git server UI. 
@@ -476,6 +506,6 @@ Note:  on NCP deployment hardware management service is fully handled by Nokia h
 
 ---
 
-**Author:** Internal Ops Guide  
+**Author:** Venkatapathiraj Ravichandran 
 **Version:** 1.0  
 **Last Updated:** 2025-11-07
