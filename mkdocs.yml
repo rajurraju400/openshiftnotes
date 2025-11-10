@@ -99,6 +99,7 @@ nav:
           - LDAP Intergration: MACD-Operations/CNF-onboarding-support/ocp_rbac_option1_with_sync.md
           - DNS Forward Intergration: MACD-Operations/CNF-onboarding-support/dns-forwarding-doc.md
           - Egress IP Duplicated: MACD-Operations/CNF-onboarding-support/duplicate_ip_removal_sop_new.md
+          - OCP Password Management: MACD-Operations/CNF-onboarding-support/ocp-password-rotation-guide.md
       - CNF Onboarding Prerequisites:
           - NCOM : MACD-Operations/CNF-onboarding-prerequisites/NCOM.md
           - NCD : MACD-Operations/CNF-onboarding-prerequisites/NCD.md
