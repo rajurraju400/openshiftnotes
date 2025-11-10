@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#openshift-ocp-password-rotation-guide" class="md-skip">
+        <a href="#testing-in-prog-not-released-of-macd-and-deployment-teams-yet" class="md-skip">
           Skip to content
         </a>
       
@@ -2051,8 +2051,6 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
@@ -2085,8 +2083,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2095,6 +2091,25 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#testing-in-prog-not-released-of-macd-and-deployment-teams-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing in-prog - not released of MACD and deployment teams yet.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openshift-ocp-password-rotation-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift (OCP) Password Rotation Guide
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenShift (OCP) Password Rotation Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       Overview
@@ -2102,8 +2117,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#1-ocp-cluster-ocp-ui-based-passwd-common-for-hub-and-cwl" class="md-nav__link">
     <span class="md-ellipsis">
       1. OCP Cluster (OCP UI based passwd - common for hub and cwl)
@@ -2183,8 +2198,8 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#2-argo-cd-change-argocd-admin-password-via-kubernetes-secret-openshift-gitops" class="md-nav__link">
     <span class="md-ellipsis">
       2. Argo CD | Change ArgoCD Admin Password via Kubernetes Secret (OpenShift GitOps)
@@ -2267,8 +2282,8 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#3-bare-metal-node-core-user-passwords-common-for-hub-and-cwl" class="md-nav__link">
     <span class="md-ellipsis">
       3. Bare Metal Node 'core user' Passwords (Common for hub and cwl)
@@ -2342,8 +2357,8 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#4-quay-registries" class="md-nav__link">
     <span class="md-ellipsis">
       4. Quay Registries
@@ -2352,6 +2367,39 @@
   
     <nav class="md-nav" aria-label="4. Quay Registries">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-infra-quay-passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating infra quay passwd
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Updating infra quay passwd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-infra-quay-passwd-part-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating infra quay passwd (part-1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-the-infra-quay-passwd-on-hub-pull-secret-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating the infra quay passwd on hub pull secret (part-2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#updating-hub-quay-passwd" class="md-nav__link">
@@ -2441,8 +2489,8 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#5-hardware-management-console-passwd-change" class="md-nav__link">
     <span class="md-ellipsis">
       5. Hardware management console passwd change
@@ -2480,17 +2528,8 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#6-cluster-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Cluster Monitoring
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#7-git-server-password-management" class="md-nav__link">
     <span class="md-ellipsis">
       7. Git server password management
@@ -2498,13 +2537,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       🧾 References
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -2687,8 +2731,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2697,6 +2739,25 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#testing-in-prog-not-released-of-macd-and-deployment-teams-yet" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing in-prog - not released of MACD and deployment teams yet.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#openshift-ocp-password-rotation-guide" class="md-nav__link">
+    <span class="md-ellipsis">
+      OpenShift (OCP) Password Rotation Guide
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OpenShift (OCP) Password Rotation Guide">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
       Overview
@@ -2704,8 +2765,8 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#1-ocp-cluster-ocp-ui-based-passwd-common-for-hub-and-cwl" class="md-nav__link">
     <span class="md-ellipsis">
       1. OCP Cluster (OCP UI based passwd - common for hub and cwl)
@@ -2785,8 +2846,8 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#2-argo-cd-change-argocd-admin-password-via-kubernetes-secret-openshift-gitops" class="md-nav__link">
     <span class="md-ellipsis">
       2. Argo CD | Change ArgoCD Admin Password via Kubernetes Secret (OpenShift GitOps)
@@ -2869,8 +2930,8 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#3-bare-metal-node-core-user-passwords-common-for-hub-and-cwl" class="md-nav__link">
     <span class="md-ellipsis">
       3. Bare Metal Node 'core user' Passwords (Common for hub and cwl)
@@ -2944,8 +3005,8 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#4-quay-registries" class="md-nav__link">
     <span class="md-ellipsis">
       4. Quay Registries
@@ -2954,6 +3015,39 @@
   
     <nav class="md-nav" aria-label="4. Quay Registries">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-infra-quay-passwd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating infra quay passwd
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Updating infra quay passwd">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#updating-infra-quay-passwd-part-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating infra quay passwd (part-1)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-the-infra-quay-passwd-on-hub-pull-secret-part-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating the infra quay passwd on hub pull secret (part-2)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#updating-hub-quay-passwd" class="md-nav__link">
@@ -3043,8 +3137,8 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#5-hardware-management-console-passwd-change" class="md-nav__link">
     <span class="md-ellipsis">
       5. Hardware management console passwd change
@@ -3082,17 +3176,8 @@
     </nav>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#6-cluster-monitoring" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Cluster Monitoring
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#7-git-server-password-management" class="md-nav__link">
     <span class="md-ellipsis">
       7. Git server password management
@@ -3100,13 +3185,18 @@
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
       🧾 References
     </span>
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -3126,12 +3216,13 @@
 
 
 
+<h2 id="testing-in-prog-not-released-of-macd-and-deployment-teams-yet">Testing in-prog - not released of MACD and deployment teams yet.<a class="headerlink" href="#testing-in-prog-not-released-of-macd-and-deployment-teams-yet" title="Permanent link">&para;</a></h2>
 <h1 id="openshift-ocp-password-rotation-guide">OpenShift (OCP) Password Rotation Guide<a class="headerlink" href="#openshift-ocp-password-rotation-guide" title="Permanent link">&para;</a></h1>
 <p><strong>Environment:</strong> Hub and Spoke Clusters (Bare Metal HP and DELL )<br />
 <strong>Includes:</strong> infra quay,  OCP UI using OAuth for hub and cwl, Quay for hub and cwl,  Argo CD, GIT, Cluster monitoring and baremetal console management services too. </p>
 <hr />
 <h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
-<p>This guide outlines all the key places where passwords or credentials need to be updated in a multi-cluster OpenShift environment that uses <strong>Argo CD, GIT, Quay passwd, OCP UI (only OAuth), Bare Metal Nodes</strong></p>
+<p>This guide outlines all the key places where passwords or credentials need to be updated in a multi-cluster OpenShift environment that uses <strong>infra quay,  OCP UI using OAuth for hub and cwl, Quay for hub and cwl,  Argo CD, GIT, Cluster monitoring and baremetal console management services too.</strong></p>
 <hr />
 <h2 id="1-ocp-cluster-ocp-ui-based-passwd-common-for-hub-and-cwl">1. OCP Cluster (OCP UI based passwd - common for hub and cwl)<a class="headerlink" href="#1-ocp-cluster-ocp-ui-based-passwd-common-for-hub-and-cwl" title="Permanent link">&para;</a></h2>
 <h3 id="oauth-users-with-htpasswd">OAuth Users with htpasswd<a class="headerlink" href="#oauth-users-with-htpasswd" title="Permanent link">&para;</a></h3>
@@ -3355,6 +3446,23 @@ You should see an entry similar to:</p>
 
 <hr />
 <h2 id="4-quay-registries">4. Quay Registries<a class="headerlink" href="#4-quay-registries" title="Permanent link">&para;</a></h2>
+<h3 id="updating-infra-quay-passwd">Updating infra quay passwd<a class="headerlink" href="#updating-infra-quay-passwd" title="Permanent link">&para;</a></h3>
+<h4 id="updating-infra-quay-passwd-part-1">Updating infra quay passwd  (part-1)<a class="headerlink" href="#updating-infra-quay-passwd-part-1" title="Permanent link">&para;</a></h4>
+<p>1) login to infra quay on the web browser </p>
+<blockquote>
+<p>https://utilitiy.panclyphub01.mnc020.mcc714/ 
+deployer/deployer -&gt; this user was used for cwl cluster installation.  </p>
+</blockquote>
+<p><img alt="alt text" src="../image-9.png" /></p>
+<p>2) once logined in navigate to account setting </p>
+<p><img alt="alt text" src="../image-10.png" /></p>
+<p>3) then click on change password under the user setting </p>
+<p><img alt="alt text" src="../image-11.png" /></p>
+<p>4) A windo popup and put your username and passwd to change </p>
+<p><img alt="alt text" src="../image-12.png" /></p>
+<h4 id="updating-the-infra-quay-passwd-on-hub-pull-secret-part-2">Updating the infra quay passwd on hub pull secret (part-2)<a class="headerlink" href="#updating-the-infra-quay-passwd-on-hub-pull-secret-part-2" title="Permanent link">&para;</a></h4>
+<p>1) login to hub using oc login </p>
+<p>2) update inprog.</p>
 <h3 id="updating-hub-quay-passwd">Updating hub quay passwd<a class="headerlink" href="#updating-hub-quay-passwd" title="Permanent link">&para;</a></h3>
 <h4 id="updating-hub-quay-passwd-part-1">Updating hub quay passwd  (part-1)<a class="headerlink" href="#updating-hub-quay-passwd-part-1" title="Permanent link">&para;</a></h4>
 <p>1) login to hub quay on the web browser </p>
@@ -3425,7 +3533,6 @@ deployer/deployer -&gt; this user was used for CWL proxy-cache ITMS.  </p>
 <p>passwd and username should be base64 encrypted. </p>
 </blockquote>
 <p>3) push to git (git add. '  git commit -m "update", git push)</p>
-<h2 id="6-cluster-monitoring">6. Cluster Monitoring<a class="headerlink" href="#6-cluster-monitoring" title="Permanent link">&para;</a></h2>
 <h2 id="7-git-server-password-management">7. Git server password management<a class="headerlink" href="#7-git-server-password-management" title="Permanent link">&para;</a></h2>
 <p>1) Login to git server UI. </p>
 <p><img alt="alt text" src="../image-19.png" /></p>
@@ -3446,7 +3553,7 @@ deployer/deployer -&gt; this user was used for CWL proxy-cache ITMS.  </p>
 <li><a href="https://docs.openshift.com/container-platform/latest/post_installation_configuration/machine-configuration-tasks.html">Machine Config Operator</a></li>
 </ul>
 <hr />
-<p><strong>Author:</strong> Internal Ops Guide<br />
+<p><strong>Author:</strong> Venkatapathiraj Ravichandran 
 <strong>Version:</strong> 1.0<br />
 <strong>Last Updated:</strong> 2025-11-07</p>
 
