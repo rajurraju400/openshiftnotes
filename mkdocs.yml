@@ -105,6 +105,7 @@ nav:
           - NCD : MACD-Operations/CNF-onboarding-prerequisites/NCD.md
           - NCC : MACD-Operations/CNF-onboarding-prerequisites/NCC.md
           - CMG : MACD-Operations/CNF-onboarding-prerequisites/CMG.md
+          - cd-MRF : MACD-Operations/CNF-onboarding-prerequisites/CD-MRF.md
 
           
 markdown_extensions:
