@@ -103,3 +103,4 @@ This will leave the chroot and close the debug session.
 - This method is **temporary only**, per NCPFM-2422 approval.
 - Must always be done **on-demand** and **per MRF team request**.
 - Must be applied **only on the specific node** where the affected pod is running.
+- Dont ask for separate MACD ticket for this change, if you onboarding support for CD-MRF, that's enough for implementing this steps. 

@@ -13,10 +13,8 @@
       
       
       
-        <link rel="prev" href="../../CNF-onboarding-support/ocp-password-rotation-guide/">
+        <link rel="prev" href="../NCC/">
       
-      
-        <link rel="next" href="../CD-MRF/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +22,7 @@
     
     
       
-        <title>NCC - OpenShift Notes</title>
+        <title>cd-MRF - OpenShift Notes</title>
       
     
     
@@ -78,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ncc-onboarding-prerequisites" class="md-skip">
+        <a href="#temporary-sysctl-update-procedure-for-cd-mrf" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              NCC
+              cd-MRF
             
           </span>
         </div>
@@ -2157,32 +2155,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    NCC
-    
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../NCC/" class="md-nav__link">
         
   
   
@@ -2193,53 +2169,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#documentation-version-history" class="md-nav__link">
-    <span class="md-ellipsis">
-      Documentation Version History
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#list-the-tasks-involved" class="md-nav__link">
-    <span class="md-ellipsis">
-      List the tasks involved
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#role-creation-for-their-service-account" class="md-nav__link">
-    <span class="md-ellipsis">
-      Role Creation for their Service Account
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2272,10 +2201,32 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../CD-MRF/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    cd-MRF
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -2286,6 +2237,116 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fspipe-max-size-for-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      (fs.pipe-max-size for Troubleshooting)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#this-change-is-approved-by-ncp-blueprint-team-only-for-tmp-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      This change is approved by NCP blueprint team only for tmp usage.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-identify-the-node-running-the-nrd-oam-pod" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Identify the Node Running the nrd-oam Pod
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-connect-to-the-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Connect to the Node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-check-the-current-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Check the Current Value
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-apply-the-temporary-increase" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Apply the Temporary Increase
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-perform-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Perform Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-revert-the-sysctl-value-after-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Revert the Sysctl Value After Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-exit-the-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Exit the Node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -2333,27 +2394,90 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#documentation-version-history" class="md-nav__link">
+  <a href="#fspipe-max-size-for-troubleshooting" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation Version History
+      (fs.pipe-max-size for Troubleshooting)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#list-the-tasks-involved" class="md-nav__link">
+  <a href="#this-change-is-approved-by-ncp-blueprint-team-only-for-tmp-usage" class="md-nav__link">
     <span class="md-ellipsis">
-      List the tasks involved
+      This change is approved by NCP blueprint team only for tmp usage.
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#role-creation-for-their-service-account" class="md-nav__link">
+  <a href="#1-identify-the-node-running-the-nrd-oam-pod" class="md-nav__link">
     <span class="md-ellipsis">
-      Role Creation for their Service Account
+      1. Identify the Node Running the nrd-oam Pod
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-connect-to-the-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Connect to the Node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-check-the-current-value" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Check the Current Value
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-apply-the-temporary-increase" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Apply the Temporary Increase
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-perform-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Perform Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-revert-the-sysctl-value-after-troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Revert the Sysctl Value After Troubleshooting
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-exit-the-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Exit the Node
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notes
     </span>
   </a>
   
@@ -2375,80 +2499,76 @@
 
 
 
-<h1 id="ncc-onboarding-prerequisites">NCC Onboarding Prerequisites<a class="headerlink" href="#ncc-onboarding-prerequisites" title="Permanent link">&para;</a></h1>
-<h2 id="documentation-version-history">Documentation Version History<a class="headerlink" href="#documentation-version-history" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th><strong>Author Name</strong></th>
-<th><strong>Published Date</strong></th>
-<th><strong>Version</strong></th>
-<th><strong>Comments</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>LaKshmi</td>
-<td>08/06/2025</td>
-<td>1.0</td>
-<td>Initial draft</td>
-</tr>
-</tbody>
-</table>
-<h2 id="list-the-tasks-involved">List the tasks involved<a class="headerlink" href="#list-the-tasks-involved" title="Permanent link">&para;</a></h2>
+<h1 id="temporary-sysctl-update-procedure-for-cd-mrf">Temporary Sysctl Update Procedure for CD-MRF<a class="headerlink" href="#temporary-sysctl-update-procedure-for-cd-mrf" title="Permanent link">&para;</a></h1>
+<h2 id="fspipe-max-size-for-troubleshooting">(fs.pipe-max-size for Troubleshooting)<a class="headerlink" href="#fspipe-max-size-for-troubleshooting" title="Permanent link">&para;</a></h2>
+<p>This procedure describes how to temporarily update the <code>fs.pipe-max-size</code> sysctl parameter on a specific node during troubleshooting.<br />
+The change must be <strong>requested by the MRF team</strong>, applied <strong>only for the troubleshooting window</strong>, and <strong>reverted immediately</strong> afterward.</p>
+<h2 id="this-change-is-approved-by-ncp-blueprint-team-only-for-tmp-usage">This change is approved by NCP blueprint team only for tmp usage.<a class="headerlink" href="#this-change-is-approved-by-ncp-blueprint-team-only-for-tmp-usage" title="Permanent link">&para;</a></h2>
 <ul>
-<li>[x] Role Creation for their Service Account. </li>
+<li>https://jiradc2.ext.net.nokia.com/browse/NCPFM-2422 </li>
 </ul>
-<h2 id="role-creation-for-their-service-account">Role Creation for their Service Account<a class="headerlink" href="#role-creation-for-their-service-account" title="Permanent link">&para;</a></h2>
-<p>1) Login to the NCP with cluster admin account </p>
-<div class="codehilite"><pre><span></span><code>oc login 
+<hr />
+<h2 id="1-identify-the-node-running-the-nrd-oam-pod">1. Identify the Node Running the <code>nrd-oam</code> Pod<a class="headerlink" href="#1-identify-the-node-running-the-nrd-oam-pod" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>get<span class="w"> </span>pod<span class="w"> </span>-n<span class="w"> </span>&lt;namespace&gt;<span class="w"> </span>-o<span class="w"> </span>wide<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>nrd-oam
 </code></pre></div>
 
-<p>2) Create a role using following file and apply using <code>oc apply -f</code></p>
-<div class="codehilite"><pre><span></span><code><span class="nv">oc</span><span class="w"> </span><span class="nv">apply</span><span class="w"> </span><span class="o">-</span><span class="nv">f</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="nv">EOF</span>
-<span class="nv">apiVersion</span>:<span class="w"> </span><span class="nv">rbac</span>.<span class="nv">authorization</span>.<span class="nv">k8s</span>.<span class="nv">io</span><span class="o">/</span><span class="nv">v1</span>
-<span class="nv">kind</span>:<span class="w"> </span><span class="nv">ClusterRole</span>
-<span class="nv">metadata</span>:
-<span class="w">  </span><span class="nv">name</span>:<span class="w"> </span><span class="nv">ncc</span><span class="o">-</span><span class="nv">ig</span><span class="o">-</span><span class="nv">cpro</span><span class="o">-</span><span class="nv">qasus92ncc01</span><span class="o">-</span><span class="nv">servercr</span>
-<span class="nv">rules</span>:
-<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">apiGroups</span>:<span class="w"> </span>[<span class="s2">&quot;&quot;</span>]
-<span class="w">    </span><span class="nv">resources</span>:
-<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">endpoints</span>
-<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">nodes</span>
-<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">nodes</span><span class="o">/</span><span class="nv">metrics</span>
-<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">nodes</span><span class="o">/</span><span class="nv">proxy</span>
-<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">pods</span>
-<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">pods</span><span class="o">/</span><span class="k">exec</span>
-<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">services</span>
-<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;list&quot;</span>,<span class="w"> </span><span class="s2">&quot;watch&quot;</span>,<span class="w"> </span><span class="s2">&quot;create&quot;</span>]
-<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">apiGroups</span>:<span class="w"> </span>[<span class="s2">&quot;apps&quot;</span>]
-<span class="w">    </span><span class="nv">resources</span>:<span class="w"> </span>[<span class="s2">&quot;deployments&quot;</span>]
-<span class="w">    </span><span class="nv">resourceNames</span>:<span class="w"> </span>[<span class="s2">&quot;ncc-ig-cpro-server&quot;</span>]
-<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;create&quot;</span>,<span class="w"> </span><span class="s2">&quot;delete&quot;</span>,<span class="w"> </span><span class="s2">&quot;patch&quot;</span>,<span class="w"> </span><span class="s2">&quot;update&quot;</span>,<span class="w"> </span><span class="s2">&quot;list&quot;</span>,<span class="w"> </span><span class="s2">&quot;deletecollection&quot;</span>]
-<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">apiGroups</span>:<span class="w"> </span>[<span class="s2">&quot;apps&quot;</span>]
-<span class="w">    </span><span class="nv">resources</span>:<span class="w"> </span>[<span class="s2">&quot;statefulsets&quot;</span>]
-<span class="w">    </span><span class="nv">resourceNames</span>:<span class="w"> </span>[<span class="s2">&quot;ncc-ig-cpro-server&quot;</span>]
-<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;create&quot;</span>,<span class="w"> </span><span class="s2">&quot;delete&quot;</span>,<span class="w"> </span><span class="s2">&quot;patch&quot;</span>,<span class="w"> </span><span class="s2">&quot;update&quot;</span>,<span class="w"> </span><span class="s2">&quot;list&quot;</span>,<span class="w"> </span><span class="s2">&quot;deletecollection&quot;</span>]
-<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">apiGroups</span>:<span class="w"> </span>[<span class="s2">&quot;networking.k8s.io&quot;</span>]
-<span class="w">    </span><span class="nv">resources</span>:
-<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">ingresses</span>
-<span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="nv">ingresses</span><span class="o">/</span><span class="nv">status</span>
-<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;list&quot;</span>,<span class="w"> </span><span class="s2">&quot;watch&quot;</span>]
-<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">nonResourceURLs</span>:<span class="w"> </span>[<span class="s2">&quot;/metrics&quot;</span>]
-<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>]
-<span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="nv">apiGroups</span>:<span class="w"> </span>[<span class="s2">&quot;rbac.authorization.k8s.io&quot;</span>]
-<span class="w">    </span><span class="nv">resources</span>:<span class="w"> </span>[<span class="s2">&quot;clusterroles&quot;</span>]
-<span class="w">    </span><span class="nv">verbs</span>:<span class="w"> </span>[<span class="s2">&quot;get&quot;</span>,<span class="w"> </span><span class="s2">&quot;patch&quot;</span>]
-<span class="nv">EOF</span>
+<p>Note the <strong>node name</strong> from the output. 
+Note:  this node name will be provided by the mrf team. we dont do it on all the nodes on the MCP.  </p>
+<hr />
+<h2 id="2-connect-to-the-node">2. Connect to the Node<a class="headerlink" href="#2-connect-to-the-node" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>oc<span class="w"> </span>debug<span class="w"> </span>node/&lt;node-name&gt;
 </code></pre></div>
 
-<p>3)  later bind this ClusterRole to a service account</p>
-<div class="codehilite"><pre><span></span><code>oc adm policy add-cluster-role-to-user ncc-ig-cpro-qasus92ncc01-servercr -z &lt;sa-name&gt; -n &lt;namespace&gt;
+<p>Inside the debug shell, enter the host filesystem:</p>
+<div class="codehilite"><pre><span></span><code>chroot<span class="w"> </span>/host
 </code></pre></div>
 
-<blockquote>
-<p>This service account and namespace details will be provided by the application teams. </p>
-</blockquote>
+<hr />
+<h2 id="3-check-the-current-value">3. Check the Current Value<a class="headerlink" href="#3-check-the-current-value" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>sysctl<span class="w"> </span>fs.pipe-max-size
+</code></pre></div>
+
+<p>Default is usually:</p>
+<div class="codehilite"><pre><span></span><code>fs.pipe-max-size = 1048576
+</code></pre></div>
+
+<hr />
+<h2 id="4-apply-the-temporary-increase">4. Apply the Temporary Increase<a class="headerlink" href="#4-apply-the-temporary-increase" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code>sysctl<span class="w"> </span>-w<span class="w"> </span>fs.pipe-max-size<span class="o">=</span><span class="m">5242880</span>
+</code></pre></div>
+
+<p>Verify the change:</p>
+<div class="codehilite"><pre><span></span><code>sysctl<span class="w"> </span>fs.pipe-max-size
+</code></pre></div>
+
+<hr />
+<h2 id="5-perform-troubleshooting">5. Perform Troubleshooting<a class="headerlink" href="#5-perform-troubleshooting" title="Permanent link">&para;</a></h2>
+<p>Proceed with the required tech-support or debugging actions (MRF team activity).</p>
+<hr />
+<h2 id="6-revert-the-sysctl-value-after-troubleshooting">6. Revert the Sysctl Value After Troubleshooting<a class="headerlink" href="#6-revert-the-sysctl-value-after-troubleshooting" title="Permanent link">&para;</a></h2>
+<p>Once the MRF team confirms troubleshooting is complete:</p>
+<div class="codehilite"><pre><span></span><code>sysctl<span class="w"> </span>-w<span class="w"> </span>fs.pipe-max-size<span class="o">=</span><span class="m">1048576</span>
+</code></pre></div>
+
+<p>Verify the revert:</p>
+<div class="codehilite"><pre><span></span><code>sysctl<span class="w"> </span>fs.pipe-max-size
+</code></pre></div>
+
+<hr />
+<h2 id="7-exit-the-node">7. Exit the Node<a class="headerlink" href="#7-exit-the-node" title="Permanent link">&para;</a></h2>
+<div class="codehilite"><pre><span></span><code><span class="nb">exit</span>
+<span class="nb">exit</span>
+</code></pre></div>
+
+<p>This will leave the chroot and close the debug session.</p>
+<hr />
+<h2 id="notes">Notes<a class="headerlink" href="#notes" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Do not</strong> modify MachineConfig or persist the change.</li>
+<li>This method is <strong>temporary only</strong>, per NCPFM-2422 approval.</li>
+<li>Must always be done <strong>on-demand</strong> and <strong>per MRF team request</strong>.</li>
+<li>Must be applied <strong>only on the specific node</strong> where the affected pod is running.</li>
+</ul>
 
 
 
