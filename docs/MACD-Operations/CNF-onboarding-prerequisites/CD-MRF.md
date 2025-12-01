@@ -100,7 +100,8 @@ This will leave the chroot and close the debug session.
 ## Notes
 
 - **Do not** modify MachineConfig or persist the change.
+- **MRF team should be provide the node**, they want this change. 
 - This method is **temporary only**, per NCPFM-2422 approval.
 - Must always be done **on-demand** and **per MRF team request**.
 - Must be applied **only on the specific node** where the affected pod is running.
-- Dont ask for separate MACD ticket for this change, if you onboarding support for CD-MRF, that's enough for implementing this steps. 
+- Dont ask for separate MACD ticket for this change, if you have onboarding support for CD-MRF via MACD, that's enough for implementing this steps. 
