@@ -133,7 +133,7 @@ ssh core@gateway-1.wdwncp01.infra.mobi.eastlink.ca "ip a show tentvlan.104"
 ssh core@gateway-2.wdwncp01.infra.mobi.eastlink.ca "ip a show tentvlan.104"
 ssh core@gateway-3.wdwncp01.infra.mobi.eastlink.ca "ip a show tentvlan.104"
 ```
-
+>  if egress got once again duplicate.  use ip address del command to remove duplicated ip. 
 ---
 
 ## Notes
